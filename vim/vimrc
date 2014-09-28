@@ -1,0 +1,222 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Get out of VI's compatible mode..
+set nocompatible
+"Sets how many lines of history VIM har to remember
+set history=400
+"set to auto change current divrectory to current editing file's directory
+set autochdir
+"Have the mouse enabled all the time:
+set mouse=a
+
+"Set mapleader
+let mapleader = ","
+let g:mapleader = ","
+
+"Fast saving
+nmap <leader>w :w!<cr>
+nmap <leader>x :x <cr>
+nmap <leader>q :q <cr>
+"fast move between window
+
+syntax on
+
+"internationalization
+"I only work in Win2k Chinese version
+if has("multi_byte")
+	set encoding=utf-8
+	set fileencodings=utf-8,chinese,latin-1
+	if has("win32")
+		set encoding=utf-8
+		set fileencoding=utf-8
+	else
+		set encoding=utf-8
+		set fileencoding=utf-8
+endif
+"language messages zh_CN.utf-8
+endif
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+"if you use vim in tty,
+"'uxterm -cjk' or putty with option 'Treat CJK ambiguous characters as wide' on
+if exists("&ambiwidth")
+	set ambiwidth=double
+endif
+
+if has("gui_running")
+	set guioptions-=m
+	set guioptions-=T
+	set guioptions+=bh
+	"set guioptions-=l
+	"set guioptions-=L
+	"set guioptions-=r
+	"set guioptions-=R
+	set lines=40
+	set columns=180
+	"set nowrap
+	set wrap
+endif
+
+colorscheme desert
+
+"Highlight current
+if exists("&cursorline")
+	highlight CursorLine   cterm=NONE ctermbg=darkgray guibg=darkgray guifg=white
+	set cursorline
+endif
+if exists("&cursorcolumn")
+	highlight CursorColumn cterm=NONE ctermbg=darkgray guibg=darkgray guifg=white
+	set cursorcolumn
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fileformat
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Favorite filetype
+set ffs=unix,dos,mac
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM userinterface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Set 7 lines to the curors - when moving vertical..
+set so=7
+"Always show current position
+set ruler
+"The commandbar is 2 high
+set cmdheight=2
+"Show line number
+set nu
+"Change buffer - without saving
+set hid
+"Bbackspace and cursor keys wrap to
+set whichwrap+=<,>,h,l
+"Ignore case when searching
+set ignorecase
+set incsearch
+"Set magic on
+set magic
+"show matching bracet
+set showmatch
+"How many tenths of a second to blink
+set mat=4
+"Highlight search thing
+set hlsearch
+
+""""""""""""""""""""""""""""""
+" => Statusline
+""""""""""""""""""""""""""""""
+"Format the statusline
+"define 3 custom highlight groups
+hi User1 ctermbg=green ctermfg=red   guibg=green guifg=red
+hi User2 ctermbg=gray   ctermfg=black  guibg=gray   guifg=black
+hi User3 ctermbg=blue  ctermfg=green guibg=blue  guifg=green
+hi User4 ctermbg=black  ctermfg=red guibg=green  guifg=red
+
+set laststatus=2
+set statusline=
+set statusline+=%2*%-3.3n%0*\ " buffer number
+set statusline+=%F\ " file name and line,colume-verticle_colume number
+set statusline+=%h%4*%m%r%w%0* " flag
+set statusline+=%3*[
+if v:version >= 600
+	set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
+	set statusline+=%{&encoding}, " encoding
+endif
+set statusline+=%{&fileformat}]%0* " file format
+set statusline+=%= " right align
+set statusline+=%-10.(\%L/%l:%c%\)\ " line info
+set statusline+=%2*0x%-8B\ " current char
+set statusline+=%<%P " offset
+
+" Nice window title
+if has('title') && (has('gui_running') || &title)
+	set titlestring=
+	set titlestring+=%f\ " file name
+	set titlestring+=%h%m%r%w " flag
+	set titlestring+=\ -\ %{v:progname} " program name
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around and tab
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Use the arrows to something usefull
+map <right> :bn<cr>
+map <left> :bp<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Buffer realted
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Fast open a buffer by search for a name
+"map <c-q> :sb
+
+"Restore cursor to file position in previous editing session
+set viminfo='10,"100,:20,%,n~/.viminfo
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files and backup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Turn backup off
+set nobackup
+set nowb
+set noswapfile
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Folding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Enable folding, I find it very useful
+if exists("&foldenable")
+	set fen
+endif
+
+if exists("&foldlevel")
+	set fdl=0
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text option
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" python script
+"set expandtab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set backspace=2
+set smarttab
+set lbr
+"set tw=500
+
+""""""""""""""""""""""""""""""
+" => Indent
+""""""""""""""""""""""""""""""
+"Auto indent
+set ai
+"Smart indet
+set si
+"C-style indenting
+set cindent
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => MISC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"switch to next tab
+map <F5> gt
+imap <F5> <esc>gti
+"switch to previous tab
+map <F4> gT
+imap <F4> <esc>gTi
+
+"set font
+set gfn=Terminal,h10,cANSI
+set gfw=Terminal,h10.5,cGB2312
+
+"set fold method
+set foldmethod=manual
+
+nmap <space> :
+
+"结合ctags完成自动补全功能
+set completeopt=longest,menu
+let g:SuperTabRetainCompletionType=2
+let g:SuperTabDefaultCompletionType="<C-X><C-O>"
