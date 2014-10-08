@@ -34,7 +34,7 @@ if has("multi_byte")
 		set encoding=utf-8
 		set fileencoding=utf-8
 endif
-"language messages zh_CN.utf-8
+language messages zh_CN.utf-8
 endif
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
