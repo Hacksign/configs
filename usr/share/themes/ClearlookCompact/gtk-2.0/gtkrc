@@ -38,7 +38,7 @@
 
 # Set GtkSettings color scheme property.
 # This can be overriden (via an xsetting) with eg. the gnome-appearance-properties.
-gtk_color_scheme = "fg_color:#000\nbg_color:#EDECEB\nbase_color:#fff\ntext_color:#1A1A1A\nselected_bg_color:#86ABD9\nselected_fg_color:#fff\ntooltip_bg_color:#F5F5B5\ntooltip_fg_color:#000"
+gtk_color_scheme = "fg_color:#000\nbg_color:#EDEBEC\nbase_color:#fff\ntext_color:#1A1A1A\nselected_bg_color:#0F90FF\nselected_fg_color:#fff\ntooltip_bg_color:#F5F5B5\ntooltip_fg_color:#000"
 
 # gtk-icon-sizes = "gtk-button=16,16"
 
@@ -145,10 +145,11 @@ style "clearlooks-default"
 
 	engine "clearlooks" 
 	{
+		scrollbar_color		=	@selected_bg_color
 		colorize_scrollbar = TRUE
 		menubarstyle      = 2      # 0 = flat, 1 = sunken, 2 = flat gradient
 		toolbarstyle      = 1      # 0 = flat, 1 = enable effects
-		animation         = FALSE
+		animation         = TRUE
 		style             = GUMMY
 	}
 }
@@ -244,7 +245,9 @@ style "clearlooks-progressbar"
 	xthickness = 1
 	ythickness = 1
 
-	fg[PRELIGHT] = @selected_fg_color
+	bg[NORMAL]	=  shade (1.00, @bg_color)
+	bg[SELECTED]	=  shade (1.00, @selected_bg_color)
+	fg[PRELIGHT]	=  @selected_fg_color	#active text-color 
 }
 
 style "clearlooks-nautilus-location" {
