@@ -43,7 +43,7 @@ function fish_prompt --description "Write out the prompt"
 
 	end
 
-	echo -n -s "$__cmdline_color$USER$__fish_prompt_cwd@$__cmdline_color$__fish_prompt_hostname" ' ' "$__fish_prompt_cwd" (prompt_pwd) "$__fish_prompt_normal$__cmdline_suffix "
+	echo -n -s "$__cmdline_color$USER@$__fish_prompt_hostname" ' ' "$__fish_prompt_cwd" (prompt_pwd) "$__fish_prompt_normal$__cmdline_suffix "
 
 end
 
