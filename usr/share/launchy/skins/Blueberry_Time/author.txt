@@ -1,0 +1,17 @@
+Blueberry Time!
+Skin for Launchy 2.5+ by Blekwave
+http://blekwave.deviantart.com
+
+Based on mangosango's SSC12 winning Space Blueberry
+Useful links:
+• Latest iteration of the VS by neiio: http://neiio.deviantart.com/art/Space-Blueberries-4-8-338438411
+• Litestep theme by mangosango: http://mangosango.deviantart.com/art/Spaceberries-for-Everyone-359950034
+
+HOW TO INSTALL:
+1. Copy the "Blueberry Time" folder to C:\Program Files (x86)\Launchy\skins or wherever you installed Launchy.
+2. Change the theme via Launchy settings
+That's it, you're ready to go!
+
+Feel free to post any comments on the comment sections or hit me up with an email over at blek.net@gmail.com
+
+~Blek
