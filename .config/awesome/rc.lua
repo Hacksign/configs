@@ -207,6 +207,29 @@ for s = 1, screen.count() do
 		memwidget:set_color("#AECF96")
 		vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
 
+		-- Need install acpi package
+		--		pacman -S apci
+		batterywidget = awful.widget.progressbar()
+		batterywidget:set_width(10)
+		batterywidget:set_height(10)
+		batterywidget:set_vertical(true)
+		batterywidget:set_background_color("#494B4F")
+		batterywidget:set_border_color(nil)
+		batterywidget:set_color("#FF5656")
+		batterywidget:set_max_value(100)
+		batterywidgettimer = timer({timeout = 5})
+		batterywidgettimer:connect_signal("timeout",
+		 		function()
+		 			fh = assert(io.popen("acpi | cut -d' ' -f 4 -", "r"))
+		 			percent = fh:read("*l")
+		 			percent = string.sub(percent, 0, string.len(percent) - 1)
+					percent = tonumber(percent)
+		 			batterywidget:set_value(percent)
+		 			fh:close()
+		 		end
+		 )
+		batterywidgettimer:start()
+
 		blankwidget = wibox.widget.textbox()
 		blankwidget:set_markup(" ")
 
@@ -218,6 +241,8 @@ for s = 1, screen.count() do
 		bottom_left_layout:add(cpuwidget)
 		bottom_left_layout:add(blankwidget)
 		bottom_left_layout:add(memwidget)
+		bottom_left_layout:add(blankwidget)
+		bottom_left_layout:add(batterywidget)
 		bottom_left_layout:add(blankwidget)
 
     -- Widgets that are aligned to the right
