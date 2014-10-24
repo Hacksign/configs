@@ -209,9 +209,9 @@ for s = 1, screen.count() do
 
 		-- Need install acpi package
 		--		pacman -S apci
-		acpi_info = assert(io.popen("acpi -b", "r"))
+		acpi_info = assert(io.popen("acpi", "r"))
 		battery_info = acpi_info:read("*l")
-		if not string.find(battery_info, "No support for device type") then
+		if battery_info then
 			batterywidget = awful.widget.progressbar()
 			batterywidget:set_width(10)
 			batterywidget:set_height(10)
