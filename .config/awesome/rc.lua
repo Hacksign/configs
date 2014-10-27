@@ -223,9 +223,9 @@ for s = 1, screen.count() do
 			batterywidgettimer = timer({timeout = 5})
 			batterywidgettimer:connect_signal("timeout",
 					function()
-						fh = assert(io.popen("acpi | cut -d' ' -f 4 -", "r"))
+						fh = assert(io.popen("acpi | cut -d' ' -f 4 -|cut -d, -f 1 -|cut -d% -f 1 -", "r"))
 						percent = fh:read("*l")
-						percent = string.sub(percent, 0, string.len(percent) - 1)
+						percent = string.sub(percent, 0, string.len(percent))
 						percent = tonumber(percent)
 						batterywidget:set_value(percent)
 						fh:close()
