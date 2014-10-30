@@ -11,6 +11,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
+local alttab	= require("alttab")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -285,7 +286,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -311,6 +311,17 @@ globalkeys = awful.util.table.join(
                 client.focus:raise()
             end
         end),
+		awful.key({ "Mod1",            }, "Tab",                                                      
+			function ()                                                                              
+			alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
+			end                                                                                      
+			),                                                                                           
+
+		awful.key({ "Mod1", "Shift"    }, "Tab",                                                      
+			function ()                                                                              
+			alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
+			end                                                                                      
+			),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
