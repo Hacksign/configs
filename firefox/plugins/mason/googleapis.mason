@@ -1,0 +1,22 @@
+<mason>
+Charset=utf8
+Author=ShuangYa
+Created=2014/06/13
+Updated=
+name=Google Lib Redirector
+version=1.0
+Website=
+Comment=
+Description=Google Lib Redirector
+Usage=
+Url=^http[s]{0,1}://(.*?)googleapis\.com/(.*?)$
+</mason>
+<parts>
+part1=.@@@L3
+</parts>
+<part1>
+function _masonRedirect(spec){
+		return spec.replace(/^https/,'http').replace('googleapis.com','useso.com');
+
+}
+</part1>
