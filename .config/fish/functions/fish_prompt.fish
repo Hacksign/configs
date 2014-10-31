@@ -1,49 +1,35 @@
-# Set the default prompt command. Make sure that every terminal escape
-# string has a newline before and after, so that fish will know how
-# long it is.
+function fish_prompt --description 'Write out the prompt'
+	set -l last_status $status
 
-function fish_prompt --description "Write out the prompt"
+  # User
+  set_color $fish_color_user
+  echo -n (whoami)
+  set_color normal
 
-	# Just calculate these once, to save a few cycles when displaying the prompt
-	if not set -q __fish_prompt_hostname
-		set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
-	end
-	if not set -q __cmdline_color
-		set -g __cmdline_color (set_color -o green)
-	end
+  echo -n '@'
 
-	if not set -q __fish_prompt_normal
-		set -g __fish_prompt_normal (set_color normal)
-	end
+  # Host
+  set_color $fish_color_host
+  echo -n (hostname -s)
+  set_color normal
 
-	switch $USER
+	#Time
+	printf ' [%s] ' (date "+%H:%M:%S") 
 
-		case root
+  echo -n ': '
 
-		if not set -q __fish_prompt_cwd
-			if set -q fish_color_cwd_root
-				set -g __fish_prompt_cwd (set_color $fish_color_cwd_root)
-			else
-				set -g __fish_prompt_cwd (set_color $fish_color_cwd)
-			end
-		if not set -q __cmdline_suffix
-			set -g __fish_prompt_cmdline_suffix '#'
-		end
+  # PWD
+  set_color $fish_color_cwd
+  echo -n (prompt_pwd)
+  set_color normal
 
-		end
+  __terlar_git_prompt
+  echo
 
-		case '*'
+  if not test $last_status -eq 0
+    set_color $fish_color_error
+  end
 
-		if not set -q __fish_prompt_cwd
-			set -g __fish_prompt_cwd (set_color -o blue)
-		end
-		if not set -q __cmdline_suffix
-			set -g __cmdline_suffix '$'
-		end
-
-	end
-
-	echo -n -s "$__cmdline_color$USER@$__fish_prompt_hostname" ' ' "$__fish_prompt_cwd" (prompt_pwd) "$__fish_prompt_normal$__cmdline_suffix "
-
+  echo -n '➤ '
+  set_color normal
 end
-
