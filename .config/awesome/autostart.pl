@@ -2,7 +2,7 @@
 
 my %programmes = (
 	'volumeicon' => 'volumeicon &',
-	'xcompmgr' => 'xcompmgr -Ss -n -Cc -fF -l-10 -O-10 -D1 -t-3 -l-4 -r4&',
+	'xcompmgr' => 'xcompmgr -s -n -Cc -fF -l-10 -O-10 -D1 -t-3 -l-4 -r4&',
 	'wicd-client' => 'wicd-gtk -t&',
 	'fcitx' => 'fcitx -d &',
 	'launchy' => 'launchy &',
