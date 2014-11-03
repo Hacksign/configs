@@ -13,9 +13,7 @@ function fish_prompt --description 'Write out the prompt'
   echo -n (hostname -s)
   set_color normal
 
-	#Time
 	printf ' [%s] ' (date "+%H:%M:%S") 
-
   echo -n ': '
 
   # PWD

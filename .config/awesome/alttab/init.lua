@@ -55,25 +55,25 @@ local path = string.sub(source, 1, string.find(source, "/[^/]*$"))
 local noicon = path .. "noicon.png"
 
 local function preview()
-   if not settings.preview_box then return end
-
-   -- Apply settings
-   preview_wbox:set_bg(settings.preview_box_bg)
-   preview_wbox.border_color = settings.preview_box_border
-
-   local preview_widgets = {}
-   
-   -- Make the wibox the right size, based on the number of clients
-   local n = math.max(7, #altTabTable)
-   local W = screen[mouse.screen].geometry.width + 2 * preview_wbox.border_width
-   local w = W / n -- widget width
-   local h = w * 0.75  -- widget height
-   local textboxHeight = 30
-
-   local x = -preview_wbox.border_width
-   local y = (screen[mouse.screen].geometry.height - h - textboxHeight) / 2
-   preview_wbox:geometry({x = x, y = y, width = W, height = h + textboxHeight})
-
+  if not settings.preview_box then return end
+  -- Apply settings
+  preview_wbox:set_bg(settings.preview_box_bg)
+  preview_wbox.border_color = settings.preview_box_border
+  local preview_widgets = {}
+	local n = 0
+  -- Make the wibox the right size, based on the number of clients
+	if(#altTabTable == 0) then
+		n = 2
+	else
+		n = math.min(30, #altTabTable)
+	end
+  local textboxHeight = 20 -- window title box height
+  local w = screen[mouse.screen].geometry.width * (15/100) + (2 * preview_wbox.border_width) -- widget width
+  local h = textboxHeight * n + (2 * preview_wbox.border_width) -- widget height
+	-- Caculate wibox Position
+  local x = (screen[mouse.screen].geometry.width - w) / 2
+  local y = (screen[mouse.screen].geometry.height - h - textboxHeight) / 2
+  preview_wbox:geometry({x = x, y = y, width = w, height = h + textboxHeight})
    -- create a list that holds the clients to preview, from left to right
    local leftRightTab = {}
    local nLeft
@@ -116,7 +116,7 @@ local function preview()
       textHeight = cr:text_extents(maxText).height
 
       if textWidth < w - textboxHeight and textHeight < textboxHeight then
-   	 break
+				break
       end
 
       bigFont = bigFont - 1
@@ -128,97 +128,57 @@ local function preview()
    for i = 1, #leftRightTab do
       preview_widgets[i] = wibox.widget.base.make_widget()
       preview_widgets[i].fit = function(preview_widget, width, height)
-   	 return w, h
+				return w, h
       end
       
       preview_widgets[i].draw = function(preview_widget, preview_wbox, cr, width, height)
-   	 if width ~= 0 and height ~= 0 then
+				if width ~= 0 and height ~= 0 then
+					local c = leftRightTab[i]
+					local fontSize = smallFont
+					if c == altTabTable[altTabIndex] then
+						fontSize = bigFont
+					end
+					local sx, sy, tx, ty
+					-- Icons
+					local icon
+					if c.icon == nil then 
+						icon = gears.surface(gears.surface.load(noicon))
+					else
+						icon = gears.surface(c.icon)
+					end
+					-- Draw icons
+					local iconboxWidth = textboxHeight
+					local iconboxHeight = iconboxWidth
+					cr:translate(0, 5)
+					sx = iconboxWidth / icon.width
+					sy = iconboxHeight  / icon.height
+					cr:scale(sx, sy)
+					cr:set_source_surface(icon, 0, 0)
+					cr:paint()
 
-   	    local c = leftRightTab[i]
-	    local a = 0.8
-	    local overlay = 0.6
-	    local fontSize = smallFont
-	    if c == altTabTable[altTabIndex] then
-	       a = 0.9
-	       overlay = 0
-	       fontSize = bigFont
-	    end
-
-   	    local sx, sy, tx, ty
-
-	    -- Icons
-	    local icon
-	    if c.icon == nil then 
-	       icon = gears.surface(gears.surface.load(noicon))
-	    else
-	       icon = gears.surface(c.icon)
-	    end
-	       
-	    local iconboxWidth = 0.9 * textboxHeight
-	    local iconboxHeight = iconboxWidth
-
-	    -- Titles
-	    cr:select_font_face("sans", "italic", "normal")
-	    cr:set_font_face(cr:get_font_face())
-	    cr:set_font_size(fontSize)
-	    
-
-	    text = " - " .. c.class
-	    textWidth = cr:text_extents(text).width
-	    textHeight = cr:text_extents(text).height
-
-	    local titleboxWidth = textWidth + iconboxWidth 
-	    local titleboxHeight = textboxHeight
-
-	    -- Draw icons
-	    tx = (w - titleboxWidth) / 2
-	    ty = h 
-	    sx = iconboxWidth / icon.width
-	    sy = iconboxHeight  / icon.height
-
-
-	    cr:translate(tx, ty)
-	    cr:scale(sx, sy)
-	    cr:set_source_surface(icon, 0, 0)
-	    cr:paint()
-	    cr:scale(1/sx, 1/sy)
-	    cr:translate(-tx, -ty)
-	    
-	    -- Draw titles
-	    tx = tx + iconboxWidth
-	    ty = h + (textboxHeight + textHeight) / 2
-
-	    cr:set_source_rgba(0,0,0,1)
-	    cr:move_to(tx, ty)
-	    cr:show_text(text)
-	    cr:stroke()
-
-	    -- Draw previews
-   	    local cg = c:geometry()
-	    if cg.width > cg.height then
-	       sx = a * w / cg.width 
-	       sy = math.min(sx, a * h / cg.height)
-	    else
-	       sy = a * h / cg.height	       
-	       sx = math.min(sy, a * h / cg.width)
-	    end
-
-	    tx = (w - sx * cg.width) / 2
-	    ty = (h - sy * cg.height) / 2
-
-	    cr:translate(tx, ty)
-	    cr:scale(sx, sy)
-	    cr:set_source_surface(gears.surface(c.content), 0, 0)
-	    cr:paint()
-
-	    -- Overlays
-	    cr:scale(1/sx, 1/sy)
-	    cr:translate(-tx, -ty)
-	    cr:set_source_rgba(0,0,0,overlay)
-	    cr:rectangle(tx, ty, sx * cg.width, sy * cg.height)
-	    cr:fill()
-   	 end
-      end
+					-- Draw titles
+					cr:select_font_face("Source Han Sans CN","YaHei Consolas Hybrid", "simsun", "sans", "italic", "normal")
+					cr:set_font_face(cr:get_font_face())
+					cr:set_font_size(fontSize)
+					text = " - " .. c.class
+					textWidth = cr:text_extents(text).width
+					textHeight = cr:text_extents(text).height
+					tx = 0
+					ty = 0
+					cr:scale(1/sx, 1/sy)
+					cr:translate(tx, ty)
+					tx = tx + iconboxWidth
+					ty = (textboxHeight + textHeight) / 2
+					cr:move_to(tx, ty)
+					if(fontSize == bigFont) then
+						cr:set_source_rgba(1,0,0,1)
+					else
+						cr:set_source_rgba(0,0,0,1)
+					end
+					cr:show_text(text)
+					cr:stroke()
+				end -- end if
+      end -- end .draw function
 
       preview_live_timer.timeout = 1 / settings.preview_box_fps
       preview_live_timer:connect_signal("timeout", function() 
@@ -226,23 +186,11 @@ local function preview()
       end)
 
    end
-
-   -- Spacers left and right
-   local spacer = wibox.widget.base.make_widget()
-   spacer.fit = function(leftSpacer, width, height)
-      return (W - w * #altTabTable) / 2, preview_wbox.height
-   end
-   spacer.draw = function(preview_widget, preview_wbox, cr, width, height) end
-
    --layout
-   preview_layout = wibox.layout.fixed.horizontal()
-   
-   preview_layout:add(spacer)
+   preview_layout = wibox.layout.flex.vertical()
    for i = 1, #leftRightTab do
       preview_layout:add(preview_widgets[i])
    end
-   preview_layout:add(spacer)
-
    preview_wbox:set_widget(preview_layout)
 end
 
