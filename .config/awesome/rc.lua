@@ -283,51 +283,36 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+		-- window navigation
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
-        end),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
-
+    awful.key({ modkey,           }, "Tab",
+			function ()
+					awful.client.focus.history.previous()
+					if client.focus then
+							client.focus:raise()
+					end
+		end),
+		awful.key({ "Mod1",            }, "Tab",                                                      
+			function ()                                                                              
+			alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
+		end),                                                                                           
+		awful.key({ "Mod1", "Shift"    }, "Tab",                                                      
+			function ()                                                                              
+			alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
+		end),
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
-    awful.key({ modkey,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end),
-		awful.key({ "Mod1",            }, "Tab",                                                      
-			function ()                                                                              
-			alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
-			end                                                                                      
-			),                                                                                           
-
-		awful.key({ "Mod1", "Shift"    }, "Tab",                                                      
-			function ()                                                                              
-			alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
-			end                                                                                      
-			),
-
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
@@ -336,15 +321,14 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
-
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
 		-- User Defined Hot Key
-		awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("thunar") end),
-		awful.key({ modkey}, "i", function () awful.util.spawn_with_shell("firefox") end),
-		awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("slimlock") end)
+		awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("thunar") end), -- yaourt -S thunar
+		awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("mate-screenshot --delay 1 -i") end), -- yaourt -S mate-utils
+		awful.key({ modkey}, "i", function () awful.util.spawn_with_shell("firefox") end), -- yaourt -S firefox
+		awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("slimlock") end) -- yaourt -S slimlock
 )
 
 clientkeys = awful.util.table.join(
@@ -464,6 +448,7 @@ client.connect_signal("manage", function (c, startup)
         if not c.size_hints.user_position and not c.size_hints.program_position then
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
+            awful.placement.centered(c)
         end
     end
 
