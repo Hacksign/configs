@@ -451,6 +451,8 @@ awful.rules.rules = {
       properties = { border_width = 0, sticky = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    { rule = { class = "File-roller" },
+      properties = { floating = true, border_width = 0 } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
