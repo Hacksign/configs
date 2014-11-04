@@ -284,6 +284,35 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
 		-- window navigation
+		-- Toggle show desktop (for current tag(s))
+    awful.key({ modkey,           }, "d",  function ()
+			local curtag
+			local curtags = awful.tag.selectedlist()
+			local client
+			local clients
+			local allminimized
+			for x, curtag in pairs(curtags) do
+				clients = curtag:clients()
+				for y, client in pairs(clients) do
+					if client.minimized == false then
+						allminimized = false
+						break
+					else
+						allminimized = true
+					end
+				end
+
+				-- If at least one client isn't minimized, minimize all clients
+				for y, client in pairs(clients) do
+					if allminimized == false then
+						client.minimized = true 
+						-- Otherwise unminimize all clients
+					elseif allminimized == true then
+						client.minimized = false 
+					end
+				end
+			end
+		end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
