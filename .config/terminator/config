@@ -41,7 +41,7 @@
   copy = None
   hide_window = None
   reset = None
-  search = None
+  search = <Primary>f
   go_up = <Alt>k
   resize_up = None
   rotate_cw = None
