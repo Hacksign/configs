@@ -453,6 +453,11 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "File-roller" },
       properties = { floating = true, border_width = 0 } },
+		-- fix problem of Wine program move slowly to right-bottom of the corner
+		-- http://www.youtube.com/watch?v=3Q91HjEaBD8
+		-- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
+    { rule = { class = "Wine" },
+      properties = { floating = true, border_width = 0 } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
