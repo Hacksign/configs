@@ -2,17 +2,18 @@
   handle_size = 0
   enabled_plugins = ,
   always_split_with_profile = True
+  suppress_multiple_term_dialog = True
   borderless = True
   title_receive_bg_color = "#3cf48b"
   title_transmit_bg_color = "#007ad0"
   dbus = True
-  inactive_color_offset = 0.5
+  inactive_color_offset = 0.76
 [keybindings]
   cycle_prev = None
   next_tab = <Primary>Tab
   close_window = None
   group_tab = None
-  move_tab_right = None
+  move_tab_right = <Alt>Right
   resize_left = None
   rotate_ccw = None
   reset_clear = None
@@ -48,23 +49,23 @@
   zoom_normal = None
   go_down = <Alt>j
   new_window = None
-  move_tab_left = None
+  move_tab_left = <Alt>Left
   toggle_scrollbar = None
 [profiles]
   [[default]]
-    use_system_font = False
-    font = Terminal 9
+    palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
+    font = Terminal 10
     visible_bell = True
-    background_image = None
-    background_darkness = 0.9
+    use_system_font = False
+    background_darkness = 0.95
     scrollback_lines = 3000
-    background_type = transparent
+    background_type = image
     active_encodings = GB2312, UTF-8, ISO-8859-1
     cursor_color = "#37f608"
-    foreground_color = "#ffffff"
-    update_records = False
-    custom_command = /usr/bin/fish
+    scroll_background = False
+    background_image = /home/hacksign/.wallpaper
     copy_on_selection = True
+    foreground_color = "#ffffff"
 [layouts]
   [[default]]
     [[[child1]]]
