@@ -1,5 +1,5 @@
 set titlestring=Hacksign
 nnoremap j 5j
 nnoremap k 5k
-map l <esc> gt
-map h <esc> gT
+map l <esc>gt
+map h <esc>gT
