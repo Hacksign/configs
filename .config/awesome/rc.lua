@@ -355,7 +355,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "p", function() menubar.show() end),
 		-- User Defined Hot Key
 		awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("thunar") end), -- yaourt -S thunar
-		awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("mate-screenshot --delay 1 -i") end), -- yaourt -S mate-utils
+		awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
 		awful.key({ modkey}, "i", function () awful.util.spawn_with_shell("firefox") end), -- yaourt -S firefox
 		awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("slimlock") end) -- yaourt -S slimlock
 )
@@ -452,6 +452,8 @@ awful.rules.rules = {
     { rule = { class = "gimp" },
       properties = { floating = true } },
     { rule = { class = "File-roller" },
+      properties = { floating = true, border_width = 0 } },
+    { rule = { class = "Evince" },
       properties = { floating = true, border_width = 0 } },
 		-- fix problem of Wine program move slowly to right-bottom of the corner
 		-- http://www.youtube.com/watch?v=3Q91HjEaBD8
