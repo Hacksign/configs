@@ -73,3 +73,6 @@
 			wine-mono
 			wine_gecko
 	```
+
+#参考资料:
+	一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps
