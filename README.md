@@ -1,7 +1,7 @@
 ##ArchLinux Install Guide
 ======
 #1.原则
-	只使用进入core/community/extra仓库的工具
+	只使用进入core/community/extra仓库的工具,除非这三个源中没有此套件再使用AUR源中的包
 	尽量少的依赖关系
 	尽量少的磁盘空间占用
 
@@ -11,6 +11,7 @@
 	base-devel
 	xorg-server
 	xorg-utils
+	xorg-xinit	:	startx等命令
 	xorg-xrandr	:	屏幕分辨率以及多屏管理支持,awesome要用到
 	xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到
 	xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics
@@ -41,6 +42,8 @@
 		fcitx-gtk2
 		fcitx-gtk3
 		fcitx-qt4
+		配置请参考:https://wiki.archlinux.org/index.php/Fcitx_(简体中文)
+		如果想中文状态下输入英文字符,修改/usr/share/fcitx/data/punc.mb.zh_CN的映射关系
 	autossh	:	ssh socks5代理守护进程
 	git	:	代码管理
 	launchy	:	启动器
@@ -63,6 +66,11 @@
 		gtk-update-icon-cache
 		clearlooks-phenix :	gtk2&gtk3主题，需要用git从https://github.com/jpfleury/clearlooks-phenix下载
 	human-icon-theme
+		然后拷贝此git源usr/share/icon/XcursorHuman到/usr/share/icon下，并
+		ln -sv /usr/share/icon/Human/index.theme /usr/share/icon/default/index.theme
+		随后修改/usr/share/icon/default/index.theme,再Name字段下添加下面一行
+		Inherits=XcursorHuman
+		更改鼠标主题
 	ntfs-3g
 	nvidia-340xx
 	nvidia-340xx-libgl
