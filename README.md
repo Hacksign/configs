@@ -53,6 +53,7 @@
 		firefox
 			flashplugin
 		fish	:	类似bash的shell，提示和颜色更加全面
+		checkgmail	:	gmail检查器，需要自己hack一下，使用上autossh创建的代理，需要perl的LWP::Protocol::socks包，然后/usr/bin/checkgmail脚本中所有的UserAgent实例都需要添加$ua->proxy([qw/http htts/] => "socks://host:port");支持.
 		qt4
 		gtk2
 		gtk3
