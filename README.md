@@ -14,7 +14,7 @@
 		xorg-utils
 		xorg-xrandr	:	屏幕分辨率以及多屏管理支持,awesome要用到
 		xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到
-		xf86-input-synaptics	:	触控板驱动模块
+		xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics
 		sudo
 		awesome : 平铺式窗口管理器
 			vicious
