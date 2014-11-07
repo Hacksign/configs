@@ -3,7 +3,7 @@
 my %programmes = (
 	'volumeicon' => 'volumeicon &',
 	'xcompmgr' => 'xcompmgr -cCfF -r7 -o.65 -l-10 -t-8 -D1 &',
-	'wicd-client' => 'wicd-gtk -t&',
+	'wicd-gtk' => 'wicd-gtk -t&',
 	'fcitx' => 'fcitx -d &',
 	'launchy' => 'launchy &',
 	'autossh' => 'autossh -M 20000 -D 9050 -CnN antigfw\@vps &',
