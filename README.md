@@ -79,11 +79,14 @@
 	wine
 		wine-mono
 		wine_gecko
+		然后用regedit /s wine_font.reg导入字体设置,并拷贝simsun.ttc字体到~/.wine/drive_c/windows/Fonts目录下
+		更改~/.wine/drive_c/*.reg中的tahoma关联的字体为simsun.ttc,详见http://linux-wiki.cn/wiki/zh-hans/Wine的中文显示与字体设置
 	AUR源	:	以下内容到/etc/pacman.conf最后
 		[archlinuxfr]
 		SigLevel = Never
 		Server = http://repo.archlinux.fr/$arch
 	xf86-input-evdev-trackpoint	:	小红点支持，此包必须从AUR源获取
+		这个的配置文件对触控板区域设置偏小,需要根据自己的需求调整
 
 #参考资料:
 	一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps
