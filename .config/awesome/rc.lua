@@ -357,6 +357,7 @@ globalkeys = awful.util.table.join(
 		awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("thunar") end), -- yaourt -S thunar
 		awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
 		awful.key({ modkey}, "i", function () awful.util.spawn_with_shell("firefox") end), -- yaourt -S firefox
+		awful.key({ modkey}, "o", function () awful.util.spawn_with_shell("terminator -e top") end), -- open 'task manager ;)'
 		awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("slimlock") end) -- yaourt -S slimlock
 )
 

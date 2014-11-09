@@ -31,6 +31,8 @@
 		thunar-media-tags-plugin
 	xfce4-screenshooter :	截图
 	xcompmgr	:	简单的窗口透明特效管理
+		注意,不知道什么原因这个可能会导致Xorg持续占用很高的cpu,可以试一下compton,这个是xcompmgr的另外一个form版本,功能更强大.
+		compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88
 	volumeicon	:	音量调节
 		alsa-utils
 	wicd	:	网络管理
