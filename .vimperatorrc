@@ -3,4 +3,3 @@ nnoremap j 5j
 nnoremap k 5k
 map l <esc>gt
 map h <esc>gT
-map b	<esc>:b 
