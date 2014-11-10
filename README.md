@@ -90,5 +90,12 @@
 	xf86-input-evdev-trackpoint	:	小红点支持，此包必须从AUR源获取
 		这个的配置文件对触控板区域设置偏小,需要根据自己的需求调整
 
+#3.配置
+	时间配置:
+		主要是hwclock和timedatectl两个命令的配合使用,具体请用--help参数查看帮助.
+		1.ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  设置好时区
+		2.然后用timedatectl看一下localtime和utc time是否式正确的,如果不是正确的,则使用set-time 'YYYY-MM-DD HH:MM:SS'设置时间
+		3.最后用hwclock --localtime --hctosys设置本地硬件时间为系统时间
+
 #参考资料:
 	一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps
