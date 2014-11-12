@@ -369,11 +369,11 @@ local function switch(dir, alt, tab, shift_tab)
 	    keygrabber.stop()
 
       	    -- Move to next client on each Tab-press
-	 elseif (key == tab or key == "Down") and event == "press" then
+	 elseif (key == tab or key == "Down" or key == "j") and event == "press" then
 	    altTabIndex = cycle(altTabTable, altTabIndex, 1)
 	    
       	    -- Move to previous client on Shift-Tab
-	 elseif (key == shift_tab or key == "Up") and event == "press" then
+	 elseif (key == shift_tab or key == "Up" or key == "k") and event == "press" then
 	    altTabIndex = cycle(altTabTable, altTabIndex, -1)
 	 end
       end
