@@ -357,7 +357,7 @@ globalkeys = awful.util.table.join(
 		awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("thunar") end), -- yaourt -S thunar
 		awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
 		awful.key({ modkey}, "i", function () awful.util.spawn_with_shell("firefox") end), -- yaourt -S firefox
-		awful.key({ modkey}, "o", function () awful.util.spawn_with_shell("terminator -e top") end), -- open 'task manager ;)'
+		awful.key({ modkey}, "o", function () awful.util.spawn_with_shell("terminator -e top") end), -- open 'task manger' ;)
 		awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("slimlock") end) -- yaourt -S slimlock
 )
 
@@ -449,7 +449,9 @@ awful.rules.rules = {
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "Xfdesktop" },
-      properties = { border_width = 0, sticky = true } },
+      properties = { border_width = 0, sticky = true, floating = true } },
+    { rule = { class = "Bcloud-gui" },
+      properties = { border_width = 0, floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
     { rule = { class = "File-roller" },
@@ -471,12 +473,13 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
-    c:connect_signal("mouse::enter", function(c)
-        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
-            client.focus = c
-        end
-    end)
+    --	focus window with mouse move
+    -- c:connect_signal("mouse::enter", function(c)
+    --     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+    --         and awful.client.focus.filter(c) then
+    --         client.focus = c
+    --     end
+    -- end)
 
     if not startup then
         -- Set the windows at the slave,
