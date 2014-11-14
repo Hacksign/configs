@@ -10,7 +10,7 @@
   inactive_color_offset = 0.76
 [keybindings]
   cycle_prev = None
-  next_tab = <Primary>Tab
+  next_tab = <Alt>l
   close_window = None
   group_tab = None
   move_tab_right = <Alt>Right
@@ -26,7 +26,7 @@
   zoom_in = None
   group_all = None
   full_screen = None
-  prev_tab = <Primary><Shift>Tab
+  prev_tab = <Alt>h
   split_vert = <Alt>space
   ungroup_all = None
   ungroup_tab = None
