@@ -42,19 +42,8 @@ end
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/arch/theme.lua")
 
--- This is used later as the default terminal and editor to run.
-local xrandr = io.popen("xrandr -q|grep \"*\"|awk '{print $1}'");
-local width,height
-for line in xrandr:lines() do
-  local index = string.find(line, "x")
-  width = string.sub(line,0,index - 1)
-  height = string.sub(line,index + 1, string.len(line))
-	width = width - 40
-	height = height - 250
-end
-terminal = "terminator --geometry="..width.."x"..height.."+20+125"
-editor = os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " -e " .. editor
+local terminal = "terminator"
+local editor = os.getenv("EDITOR") or "nano"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -104,14 +93,11 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
                                   }
                         })
 
@@ -124,7 +110,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mytextclock = awful.widget.textclock("%F %H:%M")
 
 -- Create a wibox for each screen and add it
-mywibox = {}
 bottomwibox = {}
 mypromptbox = {}
 mylayoutbox = {}
@@ -138,6 +123,7 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
                     )
 mytasklist = {}
+-- mouse click event handler
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
                                               if c == client.focus then
@@ -171,7 +157,52 @@ mytasklist.buttons = awful.util.table.join(
                                               awful.client.focus.byidx(-1)
                                               if client.focus then client.focus:raise() end
                                           end))
+-- mouse event handler end																					
 
+-- top & battom bar widgets
+--	left bottom corner:cpu/memory/battery(if exists) widgets
+local cpuwidget = awful.widget.graph()
+cpuwidget:set_width(150)
+cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_color("#FF5656")
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+
+local memwidget = awful.widget.progressbar()
+memwidget:set_width(10)
+memwidget:set_height(10)
+memwidget:set_vertical(true)
+memwidget:set_background_color("#494B4F")
+memwidget:set_border_color(nil)
+memwidget:set_color("#AECF96")
+vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
+
+-- Need install acpi package
+--		pacman -S apci
+local acpi_info = assert(io.popen("acpi", "r"))
+local battery_info = acpi_info:read("*l")
+if battery_info then
+	batterywidget = awful.widget.progressbar()
+	batterywidget:set_width(10)
+	batterywidget:set_height(10)
+	batterywidget:set_vertical(true)
+	batterywidget:set_background_color("#494B4F")
+	batterywidget:set_border_color(nil)
+	batterywidget:set_color("#FF5656")
+	batterywidget:set_max_value(100)
+	batterywidgettimer = timer({timeout = 5})
+	batterywidgettimer:connect_signal("timeout",
+			function()
+				local fh = assert(io.popen("acpi | cut -d' ' -f 4 -|cut -d, -f 1 -|cut -d% -f 1 -", "r"))
+				local percent = fh:read("*l")
+				percent = string.sub(percent, 0, string.len(percent))
+				percent = tonumber(percent)
+				batterywidget:set_value(percent)
+				fh:close()
+			end
+	 )
+	batterywidgettimer:start()
+end
+--	now deal ervery screen
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -190,52 +221,12 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
+		local mywibox = {}
     mywibox[s] = awful.wibox({ position = "top", screen = s })
 		bottomwibox[s] = awful.wibox({position = "bottom", screen = s})
 
-		cpuwidget = awful.widget.graph()
-		cpuwidget:set_width(150)
-		cpuwidget:set_background_color("#494B4F")
-		cpuwidget:set_color("#FF5656")
-		vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
-		memwidget = awful.widget.progressbar()
-		memwidget:set_width(10)
-		memwidget:set_height(10)
-		memwidget:set_vertical(true)
-		memwidget:set_background_color("#494B4F")
-		memwidget:set_border_color(nil)
-		memwidget:set_color("#AECF96")
-		vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
-
-		-- Need install acpi package
-		--		pacman -S apci
-		acpi_info = assert(io.popen("acpi", "r"))
-		battery_info = acpi_info:read("*l")
-		if battery_info then
-			batterywidget = awful.widget.progressbar()
-			batterywidget:set_width(10)
-			batterywidget:set_height(10)
-			batterywidget:set_vertical(true)
-			batterywidget:set_background_color("#494B4F")
-			batterywidget:set_border_color(nil)
-			batterywidget:set_color("#FF5656")
-			batterywidget:set_max_value(100)
-			batterywidgettimer = timer({timeout = 5})
-			batterywidgettimer:connect_signal("timeout",
-					function()
-						fh = assert(io.popen("acpi | cut -d' ' -f 4 -|cut -d, -f 1 -|cut -d% -f 1 -", "r"))
-						percent = fh:read("*l")
-						percent = string.sub(percent, 0, string.len(percent))
-						percent = tonumber(percent)
-						batterywidget:set_value(percent)
-						fh:close()
-					end
-			 )
-			batterywidgettimer:start()
-		end
-
-		blankwidget = wibox.widget.textbox()
+		local blankwidget = wibox.widget.textbox()
 		blankwidget:set_markup(" ")
 
     -- Widgets that are aligned to the left
@@ -339,7 +330,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "Return",
+							function ()
+								screengeom = screen[mouse.screen].workarea
+								local terminal = "terminator --geometry="..(screengeom.width - 40).."x"..(screengeom.height - 250).."+20+125"
+								awful.util.spawn(terminal) 
+							end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
