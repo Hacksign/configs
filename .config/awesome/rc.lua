@@ -107,7 +107,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("%F %H:%M")
+local mytextclock = awful.widget.textclock("%F %H:%M")
+local calendar = require("calendar35")
+calendar.addCalendarToWidget(mytextclock, "bottom_right")
 
 -- Create a wibox for each screen and add it
 bottomwibox = {}
