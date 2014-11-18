@@ -1,0 +1,4 @@
+[AutoProxy 0.3.0]
+||googlecode.com
+||google.com
+||evernote.com
