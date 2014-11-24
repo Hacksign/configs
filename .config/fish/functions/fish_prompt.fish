@@ -2,24 +2,23 @@ function fish_prompt --description 'Write out the prompt'
 	set -l last_status $status
 
   # User
-  set_color $fish_color_user
+	set_color green
   echo -n (whoami)
-  set_color normal
 
+	set_color normal
   echo -n '@'
 
   # Host
-  set_color $fish_color_host
+	set_color yellow
   echo -n (hostname -s)
-  set_color normal
 
 	printf ' [%s] ' (date "+%H:%M:%S") 
+	set_color red
   echo -n ': '
 
   # PWD
-  set_color $fish_color_cwd
+	set_color $fish_color_cwd
   echo -n (prompt_pwd)
-  set_color normal
 
   __terlar_git_prompt
   echo
@@ -28,6 +27,5 @@ function fish_prompt --description 'Write out the prompt'
     set_color $fish_color_error
   end
 
-  echo -n '➤ '
-  set_color normal
+  echo -n '>> '
 end
