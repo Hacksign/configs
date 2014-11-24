@@ -12,6 +12,7 @@ function fish_prompt --description 'Write out the prompt'
 	set_color yellow
   echo -n (hostname -s)
 
+	set_color purple
 	printf ' [%s] ' (date "+%H:%M:%S") 
 	set_color red
   echo -n ': '
