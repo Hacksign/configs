@@ -376,6 +376,11 @@ clientkeys = awful.util.table.join(
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
+						if c.maximized_horizontal == true and c.maximized_vertical == true then
+							c.border_width = "0"
+						else
+							c.border_width = beautiful.border_width
+						end
         end)
 )
 
@@ -531,8 +536,22 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c)
+	c.border_color = beautiful.border_focus
+	if c.maximized_horizontal == true and c.maximized_vertical == true then
+		c.border_width = "0"
+	else
+		c.border_width = beautiful.border_width
+	end
+end)
+client.connect_signal("unfocus", function(c)
+	c.border_color = beautiful.border_normal
+	if c.maximized_horizontal == true and c.maximized_vertical == true then
+		c.border_width = "0"
+	else
+		c.border_width = beautiful.border_width
+	end
+end)
 -- }}}
 --
 --

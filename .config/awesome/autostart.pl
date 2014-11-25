@@ -2,9 +2,8 @@
 
 my %programmes = (
 	'volumeicon' => 'volumeicon &',
-	#'xcompmgr' => 'xcompmgr -cCfF -r7 -o.65 -l-10 -t-8 -D1 &',
-	'compton'	=>	'compton -bcCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &',
-	'wicd-gtk' => 'wicd-gtk -t&',
+	'compton'	=>	'compton -bCG -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88 &',
+	'wicd-client' => 'wicd-client -t&',
 	'fcitx' => 'fcitx -d &',
 	'launchy' => 'launchy &',
 	'autossh' => 'autossh -M 20000 -D 9050 -CnN antigfw\@vps &',
