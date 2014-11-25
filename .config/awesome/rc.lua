@@ -13,6 +13,7 @@ local menubar = require("menubar")
 local vicious = require("vicious")
 local alttab	= require("alttab")
 
+-- helper function to detect a client is floated and current mode is float
 function floats(c)
 	local ret = false
 	local l = awful.layout.get(c.screen)
