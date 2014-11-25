@@ -13,6 +13,15 @@ local menubar = require("menubar")
 local vicious = require("vicious")
 local alttab	= require("alttab")
 
+function floats(c)
+	local ret = false
+	local l = awful.layout.get(c.screen)
+	if awful.layout.getname(l) == 'floating' or awful.client.floating.get(c) then
+		ret = true
+	end
+	return ret
+end
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -275,6 +284,7 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
+local dt_move = 15
 globalkeys = awful.util.table.join(
 		-- window navigation
 		-- Toggle show desktop (for current tag(s))
@@ -306,6 +316,41 @@ globalkeys = awful.util.table.join(
 				end
 			end
 		end),
+		-- Move window position vim-like
+		awful.key({modkey,						}, "h", function()
+			if floats(client.focus) then
+				local g = client.focus:geometry()
+				g.x = g.x - dt_move
+				client.focus:geometry(g)
+			end
+		end),
+		awful.key({modkey,						}, "l", function()
+			if floats(client.focus) then
+				local g = client.focus:geometry()
+				g.x = g.x + dt_move
+				client.focus:geometry(g)
+			end
+		end),
+		awful.key({modkey,						}, "j", function()
+			if floats(client.focus) then
+				local g = client.focus:geometry()
+				g.y = g.y + dt_move
+				client.focus:geometry(g)
+			end
+		end),
+		awful.key({modkey,						}, "k", function()
+			if floats(client.focus) then
+				local g = client.focus:geometry()
+				g.y = g.y - dt_move
+				client.focus:geometry(g)
+			end
+		end),
+		awful.key({modkey,						}, "c", function()
+			if floats(client.focus) then
+				awful.placement.centered(client.focus)
+			end
+		end),
+		------------------------------------------------------------------------------
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -340,15 +385,6 @@ globalkeys = awful.util.table.join(
 							end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
-    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-    awful.key({ modkey, "Control" }, "n", awful.client.restore),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
 		-- User Defined Hot Key
