@@ -379,7 +379,14 @@ clientkeys = awful.util.table.join(
 						if c.maximized_horizontal == true and c.maximized_vertical == true then
 							c.border_width = "0"
 						else
-							c.border_width = beautiful.border_width
+							local manage = true
+							for i,v in pairs(awful.rules.rules) do
+								if v.rule.class == c.class then
+									manage = false
+									break
+								end
+							end
+							if manage then c.border_width = beautiful.border_width end
 						end
         end)
 )
@@ -446,7 +453,7 @@ awful.rules.rules = {
     { rule = { class = "Insight3.exe" },
       properties = { floating = true, focus = true } },
     { rule = { class = "Launchy" },
-      properties = { border_width = 0 } },
+      properties = { border_width = 0, floating = true } },
     { rule = { class = "Terminator" },
       properties = { border_width = 1, floating = true } },
     { rule = { class = "pinentry" },
@@ -536,20 +543,40 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
+-- make maximized window no border
+-- but except window in awful.rules.rules table
 client.connect_signal("focus", function(c)
 	c.border_color = beautiful.border_focus
-	if c.maximized_horizontal == true and c.maximized_vertical == true then
-		c.border_width = "0"
-	else
-		c.border_width = beautiful.border_width
+	local manage = true
+	for i,v in pairs(awful.rules.rules) do
+		if v.rule.class == c.class then
+			manage = false
+			break
+		end
+	end
+	if manage == true then
+		if c.maximized_horizontal == true and c.maximized_vertical == true then
+			c.border_width = "0"
+		else
+			c.border_width = beautiful.border_width
+		end
 	end
 end)
 client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
-	if c.maximized_horizontal == true and c.maximized_vertical == true then
-		c.border_width = "0"
-	else
-		c.border_width = beautiful.border_width
+	local manage = true
+	for i,v in pairs(awful.rules.rules) do
+		if v.rule.class == c.class then
+			manage = false
+			break
+		end
+	end
+	if manage == true then
+		if c.maximized_horizontal == true and c.maximized_vertical == true then
+			c.border_width = "0"
+		else
+			c.border_width = beautiful.border_width
+		end
 	end
 end)
 -- }}}
