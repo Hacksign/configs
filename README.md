@@ -37,6 +37,11 @@
 		alsa-utils
 	wicd	:	网络管理
 		wicd-gtk	:	网络链接管理器
+	system-config-printer : 打印机图形化前端,这个注意看pacman的推荐安装
+		cups服务,并且systemctl enable org.cups.cupsd.service启用服务,不然这个前端不可用
+		python-packagekit
+		python-pysmbc
+		等,根据需要安装
 	fcitx	:	中文输入法
 		aspell	:	fcitix拼写预测支持
 		fcitx-cloudpinyin	:	一定要先安装fcitx再装这个，不然可能找不到中文输入法，云输入法
