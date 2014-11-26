@@ -19,6 +19,7 @@
 	awesome : 平铺式窗口管理器
 		vicious
 	terminator : 终端模拟器
+		wiki:https://code.google.com/p/jessies/w/list
 	evince	:	PDF查看器
 	ristretto : Image查看器
 	thunar	:	文件管理器

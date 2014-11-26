@@ -31,4 +31,7 @@ function fish_prompt --description 'Write out the prompt'
 	set_color green
   echo -n '>> '
 	set_color normal
+
+	# for terminator's title of tab bar
+	echo -ne "\e]2;"(whoami)"@"(hostname -s)":"(prompt_pwd)"\a"
 end
