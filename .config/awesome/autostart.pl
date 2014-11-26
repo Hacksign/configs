@@ -3,7 +3,7 @@
 my %programmes = (
 	'volumeicon' => 'volumeicon &',
 	'thunar' => 'thunar --daemon &',
-	'compton'	=>	'compton -bfCG -o 0.85 -m 0.85 -D9 -O 0.05 -I 0.05 &',
+	'compton'	=>	'compton -bf -o 0.85 -m 0.85 -D9 -O 0.05 -I 0.05 &',
 	'wicd-client' => 'wicd-client -t&',
 	'fcitx' => 'fcitx -d &',
 	'launchy' => 'launchy &',
