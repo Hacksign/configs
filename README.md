@@ -22,6 +22,8 @@
 		wiki:https://code.google.com/p/jessies/w/list
 	evince	:	PDF查看器
 	ristretto : Image查看器
+	goldendict : 字典
+		这个字典支持好多中格式的词库,词库可以网上搜索
 	thunar	:	文件管理器
 		gksu
 		gvfs
