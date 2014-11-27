@@ -8,7 +8,7 @@ my %programmes = (
 	'fcitx' => 'fcitx -d &',
 	'launchy' => 'launchy &',
 	'autossh' => 'autossh -M 20000 -D 9050 -CnN antigfw\@vps &',
-	'goldendict' 'goldendict &',
+	'goldendict' => 'goldendict &',
 	'EvernoteTray' => 'wine  "/home/hacksign/.wine/drive_c/Program Files/Evernote/Evernote/EvernoteTray.exe"&',
 );
 foreach my $key(keys %programmes){
