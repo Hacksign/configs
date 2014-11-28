@@ -380,7 +380,7 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return",
 							function ()
-								screengeom = screen[mouse.screen].workarea
+								screengeom = screen[mouse.screen].geometry
 								local terminal = "terminator --geometry="..(screengeom.width - 40).."x"..(screengeom.height - 250).."+20+125"
 								awful.util.spawn(terminal) 
 							end),

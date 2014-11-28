@@ -2,6 +2,7 @@
   handle_size = 0
   enabled_plugins = ,
   always_split_with_profile = True
+  geometry_hinting = False
   suppress_multiple_term_dialog = True
   borderless = True
   title_receive_bg_color = "#3cf48b"
