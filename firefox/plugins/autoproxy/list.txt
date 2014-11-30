@@ -2,4 +2,4 @@
 ||googlecode.com
 ||google.com
 ||evernote.com
-||gravtar.com
+||gravatar.com
