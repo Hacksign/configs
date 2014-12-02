@@ -33,6 +33,11 @@
 		thunar-volman
 		thunar-archive-plugin
 		thunar-media-tags-plugin
+	thunderbird : 邮件客户端
+		FireTray firefox的Add-on,可以最小化到托盘以及启动时最小化,支持linux
+	smplayer : mplayer的一个前端
+		smplayer-themes 主题包
+		smplayer-skins 皮肤
 	xfce4-screenshooter :	截图
 	xcompmgr	:	简单的窗口透明特效管理
 		注意,不知道什么原因这个可能会导致Xorg持续占用很高的cpu,可以试一下compton,这个是xcompmgr的另外一个form版本,功能更强大.
@@ -66,7 +71,6 @@
 	firefox
 		flashplugin
 	fish	:	类似bash的shell，提示和颜色更加全面
-	checkgmail	:	gmail检查器，需要自己hack一下，使用上autossh创建的代理，需要perl的LWP::Protocol::socks包，然后/usr/bin/checkgmail脚本中所有的UserAgent实例都需要添加$ua->proxy([qw/http htts/] => "socks://host:port");支持.
 	qt4
 	gtk2
 	gtk3
