@@ -308,11 +308,14 @@ globalkeys = awful.util.table.join(
 
 				-- If at least one client isn't minimized, minimize all clients
 				for y, client in pairs(clients) do
-					if allminimized == false then
-						client.minimized = true 
-						-- Otherwise unminimize all clients
-					elseif allminimized == true then
-						client.minimized = false 
+					-- ignore desktop window such as:xfdesktop
+					if(client.type ~= "desktop") then
+						if allminimized == false then
+							client.minimized = true 
+							-- Otherwise unminimize all clients
+						elseif allminimized == true then
+							client.minimized = false 
+						end
 					end
 				end
 			end
@@ -404,14 +407,9 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ modkey,           }, "n",
-        function (c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end),
     awful.key({ modkey,           }, "m",
         function (c)
+					if c.type ~= 'desktop' then
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
 						if c.maximized_horizontal == true and c.maximized_vertical == true then
@@ -426,6 +424,7 @@ clientkeys = awful.util.table.join(
 							end
 							if manage then c.border_width = beautiful.border_width end
 						end
+					end
         end)
 )
 
@@ -497,7 +496,7 @@ awful.rules.rules = {
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "Xfdesktop" },
-      properties = { border_width = 0, sticky = true, floating = true } },
+      properties = { border_width = 0, maximized = true, sticky = true, focusable = false } },
     { rule = { class = "Bcloud-gui" },
       properties = { border_width = 0, floating = true } },
     { rule = { class = "gimp" },
