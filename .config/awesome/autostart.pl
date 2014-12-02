@@ -7,10 +7,11 @@ my %programmes = (
 	'wicd-client' => 'wicd-client -t&',
 	'fcitx' => 'fcitx -d &',
 	'launchy' => 'launchy &',
-	'xfdesktop' => 'xfdesktop &',
 	'autossh' => 'autossh -M 20000 -D 9050 -CnN antigfw\@vps &',
 	'goldendict' => 'goldendict &',
+	'thunderbird' => 'thunderbird &',
 	'EvernoteTray' => 'wine  "/home/hacksign/.wine/drive_c/Program Files/Evernote/Evernote/EvernoteTray.exe"&',
+	'xfdesktop' => 'xfdesktop &',
 );
 foreach my $key(keys %programmes){
 	system($programmes{$key}) if `pgrep $key|wc -l` == 0;
