@@ -33,6 +33,7 @@
 		thunar-volman
 		thunar-archive-plugin
 		thunar-media-tags-plugin
+	xfdesktop : 与awesome配合使用,可以有一个windows风格的桌面
 	thunderbird : 邮件客户端
 		FireTray firefox的Add-on,可以最小化到托盘以及启动时最小化,支持linux
 	smplayer : mplayer的一个前端
