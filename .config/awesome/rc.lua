@@ -387,6 +387,10 @@ globalkeys = awful.util.table.join(
 								local terminal = "terminator --geometry="..(screengeom.width - 40).."x"..(screengeom.height - 250).."+20+125"
 								awful.util.spawn(terminal) 
 							end),
+		-- change layout
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+		-- restart & quit awesome
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
     -- Menubar
@@ -496,6 +500,7 @@ awful.rules.rules = {
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "Xfdesktop" },
+			except = {class = "Xfdesktop-settings"},
       properties = { border_width = 0, maximized = true, sticky = true, focusable = false } },
     { rule = { class = "Bcloud-gui" },
       properties = { border_width = 0, floating = true } },
