@@ -71,6 +71,23 @@
 		unzip
 	firefox
 		flashplugin
+		//下面这些是firefox的音频/视频解码包,有些地方,比如qq音乐需要用到一些特殊音频的解码,如aac
+		gst-libav 1.4.4-1
+		gst-plugins-base 1.4.4-1
+		gst-plugins-base-libs 1.4.4-1
+		gst-plugins-good 1.4.4-1
+		gst-plugins-ugly 1.4.4-2
+		gstreamer 1.4.4-1
+		gstreamer0.10 0.10.36-4
+		gstreamer0.10-bad 0.10.23-8
+		gstreamer0.10-bad-plugins 0.10.23-8 (gstreamer0.10-plugins)
+		gstreamer0.10-base 0.10.36-3
+		gstreamer0.10-base-plugins 0.10.36-3 (gstreamer0.10-plugins)
+		gstreamer0.10-ffmpeg 0.10.13-2 (gstreamer0.10-plugins)
+		gstreamer0.10-good 0.10.31-6
+		gstreamer0.10-good-plugins 0.10.31-6 (gstreamer0.10-plugins)
+		gstreamer0.10-ugly 0.10.19-13
+		gstreamer0.10-ugly-plugins 0.10.19-13 (gstreamer0.10-plugins)
 	fish	:	类似bash的shell，提示和颜色更加全面
 	qt4
 	gtk2
