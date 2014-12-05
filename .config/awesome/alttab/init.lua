@@ -71,8 +71,8 @@ local function preview()
   local w = screen[mouse.screen].geometry.width * (15/100) + (2 * preview_wbox.border_width) -- widget width
   local h = textboxHeight * n + (2 * preview_wbox.border_width) -- widget height
 	-- Caculate wibox Position
-  local x = (screen[mouse.screen].geometry.width - w) / 2
-  local y = (screen[mouse.screen].geometry.height - h - textboxHeight) / 2
+  local x = (screen[mouse.screen].geometry.width - w) / 2 + screen[mouse.screen].geometry.x
+  local y = (screen[mouse.screen].geometry.height - h - textboxHeight) / 2 + screen[mouse.screen].geometry.y
   preview_wbox:geometry({x = x, y = y, width = w, height = h + textboxHeight})
    -- create a list that holds the clients to preview, from left to right
    local leftRightTab = {}

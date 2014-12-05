@@ -13,6 +13,54 @@ local menubar = require("menubar")
 local vicious = require("vicious")
 local alttab	= require("alttab")
 
+-- debug function used to serialize a data structure
+function serialize(obj)  
+	local lua = ""  
+	local t = type(obj)  
+	if t == "number" then  
+		lua = lua .. obj  
+	elseif t == "boolean" then  
+		lua = lua .. tostring(obj)  
+	elseif t == "string" then  
+		lua = lua .. string.format("%q", obj)  
+	elseif t == "table" then  
+		lua = lua .. "{\n"  
+		for k, v in pairs(obj) do  
+			lua = lua .. "[" .. serialize(k) .. "]=" .. serialize(v) .. ",\n"  
+		end  
+		local metatable = getmetatable(obj)  
+		if metatable ~= nil and type(metatable.__index) == "table" then  
+			for k, v in pairs(metatable.__index) do  
+				lua = lua .. "[" .. serialize(k) .. "]=" .. serialize(v) .. ",\n"  
+			end  
+		end  
+	lua = lua .. "}"  
+	elseif t == "nil" then  
+		return nil  
+	else  
+		error("can not serialize a " .. t .. " type.")  
+	end  
+	return lua  
+end 
+-- serialize function end
+
+function unserialize(lua)  
+	local t = type(lua)  
+	if t == "nil" or lua == "" then  
+		return nil  
+	elseif t == "number" or t == "string" or t == "boolean" then  
+		lua = tostring(lua)  
+	else  
+		error("can not unserialize a " .. t .. " type.")  
+	end  
+	lua = "return " .. lua  
+	local func = loadstring(lua)  
+	if func == nil then  
+		return nil  
+	end  
+	return func()  
+end  
+
 -- helper function to detect a client is floated and current mode is float
 function floats(c)
 	local ret = false
@@ -287,6 +335,20 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 local dt_move = 15
 globalkeys = awful.util.table.join(
+		-- navigate mouse cursor between screens
+		awful.key({modkey, "Shift"}, "n", function()
+			local s = mouse.screen
+			if (s + 1) <= screen.count() then
+				s = s + 1
+			else
+				s = 1
+			end
+			mouse.screen = s
+			mouse_x = screen[s].geometry.width / 2 + screen[s].geometry.x
+			mouse_y = screen[s].geometry.height / 2 + screen[s].geometry.y
+			mouse.coords({ x = mouse_x, y = mouse_y}, true)
+			awful.screen.focus(s)
+		end),
 		-- window navigation
 		-- Toggle show desktop (for current tag(s))
     awful.key({ modkey,           }, "d",  function ()
