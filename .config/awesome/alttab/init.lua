@@ -27,13 +27,13 @@ local cr = cairo.Context(surface)
 
 local settings = { 
    preview_box = true,
-   preview_box_bg = "#ddddddaa",
+   preview_box_bg = "#ddddddff",
    preview_box_border = "#22222200",
    preview_box_fps = 30,
    preview_box_delay = 150,
 
-   client_opacity = false,
-   client_opacity_value = 0.5,
+   client_opacity = true,
+   client_opacity_value = 0.1,
    client_opacity_delay = 150,
 }
 
