@@ -335,15 +335,6 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 local dt_move = 15
 globalkeys = awful.util.table.join(
-		-- move window to next/pre screen
-		awful.key({ modkey,           }, ",",      function(c)
-			awful.client.movetoscreen(c,c.screen-1) 
-			awful.placement.centered(c)
-		end),
-		awful.key({ modkey,           }, ".",      function(c)
-			awful.client.movetoscreen(c,c.screen+1)
-			awful.placement.centered(c)
-		end),
 		-- navigate mouse cursor between screens
 		awful.key({modkey, "Shift"}, "n", function()
 			local s = mouse.screen
@@ -479,6 +470,15 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "z",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+		-- move window to next/pre screen
+		awful.key({ modkey,           }, ",",      function(c)
+			awful.client.movetoscreen(c,c.screen-1) 
+			awful.placement.centered(c)
+		end),
+		awful.key({ modkey,           }, ".",      function(c)
+			awful.client.movetoscreen(c,c.screen+1)
+			awful.placement.centered(c)
+		end),
     awful.key({ modkey,           }, "m",
         function (c)
 					if c.type ~= 'desktop' then
