@@ -469,9 +469,16 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey,           }, "z",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+		-- move window to next/pre screen
+		awful.key({ modkey,           }, ",",      function(c)
+			awful.client.movetoscreen(c,c.screen-1) 
+			awful.placement.centered(c)
+		end),
+		awful.key({ modkey,           }, ".",      function(c)
+			awful.client.movetoscreen(c,c.screen+1)
+			awful.placement.centered(c)
+		end),
     awful.key({ modkey,           }, "m",
         function (c)
 					if c.type ~= 'desktop' then
