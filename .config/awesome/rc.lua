@@ -413,6 +413,11 @@ globalkeys = awful.util.table.join(
 		end),
 		awful.key({modkey,						}, "c", function()
 			if floats(client.focus) then
+				local screengeom = screen[mouse.screen].geometry
+				local cg = client.focus:geometry()
+				cg.width = screengeom.width - 40
+				cg.height = screengeom.height - 250
+				client.focus:geometry(cg)
 				awful.placement.centered(client.focus)
 			end
 		end),
@@ -445,7 +450,7 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return",
 							function ()
-								screengeom = screen[mouse.screen].geometry
+								local screengeom = screen[mouse.screen].geometry
 								local terminal = "terminator --geometry="..(screengeom.width - 40).."x"..(screengeom.height - 250).."+20+125"
 								awful.util.spawn(terminal) 
 							end),
