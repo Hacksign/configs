@@ -16,6 +16,8 @@
 	xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到
 	xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics
 	sudo
+	acpid	:	电源管理守护进程
+		systemctl enable acpid
 	awesome : 平铺式窗口管理器
 		vicious
 	terminator : 终端模拟器
