@@ -412,11 +412,17 @@ globalkeys = awful.util.table.join(
 			end
 		end),
 		awful.key({modkey,						}, "c", function()
-			if floats(client.focus) then
+			if floats(client.focus) and client.focus.type ~= 'desktop' then
 				local screengeom = screen[mouse.screen].geometry
 				local cg = client.focus:geometry()
-				cg.width = screengeom.width - 40
-				cg.height = screengeom.height - 250
+				cg.x = screengeom.x
+				cg.y = screengeom.y
+				if cg.width >= screengeom.width then
+					cg.width = screengeom.width - 40
+				end
+				if cg.height >= screengeom.height then
+					cg.height = screengeom.height - 250
+				end
 				client.focus:geometry(cg)
 				awful.placement.centered(client.focus)
 			end
