@@ -58,7 +58,7 @@
     font = Terminal 10
     visible_bell = True
     use_system_font = False
-    background_darkness = 0.95
+    background_darkness = 0.89
     scrollback_lines = 3000
     background_type = image
     active_encodings = GB2312, UTF-8, ISO-8859-1

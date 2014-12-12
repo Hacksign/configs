@@ -5,8 +5,12 @@
 	尽量少的依赖关系
 	尽量少的磁盘空间占用
 
+#2.重要
+	安装过程,chroot后,一定要安装的包,不要等重启后在安装,有可能连接不上网络或根本不能重启:
+	grub
+	net-tools
 
-#2.安装的包
+#3.安装的包
 	base
 	base-devel
 	xorg-server
@@ -123,7 +127,7 @@
 	xf86-input-evdev-trackpoint	:	小红点支持，此包必须从AUR源获取
 		这个的配置文件对触控板区域设置偏小,需要根据自己的需求调整
 
-#3.配置
+#4.配置
 	时间配置:
 		主要是hwclock和timedatectl两个命令的配合使用,具体请用--help参数查看帮助.
 		1.ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  设置好时区
