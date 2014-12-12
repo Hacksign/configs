@@ -31,6 +31,8 @@
 	galculator : 计算器
 	goldendict : 字典
 		这个字典支持好多中格式的词库,词库可以网上搜索
+	bcloud	: 百度云盘Linux客户端
+		gnome-keyring 如果需要记住密码&自动登录的特性,需要安装这个包
 	thunar	:	文件管理器
 		gksu
 		gvfs
