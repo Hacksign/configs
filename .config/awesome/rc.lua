@@ -247,7 +247,6 @@ if battery_info then
 	batterywidget:set_vertical(true)
 	batterywidget:set_background_color("#494B4F")
 	batterywidget:set_border_color(nil)
-	batterywidget:set_color("#FF5656")
 	batterywidget:set_max_value(100)
 	batterywidgettimer = timer({timeout = 5})
 	batterywidgettimer:connect_signal("timeout",
@@ -256,7 +255,15 @@ if battery_info then
 				local percent = fh:read("*l")
 				percent = string.sub(percent, 0, string.len(percent))
 				percent = tonumber(percent)
+				local ch = assert(io.popen("acpi | cut -d' ' -f3|cut -d, -f1", "r"))
+				local charge_status = ch:read("*l")
+				if charge_status == 'Charging' then
+					batterywidget:set_color("#3366FF")
+				else
+					batterywidget:set_color("#FF5656")
+				end
 				batterywidget:set_value(percent)
+				ch:close()
 				fh:close()
 			end
 	 )
