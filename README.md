@@ -69,6 +69,11 @@
 		fcitx-qt4
 		配置请参考:https://wiki.archlinux.org/index.php/Fcitx_(简体中文)
 		如果想中文状态下输入英文字符,修改/usr/share/fcitx/data/punc.mb.zh_CN的映射关系
+	virtualbox : 虚拟机
+		host机器为安装virtualbo的机器,guest机器为虚拟出来的系统机器
+		需要安装linux-headers包,否则vboxsf等内核模块不能正常加载
+		记得安装virtualbox-guest-utils并systemctl enable vboxservice,具体请参考下面的链接
+		https://wiki.archlinux.org/index.php/VirtualBox
 	autossh	:	ssh socks5代理守护进程
 	git	:	代码管理
 	launchy	:	启动器
