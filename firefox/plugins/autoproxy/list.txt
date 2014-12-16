@@ -3,3 +3,4 @@
 ||google.com
 ||evernote.com
 ||gravatar.com
+||virustotal.com
