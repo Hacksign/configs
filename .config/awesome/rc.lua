@@ -257,7 +257,9 @@ if battery_info then
 				percent = tonumber(percent)
 				local ch = assert(io.popen("acpi | cut -d' ' -f3|cut -d, -f1", "r"))
 				local charge_status = ch:read("*l")
-				if charge_status == 'Charging' or charge_status == 'Full' then
+				local ac = assert(io.popen("acpi -a | cut -d':' -f2|cut -d' ' -f2", "r"))
+				local ac_adapter_status = ac:read("*l")
+				if charge_status == 'Charging' or charge_status == 'Full' or ac_adapter_status == 'on-line' then
 					batterywidget:set_color("#3366FF")
 				else
 					batterywidget:set_color("#FF5656")
@@ -265,6 +267,7 @@ if battery_info then
 				batterywidget:set_value(percent)
 				ch:close()
 				fh:close()
+				ac:close()
 			end
 	 )
 	batterywidgettimer:start()
