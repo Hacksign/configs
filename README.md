@@ -122,7 +122,9 @@
 	nvidia-340xx
 	nvidia-340xx-libgl
 	nvidia-340xx-utils
-	vim
+	vim or gvim
+		vim-ctrlp : 快速打开目录下的文件
+		vim-minibufexpl : 在顶部显示多个缓冲区标签
 	wine
 		wine-mono
 		wine_gecko
