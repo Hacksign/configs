@@ -40,14 +40,8 @@
 # This can be overriden (via an xsetting) with eg. the gnome-appearance-properties.
 gtk_color_scheme = "fg_color:#000\nbg_color:#EDEBEC\nbase_color:#fff\ntext_color:#1A1A1A\nselected_bg_color:#0F90FF\nselected_fg_color:#fff\ntooltip_bg_color:#F5F5B5\ntooltip_fg_color:#000"
 
-# gtk-icon-sizes = "gtk-button=16,16"
-
+gtk-icon-theme-name="ultra-flat-icons"
 gtk-icon-sizes = "panel-menu=16,16 : gtk-menu=16,16 : gtk-button=16,16 : gtk-small-toolbar=16,16 : gtk-large-toolbar=16,16 : gtk-dialog=32,32 : gtk-dnd=32,32"
-# gtk-icon-sizes = "gtk-menu=16,16 : gtk-button=16,16 : gtk-small-toolbar=16,16 : gtk-large-toolbar=16,16 : gtk-dialog=32,32 : gtk-dnd=32,32"
-
-
-
-
 
 style "clearlooks-default"
 {
