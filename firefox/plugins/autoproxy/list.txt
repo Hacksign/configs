@@ -4,3 +4,4 @@
 ||evernote.com
 ||gravatar.com
 ||virustotal.com
+||btdigg.org
