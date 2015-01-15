@@ -7,7 +7,6 @@ my %programmes = (
 	'wicd-client' => 'wicd-client -t&',
 	'fcitx' => 'fcitx -d &',
 	'launchy' => 'launchy &',
-	'bcloud-gui' => 'bcloud-gui &',
 	'goldendict' => 'goldendict &',
 	'thunderbird' => 'thunderbird &',
 	'myentunnel.exe' => 'wine "/home/hacksign/.wine/drive_c/Program Files/MyEnTunnel/myentunnel.exe" &',
