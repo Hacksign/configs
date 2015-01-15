@@ -54,6 +54,7 @@
 		compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88
 	volumeicon	:	音量调节
 		alsa-utils
+		pavucontrol : 一套高级输入输出设备管理的GUI前端,在volumeicon设置中,将'external mixer'设置为它即可
 	wicd	:	网络管理
 		wicd-gtk	:	网络链接管理器
 	system-config-printer : 打印机图形化前端,这个注意看pacman的推荐安装
