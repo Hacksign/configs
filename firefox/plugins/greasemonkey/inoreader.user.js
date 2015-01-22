@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Remove inoreader ADS
-// @description Remove inoreader ADS
+// @description Remove inoreader.com's advertisement in reading list, and upgrade button
 // @version     1
 // @grant       none
 // @include     https://www.inoreader.com/feed*
