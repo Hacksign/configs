@@ -493,12 +493,22 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
 		-- move window to next/pre screen
 		awful.key({ modkey,           }, ",",      function(c)
-			awful.client.movetoscreen(c,c.screen-1) 
-			awful.placement.centered(c)
+			local mouse_coords = mouse.coords()
+			if c.screen - 1 > 0 then
+				awful.client.movetoscreen(c,c.screen-1) 
+			else
+				awful.client.movetoscreen(c,screen.count()) 
+			end
+			mouse.coords(mouse_coords, true)
 		end),
 		awful.key({ modkey,           }, ".",      function(c)
-			awful.client.movetoscreen(c,c.screen+1)
-			awful.placement.centered(c)
+			local mouse_coords = mouse.coords()
+			if c.screen + 1 > screen.count() then
+				awful.client.movetoscreen(c,1)
+			else
+				awful.client.movetoscreen(c,c.screen+1)
+			end
+			mouse.coords(mouse_coords, true)
 		end),
     awful.key({ modkey,           }, "m",
         function (c)
