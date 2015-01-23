@@ -5,9 +5,9 @@
 // @grant       none
 // @include     https://www.inoreader.com/feed*
 // @include     https://www.inoreader.com/all_articles*
-// @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.js
-// @downloadURL https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.js
-// @updateURL   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.js
+// @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
+// @downloadURL https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
+// @updateURL   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
 // ==/UserScript==
 tools_div = document.getElementById('sb_rp_tools');
 if (tools_div) {
