@@ -45,6 +45,9 @@
 	xfdesktop : 与awesome配合使用,可以有一个windows风格的桌面
 	thunderbird : 邮件客户端
 		FireTray firefox的Add-on,可以最小化到托盘以及启动时最小化,支持linux
+		Mark GMail Read 对Gmail文件夹中的邮件自动Mark read,不用每次从Inbox里面mark一边,然后再从gmail的文件夹中mark一边
+		Super Date Format 格式化接受时间列的时间格式
+		Thunderbird Conversations 按照会话模式显示邮件
 	smplayer : mplayer的一个前端
 		smplayer-themes 主题包
 		smplayer-skins 皮肤
