@@ -1,13 +1,15 @@
 // ==UserScript==
-// @name        Remove inoreader ADS
+// @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, and upgrade button.
-// @version     2
-// @grant       none
-// @include     https://www.inoreader.com/feed/*
-// @include     https://www.inoreader.com/folder/*
-// @include     https://www.inoreader.com/all_articles
-// @include     https://www.inoreader.com/starred
-// @include     https://www.inoreader.com/dashboard
+// @version 2.1
+// @grant none
+// @include https://www.inoreader.com/feed/*
+// @include https://www.inoreader.com/folder/*
+// @include https://www.inoreader.com/
+// @include http://www.inoreader.com/*
+// @include https://www.inoreader.com/all_articles
+// @include https://www.inoreader.com/starred
+// @include https://www.inoreader.com/dashboard
 // @include	https://www.inoreader.com/trending
 // @include	https://www.inoreader.com/liked
 // @include	https://www.inoreader.com/commented
@@ -39,6 +41,8 @@ reader_pane_div = document.getElementById('reader_pane');
 if (reader_pane_div) {
   reader_pane_div.addEventListener('DOMNodeInserted', function (e) {
     if (e.originalTarget.id && e.originalTarget.id.indexOf('leaderboard_ad-') != - 1) {
+      e.originalTarget.parentNode.removeChild(e.originalTarget);
+    } else if (e.originalTarget.classList && e.originalTarget.classList.contains('ad_title')) {
       e.originalTarget.parentNode.removeChild(e.originalTarget);
     } else if (e.originalTarget.classList && e.originalTarget.classList.contains('dashboard_gadgets')) {
       //find and remove ads div in dashboard page
