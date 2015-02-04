@@ -58,8 +58,13 @@
 	volumeicon	:	音量调节
 		alsa-utils
 		pavucontrol : 一套高级输入输出设备管理的GUI前端,在volumeicon设置中,将'external mixer'设置为它即可
+	------------------------------------------------------------------------------------------------------------------------
+	--以下两个套件选择一个,都是用来管理图形化网络配置的,nm支持VPN,wicd目前还不支持
+	network-manager-applet :
+		需要先安装networkmanager,然后systemctl enable NetworkManager
 	wicd	:	网络管理
-		wicd-gtk	:	网络链接管理器
+		wicd-gtk	:	网络链接管理器,需要systemctl enable wicd
+	------------------------------------------------------------------------------------------------------------------------
 	system-config-printer : 打印机图形化前端,这个注意看pacman的推荐安装
 		cups服务,并且systemctl enable org.cups.cupsd.service启用服务,不然这个前端不可用
 		python-packagekit
