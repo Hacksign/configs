@@ -30,7 +30,8 @@
 	ristretto : Image查看器
 	galculator : 计算器
 	goldendict : 字典
-		这个字典支持好多中格式的词库,词库可以网上搜索
+		这个字典支持好多中格式的词库,词库可以网上搜索,或者使用本git中.goldendict目录下的文件.
+        需要在 "编辑"/"字典"/"构词法" 中设置以下构词法为本git中.goldendict/morphology/才能提高英文单词识别率
 	bcloud	: 百度云盘Linux客户端
 		gnome-keyring 如果需要记住密码&自动登录的特性,需要安装这个包
 	thunar	:	文件管理器
@@ -62,6 +63,11 @@
 	--以下两个套件选择一个,都是用来管理图形化网络配置的,nm支持VPN,wicd目前还不支持
 	network-manager-applet :
 		需要先安装networkmanager,然后systemctl enable NetworkManager
+        然后是登录VPN需要的几个插件:
+        networkmanager-openconnect
+        networkmanager-openvpn
+        networkmanager-pptp
+        networkmanager-vpnc
 	wicd	:	网络管理
 		wicd-gtk	:	网络链接管理器,需要systemctl enable wicd
 	------------------------------------------------------------------------------------------------------------------------
