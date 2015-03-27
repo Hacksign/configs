@@ -141,6 +141,11 @@
 	vim or gvim
 		vim-ctrlp : 快速打开目录下的文件
 		vim-minibufexpl : 在顶部显示多个缓冲区标签
+        vim-a : 在头文件和源文件快速切换
+        vim-surround : 快速改面'"([{包围
+        //下面两个在aur源
+        vim-delimitmate : 自动补全'"([{
+        vim-mark : 自动高亮cursor下的关键字(背景高亮)
 	wine
 		wine-mono
 		wine_gecko
