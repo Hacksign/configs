@@ -43,7 +43,9 @@
 		thunar-archive-plugin
 		thunar-media-tags-plugin
 		如果遇到没有图标的情况,需要设置~/.gtkrc-2.0文件,加上gtk-icon-theme-name="XXX"即可
+        注意系统是否安装了处理icon主题文件的库,例如本repo中usr/share/icon/ultra-flat-icon使用了svg格式的图片文件,那么请确保系统安装了librsvg
 	xfdesktop : 与awesome配合使用,可以有一个windows风格的桌面
+        可以使用--disable-wm-check强制xfdesktop不检查窗口管理器
 	thunderbird : 邮件客户端
 		FireTray firefox的Add-on,可以最小化到托盘以及启动时最小化,支持linux
 		Mark GMail Read 对Gmail文件夹中的邮件自动Mark read,不用每次从Inbox里面mark一边,然后再从gmail的文件夹中mark一边
