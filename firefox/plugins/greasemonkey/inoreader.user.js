@@ -57,3 +57,25 @@ if (reader_pane_div) {
     }
   }, false);
 }
+content_div = document.getElementById('three_way_contents');
+if (content_div) {
+  content_div.addEventListener('DOMNodeInserted', function (e) {
+    if (e.originalTarget.id && e.originalTarget.id.indexOf('article_full_contents') != - 1) {
+      e.originalTarget.addEventListener('DOMNodeInserted', function (f) {
+        if (f.originalTarget.classList && f.originalTarget.classList.contains('ad_title')) {
+          f.originalTarget.parentNode.removeChild(f.originalTarget);
+        }
+        if (f.originalTarget.attributes.length == 0 && f.originalTarget.childNodes.length != 0) {
+          for (i = 0; i < f.originalTarget.childNodes.length; ++i) {
+            if (f.originalTarget.childNodes[i].id.indexOf('inner_ad-') != - 1) {
+              f.originalTarget.childNodes[i].style.display = 'none';
+            }
+          }
+        }
+        if (f.originalTarget.classList && f.originalTarget.classList.contains('ad_footer_remove')) {
+          f.originalTarget.parentNode.removeChild(f.originalTarget);
+        }
+      }, false);
+    }
+  }, false);
+}

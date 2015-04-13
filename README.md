@@ -170,7 +170,7 @@
 	时间配置:
 		主要是hwclock和timedatectl两个命令的配合使用,具体请用--help参数查看帮助.
 		1.ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  设置好时区
-		2.然后用timedatectl看一下localtime和utc time是否式正确的,如果不是正确的,则使用set-time 'YYYY-MM-DD HH:MM:SS'设置时间
+		2.然后用timedatectl看一下localtime和utc time是否是正确的,如果不是正确的,则使用set-time 'YYYY-MM-DD HH:MM:SS'设置时间
 		3.最后用hwclock --localtime --hctosys设置本地硬件时间为系统时间
 
 #参考资料:
