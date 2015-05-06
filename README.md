@@ -172,6 +172,7 @@
 		1.ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  设置好时区
 		2.然后用timedatectl看一下localtime和utc time是否是正确的,如果不是正确的,则使用set-time 'YYYY-MM-DD HH:MM:SS'设置时间
 		3.最后用hwclock --localtime --hctosys设置本地硬件时间为系统时间
+		进入windows后与linux时间不一致问题:windows认为BIOS中的时间为LocalTime,可用如下方法设置Windows对待时间为UTC,打开CMD,输入Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1
 
 #参考资料:
 	一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps
