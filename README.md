@@ -147,6 +147,7 @@
 	nvidia-340xx-libgl
 	nvidia-340xx-utils
 	vim or gvim
+		vim-taglist : 源文件结构快速浏览
 		vim-ctrlp : 快速打开目录下的文件
 		vim-minibufexpl : 在顶部显示多个缓冲区标签
         vim-a : 在头文件和源文件快速切换
