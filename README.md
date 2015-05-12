@@ -22,6 +22,11 @@
 	sudo
 	acpid	:	电源管理守护进程
 		systemctl enable acpid
+	lightdm-gtk-greeter :
+		依赖于lightdm,登录管理器.
+		注意如果之前使用过slim,要先systemctl disable slim,不然会出现File Exists的错误.
+		注意配置/etc/lighdm下的lightdm.conf和light-gtk-greeter.conf文件以适应当前系统.
+		具体配置参考wiki:https://wiki.archlinux.org/index.php/LightDM
 	awesome : 平铺式窗口管理器
 		vicious
 	terminator : 终端模拟器
