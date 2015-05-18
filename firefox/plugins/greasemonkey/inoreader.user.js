@@ -59,6 +59,28 @@ if (reader_pane_div) {
 }
 content_div = document.getElementById('three_way_contents');
 if (content_div) {
+  content_div.addEventListener('scroll', function () {
+    if (content_div.scrollTop != 0 && !document.getElementById('_gm_hacksign_topbar')) {
+      var topbar = document.createElement('div');
+      topbar.id = '_gm_hacksign_topbar';
+      topbar.style.background = 'rgba(0, 0, 0, 0.3) none repeat scroll 0px 0px';
+      topbar.style.position = 'fixed';
+      topbar.style.textAlign = 'center';
+      topbar.style.right = '20px';
+      topbar.style.bottom = '10px';
+      topbar.style.lineHeight = '40px';
+      topbar.style.cursor = 'pointer';
+      topbar.style.width = '40px';
+      topbar.style.height = '40px';
+      topbar.innerHTML = '^';
+      topbar.onclick = function () {
+        content_div.scrollTop = 0
+      };
+      content_div.appendChild(topbar);
+    } else if (content_div.scrollTop == 0 && document.getElementById('_gm_hacksign_topbar')) {
+      content_div.removeChild(document.getElementById('_gm_hacksign_topbar'));
+    }
+  });
   content_div.addEventListener('DOMNodeInserted', function (e) {
     if (e.originalTarget.id && e.originalTarget.id.indexOf('article_full_contents') != - 1) {
       e.originalTarget.addEventListener('DOMNodeInserted', function (f) {
