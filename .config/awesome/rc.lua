@@ -253,21 +253,23 @@ if battery_info then
 			function()
 				local fh = assert(io.popen("acpi | cut -d' ' -f 4 -|cut -d, -f 1 -|cut -d% -f 1 -", "r"))
 				local percent = fh:read("*l")
-				percent = string.sub(percent, 0, string.len(percent))
-				percent = tonumber(percent)
-				local ch = assert(io.popen("acpi | cut -d' ' -f3|cut -d, -f1", "r"))
-				local charge_status = ch:read("*l")
-				local ac = assert(io.popen("acpi -a | cut -d':' -f2|cut -d' ' -f2", "r"))
-				local ac_adapter_status = ac:read("*l")
-				if charge_status == 'Charging' or charge_status == 'Full' or ac_adapter_status == 'on-line' then
-					batterywidget:set_color("#3366FF")
-				else
-					batterywidget:set_color("#FF5656")
+				if percent then
+					percent = string.sub(percent, 0, string.len(percent))
+					percent = tonumber(percent)
+					local ch = assert(io.popen("acpi | cut -d' ' -f3|cut -d, -f1", "r"))
+					local charge_status = ch:read("*l")
+					local ac = assert(io.popen("acpi -a | cut -d':' -f2|cut -d' ' -f2", "r"))
+					local ac_adapter_status = ac:read("*l")
+					if charge_status == 'Charging' or charge_status == 'Full' or ac_adapter_status == 'on-line' then
+						batterywidget:set_color("#3366FF")
+					else
+						batterywidget:set_color("#FF5656")
+					end
+					batterywidget:set_value(percent)
+					ac:close()
+					ch:close()
 				end
-				batterywidget:set_value(percent)
-				ch:close()
 				fh:close()
-				ac:close()
 			end
 	 )
 	batterywidgettimer:start()
@@ -345,20 +347,6 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 local dt_move = 15
 globalkeys = awful.util.table.join(
-		-- navigate mouse cursor between screens
-		awful.key({modkey, "Shift"}, "n", function()
-			local s = mouse.screen
-			if (s + 1) <= screen.count() then
-				s = s + 1
-			else
-				s = 1
-			end
-			mouse.screen = s
-			mouse_x = screen[s].geometry.width / 2 + screen[s].geometry.x
-			mouse_y = screen[s].geometry.height / 2 + screen[s].geometry.y
-			mouse.coords({ x = mouse_x, y = mouse_y}, true)
-			awful.screen.focus(s)
-		end),
 		-- window navigation
 		-- Toggle show desktop (for current tag(s))
     awful.key({ modkey,           }, "d",  function ()
@@ -393,46 +381,42 @@ globalkeys = awful.util.table.join(
 			end
 		end),
 		-- Move window position vim-like
-		awful.key({modkey,						}, "h", function()
-			if floats(client.focus) then
-				local g = client.focus:geometry()
-				g.x = g.x - dt_move
-				client.focus:geometry(g)
-			end
-		end),
-		awful.key({modkey,						}, "l", function()
-			if floats(client.focus) then
-				local g = client.focus:geometry()
-				g.x = g.x + dt_move
-				client.focus:geometry(g)
-			end
-		end),
-		awful.key({modkey,						}, "j", function()
-			if floats(client.focus) then
-				local g = client.focus:geometry()
-				g.y = g.y + dt_move
-				client.focus:geometry(g)
-			end
-		end),
-		awful.key({modkey,						}, "k", function()
-			if floats(client.focus) then
-				local g = client.focus:geometry()
-				g.y = g.y - dt_move
-				client.focus:geometry(g)
-			end
-		end),
+		-- awful.key({modkey,						}, "h", function()
+		-- 	if floats(client.focus) then
+		-- 		local g = client.focus:geometry()
+		-- 		g.x = g.x - dt_move
+		-- 		client.focus:geometry(g)
+		-- 	end
+		-- end),
+		-- awful.key({modkey,						}, "l", function()
+		-- 	if floats(client.focus) then
+		-- 		local g = client.focus:geometry()
+		-- 		g.x = g.x + dt_move
+		-- 		client.focus:geometry(g)
+		-- 	end
+		-- end),
+		-- awful.key({modkey,						}, "j", function()
+		-- 	if floats(client.focus) then
+		-- 		local g = client.focus:geometry()
+		-- 		g.y = g.y + dt_move
+		-- 		client.focus:geometry(g)
+		-- 	end
+		-- end),
+		-- awful.key({modkey,						}, "k", function()
+		-- 	if floats(client.focus) then
+		-- 		local g = client.focus:geometry()
+		-- 		g.y = g.y - dt_move
+		-- 		client.focus:geometry(g)
+		-- 	end
+		-- end),
 		awful.key({modkey,						}, "c", function()
 			if floats(client.focus) and client.focus.type ~= 'desktop' then
 				local screengeom = screen[mouse.screen].geometry
 				local cg = client.focus:geometry()
 				cg.x = screengeom.x
 				cg.y = screengeom.y
-				if cg.width >= screengeom.width then
-					cg.width = screengeom.width - 40
-				end
-				if cg.height >= screengeom.height then
-					cg.height = screengeom.height - 250
-				end
+				cg.width = screengeom.width - 40
+				cg.height = screengeom.height - 250
 				client.focus:geometry(cg)
 				awful.placement.centered(client.focus)
 			end
@@ -457,11 +441,9 @@ globalkeys = awful.util.table.join(
 			function ()                                                                              
 			alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
 		end),
-    -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
+		-- navigate mouse cursor between screens
+    awful.key({ modkey, }, "l", function () awful.screen.focus_relative( 1) end),
+    awful.key({ modkey, }, "h", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     -- Standard program
     awful.key({ modkey,           }, "Return",
@@ -475,7 +457,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 		-- restart & quit awesome
     awful.key({ modkey, "Control" }, "r", awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
+    awful.key({ modkey, "Control"   }, "q", awesome.quit),
 		-- User Defined Hot Key
 		awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("thunar") end), -- yaourt -S thunar
 		awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
@@ -499,9 +481,25 @@ clientkeys = awful.util.table.join(
 			else
 				awful.client.movetoscreen(c,screen.count()) 
 			end
+		end),
+		awful.key({ modkey, "Control" }, ",",      function(c)
+			local mouse_coords = mouse.coords()
+			if c.screen - 1 > 0 then
+				awful.client.movetoscreen(c,c.screen-1) 
+			else
+				awful.client.movetoscreen(c,screen.count()) 
+			end
 			mouse.coords(mouse_coords, true)
 		end),
 		awful.key({ modkey,           }, ".",      function(c)
+			local mouse_coords = mouse.coords()
+			if c.screen + 1 > screen.count() then
+				awful.client.movetoscreen(c,1)
+			else
+				awful.client.movetoscreen(c,c.screen+1)
+			end
+		end),
+		awful.key({ modkey, "Control" }, ".",      function(c)
 			local mouse_coords = mouse.coords()
 			if c.screen + 1 > screen.count() then
 				awful.client.movetoscreen(c,1)
@@ -542,6 +540,7 @@ end
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, keynumber do
     globalkeys = awful.util.table.join(globalkeys,
+				-- move to tag
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
                         local screen = mouse.screen
@@ -549,6 +548,7 @@ for i = 1, keynumber do
                             awful.tag.viewonly(tags[screen][i])
                         end
                   end),
+				-- make view of specific tag visible in current tag
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
                       local screen = mouse.screen
@@ -556,12 +556,14 @@ for i = 1, keynumber do
                           awful.tag.viewtoggle(tags[screen][i])
                       end
                   end),
+				-- move current active window to specific tag
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus and tags[client.focus.screen][i] then
                           awful.client.movetotag(tags[client.focus.screen][i])
                       end
                   end),
+				-- make current active window also visible in specific tag
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus and tags[client.focus.screen][i] then
@@ -613,7 +615,7 @@ awful.rules.rules = {
 		-- http://www.youtube.com/watch?v=3Q91HjEaBD8
 		-- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
     { rule = { class = "Wine" },
-      properties = { floating = true, border_width = 0 } },
+      properties = { floating = true, border_width = 1 } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -624,13 +626,13 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
-    --	focus window with mouse move
-    -- c:connect_signal("mouse::enter", function(c)
-    --     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-    --         and awful.client.focus.filter(c) then
-    --         client.focus = c
-    --     end
-    -- end)
+    --	focus window with mouse move, following mouse movement
+    c:connect_signal("mouse::enter", function(c)
+        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            and awful.client.focus.filter(c) then
+            client.focus = c
+        end
+    end)
 
     if not startup then
         -- Set the windows at the slave,

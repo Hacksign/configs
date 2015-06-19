@@ -15,7 +15,7 @@
   next_tab = <Alt>l
   close_window = None
   group_tab = None
-  move_tab_right = <Alt>Right
+  move_tab_right = <Shift><Alt>l
   resize_left = None
   rotate_ccw = None
   reset_clear = None
@@ -51,7 +51,7 @@
   zoom_normal = None
   go_down = <Alt>j
   new_window = None
-  move_tab_left = <Alt>Left
+  move_tab_left = <Shift><Alt>h
   toggle_scrollbar = None
 [profiles]
   [[default]]
