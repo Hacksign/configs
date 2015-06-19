@@ -465,6 +465,7 @@ globalkeys = awful.util.table.join(
 		awful.key({ modkey}, "o", function () awful.util.spawn_with_shell("terminator -e top") end), -- open 'task manger' ;)
 		awful.key({ modkey}, "y", function () awful.util.spawn_with_shell("galculator") end), -- an GUI caculate, yaourt -S galculator
 		awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
+		awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("leafpad") end), -- start a notepad
 		awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("dm-tool lock") end) -- yaourt -S slimlock
 )
 
@@ -593,9 +594,17 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "Insight3.exe" },
-      properties = { floating = true, focus = true } },
+      properties = { floating = true, focus = true },
+			callback = function (c)
+				awful.placement.centered(c,nil)
+			end
+		},
     { rule = { class = "Launchy" },
-      properties = { border_width = 0, floating = true } },
+      properties = { border_width = 0, floating = true },
+			callback = function (c)
+				awful.placement.centered(c,nil)
+			end
+		},
     { rule = { class = "Terminator" },
       properties = { border_width = 1, floating = true } },
     { rule = { class = "pinentry" },
@@ -610,7 +619,11 @@ awful.rules.rules = {
     { rule = { class = "File-roller" },
       properties = { floating = true, border_width = 0 } },
     { rule = { class = "Evince" },
-      properties = { floating = true, border_width = 0 } },
+      properties = { floating = true, border_width = 0 },
+			callback = function (c)
+				awful.placement.centered(c,nil)
+			end
+		},
 		-- fix problem of Wine program move slowly to right-bottom of the corner
 		-- http://www.youtube.com/watch?v=3Q91HjEaBD8
 		-- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
