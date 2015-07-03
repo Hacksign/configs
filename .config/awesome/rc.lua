@@ -222,13 +222,13 @@ mytasklist.buttons = awful.util.table.join(
 -- top & battom bar widgets
 --	left bottom corner:cpu/memory/battery(if exists) widgets
 local cpuwidget = awful.widget.graph()
-cpuwidget:set_width(150)
+cpuwidget:set_width(250)
 cpuwidget:set_background_color("#494B4F")
 cpuwidget:set_color("#FF5656")
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
 local memwidget = awful.widget.progressbar()
-memwidget:set_width(10)
+memwidget:set_width(20)
 memwidget:set_height(10)
 memwidget:set_vertical(true)
 memwidget:set_background_color("#494B4F")
@@ -242,7 +242,7 @@ local acpi_info = assert(io.popen("acpi", "r"))
 local battery_info = acpi_info:read("*l")
 if battery_info then
 	batterywidget = awful.widget.progressbar()
-	batterywidget:set_width(10)
+	batterywidget:set_width(20)
 	batterywidget:set_height(10)
 	batterywidget:set_vertical(true)
 	batterywidget:set_background_color("#494B4F")

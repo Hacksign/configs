@@ -1,2 +1,12 @@
 .config/fish/fish_history
 .config/fish/fishd\.*
+.config/fcitx/cached_layout
+.config/fcitx/clipboard/
+.config/fcitx/conf/
+.config/fcitx/config
+.config/fcitx/data/layout_override
+.config/fcitx/dbus/
+.config/fcitx/pinyin/
+.config/fcitx/profile
+.goldendict/config
+.goldendict/index/

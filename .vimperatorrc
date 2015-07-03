@@ -1,4 +1,5 @@
 set titlestring=Hacksign
+set maxitems=5
 nnoremap j 5j
 nnoremap k 5k
 map l <esc>gt

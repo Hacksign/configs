@@ -58,14 +58,13 @@
     palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
     copy_on_selection = True
     visible_bell = True
-    use_system_font = False
+    background_image = /home/hacksign/.wallpaper
     background_darkness = 0.95
     scrollback_lines = 3000
     background_type = transparent
     active_encodings = GB2312, UTF-8, ISO-8859-1
     cursor_color = "#37f608"
     scroll_background = False
-    background_image = /home/hacksign/.wallpaper
     font = Terminal 10
     background_color = "#002b35"
     foreground_color = "#ffffff"
