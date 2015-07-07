@@ -11,6 +11,12 @@
 	net-tools
 
 #3.安装的包
+	yaourt :
+		在/etc/pacman.conf中新增如下配置:
+		[archlinuxcn]
+		SigLevel = Optional TrustAll
+		Server   = http://repo.archlinuxcn.org/$arch
+		然后执行命令,pacman -Sy && pacman -S yaourt
 	base
 	base-devel
 	xorg-server
@@ -19,6 +25,12 @@
 	xorg-xrandr	:	屏幕分辨率以及多屏管理支持,awesome要用到
 	xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到
 	xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics
+		打字时金红触控板:
+		安装好aur源中的xf86-input-evdev-trackpoint之后,将如下配置写入/etc/X11/xorg.conf.d/90-evdev-trackpoint.conf
+		Option "PalmDetect" "1"
+		Option "PalmMinWidth" "10"
+		Option "PalmMinZ" "200"
+
 	sudo
 	acpid	:	电源管理守护进程
 		systemctl enable acpid
@@ -52,7 +64,7 @@
 	xfdesktop : 与awesome配合使用,可以有一个windows风格的桌面
         可以使用--disable-wm-check强制xfdesktop不检查窗口管理器
 	thunderbird : 邮件客户端
-		FireTray firefox的Add-on,可以最小化到托盘以及启动时最小化,支持linux
+		FireTray firefox的Add-on,可以最小化到托盘以及启动时最小化,支持linux,注意:thunderbird 38.0.1和firetray 5.6.1-signed有冲突导致不能运行,建议到Firetray的下载页面下载0.4.8版本,然后禁止掉此插件的自动升级功能.
 		Mark GMail Read 对Gmail文件夹中的邮件自动Mark read,不用每次从Inbox里面mark一边,然后再从gmail的文件夹中mark一边
 		Super Date Format 格式化接受时间列的时间格式
 		Thunderbird Conversations 按照会话模式显示邮件
@@ -113,6 +125,8 @@
 		unrar
 		unzip
 	firefox
+		//如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.
+		//如果觉得进行上述调整后,FF的图标也跟着模糊了,请按装图标主题 GNOME Firefox theme
 		flashplugin
 		//下面这些是firefox的音频/视频解码包,有些地方,比如qq音乐需要用到一些特殊音频的解码,如aac
 		gst-libav 1.4.4-1
@@ -165,6 +179,7 @@
 		wine_gecko
 		然后用regedit /s wine_font.reg导入字体设置,并拷贝simsun.ttc字体到~/.wine/drive_c/windows/Fonts目录下
 		更改~/.wine/drive_c/*.reg中的tahoma关联的字体为simsun.ttc,详见http://linux-wiki.cn/wiki/zh-hans/Wine的中文显示与字体设置
+		如果使用的是64位的系统,需要激活pacman的multilib源,然后安装源中的lib32-ncursses库
 	AUR源	:	以下内容到/etc/pacman.conf最后
 		[archlinuxfr]
 		SigLevel = Never
@@ -179,6 +194,13 @@
 		2.然后用timedatectl看一下localtime和utc time是否是正确的,如果不是正确的,则使用set-time 'YYYY-MM-DD HH:MM:SS'设置时间
 		3.最后用hwclock --localtime --hctosys设置本地硬件时间为系统时间
 		进入windows后与linux时间不一致问题:windows认为BIOS中的时间为LocalTime,可用如下方法设置Windows对待时间为UTC,打开CMD,输入Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1
+	指纹识别配置:
+	  此章节配置和具体机器有关,次配置适合x1 Carbon (1/2/3) & T420,其他机型没有验证过.
+		主要参考此wiki:https://wiki.archlinux.org/index.php/Fprint
+		此外,需要修改的是/etc/pam.d/下的lightdm(如果使用lightdm做登录管理器的话)/su/sudo,在行首加上:
+		auth      sufficient pam_fprintd.so
+		然后再需要指纹识别的用户权限下,运行命令fprintd-enroll
+		指纹数据库存放的目录为/var/lib/fprint
 
 #参考资料:
 	一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps

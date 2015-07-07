@@ -1,5 +1,4 @@
 .config/fish/fish_history
-.config/fish/fishd\.*
 .config/fcitx/cached_layout
 .config/fcitx/clipboard/
 .config/fcitx/conf/

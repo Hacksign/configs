@@ -463,7 +463,7 @@ globalkeys = awful.util.table.join(
 		awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
 		awful.key({ modkey}, "i", function () awful.util.spawn_with_shell("firefox") end), -- yaourt -S firefox
 		awful.key({ modkey}, "o", function () awful.util.spawn_with_shell("terminator -e top") end), -- open 'task manger' ;)
-		awful.key({ modkey}, "y", function () awful.util.spawn_with_shell("galculator") end), -- an GUI caculate, yaourt -S galculator
+		awful.key({ modkey}, "y", function () awful.util.spawn_with_shell("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-caculator
 		awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
 		awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("leafpad") end), -- start a notepad
 		awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("dm-tool lock") end) -- yaourt -S slimlock
