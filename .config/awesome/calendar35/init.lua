@@ -25,7 +25,7 @@ module("calendar35")
 
 local calendar = {}
 local calendar_position = "top_right"
-local current_day_format = '<span color="#ee7777"><b>%s</b></span>'
+local current_day_format = '<span color="#ee7777"><b>%02d</b></span>'
 
 function translate(transString)
 	if transString ~= nil then
@@ -44,13 +44,13 @@ function translate(transString)
 		transString = string.gsub(transString, "December", "十二月")
 
 		--weakname
-		transString = string.gsub(transString, "Mon", " 一 ")
-		transString = string.gsub(transString, "Tue", "二 ")
-		transString = string.gsub(transString, "Wed", " 三 ")
-		transString = string.gsub(transString, "Thu", "四 ")
-		transString = string.gsub(transString, "Fri", "五")
-		transString = string.gsub(transString, "Sat", " 六 ")
-		transString = string.gsub(transString, "Sun", "日 ")
+		transString = string.gsub(transString, "Mon", " 1 ")
+		transString = string.gsub(transString, "Tue", " 2 ")
+		transString = string.gsub(transString, "Wed", " 3 ")
+		transString = string.gsub(transString, "Thu", " 4 ")
+		transString = string.gsub(transString, "Fri", " 5 ")
+		transString = string.gsub(transString, "Sat", " 6 ")
+		transString = string.gsub(transString, "Sun", " 7 ")
 	end
 	return transString
 end
@@ -63,14 +63,14 @@ function displayMonth(month,year,weekStart)
     local lines = " "
 
     for x=0,6 do
-        lines = lines .. os.date("<b>%a</b> ",os.time{year=2006,month=1,day=x+wkSt})
+        lines = lines .. os.date("<b>%a</b>",os.time{year=2006,month=1,day=x+wkSt})
     end
 
     lines = lines .. "\n"
 
     local writeLine = 1
-    while writeLine < (stDay + 1) do
-        lines = lines .. "    "
+    while writeLine <= (stDay + 1) do
+        lines = lines .. "   "
         writeLine = writeLine + 1
     end
 
@@ -83,11 +83,11 @@ function displayMonth(month,year,weekStart)
         end
         if os.date("%Y-%m-%d") == os.date("%Y-%m-%d", t) then
             x = string.format(current_day_format, d)
+				else
+						x = string.format("%02d", d)
         end
-        if (#(tostring(d)) == 1) then
-            x = " " .. x
-        end
-        lines = lines .. "  " .. x
+				x = " " .. x
+        lines = lines .. x
         writeLine = writeLine + 1
     end
     local header = "<b><i>" .. os.date("%B, %Y", os.time{year=year,month=month,day=1}) .. "</i></b>\n"

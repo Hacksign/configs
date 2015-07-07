@@ -8,7 +8,6 @@
 #2.重要
 	安装过程,chroot后,一定要安装的包,不要等重启后在安装,有可能连接不上网络或根本不能重启:
 	grub
-	net-tools
 
 #3.安装的包
 	yaourt :
@@ -126,7 +125,7 @@
 		unzip
 	firefox
 		//如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.
-		//如果觉得进行上述调整后,FF的图标也跟着模糊了,请按装图标主题 GNOME Firefox theme
+		//如果觉得进行上述调整后,FF的图标也跟着模糊了,请安装图标主题 GNOME Firefox theme
 		flashplugin
 		//下面这些是firefox的音频/视频解码包,有些地方,比如qq音乐需要用到一些特殊音频的解码,如aac
 		gst-libav 1.4.4-1
@@ -201,6 +200,8 @@
 		auth      sufficient pam_fprintd.so
 		然后再需要指纹识别的用户权限下,运行命令fprintd-enroll
 		指纹数据库存放的目录为/var/lib/fprint
+	高分屏配置:
+	  如果控件太小,例如下拉条宽度太小,需要修改/usr/share/themes目录下对应的主题控件的大小.
 
 #参考资料:
 	一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps
