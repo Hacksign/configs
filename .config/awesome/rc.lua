@@ -1,65 +1,14 @@
--- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
-awful.rules = require("awful.rules")
-require("awful.autofocus")
--- Widget and layout library
-local wibox = require("wibox")
--- Theme handling library
+local gears			= require("gears")
+local awful			= require("awful")
+awful.rules			= require("awful.rules")
+									require("awful.autofocus")
+local wibox			= require("wibox")
 local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
-local menubar = require("menubar")
-local vicious = require("vicious")
-local alttab	= require("alttab")
+local naughty		= require("naughty")
+local menubar		= require("menubar")
+local vicious		= require("vicious")
+local	widgets		= require("widgets")
 
--- debug function used to serialize a data structure
-function serialize(obj)  
-	local lua = ""  
-	local t = type(obj)  
-	if t == "number" then  
-		lua = lua .. obj  
-	elseif t == "boolean" then  
-		lua = lua .. tostring(obj)  
-	elseif t == "string" then  
-		lua = lua .. string.format("%q", obj)  
-	elseif t == "table" then  
-		lua = lua .. "{\n"  
-		for k, v in pairs(obj) do  
-			lua = lua .. "[" .. serialize(k) .. "]=" .. serialize(v) .. ",\n"  
-		end  
-		local metatable = getmetatable(obj)  
-		if metatable ~= nil and type(metatable.__index) == "table" then  
-			for k, v in pairs(metatable.__index) do  
-				lua = lua .. "[" .. serialize(k) .. "]=" .. serialize(v) .. ",\n"  
-			end  
-		end  
-	lua = lua .. "}"  
-	elseif t == "nil" then  
-		return nil  
-	else  
-		error("can not serialize a " .. t .. " type.")  
-	end  
-	return lua  
-end 
--- serialize function end
-
-function unserialize(lua)  
-	local t = type(lua)  
-	if t == "nil" or lua == "" then  
-		return nil  
-	elseif t == "number" or t == "string" or t == "boolean" then  
-		lua = tostring(lua)  
-	else  
-		error("can not unserialize a " .. t .. " type.")  
-	end  
-	lua = "return " .. lua  
-	local func = loadstring(lua)  
-	if func == nil then  
-		return nil  
-	end  
-	return func()  
-end  
 
 -- helper function to detect a client is floated and current mode is float
 function floats(c)
@@ -98,10 +47,10 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/arch/theme.lua")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/arch/theme.lua")
 
 local terminal = "terminator"
-local editor = os.getenv("EDITOR") or "nano"
+local editor = os.getenv("EDITOR") or "vim"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -165,9 +114,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibox
 -- Create a textclock widget
-local mytextclock = awful.widget.textclock("%F %H:%M")
-local calendar = require("calendar35")
-calendar.addCalendarToWidget(mytextclock, "bottom_right")
+local mytextclock = awful.widget.textclock("<span size='x-large'>%F %H:%M</span>")
+local calendar = widgets.calendar.init(mytextclock, "bottom_right")
+local alttab = widgets.alttab
 
 -- Create a wibox for each screen and add it
 bottomwibox = {}
@@ -220,60 +169,14 @@ mytasklist.buttons = awful.util.table.join(
 -- mouse event handler end																					
 
 -- top & battom bar widgets
---	left bottom corner:cpu/memory/battery(if exists) widgets
-local cpuwidget = awful.widget.graph()
-cpuwidget:set_width(250)
-cpuwidget:set_background_color("#494B4F")
-cpuwidget:set_color("#FF5656")
+local cpuwidget = widgets.cpu
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
-
-local memwidget = awful.widget.progressbar()
-memwidget:set_width(20)
-memwidget:set_height(10)
-memwidget:set_vertical(true)
-memwidget:set_background_color("#494B4F")
-memwidget:set_border_color(nil)
-memwidget:set_color("#AECF96")
+local memwidget = widgets.memory
 vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
+local batterywidget = widgets.battery
+local networkwidget = widgets.network
+local temperaturewidget = widgets.temperature
 
--- Need install acpi package
---		pacman -S apci
-local acpi_info = assert(io.popen("acpi", "r"))
-local battery_info = acpi_info:read("*l")
-if battery_info then
-	batterywidget = awful.widget.progressbar()
-	batterywidget:set_width(20)
-	batterywidget:set_height(10)
-	batterywidget:set_vertical(true)
-	batterywidget:set_background_color("#494B4F")
-	batterywidget:set_border_color(nil)
-	batterywidget:set_max_value(100)
-	batterywidgettimer = timer({timeout = 5})
-	batterywidgettimer:connect_signal("timeout",
-			function()
-				local fh = assert(io.popen("acpi | cut -d' ' -f 4 -|cut -d, -f 1 -|cut -d% -f 1 -", "r"))
-				local percent = fh:read("*l")
-				if percent then
-					percent = string.sub(percent, 0, string.len(percent))
-					percent = tonumber(percent)
-					local ch = assert(io.popen("acpi | cut -d' ' -f3|cut -d, -f1", "r"))
-					local charge_status = ch:read("*l")
-					local ac = assert(io.popen("acpi -a | cut -d':' -f2|cut -d' ' -f2", "r"))
-					local ac_adapter_status = ac:read("*l")
-					if charge_status == 'Charging' or charge_status == 'Full' or ac_adapter_status == 'on-line' then
-						batterywidget:set_color("#3366FF")
-					else
-						batterywidget:set_color("#FF5656")
-					end
-					batterywidget:set_value(percent)
-					ac:close()
-					ch:close()
-				end
-				fh:close()
-			end
-	 )
-	batterywidgettimer:start()
-end
 --	now deal ervery screen
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
@@ -290,7 +193,11 @@ for s = 1, screen.count() do
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+		-- font = Terminal
+		-- size = large
+		-- focus window fg color = yellow
+		-- focus background color = black
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons, {font = "Terminal' size='large", fg_focus='#fff000', bg_focus='#000000'})
 
     -- Create the wibox
 		local mywibox = {}
@@ -305,31 +212,30 @@ for s = 1, screen.count() do
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
-		local bottom_left_layout = wibox.layout.fixed.horizontal()
-		bottom_left_layout:add(cpuwidget)
-		bottom_left_layout:add(blankwidget)
-		bottom_left_layout:add(memwidget)
-		bottom_left_layout:add(blankwidget)
-		if batterywidget then
-			bottom_left_layout:add(batterywidget)
-			bottom_left_layout:add(blankwidget)
-		end
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+		right_layout:add(networkwidget)
+		right_layout:add(blankwidget)
+		right_layout:add(temperaturewidget)
+		right_layout:add(blankwidget)
+		if batterywidget then
+			right_layout:add(batterywidget)
+			right_layout:add(blankwidget)
+		end
+		right_layout:add(memwidget)
+		right_layout:add(blankwidget)
+		right_layout:add(cpuwidget)
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mylayoutbox[s])
-		local bottom_right_layout = wibox.layout.fixed.horizontal()
-    bottom_right_layout:add(mytextclock)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
     layout:set_right(right_layout)
 		local bottom_layout = wibox.layout.align.horizontal()
-		bottom_layout:set_left(bottom_left_layout)
     bottom_layout:set_middle(mytasklist[s])
-		bottom_layout:set_right(bottom_right_layout)
+    bottom_layout:set_right(mytextclock)
 
     mywibox[s]:set_widget(layout)
 		bottomwibox[s]:set_widget(bottom_layout)
@@ -380,35 +286,6 @@ globalkeys = awful.util.table.join(
 				end
 			end
 		end),
-		-- Move window position vim-like
-		-- awful.key({modkey,						}, "h", function()
-		-- 	if floats(client.focus) then
-		-- 		local g = client.focus:geometry()
-		-- 		g.x = g.x - dt_move
-		-- 		client.focus:geometry(g)
-		-- 	end
-		-- end),
-		-- awful.key({modkey,						}, "l", function()
-		-- 	if floats(client.focus) then
-		-- 		local g = client.focus:geometry()
-		-- 		g.x = g.x + dt_move
-		-- 		client.focus:geometry(g)
-		-- 	end
-		-- end),
-		-- awful.key({modkey,						}, "j", function()
-		-- 	if floats(client.focus) then
-		-- 		local g = client.focus:geometry()
-		-- 		g.y = g.y + dt_move
-		-- 		client.focus:geometry(g)
-		-- 	end
-		-- end),
-		-- awful.key({modkey,						}, "k", function()
-		-- 	if floats(client.focus) then
-		-- 		local g = client.focus:geometry()
-		-- 		g.y = g.y - dt_move
-		-- 		client.focus:geometry(g)
-		-- 	end
-		-- end),
 		awful.key({modkey,						}, "c", function()
 			if floats(client.focus) and client.focus.type ~= 'desktop' then
 				local screengeom = screen[mouse.screen].geometry

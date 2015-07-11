@@ -28,7 +28,7 @@ if awful.util.file_readable(config .. "/vain/init.lua") then
 end
 --}}}
 
-theme.font          = "YaHei Consolas Hybrid 8"
+theme.font          = "Source Han Sans CN Regular 12"
 
 theme.bg_normal     = "#000000"
 theme.bg_focus      = "#1793d1"
@@ -65,7 +65,7 @@ theme.tasklist_floating_icon = sharedthemes .. "/default/tasklist/floatingw.png"
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = sharedthemes .. "/default/submenu.png"
-theme.menu_height = "15"
+theme.menu_height = "30"
 theme.menu_width  = "100"
 
 -- You can add as many variables as
@@ -114,4 +114,3 @@ theme.layout_dwindle = sharedthemes .. "/default/layouts/dwindlew.png"
 theme.awesome_icon = themedir .. "/awesome16.png"
 
 return theme
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=80

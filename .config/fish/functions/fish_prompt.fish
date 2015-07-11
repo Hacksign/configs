@@ -25,11 +25,18 @@ function fish_prompt --description 'Write out the prompt'
     echo
 
     if not test $last_status -eq 0
-    set_color $fish_color_error
+			if not set -q $fish_color_error
+				set_color $fish_color_error
+				echo -n '>> '
+			else
+				set_color red
+				echo -n '>> '
+			end
+			else
+				set_color green
+				echo -n '>> '
     end
 
-    set_color green
-    echo -n '>> '
     set_color normal
 
     # for terminator's title of tab bar
