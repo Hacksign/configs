@@ -176,6 +176,7 @@ vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
 local batterywidget = widgets.battery
 local networkwidget = widgets.network
 local temperaturewidget = widgets.temperature
+local weatherwidget = widgets.weather.init('北京')
 
 --	now deal ervery screen
 for s = 1, screen.count() do
@@ -212,6 +213,7 @@ for s = 1, screen.count() do
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
+    left_layout:add(blankwidget)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
@@ -231,9 +233,10 @@ for s = 1, screen.count() do
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
-    layout:set_left(left_layout)
+    layout:set_left(weatherwidget)
     layout:set_right(right_layout)
 		local bottom_layout = wibox.layout.align.horizontal()
+		bottom_layout:set_left(left_layout)
     bottom_layout:set_middle(mytasklist[s])
     bottom_layout:set_right(mytextclock)
 

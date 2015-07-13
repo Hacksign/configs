@@ -22,7 +22,8 @@ local widgets =
     battery	= require("widgets.battery"),
     network	= require("widgets.network"),
     utils	= require("widgets.utils"),
-    temperature	= require("widgets.temperature")
+    temperature	= require("widgets.temperature"),
+    weather	= require("widgets.weather")
 }
 
 

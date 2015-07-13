@@ -59,9 +59,11 @@ networkwidgettimer:connect_signal("timeout",
 				dreceived = string.format("%.1f", dreceived)
 				lasttime_received = received
 			end
-			local text = "<span size='xx-large'><span color='red'>Up</span>:<b>" .. dsend .. "</b> <span color='green' >Down</span>:<b>" .. dreceived .. "</b></span>"
-			if init ~= true then
-				networkwidget:set_markup(text)
+			if dreceived ~= nil then
+				local text = "<span size='xx-large'><span color='red'>Up</span>:<b>" .. dsend .. "</b> <span color='green' >Down</span>:<b>" .. dreceived .. "</b></span>"
+				if init ~= true then
+					networkwidget:set_markup(text)
+				end
 			end
 			if init then init = false end
 			fh:close()
