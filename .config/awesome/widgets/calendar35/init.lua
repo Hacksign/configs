@@ -63,7 +63,7 @@ function displayMonth(month,year,weekStart)
     local lines = " "
 
     for x=0,6 do
-        lines = lines .. os.date("<b>%a</b>",os.time{year=2006,month=1,day=x+wkSt})
+        lines = lines .. os.date("<b>%a</b>",os.time{year=2006,month=1,day=x+wkSt-1})
     end
 
     lines = lines .. "\n"
