@@ -54,6 +54,8 @@ local function get_weather_line(city)
 				weathers.short_info = weathers.short_info .. "<span color='yellow'>" .. (string.split(forecast_low[8], ' ')[2]) .. '</span>/'
 			end
 			weathers.full_info = weathers.full_info .. " <span color='yellow'>" .. forecast_low[8] .. "</span>"
+			local forecast_fengli = string.split(ws:match('%["data","forecast",'..s..',"fengli"%]%s+".-"'), '"')
+			weathers.full_info = weathers.full_info .. " <span>" .. forecast_fengli[8] .. "</span>"
 			local forecast_fengxiang = string.split(ws:match('%["data","forecast",'..s..',"fengxiang"%]%s+".-"'), '"')
 			weathers.full_info = weathers.full_info .. " <span>" .. forecast_fengxiang[8] .. "</span>\n"
 		end
