@@ -128,46 +128,46 @@ function addCalendarToWidget(mywidget, myposition, custom_current_day_format)
 		calendar_position = myposition
 
     mywidget:connect_signal('mouse::enter', function ()
-        local month, year = os.date('%m'), os.date('%Y')
-        calendar = { month, year,
-        naughty.notify({
-            text = string.format('<span font_desc="%s">%s</span>', "Terminal", displayMonth(month, year, 2)),
-            timeout = 0,
+			local month, year = os.date('%m'), os.date('%Y')
+			calendar = { month, year,
+				naughty.notify({
+						text = string.format('<span font_desc="%s">%s</span>', "Terminal", displayMonth(month, year, 2)),
+						timeout = 0,
 						position = calendar_position,
-            hover_timeout = 0.5,
-            screen = capi.mouse.screen
-        })
-    }
-end)
-mywidget:connect_signal('mouse::leave', function () naughty.destroy(calendar[3]) end)
+						hover_timeout = 0.5,
+						screen = capi.mouse.screen
+				})
+			}
+		end)
+	mywidget:connect_signal('mouse::leave', function () naughty.destroy(calendar[3]) end)
 
-mywidget:buttons(awful.util.table.join(
-awful.button({ }, 1, function()
-    switchNaughtyMonth(-1)
-end),
-awful.button({ }, 2, switchNaughtyGoToToday),
-awful.button({ }, 3, function()
-    switchNaughtyMonth(1)
-end),
-awful.button({ }, 4, function()
-    switchNaughtyMonth(-1)
-end),
-awful.button({ }, 5, function()
-    switchNaughtyMonth(1)
-end),
-awful.button({ 'Shift' }, 1, function()
-    switchNaughtyMonth(-12)
-end),
-awful.button({ 'Shift' }, 3, function()
-    switchNaughtyMonth(12)
-end),
-awful.button({ 'Shift' }, 4, function()
-    switchNaughtyMonth(-12)
-end),
-awful.button({ 'Shift' }, 5, function()
-    switchNaughtyMonth(12)
-end)
-))
+	mywidget:buttons(awful.util.table.join(
+	awful.button({ }, 1, function()
+			switchNaughtyMonth(-1)
+	end),
+	awful.button({ }, 2, switchNaughtyGoToToday),
+	awful.button({ }, 3, function()
+			switchNaughtyMonth(1)
+	end),
+	awful.button({ }, 4, function()
+			switchNaughtyMonth(-1)
+	end),
+	awful.button({ }, 5, function()
+			switchNaughtyMonth(1)
+	end),
+	awful.button({ 'Shift' }, 1, function()
+			switchNaughtyMonth(-12)
+	end),
+	awful.button({ 'Shift' }, 3, function()
+			switchNaughtyMonth(12)
+	end),
+	awful.button({ 'Shift' }, 4, function()
+			switchNaughtyMonth(-12)
+	end),
+	awful.button({ 'Shift' }, 5, function()
+			switchNaughtyMonth(12)
+	end)
+	))
 end
 
 return {init = addCalendarToWidget}
