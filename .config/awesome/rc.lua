@@ -176,7 +176,7 @@ vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
 local batterywidget = widgets.battery
 local networkwidget = widgets.network
 local temperaturewidget = widgets.temperature
-local weatherwidget = widgets.weather.init('北京', 'top_left')
+local weatherwidget = widgets.weather.init(nil, 'top_left')
 
 --	now deal ervery screen
 for s = 1, screen.count() do
