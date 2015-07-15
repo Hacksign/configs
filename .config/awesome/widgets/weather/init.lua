@@ -6,6 +6,7 @@ local string = require("string")
 local os = require("os")
 local table = require("table")
 local naughty		= require("naughty")
+local tonumber		= tonumber
 local capi = {
     mouse = mouse,
     screen = screen
@@ -30,8 +31,20 @@ local function get_weather_line(city)
 	if ws:match("city") ~= nil then
 		local city_info = string.split(ws:match('%["data","city"%]%s+".-"'), '"')
 		local aqi_info = string.split(ws:match('%["data","aqi"%]%s+".-"'), '"')
+		local aqi_color
+		if tonumber(aqi_info[6]) <= 50 then
+			aqi_color = 'lightgreen'
+		elseif tonumber(aqi_info[6]) >= 51 and tonumber(aqi_info[6])	<= 100 then
+			aqi_color = 'lightblue'
+		elseif tonumber(aqi_info[6]) >= 101 and tonumber(aqi_info[6])	<= 150 then
+			aqi_color = 'yellow'
+		elseif tonumber(aqi_info[6]) >= 151 and tonumber(aqi_info[6])	<= 200 then
+			aqi_color = 'orange'
+		elseif tonumber(aqi_info[6]) >= 201 then
+			aqi_color = 'red'
+		end
 		local temperature_now = string.split(ws:match('%["data","wendu"%]%s+".-"'), '"')
-		weathers.short_info = "<span size='large'><span color='lightgreen'><b>"..city_info[6].."</b></span> <span color='pink'>" .. temperature_now[6] .. "℃</span>".. " <span>" .. aqi_info[6] .. "</span>"
+		weathers.short_info = "<span size='large'><span color='lightgreen'><b>"..city_info[6].."</b></span> <span color='pink'>" .. temperature_now[6] .. "℃</span>".. " <span color='" .. aqi_color .. "'>" .. aqi_info[6] .. "</span>"
 		weathers.full_info = "<span size='large'>"
 
 		for s = 0, 4 do
@@ -85,6 +98,7 @@ local function init(location, box_position)
 			end
 		end
 	)
+	weatherwidgettimer:start()
 	weatherwidget:connect_signal('mouse::enter', function ()
 		weather_naughty = naughty.notify({
 				text = string.format(w.full_info, "Terminal"),
