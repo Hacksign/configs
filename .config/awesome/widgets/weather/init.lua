@@ -29,8 +29,9 @@ local function get_weather_line(city)
 	--City
 	if ws:match("city") ~= nil then
 		local city_info = string.split(ws:match('%["data","city"%]%s+".-"'), '"')
+		local aqi_info = string.split(ws:match('%["data","aqi"%]%s+".-"'), '"')
 		local temperature_now = string.split(ws:match('%["data","wendu"%]%s+".-"'), '"')
-		weathers.short_info = "<span size='large'><span color='lightgreen'><b>"..city_info[6].."</b></span> <span color='pink'>" .. temperature_now[6] .. "℃</span>"
+		weathers.short_info = "<span size='large'><span color='lightgreen'><b>"..city_info[6].."</b></span> <span color='pink'>" .. temperature_now[6] .. "℃</span>".. " <span>" .. aqi_info[6] .. "</span>"
 		weathers.full_info = "<span size='large'>"
 
 		for s = 0, 4 do
