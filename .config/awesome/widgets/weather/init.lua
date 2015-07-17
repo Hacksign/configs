@@ -12,11 +12,12 @@ local capi = {
     screen = screen
 }
 local weather_naughty
+local weather_info
 
 module("weather")
 
 local function guess_city()
-	local cmd = "curl 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json' 2>/dev/null|xargs printf"
+	local cmd = "curl --connect-timeout 10 --retry 3 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json' 2>/dev/null|xargs printf"
 	local f = io.popen(cmd)
 	local ws = f:read("*a")
 	f:close()
@@ -26,6 +27,7 @@ end
 
 local function get_weather_line(city)
 	local weathers = {short_info = nil, full_info = nil}
+	if city == nil then return weathers end
 	string.split = function(s, p)
 			local rt= {}
 			string.gsub(s, '[^'..p..']+', function(w) table.insert(rt, w) end )
@@ -34,6 +36,10 @@ local function get_weather_line(city)
 	local cmd = "curl 'http://wthrcdn.etouch.cn/weather_mini?city="..city.."' 2>/dev/null | gzip -d |"..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
 	local f = io.popen(cmd)
 	local ws = f:read("*a")
+	f:close()
+	local cmd = "date +'%Y-%m-%d %H:%M'"
+	local f = io.popen(cmd)
+	local get_time = f:read("*a")
 	f:close()
 
 	--City
@@ -54,7 +60,7 @@ local function get_weather_line(city)
 		end
 		local temperature_now = ws:match('%["data","wendu"%]%s+"(.-)"')
 		weathers.short_info = "<span size='large'><span color='lightgreen'><b>"..city_info.."</b></span> <span color='pink'>"..temperature_now.."℃</span>".." <span color='"..aqi_color.."'>"..aqi_info.."</span>"
-		weathers.full_info = "<span size='large'>"
+		weathers.full_info = "<span size='large'><span size='small'><b>获取时间</b>:"..get_time.."</span>"
 
 		for s = 0, 4 do
 			--Weather
@@ -96,24 +102,24 @@ local function init(location, box_position)
 	if location == nil then
 		location = guess_city()
 	end
-	local w = get_weather_line(location)
-	if w.short_info ~= nil then
-		weatherwidget:set_markup(w.short_info)
+	weather_info = get_weather_line(location)
+	if weather_info.short_info ~= nil then
+		weatherwidget:set_markup(weather_info.short_info)
 	end
 
 	weatherwidgettimer = timer({timeout = time_interval})
 	weatherwidgettimer:connect_signal("timeout",
 		function()
-			local w = get_weather_line(location)
-			if w.short_info ~= nil then
-				weatherwidget:set_markup(w.short_info)
+			weather_info = get_weather_line(location)
+			if weather_info.short_info ~= nil then
+				weatherwidget:set_markup(weather_info.short_info)
 			end
 		end
 	)
 	weatherwidgettimer:start()
 	weatherwidget:connect_signal('mouse::enter', function ()
 		weather_naughty = naughty.notify({
-				text = string.format(w.full_info, "Terminal"),
+				text = string.format(weather_info.full_info, "Terminal"),
 				timeout = 0,
 				position = box_position,
 				hover_timeout = 0.5,
