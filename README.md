@@ -7,7 +7,8 @@
 
 #2.重要
 	安装过程,chroot后,一定要安装的包,不要等重启后在安装,有可能连接不上网络或根本不能重启:
-	grub
+	grub 或者用systemd自带的bootctl新增一个bootmgr,参考下面的链接:
+	https://wiki.archlinux.org/index.php/Beginners'_guide#For_UEFI_motherboards
 
 #3.安装的包
 	yaourt :
