@@ -9,6 +9,7 @@ my %programmes = (
 	'nm-applet' => 'nm-applet&',
 	'fcitx' => 'fcitx-autostart &',
 	'launchy' => 'launchy &',
+	#'synapse' => 'synapse -s &',
 	'goldendict' => 'goldendict &',
 	'thunderbird' => 'thunderbird &',
 	'myentunnel.exe' => 'wine "/home/hacksign/Software/Program Files (x86)/MyEnTunnel/myentunnel.exe" &',

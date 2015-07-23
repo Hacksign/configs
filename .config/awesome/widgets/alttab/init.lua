@@ -238,9 +238,11 @@ local function clientOpacity(altTabTable, altTabIndex)
 			local c = awful.client.focus.history.get(s, idx)
 
 			while c do
-				table.insert(altTabTable, c)
-				table.insert(altTabMinimized, c.minimized)
-				table.insert(altTabOpacity, c.opacity)
+				if c.type ~= 'desktop' then
+					table.insert(altTabTable, c)
+					table.insert(altTabMinimized, c.minimized)
+					table.insert(altTabOpacity, c.opacity)
+				end
 				idx = idx + 1
 				c = awful.client.focus.history.get(s, idx)
 			end

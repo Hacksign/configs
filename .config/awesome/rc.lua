@@ -345,7 +345,7 @@ globalkeys = awful.util.table.join(
 		awful.key({ modkey}, "o", function () awful.util.spawn_with_shell("terminator -e top") end), -- open 'task manger' ;)
 		awful.key({ modkey}, "y", function () awful.util.spawn_with_shell("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-caculator
 		awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
-		awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("leafpad") end), -- start a notepad
+		awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("gedit") end), -- start a notepad
 		awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("dm-tool lock") end) -- yaourt -S slimlock
 )
 
@@ -485,8 +485,14 @@ awful.rules.rules = {
 				awful.placement.centered(c,nil)
 			end
 		},
-    { rule = { class = "Terminator" },
-      properties = { border_width = 1, floating = true } },
+    { rule = { class = "Synapse" },
+      properties = { border_width = 0, floating = true },
+			callback = function (c)
+				awful.placement.centered(c,nil)
+			end
+		},
+    --{ rule = { class = "Terminator" },
+    --  properties = { border_width = 1, floating = true } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "Xfdesktop" },

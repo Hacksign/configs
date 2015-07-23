@@ -42,11 +42,15 @@
 		注意如果之前使用过slim,要先systemctl disable slim,不然会出现File Exists的错误.
 		注意配置/etc/lighdm下的lightdm.conf和light-gtk-greeter.conf文件以适应当前系统.
 		具体配置参考wiki:https://wiki.archlinux.org/index.php/LightDM
+		如果有多显示器,则需要设置/etc/lightdm/lightdm.conf下的display-setup-script,例如我的:
+			display-setup-script=xrandr --output eDP1 --primary --auto --output HDMI2 --right-of eDP1 --auto
+		注意需要安装xorg-xrandr
 	awesome : 平铺式窗口管理器
 		vicious
 	terminator : 终端模拟器
 		wiki:https://code.google.com/p/jessies/w/list
 	evince	:	PDF查看器
+	leafpad / gedit : 看个人喜好,leafpad更轻量,但是不支持高亮等一些特性,gedit相对来说重量一点,但是支持好多特性.
 	ristretto : Image查看器
 	galculator : 计算器
 	goldendict : 字典
