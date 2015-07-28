@@ -162,12 +162,17 @@
 		gtk-engines
 		gtk-update-icon-cache
 		clearlooks-phenix :	gtk2&gtk3主题，需要用git从https://github.com/jpfleury/clearlooks-phenix下载
+	/*以下更改图标的方法只供参考,因为在高分辨率下需要支持不同大小的鼠标主题,而Human图标并不是multi sized cursor theme
+		具体参考:http://unix.stackexchange.com/questions/203251/cursor-is-huge-on-ubuntu-due-to-high-resolution-monitor
+		answer 1中对DMZ-White鼠标主题的说明.
 	human-icon-theme
 		然后拷贝此git源usr/share/icon/XcursorHuman到/usr/share/icon下，并
 		ln -sv /usr/share/icon/Human/index.theme /usr/share/icon/default/index.theme
 		随后修改/usr/share/icon/default/index.theme,再Name字段下添加下面一行
 		Inherits=XcursorHuman
 		更改鼠标主题
+	*/
+	
 	ntfs-3g
 	nvidia-340xx
 	nvidia-340xx-libgl
