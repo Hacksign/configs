@@ -28,6 +28,7 @@
 	xorg-xrandr	:	屏幕分辨率以及多屏管理支持,awesome要用到
 	xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到
 	xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics
+		X11配置文件文档,http://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html
 		打字时金红触控板:
 		安装好aur源中的xf86-input-evdev-trackpoint之后,将如下配置写入/etc/X11/xorg.conf.d/90-evdev-trackpoint.conf
 		Option "PalmDetect" "1"
