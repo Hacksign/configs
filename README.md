@@ -33,6 +33,7 @@
 		Option "PalmDetect" "1"
 		Option "PalmMinWidth" "10"
 		Option "PalmMinZ" "200"
+		Option "TouchpadOff" "2"
 
 	sudo
 	acpid	:	电源管理守护进程
