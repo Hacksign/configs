@@ -174,13 +174,24 @@
 	nvidia-340xx-utils
 	vim or gvim
 		vim-taglist : 源文件结构快速浏览
-		vim-ctrlp : 快速打开目录下的文件
+		vim-ctrlp :
+			ctrl+p
+			快速打开目录下的文件
 		vim-minibufexpl : 在顶部显示多个缓冲区标签
-        vim-a : 在头文件和源文件快速切换
-        vim-surround : 快速改面'"([{包围
-        //下面两个在aur源
-        vim-delimitmate : 自动补全'"([{
-        vim-mark : 自动高亮cursor下的关键字(背景高亮)
+		vim-a : 在头文件和源文件快速切换
+		vim-surround :
+			快速改面'"([{包围
+			http://zuyunfei.com/2013/04/17/killer-plugin-of-vim-surround/
+			ds/cs/ys
+		//下面两个在aur源
+		vim-delimitmate : 自动补全'"([{
+		vim-mark :
+			<leader>m
+			自动高亮cursor下的关键字(背景高亮)
+		vim-conque : 
+			ConqueTerm/ConqueTermSplit/ConqueTermVSplit
+			vim中打开交互式窗口(如shell),的插件
+			http://www.vim.org/scripts/script.php?script_id=2771
 	wine
 		wine-mono
 		wine_gecko
