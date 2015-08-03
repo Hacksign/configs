@@ -119,7 +119,6 @@ local calendar = widgets.calendar.init(mytextclock, "bottom_right")
 local alttab = widgets.alttab
 
 -- Create a wibox for each screen and add it
-bottomwibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -202,6 +201,7 @@ for s = 1, screen.count() do
 
     -- Create the wibox
 		local mywibox = {}
+		local bottomwibox = {}
     mywibox[s] = awful.wibox({ position = "top", screen = s })
 		bottomwibox[s] = awful.wibox({position = "bottom", screen = s})
 
