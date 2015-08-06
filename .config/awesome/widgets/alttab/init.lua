@@ -65,7 +65,7 @@ local function preview()
 	else
 		n = math.min(30, #altTabTable)
 	end
-	local textboxHeight = 20 -- window title box height
+	local textboxHeight = screen[mouse.screen].geometry.height / 50 -- window title box height
 	local w = screen[mouse.screen].geometry.width * (15/100) + (2 * preview_wbox.border_width) -- widget width
 	local h = textboxHeight * n + (2 * preview_wbox.border_width) -- widget height
 	-- Caculate wibox Position
