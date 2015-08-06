@@ -97,36 +97,51 @@ end
 
 
 local function init(location, box_position)
-	local time_interval = 1 * 60 * 60
+	local time_interval = 1.5
 	weatherwidget = wibox.widget.textbox()
-	if location == nil then
-		location = guess_city()
-	end
-	weather_info = get_weather_line(location)
-	if weather_info.short_info ~= nil then
-		weatherwidget:set_markup(weather_info.short_info)
-	end
-
 	weatherwidgettimer = timer({timeout = time_interval})
 	weatherwidgettimer:connect_signal("timeout",
 		function()
-			weather_info = get_weather_line(location)
-			if weather_info.short_info ~= nil then
-				weatherwidget:set_markup(weather_info.short_info)
+			if location == nil then
+				location = guess_city()
+			end
+			if location ~= nil then
+				weather_info = get_weather_line(location)
+				if weather_info ~= nil and weather_info.short_info ~= nil then
+					weatherwidget:set_markup(weather_info.short_info)
+					if time_interval <= 60 then
+						time_interval = 1 * 60 * 60
+						weatherwidgettimer.timeout = time_interval
+						weatherwidgettimer:again()
+					end
+				else
+					if time_interval > 60 then
+						time_interval = 60
+						weatherwidgettimer.timeout = time_interval
+						weatherwidgettimer:again()
+					end
+				end
 			end
 		end
 	)
 	weatherwidgettimer:start()
 	weatherwidget:connect_signal('mouse::enter', function ()
-		weather_naughty = naughty.notify({
-				text = string.format(weather_info.full_info, "Terminal"),
-				timeout = 0,
-				position = box_position,
-				hover_timeout = 0.5,
-				screen = capi.mouse.screen
-		})
+		if weather_info ~= nil then
+			weather_naughty = naughty.notify({
+					text = string.format(weather_info.full_info, "Terminal"),
+					timeout = 0,
+					position = box_position,
+					hover_timeout = 0.5,
+					screen = capi.mouse.screen
+			})
+		end
 	end)
-	weatherwidget:connect_signal('mouse::leave', function () naughty.destroy(weather_naughty) end)
+	weatherwidget:connect_signal('mouse::leave', function ()
+		if weather_naughty ~= nil then
+			naughty.destroy(weather_naughty)
+			weather_naughty = nil
+		end
+	end)
 	return weatherwidget
 end
 
