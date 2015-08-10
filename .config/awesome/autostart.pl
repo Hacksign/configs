@@ -14,7 +14,13 @@ my %programmes = (
 	'thunderbird' => 'thunderbird &',
 	'myentunnel.exe' => 'wine "/home/hacksign/Software/Program Files (x86)/MyEnTunnel/myentunnel.exe" &',
 	'EvernoteTray' => 'wine  "/home/hacksign/Software/Program Files (x86)/Evernote/Evernote/EvernoteTray.exe"&',
+	'caffeine' => 'caffeine &',
 );
 foreach my $key(keys %programmes){
-	system($programmes{$key}) if `pgrep $key|wc -l` == 0;
+	if(lc($key) eq 'launchy'){
+		system('pkill -9 '.$key);
+		system($programmes{$key});
+	}else{
+		system($programmes{$key}) if `pgrep $key|wc -l` == 0;
+	}
 }

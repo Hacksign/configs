@@ -154,6 +154,8 @@
 		gstreamer0.10-good-plugins 0.10.31-6 (gstreamer0.10-plugins)
 		gstreamer0.10-ugly 0.10.19-13
 		gstreamer0.10-ugly-plugins 0.10.19-13 (gstreamer0.10-plugins)
+	caffeine-ng :
+		自动禁用屏保的工具.
 	fish	:	类似bash的shell，提示和颜色更加全面
 	qt4
 	gtk2
