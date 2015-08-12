@@ -11,3 +11,4 @@
 .config/fcitx/profile_*
 .goldendict/config
 .goldendict/index/
+.goldendict/history
