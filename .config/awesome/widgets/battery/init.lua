@@ -14,6 +14,7 @@ local timer = timer
 local assert = assert
 local string = string
 local tonumber = tonumber
+local naughty		= require("naughty")
 
 module("battery")
 
@@ -45,6 +46,13 @@ if battery_info then
 						batterywidget:set_color("#3366FF")
 					else
 						batterywidget:set_color("#FF5656")
+					end
+					if percent < 15 and charge_status == "Discharging" then
+						naughty.notify({ timeout = 4,
+														 fg = "#ffff00",
+														 bg = "#003399",
+														 title = "Battery is running low !",
+														 text = "Battery is running low ! Connect your adapter !" })
 					end
 					batterywidget:set_value(percent)
 					ac:close()

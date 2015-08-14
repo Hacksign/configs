@@ -19,8 +19,6 @@ my %programmes = (
 foreach my $key(keys %programmes){
 	if(lc($key) eq 'launchy'){
 		system('pkill -9 '.$key);
-		system($programmes{$key});
-	}else{
-		system($programmes{$key}) if `pgrep $key|wc -l` == 0;
 	}
+	system($programmes{$key}) if `pgrep $key|wc -l` == 0;
 }
