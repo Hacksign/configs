@@ -9,12 +9,39 @@
 
 local require = require
 local awful = require("awful")
+local io = require("io")
+local naughty		= require("naughty")
+local string = require("string")
+local capi = {
+    mouse = mouse,
+    screen = screen
+}
 
 module("cpu")
 
 local cpuwidget = awful.widget.graph()
+local disk_naughty
 cpuwidget:set_width(250)
 cpuwidget:set_background_color("#000000")
 cpuwidget:set_color("#FF5656")
+cpuwidget:connect_signal('mouse::enter', function ()
+	local cmd = "lsblk -o NAME,FSTYPE,LABEL,MOUNTPOINT,STATE,SIZE,RM"
+	local f = io.popen(cmd)
+	local blk = f:read("*a")
+	f:close()
+	disk_naughty = naughty.notify({
+			text = string.format('<span font_desc="%s">%s</span>', "Terminal", blk),
+			timeout = 0,
+			position = box_position,
+			hover_timeout = 0.5,
+			screen = capi.mouse.screen
+	})
+end)
+cpuwidget:connect_signal('mouse::leave', function ()
+	if disk_naughty ~= nil then
+		naughty.destroy(disk_naughty)
+		disk_naughty = nil
+	end
+end)
 
 return cpuwidget

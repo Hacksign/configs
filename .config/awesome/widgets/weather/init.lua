@@ -128,7 +128,7 @@ local function init(location, box_position)
 	weatherwidget:connect_signal('mouse::enter', function ()
 		if weather_info ~= nil then
 			weather_naughty = naughty.notify({
-					text = string.format(weather_info.full_info, "Terminal"),
+					text = weather_info.full_info,
 					timeout = 0,
 					position = box_position,
 					hover_timeout = 0.5,
