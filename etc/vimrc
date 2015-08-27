@@ -1,12 +1,27 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+" => Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Get out of VI's compatible mode..
 set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+call vundle#begin()
+Plugin 'a.vim'
+Plugin 'ctrlp.vim'
+Plugin 'Hacksign/minibufexpl.vim'
+Plugin 'surround.vim'
+Plugin 'taglist.vim'
+Plugin 'delimitmate.vim'
+Plugin 'mbriggs/mark.vim'
+call vundle#end()
+filetype plugin indent on     " required! 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => My Configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Sets how many lines of history VIM har to remember
 set history=400
 "set to auto change current divrectory to current editing file's directory
-set autochdir
+"set autochdir
 "Have the mouse enabled all the time:
 set mouse=a
 
@@ -61,9 +76,6 @@ endif
 
 colorscheme desert
 
-filetype plugin on
-filetype indent on
-
 "Highlight current
 if exists("&cursorline")
 	highlight CursorLine   cterm=NONE ctermbg=darkgray guibg=darkgray guifg=white
@@ -77,7 +89,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fileformat
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Favorite filetype
 set ffs=unix,dos,mac
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -241,3 +252,6 @@ let Tlist_Process_File_Always=1
 let Tlist_WinHeight=10
 let Tlist_WinWidth=35
 let Tlist_Use_Horiz_Window=0
+"minibuffer
+let g:miniBufExplorerAutoStart=1
+let g:miniBufExplBuffersNeeded=2

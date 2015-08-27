@@ -181,7 +181,9 @@
 	nvidia-340xx
 	nvidia-340xx-libgl
 	nvidia-340xx-utils
-	vim or gvim
+	gvim or vim
+		安装vundle-git
+		将本源中etc/vimrc拷贝到/etc下, 然后命令行执行:vim +BundleInstall!,会自动安装如下插件:
 		vim-taglist : 源文件结构快速浏览
 		vim-ctrlp :
 			ctrl+p
