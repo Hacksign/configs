@@ -6,18 +6,31 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 call vundle#begin()
+Plugin 'vim-scripts/The-NERD-tree'
+Plugin 'Hacksign/minibufexpl.vim'
+Plugin 'Tagbar'
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
-Plugin 'Hacksign/minibufexpl.vim'
 Plugin 'surround.vim'
-Plugin 'taglist.vim'
 Plugin 'delimitmate.vim'
 Plugin 'mbriggs/mark.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
-filetype plugin indent on     " required! 
+filetype on
+filetype plugin on     " required! 
+filetype indent on     " required! 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => My Configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Themes and colors
+set t_Co=256
+syntax enable
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_visibility="normal"
+colorscheme solarized
+set background=dark
 "Sets how many lines of history VIM har to remember
 set history=400
 "set to auto change current divrectory to current editing file's directory
@@ -34,8 +47,6 @@ nmap <leader>w :w!<cr>
 nmap <leader>x :x <cr>
 nmap <leader>q :q <cr>
 "fast move between window
-
-syntax on
 
 "internationalization
 "I only work in Win2k Chinese version
@@ -72,18 +83,6 @@ if has("gui_running")
 	set columns=180
 	"set nowrap
 	set wrap
-endif
-
-colorscheme desert
-
-"Highlight current
-if exists("&cursorline")
-	highlight CursorLine   cterm=NONE ctermbg=darkgray guibg=darkgray guifg=white
-	set cursorline
-endif
-if exists("&cursorcolumn")
-	highlight CursorColumn cterm=NONE ctermbg=darkgray guibg=darkgray guifg=white
-	set cursorcolumn
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -127,6 +126,17 @@ hi User1 ctermbg=green ctermfg=red   guibg=green guifg=red
 hi User2 ctermbg=gray   ctermfg=black  guibg=gray   guifg=black
 hi User3 ctermbg=blue  ctermfg=green guibg=blue  guifg=green
 hi User4 ctermbg=black  ctermfg=red guibg=green  guifg=red
+
+"Highlight current
+if exists("&cursorline")
+	highlight CursorLine   cterm=NONE ctermbg=black guibg=black guifg=white
+	set cursorline
+endif
+if exists("&cursorcolumn")
+	highlight CursorColumn cterm=NONE ctermbg=black guibg=black guifg=white
+	set cursorcolumn
+endif
+
 
 set laststatus=2
 set statusline=
@@ -193,9 +203,9 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " python script
 "set expandtab
+set tabstop=4
+set softtabstop=4
 set shiftwidth=2
-set softtabstop=2
-set tabstop=2
 set backspace=2
 set smarttab
 set lbr
@@ -209,7 +219,7 @@ set ai
 "Smart indet
 set si
 "C-style indenting
-set cindent
+"set cindent
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => MISC
@@ -230,28 +240,20 @@ set foldmethod=manual
 
 nmap <space> :
 
-"结合ctags完成自动补全功能
-set completeopt=longest,menu
-let g:SuperTabRetainCompletionType=2
-let g:SuperTabDefaultCompletionType="<C-X><C-O>"
-"taglist plugin
-let Tlist_Auto_Open=1
-let Tlist_Show_One_File=1
-let Tlist_OnlyWindow=1
-let Tlist_Use_Right_Window=1
-let Tlist_Sort_Type='name'
-let Tlist_Exit_OnlyWindow=1
-let Tlist_Show_Menu=1
-let Tlist_Max_Submenu_Items=10
-let Tlist_Max_Tag_length=20
-let Tlist_Use_SingleClick=0
-let Tlist_Close_On_Select=0
-let Tlist_File_Fold_Auto_Close=1
-let Tlist_GainFocus_On_ToggleOpen=0
-let Tlist_Process_File_Always=1
-let Tlist_WinHeight=10
-let Tlist_WinWidth=35
-let Tlist_Use_Horiz_Window=0
+"tagbar plugin
+autocmd VimEnter * nested :call tagbar#autoopen(1)
+let g:tagbar_iconchars = ['▸', '▾']
+let g:tagbar_show_linenumbers = 0
+let g:tagbar_width = 23
 "minibuffer
 let g:miniBufExplorerAutoStart=1
 let g:miniBufExplBuffersNeeded=2
+"syntax check
+let g:syntastic_error_symbol = '✗'	"set error or warning signs
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_highlighting = 0
+let g:syntastic_python_checkers=['flake8']
+"highlight SyntasticErrorSign guifg=white guibg=black
+"Nerd-Tree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
