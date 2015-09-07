@@ -14,6 +14,7 @@ my %programmes = (
 	'thunderbird' => 'thunderbird &',
 	'myentunnel.exe' => 'wine "/home/hacksign/Software/Program Files (x86)/MyEnTunnel/myentunnel.exe" &',
 	'EvernoteTray' => 'wine  "/home/hacksign/Software/Program Files (x86)/Evernote/Evernote/EvernoteTray.exe"&',
+	'indicator-keylock' => 'indicator-keylock &',
 	'caffeine' => 'caffeine &',
 );
 foreach my $key(keys %programmes){

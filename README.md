@@ -26,8 +26,7 @@
 	xorg-utils
 	xorg-xinit	:	startx等命令
 	xorg-xrandr	:	屏幕分辨率以及多屏管理支持,awesome要用到
-	xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到
-	xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics
+	xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到 xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics
 		X11配置文件文档,http://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html
 		打字时金红触控板:
 		安装好aur源中的xf86-input-evdev-trackpoint之后,将如下配置写入/etc/X11/xorg.conf.d/90-evdev-trackpoint.conf
@@ -181,6 +180,10 @@
 	nvidia-340xx
 	nvidia-340xx-libgl
 	nvidia-340xx-utils
+	indicator-keylock :
+		知识大写键状态的,对于没有大写键状态提示的笔记本有用,可选依赖:
+		notification-daemon
+		注意可能依赖intltool,提示找不到intltoolize需要安装这个依赖.
 	gvim or vim
 		安装vundle-git
 		将本源中etc/vimrc拷贝到/etc下, 然后命令行执行:vim +BundleInstall!,会自动安装如下插件:
@@ -228,6 +231,8 @@
 		指纹数据库存放的目录为/var/lib/fprint
 	高分屏配置:
 	  如果控件太小,例如下拉条宽度太小,需要修改/usr/share/themes目录下对应的主题控件的大小.
+	彩色命令行:
+	  export PS1="\[\e[1;32m\][\[\e[1;34m\]\u\[\e[0;1m\]@\[\e[1;33m\]\W\[\e[1;32m\]]\[\e[1;31m\]\\$ \[\e[0m\]"
 
 #参考资料:
 	一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps

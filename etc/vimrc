@@ -6,16 +6,14 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 call vundle#begin()
-Plugin 'vim-scripts/The-NERD-tree'
-Plugin 'Hacksign/minibufexpl.vim'
+Plugin 'The-NERD-tree'
+Plugin 'TabBar'
 Plugin 'Tagbar'
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
 Plugin 'surround.vim'
 Plugin 'delimitmate.vim'
 Plugin 'mbriggs/mark.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 filetype on
 filetype plugin on     " required! 
@@ -26,10 +24,7 @@ filetype indent on     " required!
 "Themes and colors
 set t_Co=256
 syntax enable
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_visibility="normal"
-colorscheme solarized
+colorscheme desert
 set background=dark
 "Sets how many lines of history VIM har to remember
 set history=400
@@ -51,16 +46,16 @@ nmap <leader>q :q <cr>
 "internationalization
 "I only work in Win2k Chinese version
 if has("multi_byte")
-	set encoding=utf-8
-	set fileencodings=utf-8,chinese,latin-1
-	if has("win32")
-		set encoding=utf-8
-		set fileencoding=utf-8
-	else
-		set encoding=utf-8
-		set fileencoding=utf-8
-endif
-language messages zh_CN.utf-8
+  set encoding=utf-8
+  set fileencodings=utf-8,chinese,latin-1
+  if has("win32")
+	  set encoding=utf-8
+	  set fileencoding=utf-8
+  else
+	  set encoding=utf-8
+	  set fileencoding=utf-8
+  endif
+  language messages zh_CN.utf-8
 endif
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -97,8 +92,8 @@ set ffs=unix,dos,mac
 set so=7
 "Always show current position
 set ruler
-"The commandbar is 2 high
-set cmdheight=2
+"The commandbar height
+set cmdheight=1
 "Show line number
 set nu
 "Change buffer - without saving
@@ -139,20 +134,25 @@ endif
 
 
 set laststatus=2
-set statusline=
-set statusline+=%2*%-3.3n%0*\ " buffer number
-set statusline+=%F\ " file name and line,colume-verticle_colume number
-set statusline+=%h%4*%m%r%w%0* " flag
-set statusline+=%3*[
-if v:version >= 600
-	set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
-	set statusline+=%{&encoding}, " encoding
-endif
-set statusline+=%{&fileformat}]%0* " file format
-set statusline+=%= " right align
-set statusline+=%-10.(\%L/%l:%c%\)\ " line info
-set statusline+=%2*0x%-8B\ " current char
-set statusline+=%<%P " offset
+function! s:setStatusLine()
+  if bufname('%') != '-MiniBufExplorer-'
+	setlocal statusline=
+	setlocal statusline+=%2*%-3.3n%0*\ " buffer number
+	setlocal statusline+=%F\ " file name and line,colume-verticle_colume number
+	setlocal statusline+=%h%4*%m%r%w%0* " flag
+	setlocal statusline+=%3*[
+	if v:version >= 600
+		setlocal statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
+		setlocal statusline+=%{&encoding}, " encoding
+	endif
+	setlocal statusline+=%{&fileformat}]%0* " file format
+	setlocal statusline+=%= " right align
+	setlocal statusline+=%-10.(\%L/%l:%c%\)\ " line info
+	setlocal statusline+=%2*0x%-8B\ " current char
+	setlocal statusline+=%<%P " offset
+  endif
+endfunction
+autocmd BufEnter * call s:setStatusLine()
 
 " Nice window title
 if has('title') && (has('gui_running') || &title)
@@ -243,17 +243,8 @@ nmap <space> :
 "tagbar plugin
 autocmd VimEnter * nested :call tagbar#autoopen(1)
 let g:tagbar_iconchars = ['▸', '▾']
-let g:tagbar_show_linenumbers = 0
-let g:tagbar_width = 23
-"minibuffer
-let g:miniBufExplorerAutoStart=1
-let g:miniBufExplBuffersNeeded=2
-"syntax check
-let g:syntastic_error_symbol = '✗'	"set error or warning signs
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_highlighting = 0
-let g:syntastic_python_checkers=['flake8']
+let g:tagbar_width = 25
+let g:tagbar_compact = 1
 "highlight SyntasticErrorSign guifg=white guibg=black
 "Nerd-Tree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
