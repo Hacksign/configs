@@ -17,6 +17,7 @@ let g:tagbar_width = 25
 let g:tagbar_compact = 1
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
+Plugin 'fcitx.vim'
 Plugin 'surround.vim'
 Plugin 'delimitmate.vim'
 Plugin 'mbriggs/mark.vim'
@@ -251,6 +252,8 @@ set gfw=Terminal,h10.5,cGB2312
 
 "set fold method
 set foldmethod=manual
+"set timeout
+set timeout timeoutlen=300 ttimeoutlen=100
 
 nmap <space> :
 
