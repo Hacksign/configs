@@ -297,6 +297,12 @@ globalkeys = awful.util.table.join(
 				cg.y = screengeom.y
 				cg.width = screengeom.width - 40
 				cg.height = screengeom.height - 250
+                if client.focus.maximized_horizontal then
+                    client.focus.maximized_horizontal = false
+                end
+                if client.focus.maximized_vertical then
+                    client.focus.maximized_vertical = false
+                end
 				client.focus:geometry(cg)
 				awful.placement.centered(client.focus)
 			end
