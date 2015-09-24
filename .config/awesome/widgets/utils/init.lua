@@ -10,16 +10,34 @@
 local require = require
 local awful = require("awful")
 local type=type
+local pairs=pairs
+local error=error
+local screen = screen
+local string=string
 local tostring = tostring
 local getmetatable = getmetatable
 
 module("utils")
 
+function proportion_resize(c, cg, org_sg, new_sg)
+    local _x = (cg["x"] - org_sg["x"]) / org_sg["width"]
+    local _y = (cg["y"] - org_sg["y"]) / org_sg["height"]
+    local _width = cg["width"] / org_sg["width"]
+    local _height = cg["height"] / org_sg["height"]
+    cg["x"] = new_sg["x"] + _x * new_sg["width"]
+    cg["y"] = new_sg["y"] + _y * new_sg["height"]
+    cg["width"] = _width * new_sg["width"]
+    cg["height"] = _height * new_sg["height"]
+    c:geometry(cg)
+end
+
 -- debug function used to serialize a data structure
 function serialize(obj)  
 	local lua = ""  
 	local t = type(obj)  
-	if t == "number" then  
+    if t == nil then
+        return nil
+    elseif t == "number" then  
 		lua = lua .. obj  
 	elseif t == "boolean" then  
 		lua = lua .. tostring(obj)  

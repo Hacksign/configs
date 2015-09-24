@@ -8,6 +8,7 @@ local naughty		= require("naughty")
 local menubar		= require("menubar")
 local vicious		= require("vicious")
 local	widgets		= require("widgets")
+local utils         = require("utils")
 
 
 -- helper function to detect a client is floated and current mode is float
@@ -349,36 +350,52 @@ awful.key({ modkey,           }, "d",  function ()
     -- move window to next/pre screen
     awful.key({ modkey,           }, ",",      function(c)
         local mouse_coords = mouse.coords()
+        local cg = c:geometry()
+        local org_sg = screen[c.screen].geometry
         if c.screen - 1 > 0 then
             awful.client.movetoscreen(c,c.screen-1) 
         else
             awful.client.movetoscreen(c,screen.count()) 
         end
+        local new_sg = screen[c.screen].geometry
+        utils.proportion_resize(c, cg, org_sg, new_sg)
     end),
     awful.key({ modkey, "Control" }, ",",      function(c)
         local mouse_coords = mouse.coords()
+        local cg = c:geometry()
+        local org_sg = screen[c.screen].geometry
         if c.screen - 1 > 0 then
             awful.client.movetoscreen(c,c.screen-1) 
         else
             awful.client.movetoscreen(c,screen.count()) 
         end
+        local new_sg = screen[c.screen].geometry
+        utils.proportion_resize(c, cg, org_sg, new_sg)
         mouse.coords(mouse_coords, true)
     end),
     awful.key({ modkey,           }, ".",      function(c)
         local mouse_coords = mouse.coords()
+        local cg = c:geometry()
+        local org_sg = screen[c.screen].geometry
         if c.screen + 1 > screen.count() then
             awful.client.movetoscreen(c,1)
         else
             awful.client.movetoscreen(c,c.screen+1)
         end
+        local new_sg = screen[c.screen].geometry
+        utils.proportion_resize(c, cg, org_sg, new_sg)
     end),
     awful.key({ modkey, "Control" }, ".",      function(c)
         local mouse_coords = mouse.coords()
+        local cg = c:geometry()
+        local org_sg = screen[c.screen].geometry
         if c.screen + 1 > screen.count() then
             awful.client.movetoscreen(c,1)
         else
             awful.client.movetoscreen(c,c.screen+1)
         end
+        local new_sg = screen[c.screen].geometry
+        utils.proportion_resize(c, cg, org_sg, new_sg)
         mouse.coords(mouse_coords, true)
     end),
     awful.key({ modkey,           }, "m",
