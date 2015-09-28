@@ -11,10 +11,10 @@ Plugin 'The-NERD-tree'
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 Plugin 'TabBar'
 Plugin 'Tagbar'
-autocmd VimEnter * nested :call tagbar#autoopen(1)
 let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_width = 25
 let g:tagbar_compact = 1
+autocmd VimEnter,BufWinEnter * nested :call tagbar#autoopen(1)
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
 Plugin 'fcitx.vim'
@@ -55,9 +55,22 @@ let mapleader = ","
 let g:mapleader = ","
 
 "Fast saving
+function! <SID>quit()
+    let s:active_buf_num = 0
+    for bufnum in range(1, bufnr('$'))
+        if(buflisted(bufnum))
+            let s:active_buf_num += 1
+        endif
+    endfor
+    if s:active_buf_num == 1
+        execute 'confirm q'
+    else
+        execute 'confirm bdelete 'bufnr('%')
+    endif
+endfunction
 nmap <leader>w :w!<cr>
 nmap <leader>x :x <cr>
-nmap <leader>q :q <cr>
+nmap <leader>q :call <SID>quit()<cr>
 "fast move between window
 
 "internationalization
@@ -169,7 +182,8 @@ function! s:setStatusLine()
 	setlocal statusline+=%<%P " offset
   endif
 endfunction
-autocmd BufEnter * call s:setStatusLine()
+
+autocmd BufWinEnter * call s:setStatusLine()
 
 " Nice window title
 if has('title') && (has('gui_running') || &title)
@@ -239,13 +253,6 @@ set si
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => MISC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"switch to next tab
-map <F5> gt
-imap <F5> <esc>gti
-"switch to previous tab
-map <F4> gT
-imap <F4> <esc>gTi
-
 "set font
 set gfn=Terminal,h10,cANSI
 set gfw=Terminal,h10.5,cGB2312
@@ -256,4 +263,12 @@ set foldmethod=manual
 set timeout timeoutlen=300 ttimeoutlen=100
 
 nmap <space> :
-
+function! <SID>add_cscope_ctags()
+    if filereadable("./cscope.out")
+            silent! execute "cs add cscope.out"
+    endif
+    if filereadable("./ctags")
+            silent! execute "set tags+=ctags"
+    endif
+endfunction
+autocmd VimEnter * call <SID>add_cscope_ctags()

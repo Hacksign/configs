@@ -183,6 +183,7 @@
             notification-daemon   
         注意可能依赖intltool,提示找不到intltoolize需要安装这个依赖.   
     gvim or vim   
+        ctags & cscope : 编程语言的快速搜索支持   
         安装vundle-git   
         将本源中etc/vimrc拷贝到/etc下, 然后命令行执行:vim +PluginInstall   
     wine   
