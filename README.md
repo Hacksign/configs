@@ -132,7 +132,9 @@
     p7zip   
     unrar   
     unzip   
-    firefox   //如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.   
+    firefox   
+        //如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.   
+        //目前firefox有个bug,在高分屏,高dpi,多显示器环境下下,layout.css.devPixelsPerPx的值小于2.0会导致菜单出现在错误的显示器上.如果出现这个问题请调整这个属性的值   
         //如果觉得进行上述调整后,FF的图标也跟着模糊了,请安装图标主题 GNOME Firefox theme   
         flashplugin   
         //下面这些是firefox的音频/视频解码包,有些地方,比如qq音乐需要用到一些特殊音频的解码,如aac   
