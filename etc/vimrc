@@ -35,6 +35,9 @@ Plugin 'Valloric/YouCompleteMe'
 "do the following things to finish install
 "cd ~/.vim/bundle/YouCompleteMe
 "./install --clang-completer
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '!'
 call vundle#end()
 filetype on
 filetype plugin on     " required! 
@@ -165,6 +168,9 @@ if exists("&cursorcolumn")
 	highlight CursorColumn cterm=NONE ctermbg=black guibg=black guifg=white
 	set cursorcolumn
 endif
+sign define dummy
+execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
+highlight clear SignColumn
 
 
 set laststatus=2
