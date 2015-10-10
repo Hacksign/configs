@@ -31,6 +31,10 @@ let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
 let g:vim_markdown_frontmatter=1
 " markdown hightlient end
+Plugin 'Valloric/YouCompleteMe'
+"do the following things to finish install
+"cd ~/.vim/bundle/YouCompleteMe
+"./install --clang-completer
 call vundle#end()
 filetype on
 filetype plugin on     " required! 
