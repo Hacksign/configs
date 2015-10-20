@@ -14,7 +14,7 @@ Plugin 'Tagbar'
 let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_width = 25
 let g:tagbar_compact = 1
-autocmd VimEnter,BufWinEnter * nested :call tagbar#autoopen(1)
+autocmd BufWinEnter * nested :call tagbar#autoopen(1)
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
 Plugin 'fcitx.vim'
@@ -70,6 +70,13 @@ function! <SID>quit()
             let s:active_buf_num += 1
         endif
     endfor
+
+    "check Tagbar plugin window state
+    "if it exists, then close it before leave buffer
+    if bufwinnr('__Tagbar__')!= -1
+        call tagbar#CloseWindow()
+    endif
+
     if s:active_buf_num == 1
         execute 'confirm q'
     else
