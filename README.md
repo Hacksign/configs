@@ -127,6 +127,7 @@
     autossh	:	ssh socks5代理守护进程   
     git	:	代码管理   
     launchy	:	启动器   
+    gmrun	:	启动器   
     adobe-source-han-sans-cn-fonts :	中文字体   
     file-roller	:	归档管理器   
     p7zip   
