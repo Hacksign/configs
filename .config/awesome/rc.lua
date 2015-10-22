@@ -340,7 +340,7 @@ awful.key({ modkey,           }, "d",  function ()
     awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
     awful.key({ "Mod1", "Control"}, "space", function () awful.util.spawn_with_shell("gmrun -g '+50%+50%'") end), -- start a notepad
     awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("gedit") end), -- start a notepad
-    awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("dm-tool lock") end) -- yaourt -S slimlock
+    awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("slimlock") end) -- yaourt -S slimlock
     )
 
     clientkeys = awful.util.table.join(

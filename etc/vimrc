@@ -178,7 +178,7 @@ if exists("&cursorcolumn")
 endif
 if exists("&colorcolumn")
 	highlight colorcolumn cterm=NONE ctermbg=235 guibg=235 guifg=white
-	set cc=90
+	"set cc=90
     "let &colorcolumn=join(range(90,999),",")
 endif
 sign define dummy
