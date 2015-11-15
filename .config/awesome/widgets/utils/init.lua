@@ -9,6 +9,7 @@
 
 local require = require
 local awful = require("awful")
+local math=math
 local type=type
 local pairs=pairs
 local error=error
@@ -80,3 +81,12 @@ function unserialize(lua)
 	end  
 	return func()  
 end  
+
+function isfloats(c)
+    local ret = false
+    local l = awful.layout.get(c.screen)
+    if awful.layout.getname(l) == 'floating' or awful.client.floating.get(c) then
+        ret = true
+    end
+    return ret
+end

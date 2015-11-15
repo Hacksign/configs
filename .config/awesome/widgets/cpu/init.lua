@@ -25,7 +25,7 @@ cpuwidget:set_width(250)
 cpuwidget:set_background_color("#000000")
 cpuwidget:set_color("#FF5656")
 cpuwidget:connect_signal('mouse::enter', function ()
-	local cmd = "lsblk -o NAME,FSTYPE,LABEL,MOUNTPOINT,STATE,SIZE,RM"
+	local cmd = "ps -o pid,uname,comm,psr,args,start_time,etimes,pcpu,pmem --sort=-pcpu,-size|head -20"
 	local f = io.popen(cmd)
 	local blk = f:read("*a")
 	f:close()

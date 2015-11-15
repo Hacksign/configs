@@ -37,6 +37,8 @@
     sudo   
     acpid	:	电源管理守护进程   
     systemctl enable acpid   
+    slim :   
+        最好使用https://github.com/Hacksign/slim-1.3.6.git 的slim,这个版本修复了slim在多显示器环境下显示错位的问题.   
     lightdm-gtk-greeter :   
         依赖于lightdm,登录管理器.   
         注意如果之前使用过slim,要先systemctl disable slim,不然会出现File Exists的错误.   
@@ -46,6 +48,7 @@
         display-setup-script=xrandr --output eDP1 --primary --auto --output HDMI2 --right-of eDP1 --auto   
         注意需要安装xorg-xrandr   
     awesome : 平铺式窗口管理器   
+    simplescreenrecorder : 录屏工具,制作视频教程用的   
     vicious   
     terminator : 终端模拟器   
     wiki:https://code.google.com/p/jessies/w/list   
@@ -124,6 +127,7 @@
         需要安装linux-headers包,否则vboxsf等内核模块不能正常加载   
         记得安装virtualbox-guest-utils并systemctl enable vboxservice,具体请参考下面的链接   
             https://wiki.archlinux.org/index.php/VirtualBox   
+        最后将需要使用virtualbox虚拟机的用户加到vboxusers组中   
     autossh	:	ssh socks5代理守护进程   
     git	:	代码管理   
     launchy	:	启动器   
