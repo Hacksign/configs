@@ -36,7 +36,6 @@ end
 -- Create a textclock widget
 local mytextclock = awful.widget.textclock("<span size='x-large'>%F %H:%M</span>")
 local calendar = widgets.calendar.init(mytextclock, "bottom_right")
-local alttab = widgets.alttab
 
 -- Create a wibox for each screen and add it
 mypromptbox = {}

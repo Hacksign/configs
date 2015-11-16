@@ -1,6 +1,9 @@
 local awful			= require("awful")
 local naughty		= require("naughty")
 local utils         = require("utils")
+local widgets		= require("widgets")
+
+local alttab = widgets.alttab
 
 local layouts =
 {
@@ -126,6 +129,34 @@ globalkeys = awful.util.table.join(
         function (s)
             awful.tag.selected().name = s
         end)
+    end),
+    awful.key({ modkey,         }, "-",    function ()
+        local screengeom = screen[mouse.screen].geometry
+        local cg = client.focus:geometry()
+        if cg['width'] > (screengeom['width']*30/100) and cg['height'] > (screengeom['height']*30/100) then
+            delta = 20
+            delta_height = (delta / cg['width']) * cg['height']
+            cg['width'] = cg['width'] - delta
+            cg['height'] = cg['height'] - delta_height
+            client.focus:geometry(cg)
+            client.focus.maximized_horizontal = false
+            client.focus.maximized_vertical = false
+            awful.placement.centered(client.focus, nil)
+        end
+    end),
+    awful.key({ modkey,         }, "=",    function ()
+        local screengeom = screen[mouse.screen].geometry
+        local cg = client.focus:geometry()
+        if (cg['width']+20)<screengeom['width'] and (cg['height']+20)<screengeom['height'] then
+            delta = 20
+            delta_height = (delta / cg['width']) * cg['height']
+            cg['width'] = cg['width'] + delta
+            cg['height'] = cg['height'] + delta_height
+            client.focus:geometry(cg)
+            client.focus.maximized_horizontal = false
+            client.focus.maximized_vertical = false
+            awful.placement.centered(client.focus, nil)
+        end
     end),
     -- center or maxmize a client
     awful.key({modkey,						}, "c", function()
