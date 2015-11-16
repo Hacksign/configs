@@ -255,54 +255,62 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "t",      function (c) c.ontop = not c.ontop            end),
     -- move window to next/pre screen
     awful.key({ modkey,           }, ",",      function(c)
-        local mouse_coords = mouse.coords()
-        local cg = c:geometry()
-        local org_sg = screen[c.screen].geometry
-        if c.screen - 1 > 0 then
-            awful.client.movetoscreen(c,c.screen-1) 
-        else
-            awful.client.movetoscreen(c,screen.count()) 
+        if c.type ~= "desktop" then
+            local mouse_coords = mouse.coords()
+            local cg = c:geometry()
+            local org_sg = screen[c.screen].geometry
+            if c.screen - 1 > 0 then
+                awful.client.movetoscreen(c,c.screen-1) 
+            else
+                awful.client.movetoscreen(c,screen.count()) 
+            end
+            local new_sg = screen[c.screen].geometry
+            utils.proportion_resize(c, cg, org_sg, new_sg)
         end
-        local new_sg = screen[c.screen].geometry
-        utils.proportion_resize(c, cg, org_sg, new_sg)
     end),
     awful.key({ modkey, "Control" }, ",",      function(c)
-        local mouse_coords = mouse.coords()
-        local cg = c:geometry()
-        local org_sg = screen[c.screen].geometry
-        if c.screen - 1 > 0 then
-            awful.client.movetoscreen(c,c.screen-1) 
-        else
-            awful.client.movetoscreen(c,screen.count()) 
+        if c.type ~= "desktop" then
+            local mouse_coords = mouse.coords()
+            local cg = c:geometry()
+            local org_sg = screen[c.screen].geometry
+            if c.screen - 1 > 0 then
+                awful.client.movetoscreen(c,c.screen-1) 
+            else
+                awful.client.movetoscreen(c,screen.count()) 
+            end
+            local new_sg = screen[c.screen].geometry
+            utils.proportion_resize(c, cg, org_sg, new_sg)
+            mouse.coords(mouse_coords, true)
         end
-        local new_sg = screen[c.screen].geometry
-        utils.proportion_resize(c, cg, org_sg, new_sg)
-        mouse.coords(mouse_coords, true)
     end),
     awful.key({ modkey,           }, ".",      function(c)
-        local mouse_coords = mouse.coords()
-        local cg = c:geometry()
-        local org_sg = screen[c.screen].geometry
-        if c.screen + 1 > screen.count() then
-            awful.client.movetoscreen(c,1)
-        else
-            awful.client.movetoscreen(c,c.screen+1)
+        if c.type ~= "desktop" then
+            local mouse_coords = mouse.coords()
+            local cg = c:geometry()
+            local org_sg = screen[c.screen].geometry
+            if c.screen + 1 > screen.count() then
+                awful.client.movetoscreen(c,1)
+            else
+                awful.client.movetoscreen(c,c.screen+1)
+            end
+            local new_sg = screen[c.screen].geometry
+            utils.proportion_resize(c, cg, org_sg, new_sg)
         end
-        local new_sg = screen[c.screen].geometry
-        utils.proportion_resize(c, cg, org_sg, new_sg)
     end),
     awful.key({ modkey, "Control" }, ".",      function(c)
-        local mouse_coords = mouse.coords()
-        local cg = c:geometry()
-        local org_sg = screen[c.screen].geometry
-        if c.screen + 1 > screen.count() then
-            awful.client.movetoscreen(c,1)
-        else
-            awful.client.movetoscreen(c,c.screen+1)
+        if c.type ~= "desktop" then
+            local mouse_coords = mouse.coords()
+            local cg = c:geometry()
+            local org_sg = screen[c.screen].geometry
+            if c.screen + 1 > screen.count() then
+                awful.client.movetoscreen(c,1)
+            else
+                awful.client.movetoscreen(c,c.screen+1)
+            end
+            local new_sg = screen[c.screen].geometry
+            utils.proportion_resize(c, cg, org_sg, new_sg)
+            mouse.coords(mouse_coords, true)
         end
-        local new_sg = screen[c.screen].geometry
-        utils.proportion_resize(c, cg, org_sg, new_sg)
-        mouse.coords(mouse_coords, true)
     end)
 )
 --end of clientkeys

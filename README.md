@@ -220,6 +220,8 @@
         如果控件太小,例如下拉条宽度太小,需要修改/usr/share/themes目录下对应的主题控件的大小.   
     彩色命令行:   
         export PS1="\[\e[1;32m\][\[\e[1;34m\]\u\[\e[0;1m\]@\h \[\e[1;33m\]\W\[\e[1;32m\]]\[\e[1;31m\]\\$ \[\e[0m\]"   
+    本人的笔记本在关机的时候,耳机会听到'次拉'一声的噪音,查资料得知需要在/etc/modprobe.d/sound.conf下加入如下行即可:   
+        options snd-hda-intel model=,generic   
    
 #参考资料:   
     一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps   
