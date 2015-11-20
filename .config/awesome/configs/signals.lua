@@ -9,7 +9,9 @@ client.connect_signal("manage", function (c, startup)
     c:connect_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
             and awful.client.focus.filter(c) then
-            client.focus = c
+            if not c.minimized then
+                client.focus = c
+            end
         end
     end)
 
