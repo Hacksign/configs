@@ -4,6 +4,7 @@ local utils         = require("utils")
 local widgets		= require("widgets")
 
 local alttab = widgets.alttab
+local last_focused_client = nil
 
 local layouts =
 {
@@ -52,34 +53,40 @@ globalkeys = awful.util.table.join(
     -- Toggle show desktop (for current tag(s))
     awful.key({ modkey,           }, "d",
     function ()
-        local curtag
-        local curtags = awful.tag.selectedlist()
-        local client
-        local clients
         local allminimized
-        for x, curtag in pairs(curtags) do
-            clients = curtag:clients()
-            for y, client in pairs(clients) do
-                if client.minimized == false then
+        local c
+        local clients
+        clients = client.get(mouse.screen)
+        for y, c in pairs(clients) do
+            if(c.type ~= "desktop") then
+                if c.minimized == false then
                     allminimized = false
                     break
                 else
                     allminimized = true
                 end
             end
+        end
 
-            -- If at least one client isn't minimized, minimize all clients
-            for y, client in pairs(clients) do
-                -- ignore desktop window such as:xfdesktop
-                if(client.type ~= "desktop") then
-                    if allminimized == false then
-                        client.minimized = true 
-                        -- Otherwise unminimize all clients
-                    elseif allminimized == true then
-                        client.minimized = false 
-                    end
+        if client.focus and client.focus.type ~= "desktop" then
+            last_focused_client = client.focus
+        end
+
+        -- If at least one client isn't minimized, minimize all clients
+        for y, c in pairs(clients) do
+            -- ignore desktop window such as:xfdesktop
+            if(c.type ~= "desktop") then
+                if allminimized == false then
+                    c.minimized = true 
+                elseif allminimized == true then
+                    c.minimized = false 
                 end
             end
+        end
+        if allminimized and last_focused_client then
+            client.focus = last_focused_client
+            last_focused_client:raise()
+            last_focused_client = nil
         end
     end),
     -- add new tag

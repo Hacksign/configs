@@ -10,7 +10,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # Host
     set_color yellow
-    echo -n (hostname -s)
+    echo -n (hostname)
 
     set_color purple
     printf ' [%s] ' (date "+%H:%M:%S") 
@@ -40,5 +40,5 @@ function fish_prompt --description 'Write out the prompt'
     set_color normal
 
     # for terminator's title of tab bar
-    echo -ne "\e]2;"(whoami)"@"(hostname -s)":"(prompt_pwd)"\a"
+    echo -ne "\e]2;"(whoami)"@"(hostname)":"(prompt_pwd)"\a"
 end
