@@ -20,6 +20,9 @@ Plugin 'ctrlp.vim'
 Plugin 'fcitx.vim'
 Plugin 'surround.vim'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'StanAngeloff/php.vim'
+Plugin 'vim-perl/vim-perl'
+Plugin 'Valloric/MatchTagAlways'
 Plugin 'mbriggs/mark.vim'
 Plugin 'hdima/python-syntax'
 let g:python_highlight_all = 1
@@ -177,7 +180,7 @@ if exists("&cursorcolumn")
 	set cursorcolumn
 endif
 if exists("&colorcolumn")
-	highlight colorcolumn cterm=NONE ctermbg=235 guibg=235 guifg=white
+	highlight colorcolumn cterm=NONE ctermbg=235 guibg=black guifg=white
 	"set cc=90
     "let &colorcolumn=join(range(90,999),",")
 endif
