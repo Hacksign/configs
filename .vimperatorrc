@@ -4,3 +4,5 @@ nnoremap j 5j
 nnoremap k 5k
 map l <esc>gt
 map h <esc>gT
+inoremap <C-a> <Ins><C-a><Ins>
+map <C-c> :stop<cr>

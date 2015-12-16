@@ -31,7 +31,7 @@ local settings = {
 	preview_box_delay = 150,
 
 	client_opacity = true,
-	client_opacity_value = 0.1,
+	client_opacity_value = 0.08,
 	client_opacity_delay = 150,
 }
 

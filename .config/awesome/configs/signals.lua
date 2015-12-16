@@ -6,14 +6,14 @@ local beautiful = require("beautiful")
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
     --	focus window with mouse move, following mouse movement
-    c:connect_signal("mouse::enter", function(c)
-        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
-            if not c.minimized then
-                client.focus = c
-            end
-        end
-    end)
+    -- c:connect_signal("mouse::enter", function(c)
+    --     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+    --         and awful.client.focus.filter(c) then
+    --         if not c.minimized then
+    --             client.focus = c
+    --         end
+    --     end
+    -- end)
 
     if not startup then
         -- Set the windows at the slave,

@@ -77,6 +77,13 @@ awful.rules.rules = {
             awful.placement.centered(c,nil)
         end
     },
+    { 
+        rule = { class = "evince" },
+        properties = { floating = true, border_width = 0 },
+        callback = function (c)
+            awful.placement.centered(c,nil)
+        end
+    },
     -- fix problem of Wine program move slowly to right-bottom of the corner
     -- http://www.youtube.com/watch?v=3Q91HjEaBD8
     -- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030

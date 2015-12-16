@@ -4,6 +4,7 @@ local wibox			= require("wibox")
 local vicious		= require("vicious")
 local widgets		= require("widgets")
 local beautiful     = require("beautiful")
+local naughty		= require("naughty")
 
 local mytaglist = {}
 -- Mouse Click event
@@ -58,22 +59,6 @@ mytasklist.buttons = awful.util.table.join(
             client.focus = c
             c:raise()
         end
-    end),
-    awful.button({ }, 3, function ()
-        if instance then
-            instance:hide()
-            instance = nil
-        else
-            instance = awful.menu.clients({ width=250 })
-        end
-    end),
-    awful.button({ }, 4, function ()
-        awful.client.focus.byidx(1)
-        if client.focus then client.focus:raise() end
-    end),
-    awful.button({ }, 5, function ()
-        awful.client.focus.byidx(-1)
-        if client.focus then client.focus:raise() end
     end)
 )
 -- mouse event handler end																					
