@@ -1,7 +1,7 @@
 /* Default color scheme */
-@define-color theme_base_color #f7f7f7;
-@define-color theme_bg_color #d4d4d4;
-@define-color theme_selected_bg_color #6699CC;
+@define-color theme_base_color #fff;
+@define-color theme_bg_color #edebec;
+@define-color theme_selected_bg_color #0f90ff;
 @define-color theme_text_color #2c2c2c;
 @define-color theme_fg_color @theme_text_color;
 @define-color theme_selected_fg_color #ffffff;
@@ -64,11 +64,11 @@
 @define-color scrollbar_trough shade(@theme_bg_color, 0.98);
 @define-color scrollbar_trough_insensitive shade(@theme_bg_color, 1.0);
 @define-color scrollbar_trough_unfocused shade(@theme_unfocused_bg_color, 0.9);
-@define-color scrollbar_slider @theme_bg_color;
-@define-color scrollbar_slider_prelight mix(@scrollbar_trough, @theme_fg_color, 0.5);
+@define-color scrollbar_slider @theme_selected_bg_color;
+@define-color scrollbar_slider_prelight mix(@scrollbar_trough, @theme_fg_color, 0.35);
 @define-color scrollbar_slider_active @theme_selected_bg_color;
 @define-color scrollbar_slider_insensitive alpha(black, 0); /* FIXME should be transparent */
-@define-color scrollbar_slider_unfocused @theme_unfocused_bg_color;
+@define-color scrollbar_slider_unfocused @theme_selected_bg_color;
 
 @define-color switch_slider_color #eee;
 @define-color switch_trough_active_color @theme_base_color;
