@@ -82,6 +82,8 @@
     compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88   
     volumeicon	:	音量调节   
     alsa-utils   
+    bcloud :   
+        百度云盘的GUI前端,记得在首选项里面打开同步文件夹的功能.    
     pulseaudio-alsa : 下面的pavucontrol需要安装这个才可以正常工作   
     pavucontrol : 一套高级输入输出设备管理的GUI前端,在volumeicon设置中,将'external mixer'设置为它即可
 

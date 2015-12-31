@@ -1,6 +1,7 @@
 local awful			= require("awful")
 awful.rules			= require("awful.rules")
 local beautiful = require("beautiful")
+local utils         = require("utils")
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -18,11 +19,32 @@ awful.rules.rules = {
         border_color = beautiful.border_normal,
         focus = awful.client.focus.filter,
         keys = clientkeys,
-        buttons = clientbuttons } 
+        buttons = clientbuttons } ,
+        callback = function (c)
+            local screengeom = screen[c.screen].geometry
+            local cg = c:geometry()
+            -- when a window is not maximized and
+            -- it width or height beyonded screen border
+            -- then center it to screen center
+            if not (c.maximized_horizontal and c.maximized_vertical) and
+               ( (cg['x'] + cg['width']) > (screengeom['x'] + screengeom['width']) or
+               (cg['y'] + cg['height']) > (screengeom['y'] + screengeom['height']) or
+               (cg['x']) < screengeom['x'] or
+               (cg['y']) < screengeom['y'])
+           then
+               utils.center_window(c)
+           end
+        end
     },
     { 
         rule = { class = "MPlayer" },
         properties = { floating = true } 
+    },
+    { 
+        rule = { class = "smplayer" },
+        callback = function (c)
+            awful.placement.centered(c,nil)
+        end
     },
     { 
         rule = { class = "Insight3.exe" },
@@ -71,15 +93,7 @@ awful.rules.rules = {
         properties = { floating = true, border_width = 0 } 
     },
     { 
-        rule = { class = "Evince" },
-        properties = { floating = true, border_width = 0 },
-        callback = function (c)
-            awful.placement.centered(c,nil)
-        end
-    },
-    { 
         rule = { class = "evince" },
-        properties = { floating = true, border_width = 0 },
         callback = function (c)
             awful.placement.centered(c,nil)
         end

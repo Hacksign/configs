@@ -167,44 +167,7 @@ globalkeys = awful.util.table.join(
     end),
     -- center or maxmize a client
     awful.key({modkey,						}, "c", function()
-        if utils.isfloats(client.focus) and client.focus.type ~= 'desktop' then
-            local screengeom = screen[mouse.screen].geometry
-            local cg = client.focus:geometry()
-            if (client.focus.maximized_horizontal and client.focus.maximized_vertical) or
-               (cg.width < screengeom.width - 40 or cg.height < screengeom.height - 250)  or
-               (cg['x'] + cg['width']) > (screengeom['x'] + screengeom['width']) or
-               (cg['y'] + cg['height']) > (screengeom['y'] + screengeom['height']) or
-               (cg['x']) < screengeom['x'] or
-               (cg['y']) < screengeom['y']
-            then
-                -- if not horizontal or window ether with or height is smaller
-                -- than centered size
-                -- or window is outside of current screen
-                cg.x = screengeom.x
-                cg.y = screengeom.y
-                cg.width = screengeom.width - 40
-                cg.height = screengeom.height - 250
-                client.focus.maximized_horizontal = false
-                client.focus.maximized_vertical = false
-                client.focus:geometry(cg)
-                awful.placement.centered(client.focus, nil)
-            else
-                client.focus.maximized_horizontal = not client.focus.maximized_horizontal
-                client.focus.maximized_vertical   = not client.focus.maximized_vertical
-                if client.focus.maximized_horizontal == true and client.focus.maximized_vertical == true then
-                    client.focus.border_width = "0"
-                else
-                    local manage = true
-                    for i,v in pairs(awful.rules.rules) do
-                        if v.rule.class == client.focus.class then
-                            manage = false
-                            break
-                        end
-                    end
-                    if manage then client.focus.border_width = beautiful.border_width end
-                end
-            end
-        end
+        utils.center_window(client.focus)
     end),
     ------------------------------------------------------------------------------
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),

@@ -8,6 +8,7 @@ my %programmes = (
 	'thunar' => 'thunar --daemon &',
 	'nm-applet' => 'nm-applet&',
 	'fcitx' => 'fcitx-autostart &',
+	'bcloud' => 'bcloud-gui &',
 	#'synapse' => 'synapse -s &',
 	'goldendict' => 'goldendict &',
 	'thunderbird' => 'thunderbird &',
