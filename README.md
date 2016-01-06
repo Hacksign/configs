@@ -49,7 +49,22 @@
     terminator : 终端模拟器   
     wiki:https://code.google.com/p/jessies/w/list   
     evince	:	PDF查看器   
-    leafpad / gedit : 看个人喜好,leafpad更轻量,但是不支持高亮等一些特性,gedit相对来说重量一点,但是支持好多特性.   
+    leafpad / gedit / sublime-text-dev-zh-cn :   
+        看个人喜好,leafpad更轻量,但是不支持高亮等一些特性,gedit相对来说重量一点,但是支持好多特性.   
+        sublime算是这三个里面功能最强劲的编辑器,推荐使用,不过这个只有在archlinuxcn源里才有,付个授权码:   
+        ----- BEGIN LICENSE ----
+        Andrew Weber
+        Single User License
+        EA7E-855605
+        813A03DD 5E4AD9E6 6C0EEB94 BC99798F
+        942194A6 02396E98 E62C9979 4BB979FE
+        91424C9D A45400BF F6747D88 2FB88078
+        90F5CC94 1CDC92DC 8457107A F151657B
+        1D22E383 A997F016 42397640 33F41CFC
+        E1D0AE85 A0BBD039 0E9C8D55 E1B89D5D
+        5CDB7036 E56DE1C0 EFCC0840 650CD3A6
+        B98FC99C 8FAC73EE D2B95564 DF450523
+        ------ END LICENSE ------
     ristretto : Image查看器   
     galculator : 计算器   
     goldendict : 字典   
@@ -128,7 +143,6 @@
         最后将需要使用virtualbox虚拟机的用户加到vboxusers组中   
     autossh	:	ssh socks5代理守护进程   
     git	:	代码管理   
-    launchy	:	启动器   
     gmrun	:	启动器   
     adobe-source-han-sans-cn-fonts :	中文字体   
     file-roller	:	归档管理器   
@@ -208,7 +222,7 @@
             3.最后用hwclock --localtime --hctosys设置本地硬件时间为系统时间   
         进入windows后与linux时间不一致问题:windows认为BIOS中的时间为LocalTime,可用如下方法设置Windows对待时间为UTC,打开CMD,输入Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1   
     指纹识别配置:   
-        此章节配置和具体机器有关,次配置适合x1 Carbon (1/2/3) & T420,其他机型没有验证过.   
+        此章节配置和具体机器有关,此配置适合x1 Carbon (1/2/3) & T420,其他机型没有验证过.   
         主要参考此wiki:https://wiki.archlinux.org/index.php/Fprint   
         此外,需要修改的是/etc/pam.d/下的lightdm(如果使用lightdm做登录管理器的话)/su/sudo,在行首加上:   
             auth      sufficient pam_fprintd.so   
@@ -220,6 +234,8 @@
         export PS1="\[\e[1;32m\][\[\e[1;34m\]\u\[\e[0;1m\]@\h \[\e[1;33m\]\W\[\e[1;32m\]]\[\e[1;31m\]\\$ \[\e[0m\]"   
     本人的笔记本在关机的时候,耳机会听到'次拉'一声的噪音,查资料得知需要在/etc/modprobe.d/sound.conf下加入如下行即可:   
         options snd-hda-intel model=,generic   
+    在/etc/ssh/ssh_config去掉如下行的注释,防止在登录的时候出现卡在某些验证的问题:   
+       MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160    
    
 #参考资料:   
     一个可用套件的列表介绍:https://wiki.xfce.org/recommendedapps   
