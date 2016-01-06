@@ -52,6 +52,7 @@
     leafpad / gedit / sublime-text-dev-zh-cn :   
         看个人喜好,leafpad更轻量,但是不支持高亮等一些特性,gedit相对来说重量一点,但是支持好多特性.   
         sublime算是这三个里面功能最强劲的编辑器,推荐使用,不过这个只有在archlinuxcn源里才有,付个授权码:   
+        ```
         ----- BEGIN LICENSE ----
         Andrew Weber
         Single User License
@@ -65,6 +66,7 @@
         5CDB7036 E56DE1C0 EFCC0840 650CD3A6
         B98FC99C 8FAC73EE D2B95564 DF450523
         ------ END LICENSE ------
+        ```
     ristretto : Image查看器   
     galculator : 计算器   
     goldendict : 字典   
