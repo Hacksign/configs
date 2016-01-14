@@ -212,7 +212,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "y", function () awful.util.spawn_with_shell("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-caculator
     awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
     awful.key({ "Mod1", "Control"}, "space", function () awful.util.spawn_with_shell("gmrun -g '+50%+50%'") end), -- start a notepad
-    awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("gedit") end), -- start a notepad
+    awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("subl3") end), -- start a notepad
     awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("slimlock") end) -- yaourt -S slimlock
 )
 --end of globalkeys
