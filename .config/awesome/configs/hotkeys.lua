@@ -175,10 +175,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
     awful.key({ modkey,           }, "Tab",
     function ()
-        awful.client.focus.history.previous()
-        if client.focus then
-            client.focus:raise()
-        end
+        awful.client.focus.byidx(1)
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey, "Shift"   }, "Tab",
+    function ()
+        awful.client.focus.byidx(-1)
+        if client.focus then client.focus:raise() end
     end),
     awful.key({ "Mod1",            }, "Tab",                                                      
     function ()                                                                              

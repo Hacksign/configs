@@ -95,7 +95,8 @@ local function get_weather_line(city)
                 --Temperature low
                 local forecast_low = ws:match('%["data","forecast",'..s..',"low"%]%s+"(.-)"')
                 if s < 2 then
-                    weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_low, ' ')[2])..'</span>/'
+                    weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_low, ' ')[2])..'</span>'
+                    if s ~= 1 then weathers.short_info = weathers.short_info .. ' /' end
                 end
                 weathers.full_info = weathers.full_info.." <span color='yellow'>"..forecast_low.."</span>"
                 local forecast_fengli = ws:match('%["data","forecast",'..s..',"fengli"%]%s+"(.-)"')
