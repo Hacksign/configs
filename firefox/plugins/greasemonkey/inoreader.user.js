@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, and upgrade button.
-// @version 3.0
+// @version 3.1
 // @grant none
 // @include https://www.inoreader.com/feed/*
 // @include https://www.inoreader.com/folder/*
@@ -18,8 +18,6 @@
 // @include	https://www.inoreader.com/channel
 // @include	https://www.inoreader.com/my_channel
 // @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
-// @downloadURL https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
-// @updateURL   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
 // ==/UserScript==
 tools_div = document.getElementById('sb_rp_tools');
 if (tools_div) {
@@ -59,6 +57,11 @@ if (reader_pane_div) {
 }
 content_div = document.getElementById('three_way_contents');
 if (content_div) {
+  content_div.addEventListener('DOMNodeInserted',function(e){
+    if(e.originalTarget.id && e.originalTarget.id.indexOf('taboola_ad-') != -1){
+         e.originalTarget.parentNode.removeChild(e.originalTarget);
+    }
+  },false);
   content_div.addEventListener('scroll', function () {
     if (content_div.scrollTop != 0 && !document.getElementById('_gm_hacksign_topbar')) {
       var topbar = document.createElement('div');
