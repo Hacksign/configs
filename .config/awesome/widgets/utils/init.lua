@@ -1,4 +1,3 @@
-
 --[[
                                                    
      Licensed under GNU General Public License v2  
@@ -6,9 +5,14 @@
       * (c) 2010-2012, Peter Hofmann               
                                                    
 --]]
-
+--
 local require = require
 local awful = require("awful")
+local beautiful = require("beautiful")
+local client = client
+local util = require("awful.util")
+local common = require("awful.widget.common")
+local naughty = require("naughty")
 local math=math
 local type=type
 local pairs=pairs
@@ -20,6 +24,80 @@ local tostring = tostring
 local getmetatable = getmetatable
 
 module("utils")
+
+local function tasklist_label(c, args)
+    if not args then args = {} end
+    local theme = beautiful.get()
+    local fg_normal = args.fg_normal or theme.tasklist_fg_normal or theme.fg_normal or "#ffffff"
+    local bg_normal = args.bg_normal or theme.tasklist_bg_normal or theme.bg_normal or "#000000"
+    local fg_focus = args.fg_focus or theme.tasklist_fg_focus or theme.fg_focus
+    local bg_focus = args.bg_focus or theme.tasklist_bg_focus or theme.bg_focus
+    local fg_urgent = args.fg_urgent or theme.tasklist_fg_urgent or theme.fg_urgent
+    local bg_urgent = args.bg_urgent or theme.tasklist_bg_urgent or theme.bg_urgent
+    local fg_minimize = args.fg_minimize or theme.tasklist_fg_minimize or theme.fg_minimize
+    local bg_minimize = args.bg_minimize or theme.tasklist_bg_minimize or theme.bg_minimize
+    local bg_image_normal = args.bg_image_normal or theme.bg_image_normal
+    local bg_image_focus = args.bg_image_focus or theme.bg_image_focus
+    local bg_image_urgent = args.bg_image_urgent or theme.bg_image_urgent
+    local bg_image_minimize = args.bg_image_minimize or theme.bg_image_minimize
+    local tasklist_disable_icon = args.tasklist_disable_icon or theme.tasklist_disable_icon or false
+    local font = args.font or theme.tasklist_font or theme.font or ""
+    local bg = nil
+    local text = "<span font_desc='"..font.."'>"
+    local name = ""
+    local bg_image = nil
+
+    -- symbol to use to indicate certain client properties
+    local sticky = args.sticky or theme.tasklist_sticky or "▪"
+    local ontop = args.ontop or theme.tasklist_ontop or '⌃'
+    local floating = args.floating or theme.tasklist_floating or '✈'
+    local maximized_horizontal = args.maximized_horizontal or theme.tasklist_maximized_horizontal or '⬌'
+    local maximized_vertical = args.maximized_vertical or theme.tasklist_maximized_vertical or '⬍'
+    local minimized = args.minimized or theme.minimized or '◎'
+
+    if not theme.tasklist_plain_task_name then
+        if c.sticky then name = name .. sticky end
+        if c.ontop then name = name .. ontop end
+        if awful.client.floating.get(c) then name = name .. floating end
+        if c.maximized_horizontal then name = name .. maximized_horizontal end
+        if c.maximized_vertical then name = name .. maximized_vertical end
+        if c.minimized then name = name .. minimized end
+    end
+
+    if c.minimized then
+        name = name .. (util.escape(c.icon_name) or util.escape(c.name) or util.escape("<untitled>"))
+    else
+        name = name .. (util.escape(c.name) or util.escape("<untitled>"))
+    end
+    if client.focus == c then
+        bg = bg_focus
+        bg_image = bg_image_focus
+        if fg_focus then
+            text = text .. "<span color='"..util.color_strip_alpha(fg_focus).."'>"..name.."</span>"
+        else
+            text = text .. "<span color='"..util.color_strip_alpha(fg_normal).."'>"..name.."</span>"
+        end
+    elseif c.urgent and fg_urgent then
+        bg = bg_urgent
+        text = text .. "<span color='"..util.color_strip_alpha(fg_urgent).."'>"..name.."</span>"
+        bg_image = bg_image_urgent
+    elseif c.minimized and fg_minimize and bg_minimize then
+        bg = bg_minimize
+        text = text .. "<span color='"..util.color_strip_alpha(fg_minimize).."'>"..name.."</span>"
+        bg_image = bg_image_minimize
+    else
+        bg = bg_normal
+        text = text .. "<span color='"..util.color_strip_alpha(fg_normal).."'>"..name.."</span>"
+        bg_image = bg_image_normal
+    end
+    text = text .. "</span>"
+    return text, bg, bg_image, not tasklist_disable_icon and c.icon or nil
+end
+
+function tasklist_update_function(w, buttons, label, data, clients)
+    local function _label(c) return tasklist_label(c, {font = "Terminal' size='large", fg_focus='#fff000', bg_focus='#000000'}) end
+    common.list_update(w, buttons, _label, data, clients)
+end
 
 function proportion_resize(c, cg, org_sg, new_sg)
     local _x = (cg["x"] - org_sg["x"]) / org_sg["width"]

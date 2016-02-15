@@ -151,6 +151,7 @@
     unrar   
     unzip   
     firefox   
+        //如果对隐私保护要求比较高,需要在首选项的'隐私'中,将'历史'设置为'使用自定义选项',将'允许第三方cookie'设置为'总不',这样一个网站只能要求自己的cookie而无权利要求其他域下的cookie.
         //如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.   
         //目前firefox有个bug,在高分屏,高dpi,多显示器环境下下,layout.css.devPixelsPerPx的值小于2.0会导致菜单出现在错误的显示器上.如果出现这个问题请调整这个属性的值   
         //如果觉得进行上述调整后,FF的图标也跟着模糊了,请安装图标主题 GNOME Firefox theme   

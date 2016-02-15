@@ -74,39 +74,42 @@ local function get_weather_line(city)
             aqi_info = 'None'
         end
             local temperature_now = ws:match('%["data","wendu"%]%s+"(.-)"')
-            weathers.short_info = "<span size='large'><span color='lightgreen'><b>"..city_info.."</b></span> <span color='pink'>"..temperature_now.."℃</span>".." <span color='"..aqi_color.."'>"..aqi_info.."</span>"
-            weathers.full_info = "<span size='large'><span size='small'><b>获取时间</b>:"..get_time.."</span>"
+            if temperature_now ~= nil then
+                weathers.short_info = "<span size='large'><span color='lightgreen'><b>"..city_info.."</b></span> <span color='pink'>"..temperature_now.."℃</span>".." <span color='"..aqi_color.."'>"..aqi_info.."</span>"
+                weathers.full_info = "<span size='large'><span size='small'><b>获取时间</b>:"..get_time.."</span>"
 
-            for s = 0, 4 do
-                --Weather
-                local forecast_weather = ws:match('%["data","forecast",'..s..',"type"%]%s+"(.-)"')
-                local forecast_date = ws:match('%["data","forecast",'..s..',"date"%]%s+"(.-)"')
-                if s < 2 then
-                    weathers.short_info = weathers.short_info.." <span color='red'>"..(forecast_weather)..'</span> '
-                end
-                weathers.full_info = weathers.full_info.."<span color='pink'>"..forecast_date.."</span> ".."<span color='red'>"..forecast_weather.."</span>"
+                for s = 0, 4 do
+                    --Weather
+                    local forecast_weather = ws:match('%["data","forecast",'..s..',"type"%]%s+"(.-)"')
+                    local forecast_date = ws:match('%["data","forecast",'..s..',"date"%]%s+"(.-)"')
+                    if s < 2 then
+                        weathers.short_info = weathers.short_info.." <span color='red'>"..(forecast_weather)..'</span> '
+                    end
+                    weathers.full_info = weathers.full_info.."<span color='pink'>"..forecast_date.."</span> ".."<span color='red'>"..forecast_weather.."</span>"
 
-                --Temperature high
-                local forecast_high = ws:match('%["data","forecast",'..s..',"high"%]%s+"(.-)"')
-                if s < 2 then
-                    weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_high, ' ')[2])..'</span>-'
+                    --Temperature high
+                    local forecast_high = ws:match('%["data","forecast",'..s..',"high"%]%s+"(.-)"')
+                    if s < 2 then
+                        weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_high, ' ')[2])..'</span>-'
+                    end
+                    weathers.full_info = weathers.full_info.." <span color='yellow'>"..forecast_high.."</span>"
+                    --Temperature low
+                    local forecast_low = ws:match('%["data","forecast",'..s..',"low"%]%s+"(.-)"')
+                    if s < 2 then
+                        weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_low, ' ')[2])..'</span>'
+                        if s ~= 1 then weathers.short_info = weathers.short_info .. ' /' end
+                    end
+                    weathers.full_info = weathers.full_info.." <span color='yellow'>"..forecast_low.."</span>"
+                    local forecast_fengli = ws:match('%["data","forecast",'..s..',"fengli"%]%s+"(.-)"')
+                    weathers.full_info = weathers.full_info.." <span>"..forecast_fengli.."</span>"
+                    local forecast_fengxiang = ws:match('%["data","forecast",'..s..',"fengxiang"%]%s+"(.-)"')
+                    weathers.full_info = weathers.full_info.." <span>"..forecast_fengxiang.."</span>\n"
                 end
-                weathers.full_info = weathers.full_info.." <span color='yellow'>"..forecast_high.."</span>"
-                --Temperature low
-                local forecast_low = ws:match('%["data","forecast",'..s..',"low"%]%s+"(.-)"')
-                if s < 2 then
-                    weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_low, ' ')[2])..'</span>'
-                    if s ~= 1 then weathers.short_info = weathers.short_info .. ' /' end
-                end
-                weathers.full_info = weathers.full_info.." <span color='yellow'>"..forecast_low.."</span>"
-                local forecast_fengli = ws:match('%["data","forecast",'..s..',"fengli"%]%s+"(.-)"')
-                weathers.full_info = weathers.full_info.." <span>"..forecast_fengli.."</span>"
-                local forecast_fengxiang = ws:match('%["data","forecast",'..s..',"fengxiang"%]%s+"(.-)"')
-                weathers.full_info = weathers.full_info.." <span>"..forecast_fengxiang.."</span>\n"
+                weathers.short_info = weathers.short_info.."</span>"
+                weathers.full_info = weathers.full_info.."</span>"
+                return weathers 
             end
-            weathers.short_info = weathers.short_info.."</span>"
-            weathers.full_info = weathers.full_info.."</span>"
-            return weathers 
+            return nil
 	end
 	return nil
 end

@@ -4,7 +4,7 @@ local wibox			= require("wibox")
 local vicious		= require("vicious")
 local widgets		= require("widgets")
 local beautiful     = require("beautiful")
-local naughty		= require("naughty")
+local utils         = require("utils")
 
 local mytaglist = {}
 -- Mouse Click event
@@ -87,7 +87,7 @@ for s = 1, screen.count() do
     -- size = large
     -- focus window fg color = yellow
     -- focus background color = black
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons, {font = "Terminal' size='large", fg_focus='#fff000', bg_focus='#000000'})
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons, nil, utils.tasklist_update_function)
 
     -- Create the wibox
     local mywibox = {}
