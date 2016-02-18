@@ -2,6 +2,9 @@
 " => Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
+if &shell =~# 'fish$'
+    set shell=/usr/bin/bash
+endif
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -34,6 +37,8 @@ let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
 let g:vim_markdown_frontmatter=1
 " markdown hightlient end
+Plugin 'iamcco/markdown-preview.vim'
+let g:mkdp_path_to_chrome = '/usr/bin/firefox'
 Plugin 'Valloric/YouCompleteMe'
 "do the following things to finish install
 "cd ~/.vim/bundle/YouCompleteMe
