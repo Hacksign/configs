@@ -31,7 +31,7 @@ local settings = {
 	preview_box_delay = 150,
 
 	client_opacity = true,
-	client_opacity_value = 0.08,
+	client_opacity_value = 0.1,
 	client_opacity_delay = 150,
 }
 
@@ -52,6 +52,15 @@ local source = string.sub(debug.getinfo(1,'S').source, 2)
 local path = string.sub(source, 1, string.find(source, "/[^/]*$"))
 local noicon = path .. "noicon.png"
 
+local function truncateUTF8String(s, n)
+    local dropping = string.byte(s, n+1)
+    if not dropping then return s end
+    if dropping >= 128 and dropping < 192 then
+        return truncateUTF8String(s, n-1)
+    end
+    return string.sub(s, 1, n)
+end
+
 local function preview()
 	if not settings.preview_box then return end
 	-- Apply settings
@@ -65,8 +74,8 @@ local function preview()
 	else
 		n = math.min(30, #altTabTable)
 	end
-	local textboxHeight = screen[mouse.screen].geometry.height / 45 -- window title box height
-	local w = screen[mouse.screen].geometry.width * (15/100) + (2 * preview_wbox.border_width) -- widget width
+	local textboxHeight = screen[mouse.screen].geometry.height / 45
+	local w = screen[mouse.screen].geometry.width * (33/100) + (2 * preview_wbox.border_width) -- widget width
 	local h = textboxHeight * n + (2 * preview_wbox.border_width) -- widget height
 	-- Caculate wibox Position
 	local x = (screen[mouse.screen].geometry.width - w) / 2 + screen[mouse.screen].geometry.x
@@ -97,7 +106,7 @@ local function preview()
 	local bigFont = textboxHeight / 2
 	cr:set_font_size(fontSize)
 	for i = 1, #leftRightTab do
-		text = " - " .. leftRightTab[i].class 
+		text = " " .. leftRightTab[i].name 
 		textWidth = cr:text_extents(text).width
 		textHeight = cr:text_extents(text).height
 		if textWidth > maxTextWidth or textHeight > maxTextHeight then
@@ -157,7 +166,7 @@ local function preview()
 				cr:select_font_face("Source Han Sans CN","YaHei Consolas Hybrid", "simsun", "sans", "italic", "normal")
 				cr:set_font_face(cr:get_font_face())
 				cr:set_font_size(fontSize)
-				text = " - " .. c.class
+                text = '  ' .. c.name
 				textWidth = cr:text_extents(text).width
 				textHeight = cr:text_extents(text).height
 				tx = 0

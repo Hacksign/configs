@@ -284,6 +284,9 @@ clientkeys = awful.util.table.join(
             utils.proportion_resize(c, cg, org_sg, new_sg)
             mouse.coords(mouse_coords, true)
         end
+    end),
+    awful.key({ modkey,         }, "m",    function (c)
+        c.minimized = true
     end)
 )
 --end of clientkeys
