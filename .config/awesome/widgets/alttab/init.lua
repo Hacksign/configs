@@ -106,14 +106,16 @@ local function preview()
 	local bigFont = textboxHeight / 2
 	cr:set_font_size(fontSize)
 	for i = 1, #leftRightTab do
-		text = " " .. leftRightTab[i].name 
-		textWidth = cr:text_extents(text).width
-		textHeight = cr:text_extents(text).height
-		if textWidth > maxTextWidth or textHeight > maxTextHeight then
-			maxTextHeight = textHeight
-			maxTextWidth = textWidth
-			maxText = text
-		end
+        if leftRightTab[i].name ~= nil then
+            text = " " .. leftRightTab[i].name 
+            textWidth = cr:text_extents(text).width
+            textHeight = cr:text_extents(text).height
+            if textWidth > maxTextWidth or textHeight > maxTextHeight then
+                maxTextHeight = textHeight
+                maxTextWidth = textWidth
+                maxText = text
+            end
+        end
 	end
 
 	while true do

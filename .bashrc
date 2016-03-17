@@ -11,5 +11,5 @@ export LANG="zh_CN.UTF-8"
 # User specific aliases and functions
 alias ..="cd .."
 alias ls="ls -F --color"
-alias ll="ls -l"
+alias ll="ls -l --time-style='long-iso'"
 alias la="ls -la"
