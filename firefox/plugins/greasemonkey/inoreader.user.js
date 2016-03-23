@@ -1,22 +1,10 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, and upgrade button.
-// @version 3.2
+// @version 3.0
 // @grant none
-// @include https://www.inoreader.com/feed/*
-// @include https://www.inoreader.com/folder/*
-// @include https://www.inoreader.com/
+// @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
-// @include https://www.inoreader.com/all_articles
-// @include https://www.inoreader.com/starred
-// @include https://www.inoreader.com/dashboard
-// @include	https://www.inoreader.com/trending
-// @include	https://www.inoreader.com/liked
-// @include	https://www.inoreader.com/commented
-// @include	https://www.inoreader.com/recent
-// @include	https://www.inoreader.com/web_pages
-// @include	https://www.inoreader.com/channel
-// @include	https://www.inoreader.com/my_channel
 // @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
 // ==/UserScript==
 tools_div = document.getElementById('sb_rp_tools');
@@ -63,19 +51,19 @@ if (content_div) {
     }
   }, false);
   content_div.addEventListener('scroll', function () {
-    if (content_div.scrollTop != 0 && !document.getElementById('_gm_hacksign_topbar')) {
+    if (content_div.scrollTop != 0 && !document.getElementById('_gm_hacksign_topbar_content')) {
       var topbar = document.createElement('div');
-      topbar.id = '_gm_hacksign_topbar';
+      topbar.id = '_gm_hacksign_topbar_content';
       topbar.style.background = 'rgba(0, 0, 0, 0.3) none repeat scroll 0px 0px';
       topbar.style.position = 'fixed';
       topbar.style.textAlign = 'center';
       topbar.style.right = '20px';
       topbar.style.bottom = '10px';
-      topbar.style.lineHeight = '40px';
+      topbar.style.lineHeight = '30px';
       topbar.style.cursor = 'pointer';
       topbar.style.width = '40px';
       topbar.style.height = '40px';
-      topbar.innerHTML = '^';
+      topbar.className='icon-arrow_up_big';
       topbar.onclick = function () {
         var y = content_div.scrollTop;
         var timer = setInterval(function () {
@@ -89,8 +77,8 @@ if (content_div) {
         }, '25');
       };
       content_div.appendChild(topbar);
-    } else if (content_div.scrollTop == 0 && document.getElementById('_gm_hacksign_topbar')) {
-      content_div.removeChild(document.getElementById('_gm_hacksign_topbar'));
+    } else if (content_div.scrollTop == 0 && document.getElementById('_gm_hacksign_topbar_content')) {
+      content_div.removeChild(document.getElementById('_gm_hacksign_topbar_content'));
     }
   });
   content_div.addEventListener('DOMNodeInserted', function (e) {
@@ -117,3 +105,4 @@ if (content_div) {
     }
   }, false);
 }
+

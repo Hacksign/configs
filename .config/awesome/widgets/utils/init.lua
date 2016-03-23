@@ -64,11 +64,8 @@ local function tasklist_label(c, args)
         if c.minimized then name = name .. minimized end
     end
 
-    if c.minimized then
-        name = name .. (util.escape(c.icon_name) or util.escape(c.name) or util.escape("<untitled>"))
-    else
-        name = name .. (util.escape(c.name) or util.escape("<untitled>"))
-    end
+    name = name .. (util.escape(c.name) or util.escape("<untitled>"))
+
     if client.focus == c then
         bg = bg_focus
         bg_image = bg_image_focus

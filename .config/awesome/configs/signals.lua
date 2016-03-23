@@ -104,3 +104,14 @@ client.connect_signal("unfocus", function(c)
     end
 end)
 -- }}}
+
+--according to : 
+--	https://awesomewm.org/wiki/FAQ#Why_is_my_Wine_applicaton_tray_icon_missing_when_I_connect_my_secondary_monitor_to_my_laptop.3F
+client.disconnect_signal("request::activate", awful.ewmh.activate)
+function awful.ewmh.activate(c)
+   if c:isvisible() then
+	   client.focus = c
+	   c:raise()
+   end
+end
+client.connect_signal("request::activate", awful.ewmh.activate)
