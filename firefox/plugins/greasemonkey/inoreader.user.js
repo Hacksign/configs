@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, and upgrade button.
-// @version 3.0
+// @version 3.3
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
