@@ -48,12 +48,12 @@ local function tasklist_label(c, args)
     local bg_image = nil
 
     -- symbol to use to indicate certain client properties
-    local sticky = args.sticky or theme.tasklist_sticky or "▪"
+    local sticky = args.sticky or theme.tasklist_sticky or '⁎'
     local ontop = args.ontop or theme.tasklist_ontop or '⌃'
     local floating = args.floating or theme.tasklist_floating or '✈'
     local maximized_horizontal = args.maximized_horizontal or theme.tasklist_maximized_horizontal or '⬌'
     local maximized_vertical = args.maximized_vertical or theme.tasklist_maximized_vertical or '⬍'
-    local minimized = args.minimized or theme.minimized or '◎'
+    local minimized = args.minimized or theme.minimized or '❄'
 
     if not theme.tasklist_plain_task_name then
         if c.sticky then name = name .. sticky end

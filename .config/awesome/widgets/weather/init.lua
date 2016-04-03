@@ -116,7 +116,7 @@ end
 
 
 local function init(location, box_position)
-	local time_interval = 1.5
+	local time_interval = 5
 	weatherwidget = wibox.widget.textbox()
 	weatherwidgettimer = timer({timeout = time_interval})
 	weatherwidgettimer:connect_signal("timeout",
