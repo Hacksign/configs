@@ -1,8 +1,0 @@
-[X-GNOME-Metatheme]
-Name=Clearlooks Compact
-Type=X-GNOME-Metatheme
-Comment=Optimized for size-constrained displays
-Encoding=UTF-8
-GtkTheme=Clearlooks Compact
-MetacityTheme=Clearlooks
-IconTheme=gnome

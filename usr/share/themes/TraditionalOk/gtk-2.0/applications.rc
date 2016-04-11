@@ -1,11 +1,19 @@
+style "workspace-switcher"
+{
+	bg[SELECTED] = shade (1.0, @selected_bg_color)
+	bg[PRELIGHT] = shade (1.0, @selected_bg_color)
+}
+
+widget "*WnckPager*"	    	    style "workspace-switcher"
+
 # Workaround for the evolution ETable (bug #527532)
 widget_class "*.<ETable>.<ECanvas>" style "treeview_header"
 # Workaround for the evolution ETree
 widget_class "*.<ETree>.<ECanvas>" style "treeview_header"
 
-# Special case the nautilus-extra-view-widget
+# Special case the caja-extra-view-widget
 # ToDo: A more generic approach for all applications that have a widget like this.
-widget "*.nautilus-extra-view-widget" style : highest "nautilus_location"
+widget "*.caja-extra-view-widget" style : highest "caja-location"
 
 # Work around for http://bugzilla.gnome.org/show_bug.cgi?id=382646
 # Note that this work around assumes that the combobox is _not_ in appears-as-list mode.
@@ -18,7 +26,7 @@ widget "*.gtk-combobox-popup-menu.*" style "menuitem_text_is_fg_color_workaround
 widget_class "*<GtkListItem>*" style "fg_is_text_color_workaround"
 # GtkCList also uses the fg color to draw text on top of the base colors.
 widget_class "*<GtkCList>" style "fg_is_text_color_workaround"
-# Nautilus when renaming files, and maybe other places.
+# Caja when renaming files, and maybe other places.
 widget_class "*<EelEditableLabel>" style "fg_is_text_color_workaround"
 
 # See the documentation of the style.
@@ -61,3 +69,4 @@ style "chrome-hacks"
 
 class "ChromeGtkFrame" style "chrome-hacks"
 widget_class "*Chrom*Button*" style "chromium_toolbar_button"
+

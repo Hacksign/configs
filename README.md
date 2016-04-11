@@ -179,7 +179,8 @@
     gtk2   
     gtk3   
     gtk-aurora-engine   
-    gtk-chtheme   
+    lxappearance:   
+        可以同时更换gtk2/gtk3主题/字体/鼠标指针等,GUI配置工具.
     gtk-engine-murrine   
     gtk-engines   
     gtk-update-icon-cache   

@@ -1,0 +1,390 @@
+/************
+ * Caja *
+ ************/
+
+/* caja sidebar */
+/* all sidebars */
+.caja-side-pane treeview.view,
+.caja-side-pane textview.view text,
+.caja-side-pane viewport.frame,
+.caja-side-pane widget .vertical {
+    background-color: shade (@theme_base_color, 1.00);
+    color: @theme_fg_color;
+}
+
+/* move whole the frame, to free eject button for overlay scrollbars */
+.caja-side-pane scrolledwindow.frame {
+    padding: 0px;
+    margin: 0px 0px 0px -8px;
+}
+
+.caja-side-pane scrolledwindow.frame treeview.view {
+    padding: 3px 0px 3px 0px;
+}
+
+/* better for overlay scrollbars */
+/* to avoid overlap with eject buttons */
+.caja-side-pane scrolledwindow scrollbar.vertical.right.overlay-indicator,
+.caja-side-pane scrolledwindow scrollbar.vertical.right.overlay-indicator trough,
+.caja-side-pane scrolledwindow scrollbar.vertical.right.overlay-indicator slider,
+.caja-side-pane scrolledwindow scrollbar.vertical.right.overlay-indicator button {
+    min-width: 13px;
+}
+
+/* ComboBox views */
+.caja-navigation-window toolbar.primary-toolbar combobox button.combo {
+    padding: 4px 4px;
+}
+
+.caja-canvas-item {
+    border-radius: 3px;
+}
+
+/* EelEditableLabel (icon labels) */
+.caja-navigation-window .view .entry,
+.caja-navigation-window .view .entry:focus,
+.caja-desktop widget.entry,
+.caja-desktop widget.entry:focus {
+   border-image: none;
+   border-style: solid;
+   border-width: 1px;
+   border-color: @theme_fg_color;
+   box-shadow: none;
+   border-radius: 3px;
+   text-shadow: none;
+   background-image: -gtk-gradient(linear,
+                                   left top, left bottom,
+                                   from       (shade(@theme_base_color, 0.86)),
+                                   color-stop (0.15, shade(@theme_base_color, 0.96)),
+                                   color-stop (0.50, shade(@theme_base_color, 0.98)),
+                                   to         (shade(@theme_base_color, 1.00)));
+}
+
+/* desktop */
+.caja-desktop.caja-canvas-item {
+    color: @theme_base_color;
+    text-shadow: 1px 1px alpha (@theme_fg_color, 0.8);
+}
+
+.caja-desktop.caja-canvas-item:active,
+.caja-desktop.caja-canvas-item:hover,
+.caja-desktop.caja-canvas-item:selected {
+    text-shadow: none;
+}
+
+/* view */
+.caja-navigation-window .view.caja-canvas-item {
+    color: @theme_fg_color;
+}
+
+.caja-navigation-window .view.caja-canvas-item:selected {
+    color: @theme_sectected_fg_color;
+}
+
+/***************
+ * mate-panel *
+ ***************/
+
+.mate-panel-menu-bar,
+MatePanelApplet > menubar,
+PanelToplevel.background,
+PanelWidget,
+PanelFrame,
+PanelAppletFrame,
+MatePanelAppletFrameDBus,
+MatePanelAppletContainer,
+MatePanelApplet {
+    background-image: -gtk-gradient (linear,
+                      left top,
+                      left bottom,
+                      from (@menubar_gradient_a),
+                      color-stop (0.50, @menubar_gradient_b),
+                      to (@menubar_gradient_c));
+    background-color: @theme_bg_color;
+    padding: 0px;
+    color: @theme_fg_color;
+    text-shadow: none;
+}
+
+/* workaround to avoid unwanted black frames if switching compositor on/off */
+.mate-panel-menu-bar .window-frame.csd.popup {
+    box-shadow: none;
+}
+
+#PanelApplet {
+    border-width: 0;
+}
+
+PanelSeparator {
+    border-width: 0;
+    background-image: none;
+    color: shade (@theme_bg_color, 0.75);
+    text-shadow: none;
+}
+
+/* all applets */
+.mate-panel-menu-bar #PanelApplet button,
+.mate-panel-menu-bar #PanelApplet button.flat,
+.mate-panel-menu-bar #PanelApplet button.toggle,
+.mate-panel-menu-bar #PanelApplet button.flat.toggle {
+    padding: 4px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    text-shadow: none;
+    border-color: @border_color;
+    color: @theme_fg_color;
+    background-color: transparent;
+    background-image: -gtk-gradient (linear,
+                      left top,
+                      left bottom,
+                      from (@button_gradient_a),
+                      to (@button_gradient_d));
+}
+
+.mate-panel-menu-bar #PanelApplet button:checked,
+.mate-panel-menu-bar #PanelApplet button:checked:hover,
+.mate-panel-menu-bar #PanelApplet button:hover:active,
+.mate-panel-menu-bar #PanelApplet button.flat:checked,
+.mate-panel-menu-bar #PanelApplet button.flat:checked:hover,
+.mate-panel-menu-bar #PanelApplet button.flat:hover:active,
+.mate-panel-menu-bar #PanelApplet button.toggle:checked,
+.mate-panel-menu-bar #PanelApplet button.toggle:checked:hover,
+.mate-panel-menu-bar #PanelApplet button.toggle:hover:active,
+.mate-panel-menu-bar #PanelApplet button.flat.toggle:checked,
+.mate-panel-menu-bar #PanelApplet button.flat.toggle:checked:hover,
+.mate-panel-menu-bar #PanelApplet button.flat.toggle:hover:active {
+    border-style: solid;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,
+                      @button_active_gradient_a,
+                      @button_active_gradient_b 3px,
+                      @button_active_gradient_c 4px,
+                      @button_active_gradient_d 50%,
+                      @button_active_gradient_e 50%,
+                      @button_active_gradient_f);
+}
+
+.mate-panel-menu-bar #PanelApplet button:hover,
+.mate-panel-menu-bar #PanelApplet button.flat:hover,
+.mate-panel-menu-bar #PanelApplet button.toggle:hover,
+.mate-panel-menu-bar #PanelApplet button.flat.toggle:hover {
+    border-style: solid;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,
+                      @button_hover_gradient_a 5%,
+                      @button_hover_gradient_b 95%,
+                      @button_hover_gradient_c);
+}
+
+#PanelApplet > #clock-applet-button.flat.toggle {
+   background-color: transparent;
+   background-image: none;
+   border-color: transparent;
+}
+
+#PanelApplet > #clock-applet-button.flat.toggle:hover {
+    border-style: solid;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,
+                      @button_hover_gradient_a 5%,
+                      @button_hover_gradient_b 95%,
+                      @button_hover_gradient_c);
+}
+
+#PanelApplet > #clock-applet-button.flat.toggle:checked {
+    border-style: solid;
+    border-color: @border_color;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,
+                      @button_active_gradient_a,
+                      @button_active_gradient_b 3px,
+                      @button_active_gradient_c 4px,
+                      @button_active_gradient_d 50%,
+                      @button_active_gradient_e 50%,
+                      @button_active_gradient_f);
+}
+
+#PanelApplet > #clock-applet-button.flat.toggle:checked:hover {
+    border-image: none;
+}
+
+
+#clock-applet-button.flat.toggle > box.horizontal > label {
+    font: normal;
+}
+
+PanelApplet.wnck-applet .wnck-pager {
+    background-image: none;
+    border-color: transparent;
+    background-color: transparent;
+    text-shadow: none;
+}
+
+/* selected WnckPager */
+PanelApplet.wnck-applet .wnck-pager:selected {
+    background-image: linear-gradient(to bottom,
+        shade (@theme_selected_bg_color, 0.8),
+        shade (@theme_selected_bg_color, 1.06));
+}
+
+/* hover of WnckPager */
+PanelApplet.wnck-applet .wnck-pager:hover {
+    background-image: linear-gradient(to bottom,
+        shade (@theme_selected_bg_color, 1.86),
+        shade (@theme_selected_bg_color, 1.0));
+}
+
+/* Classic icon style */
+.mate-panel-menu-bar {
+    -PanelMenuBar-icon-visible: true;
+}
+
+na-tray-applet {
+    background-image: none;
+    background-color: transparent;
+    padding: 0;
+    text-shadow: none;
+    -NaTrayApplet-icon-padding: 3;
+    -NaTrayApplet-icon-size: 16;
+}
+
+/* volume applet, brightness applet */
+.mate-panel-applet-slider {
+    background: transparent;
+}
+
+.mate-panel-applet-slider .frame {
+    background-color: @theme_bg_color;
+    border-image: none;
+    border-style: solid;
+    border-radius:2px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.mate-panel-applet-slider .frame .frame{
+    background-color:transparent;
+    border-style: none;
+    box-shadow: none;
+}
+
+.mate-panel-applet-slider .frame .button {
+    color: @theme_fg_color;
+}
+
+/****************
+ * Pluma *
+ ****************/
+
+/* pluma line numbers */
+.pluma-window textview {
+    background-color: shade (@bg_color, 1.07);
+}
+
+/* Printpreview */
+.pluma-print-preview toolbar.horizontal {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,
+                      @toolbar_gradient_a 2px,
+                      @toolbar_gradient_b 50%,
+                      @toolbar_gradient_c 50%,
+                      @toolbar_gradient_d);
+    border-width: 1px 0 1px 1px;
+    border-radius: 0;
+    border-style: solid;
+    border-top-color: @toolbar_border_top_color;
+    border-bottom-color: @toolbar_border_bottom_color;
+    padding: 0px;
+}
+
+.pluma-print-preview toolbar.horizontal toolitem entry {
+    padding: 2px 6px;
+}
+
+.pluma-print-preview toolbar.horizontal button.image-button,
+.pluma-print-preview toolbar.horizontal button.flat.image-button {
+    background-color: transparent;
+    padding: 0px;
+}
+
+.pluma-print-preview toolbar.horizontal toolbutton button.text-button,
+.pluma-print-preview toolbar.horizontal toolbutton button.flat.text-button {
+    background-color: transparent;
+    padding: 0px 8px;
+    border-radius: 2px;
+}
+
+/* sidebar file-browser */
+.pluma-window paned.horizontal box.horizontal button.flat {
+    padding: 0px;
+}
+
+.pluma-window paned.horizontal box.vertical notebook.frame {
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: @border_color;
+    border-radius: 0px;
+}
+
+/* sidebar close button */
+.pluma-window paned.horizontal box.vertical notebook.frame toolbar button {
+  padding: 4px;
+}
+
+.pluma-window paned.horizontal box.vertical notebook.frame #ToolBar toolbutton button {
+    border-width: 1px 1px 2px 1px;
+}
+
+.pluma-window paned.horizontal box.vertical notebook.frame #ToolBar toolbutton button:hover {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,
+                      @button_hover_gradient_a 5%,
+                      @button_hover_gradient_b 95%,
+                      @button_hover_gradient_c);
+    border-image: url("img/border.svg") 3 3 4 3 / 3px 3px 4px 3px repeat;
+    border-radius: 3px;
+    border-width: 1px 1px 2px 1px;
+    border-style: solid;
+}
+
+.pluma-window paned.horizontal box.vertical notebook.frame #ToolBar toolbutton button:checked {
+    background-image: linear-gradient(to bottom,
+                      @button_active_gradient_a,
+                      @button_active_gradient_b 3px,
+                      @button_active_gradient_c 4px,
+                      @button_active_gradient_d 50%,
+                      @button_active_gradient_e 50%,
+                      @button_active_gradient_f);
+    background-color: transparent;
+    border-image: url("img/border.svg") 3 3 4 3 / 3px 3px 4px 3px repeat;
+    border-radius: 3px;
+    border-width: 1px 1px 2px 1px;
+    border-style: solid;
+}
+
+/*********
+ * Atril *
+ *********/
+
+/* atril and eom */
+EggToolbarEditor.vertical scrolledwindow {
+    background-color: shade (@theme_base_color, 1.0);
+    border-color: @border_color;
+    border-width: 1px;
+    border-radius: 0px;
+    border-style: solid;
+}
+
+.lock-dialog {
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 0px;
+    /* not sure if box-shadow works here */
+    box-shadow: 0 0 0 1px @wm_border, 0 2px 8px 3px @wm_shadow;
+}
+
+.lock-dialog notebook {
+    border-style: none;
+}
+

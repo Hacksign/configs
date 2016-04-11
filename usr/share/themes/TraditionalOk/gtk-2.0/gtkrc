@@ -1,6 +1,7 @@
+
 # Please keep this gtkrc in sync with the other ones from Clearlooks based themes.
 
-gtk-color-scheme = "base_color:#ffffff\nfg_color:#000000\ntooltip_fg_color:#000000\nselected_bg_color:#0f90ff\nselected_fg_color:#ffffff\ntext_color:#1a1a1a\nbg_color:#edebec\ntooltip_bg_color:#f5f5b5\nlink_color:#0000ee\nvisited_link_color:#551a8b"
+gtk-color-scheme = "base_color:#ffffff\nfg_color:#000000\ntooltip_fg_color:#000000\nselected_bg_color:#0f90ff\nselected_fg_color:#ffffff\ntext_color:#1a1a1a\nbg_color:#ffffff\ntooltip_bg_color:#f5f5b5\nlink_color:#0000ee\nvisited_link_color:#551a8b"
 
 gtk-icon-theme-name="ultra-flat-icons"
 
@@ -22,7 +23,7 @@ style "default" {
 	GtkPaned::handle-size = 6
 
 	GtkRange::trough-border = 0
-	GtkRange::slider-width = 25
+	GtkRange::slider-width = 20
 	GtkRange::stepper-size = 15
 
 	GtkScale::slider-length = 23
@@ -287,10 +288,13 @@ style "tooltips" {
 	fg[NORMAL]        = @tooltip_fg_color
 }
 
-style "nautilus_location" {
+# fix for caja
 
-	bg[NORMAL]        = mix (0.60, shade (1.05, @bg_color), @selected_bg_color)
+style "caja-location" {
+
+	bg[NORMAL]  = mix (0.60, shade (1.05, @bg_color), @bg_color)
 }
+widget "*.caja-extra-view-widget" style : highest "caja-location"
 
 # Wrokaroudn style for places where the text color is used instead of the fg color.
 style "text_is_fg_color_workaround" {
@@ -403,3 +407,4 @@ widget "gtk-tooltip*" style "tooltips"
 ##########################################################################
 
 include "applications.rc"
+
