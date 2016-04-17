@@ -38,12 +38,16 @@
         最好使用https://github.com/Hacksign/slim-1.3.6.git 的slim,这个版本修复了slim在多显示器环境下显示错位的问题.   
     lightdm-gtk-greeter :   
         依赖于lightdm,登录管理器.   
-        注意如果之前使用过slim,要先systemctl disable slim,不然会出现File Exists的错误.   
-        注意配置/etc/lighdm下的lightdm.conf和light-gtk-greeter.conf文件以适应当前系统.   
+        *注意*如果之前使用过slim,要先systemctl disable slim,不然会出现File Exists的错误.   
+        *注意*配置/etc/lighdm下的lightdm.conf和light-gtk-greeter.conf文件以适应当前系统.   
+        *注意*如果需要gnome-keyring的支持,需要在/etc/pam.d/lightm-greeter中进行如下设置:   
+        ```
+        -auth       optional    pam_gnome_keyring.so
+        -password   optional    pam_gnome_keyring.so
+        -session  optional    pam_gnome_keyring.so auto_start
+        ```
+        并禁止掉其他所有文件中的如上行.   
         具体配置参考wiki:https://wiki.archlinux.org/index.php/LightDM   
-        如果有多显示器,则需要设置/etc/lightdm/lightdm.conf下的display-setup-script,例如我的:   
-        display-setup-script=xrandr --output eDP1 --primary --auto --output HDMI2 --right-of eDP1 --auto   
-        注意需要安装xorg-xrandr   
     awesome : 平铺式窗口管理器   
     simplescreenrecorder : 录屏工具,制作视频教程用的   
     vicious   
@@ -76,6 +80,9 @@
     gksu   
     gvfs   
     xfce4-panel   
+    ultra-flat-icon   
+        拷贝本源中的ultra-flat-icon到/usr/share/icon目录下,注意这个icon带鼠标主题.   
+        然后拷贝本源中的.Xresources到家目录下,即可使用48px大小的鼠标主题.   
     tumbler   
     thunar-volman   
     thunar-archive-plugin   
@@ -184,18 +191,6 @@
     gtk-engine-murrine   
     gtk-engines   
     gtk-update-icon-cache   
-    clearlooks-phenix :	   
-        gtk2&gtk3主题，需要用git从https://github.com/jpfleury/clearlooks-phenix下载   
-        /*以下更改图标的方法只供参考,因为在高分辨率下需要支持不同大小的鼠标主题,而Human图标并不是multi sized cursor theme   
-        具体参考:http://unix.stackexchange.com/questions/203251/cursor-is-huge-on-ubuntu-due-to-high-resolution-monitor   
-        answer 1中对DMZ-White鼠标主题的说明.   
-        human-icon-theme   
-        然后拷贝此git源usr/share/icon/XcursorHuman到/usr/share/icon下，并   
-        ln -sv /usr/share/icon/Human/index.theme /usr/share/icon/default/index.theme   
-        随后修改/usr/share/icon/default/index.theme,再Name字段下添加下面一行   
-        Inherits=XcursorHuman   
-        更改鼠标主题   
-        */   
     ntfs-3g   
     nvidia-340xx   
     nvidia-340xx-libgl   

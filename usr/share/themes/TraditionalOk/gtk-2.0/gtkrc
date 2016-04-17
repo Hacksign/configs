@@ -82,7 +82,7 @@ style "default" {
 		reliefstyle = 1
 		menubarstyle = 2
 		toolbarstyle = 1
-		animation = FALSE
+		animation = TRUE
 		radius = 3.0
 		style = GUMMY
 
@@ -149,6 +149,7 @@ style "scrollbar" {
 
 	engine "clearlooks" {
 		hint = "scrollbar"
+        radius = 0.0
 	}
 }
 
