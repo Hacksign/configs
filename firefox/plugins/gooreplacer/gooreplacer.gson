@@ -1,0 +1,16 @@
+{
+    "createBy": "http://github.com/Hacksign",
+    "createAt": "Tue Jue 23 2016 12:04:12 GMT+0800 (CST)",
+    "rules": {
+        "ajax.googleapis.com": {
+            "dstURL": "ajax.useso.com",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "fonts.googleapis.com": {
+            "dstURL": "fonts.useso.com",
+            "kind": "wildcard",
+            "enable": true
+        }
+    }
+} 

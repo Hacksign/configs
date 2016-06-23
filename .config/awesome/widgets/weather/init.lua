@@ -27,7 +27,7 @@ local function urlencode(str)
 end
 
 local function guess_city()
-	local cmd = "curl --connect-timeout 2 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json' 2>/dev/null|xargs printf"
+	local cmd = "curl --connect-timeout 1 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json' 2>/dev/null|xargs printf"
 	local f = io.popen(cmd)
 	local ws = f:read("*a")
 	f:close()
