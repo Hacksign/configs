@@ -29,7 +29,16 @@
     如果需要启用触控板的手势支持(类似Mac四指滑动切换任务),有两种方法:   
         每一种方法都需要安装aur的xf86-input-synaptics-xswipe-git   
         1. 可以使用https://github.com/iberianpig/xSwipe.git   
-        2. 或者安装aur源中的touchegg,但是在我的笔记本上发现只能识别2 fingers事件,三个以上finger都会被识别成2 finger   
+        2. 或者安装aur源中的touchegg,但是在我的笔记本上发现只能识别2 fingers事件,三个以上finger都会被识别成2 finger.而且需要设置如下选项为关闭状态,这样touchegg才能接管对应事件.   
+        ```
+            Option "TapButton2" "0"
+            Option "TapButton3" "0"
+            Option "ClickFinger2" "0"
+            Option "ClickFinger3" "0"
+            Option "HorizTwoFingerScroll" "0"
+            Option "VertTwoFingerScroll" "0"
+        ```
+
     xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到 xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics   
     X11配置文件文档,http://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html   
     打字时金红触控板:   
