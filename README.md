@@ -26,7 +26,10 @@
     xorg-utils   
     xorg-xinit	:	startx等命令   
     xorg-xrandr	:	屏幕分辨率以及多屏管理支持,awesome要用到   
-    如果需要启用触控板的手势支持(类似Mac四指滑动切换任务),需要安装aur的xf86-input-synaptics-xswipe-git,然迁出并https://github.com/iberianpig/xSwipe.git,并自启动.
+    如果需要启用触控板的手势支持(类似Mac四指滑动切换任务),有两种方法:   
+        每一种方法都需要安装aur的xf86-input-synaptics-xswipe-git   
+        1. 可以使用https://github.com/iberianpig/xSwipe.git   
+        2. 或者安装aur源中的touchegg,但是在我的笔记本上发现只能识别2 fingers事件,三个以上finger都会被识别成2 finger   
     xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到 xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics   
     X11配置文件文档,http://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html   
     打字时金红触控板:   
@@ -211,6 +214,10 @@
         如果使用的是64位的系统,需要激活pacman的multilib源,然后安装源中的lib32-ncursses库   
     xf86-input-evdev-trackpoint	:	小红点支持，此包必须从AUR源获取   
         这个的配置文件对触控板区域设置偏小,需要根据自己的需求调整   
+    TM2013Preview :   
+        据说这个版本最稳定,没有尝试过其他的版本.
+        需要在winecfg中创建一个TM.exe的选项,然后将msvcp60,riched20,riched32设置成原装,不然可能无法输入东西.   
+
    
 #4.配置   
     时间配置:   
