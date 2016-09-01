@@ -3,17 +3,22 @@
     "createAt": "Tue Jue 23 2016 12:04:12 GMT+0800 (CST)",
     "rules": {
         "ajax.googleapis.com": {
-            "dstURL": "ajax.lug.ustc.edu.cn",
+            "dstURL": "ajax.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.googleapis.com": {
-            "dstURL": "fonts.lug.ustc.edu.cn",
+            "dstURL": "fonts.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         },
         "themes.googleusercontent.com": {
-            "dstURL": "google-themes.lug.ustc.edu.cn",
+            "dstURL": "google-themes.proxy.ustclug.org",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "fonts.gstatic.com": {
+            "dstURL": "fonts-gstatic.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         }
