@@ -1,5 +1,7 @@
 local awful			= require("awful")
 local beautiful = require("beautiful")
+local naughty		= require("naughty")
+local utils = require("utils")
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -22,9 +24,9 @@ client.connect_signal("manage", function (c, startup)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
-            awful.placement.no_overlap(c)
+            --awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
-            awful.placement.centered(c, nil)
+            awful.placement.centered(c)
         end
     end
 

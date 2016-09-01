@@ -170,9 +170,29 @@ globalkeys = awful.util.table.join(
         utils.center_window(client.focus)
     end),
     ------------------------------------------------------------------------------
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ modkey,           }, "Left",   function()
+        local screengeom = screen[mouse.screen].workarea
+        local cg = client.focus:geometry()
+        cg['width'] = screengeom['width']/2;
+        cg['height'] = screengeom['height'];
+        cg['x'] = screengeom['x'];
+        cg['y'] = screengeom['y'];
+        client.focus:geometry(cg)
+        client.focus.maximized_horizontal = false
+        client.focus.maximized_vertical = false
+    end),
+    awful.key({ modkey,           }, "Right",  function()
+        local screengeom = screen[mouse.screen].workarea
+        local cg = client.focus:geometry()
+        cg['width'] = screengeom['width']/2;
+        cg['height'] = screengeom['height'];
+        cg['x'] = screengeom['x'] + cg['width'];
+        cg['y'] = screengeom['y'];
+        client.focus:geometry(cg)
+        client.focus.maximized_horizontal = false
+        client.focus.maximized_vertical = false
+    end),
+    ------------------------------------------------------------------------------
     awful.key({ modkey,           }, "Tab",
     function ()
         awful.client.focus.byidx(1)

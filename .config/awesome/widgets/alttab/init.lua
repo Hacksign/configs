@@ -301,97 +301,93 @@ local function clientOpacity(altTabTable, altTabIndex)
 			end
 
 			if #altTabTable == 0 then
-				return
-				elseif #altTabTable == 1 then 
-					altTabTable[1].minimized = false
-					altTabTable[1]:raise()
-					return
-				end
+                return
+            elseif #altTabTable == 1 then 
+                altTabTable[1].minimized = false
+                altTabTable[1]:raise()
+                return
+            end
 
-				-- reset index
-				altTabIndex = 1
+            -- reset index
+            altTabIndex = 1
 
-				-- preview delay timer
-				local previewDelay = settings.preview_box_delay / 1000
-				local previewDelayTimer = timer({timeout = previewDelay})
-				previewDelayTimer:connect_signal("timeout", function() 
-					preview_wbox.visible = true
-					previewDelayTimer:stop()
-					preview(altTabTable, altTabIndex) 
-				end)
-				previewDelayTimer:start()
-				preview_live_timer:start()
+            -- preview delay timer
+            local previewDelay = settings.preview_box_delay / 1000
+            local previewDelayTimer = timer({timeout = previewDelay})
+            previewDelayTimer:connect_signal("timeout", function() 
+                preview_wbox.visible = true
+                previewDelayTimer:stop()
+                preview(altTabTable, altTabIndex) 
+            end)
+            previewDelayTimer:start()
+            preview_live_timer:start()
 
-				-- opacity delay timer
-				local opacityDelay = settings.client_opacity_delay / 1000
-				local opacityDelayTimer = timer({timeout = opacityDelay})
-				opacityDelayTimer:connect_signal("timeout", function() 
-					applyOpacity = true
-					opacityDelayTimer:stop()
-					clientOpacity(altTabTable, altTabIndex)
-				end)
-				opacityDelayTimer:start()
+            -- opacity delay timer
+            local opacityDelay = settings.client_opacity_delay / 1000
+            local opacityDelayTimer = timer({timeout = opacityDelay})
+            opacityDelayTimer:connect_signal("timeout", function() 
+                applyOpacity = true
+                opacityDelayTimer:stop()
+                clientOpacity(altTabTable, altTabIndex)
+            end)
+            opacityDelayTimer:start()
 
 
-				-- Now that we have collected all windows, we should run a keygrabber
-				-- as long as the user is alt-tabbing:
-				keygrabber.run(
-				function (mod, key, event)  
-					-- Stop alt-tabbing when the alt-key is released
-					if key == alt or key == "Escape" and event == "release" then
-						preview_wbox.visible = false
-						applyOpacity = false
-						preview_live_timer:stop()
-						previewDelayTimer:stop()
-						opacityDelayTimer:stop()
+            -- Now that we have collected all windows, we should run a keygrabber
+            -- as long as the user is alt-tabbing:
+            keygrabber.run(function (mod, key, event)  
+                -- Stop alt-tabbing when the alt-key is released
+                if key == alt or key == "Escape" and event == "release" then
+                    preview_wbox.visible = false
+                    applyOpacity = false
+                    preview_live_timer:stop()
+                    previewDelayTimer:stop()
+                    opacityDelayTimer:stop()
 
-						if key == "Escape" then 
-							for i,c in pairs(altTabTable) do
-								c.opacity = altTabOpacity[i]
-							end
-							keygrabber.stop()
-							return
-						end
+                    if key == "Escape" then 
+                        for i,c in pairs(altTabTable) do
+                            c.opacity = altTabOpacity[i]
+                        end
+                        keygrabber.stop()
+                        return
+                    end
 
-						-- Raise clients in order to restore history
-						local c
-						for i = 1, altTabIndex - 1 do
-							c = altTabTable[altTabIndex - i]
-							if not altTabMinimized[i] then
-								c:raise()
-								client.focus = c
-							end
-						end
+                    -- Raise clients in order to restore history
+                    local c
+                    for i = 1, altTabIndex - 1 do
+                        c = altTabTable[altTabIndex - i]
+                        if not altTabMinimized[i] then
+                            c:raise()
+                            client.focus = c
+                        end
+                    end
 
-						-- raise chosen client on top of all
-						c = altTabTable[altTabIndex]
-						c:raise()
-						client.focus = c                  
+                    -- raise chosen client on top of all
+                    c = altTabTable[altTabIndex]
+                    c:raise()
+                    client.focus = c                  
 
-						-- restore minimized clients
-						for i = 1, #altTabTable do
-							if i ~= altTabIndex and altTabMinimized[i] then 
-								altTabTable[i].minimized = true
-							end
-							altTabTable[i].opacity = altTabOpacity[i]
-						end
+                    -- restore minimized clients
+                    for i = 1, #altTabTable do
+                        if i ~= altTabIndex and altTabMinimized[i] then 
+                            altTabTable[i].minimized = true
+                        end
+                        altTabTable[i].opacity = altTabOpacity[i]
+                    end
 
-						keygrabber.stop()
+                    keygrabber.stop()
 
-						-- Move to next client on each Tab-press
-						elseif (key == tab or key == "Down" or key == "j") and event == "press" then
-							altTabIndex = cycle(altTabTable, altTabIndex, 1)
+                    -- Move to next client on each Tab-press
+                    elseif (key == tab or key == "Down" or key == "j") and event == "press" then
+                        altTabIndex = cycle(altTabTable, altTabIndex, 1)
+                    -- Move to previous client on Shift-Tab
+                    elseif (key == shift_tab or key == "Up" or key == "k") and event == "press" then
+                        altTabIndex = cycle(altTabTable, altTabIndex, -1)
+                    end
+            end)
 
-							-- Move to previous client on Shift-Tab
-							elseif (key == shift_tab or key == "Up" or key == "k") and event == "press" then
-								altTabIndex = cycle(altTabTable, altTabIndex, -1)
-							end
-						end
-						)
+            -- switch to next client
+            altTabIndex = cycle(altTabTable, altTabIndex, dir)
+        end -- function altTab
 
-						-- switch to next client
-						altTabIndex = cycle(altTabTable, altTabIndex, dir)
-
-					end -- function altTab
-
-					return {switch = switch, settings = settings}
+return {switch = switch, settings = settings}

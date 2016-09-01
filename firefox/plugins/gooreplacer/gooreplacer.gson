@@ -3,12 +3,17 @@
     "createAt": "Tue Jue 23 2016 12:04:12 GMT+0800 (CST)",
     "rules": {
         "ajax.googleapis.com": {
-            "dstURL": "ajax.useso.com",
+            "dstURL": "ajax.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.googleapis.com": {
-            "dstURL": "fonts.useso.com",
+            "dstURL": "fonts.lug.ustc.edu.cn",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "themes.googleusercontent.com": {
+            "dstURL": "google-themes.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         }

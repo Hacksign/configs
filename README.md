@@ -29,6 +29,7 @@
     如果需要启用触控板的手势支持(类似Mac四指滑动切换任务),有两种方法:   
         每一种方法都需要安装aur的xf86-input-synaptics-xswipe-git   
         1. 可以使用https://github.com/iberianpig/xSwipe.git   
+           此方法需要安装aur源中的perl-x11-guitest
         2. 或者安装aur源中的touchegg,但是在我的笔记本上发现只能识别2 fingers事件,三个以上finger都会被识别成2 finger.而且需要设置如下选项为关闭状态,这样touchegg才能接管对应事件.   
         ```
             Option "TapButton2" "0"

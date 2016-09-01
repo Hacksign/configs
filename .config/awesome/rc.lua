@@ -30,4 +30,5 @@ require("configs/init")
 require("configs/hotkeys")
 require("configs/rules")
 require("configs/signals")
-awful.util.spawn_with_shell("/usr/bin/perl /home/hacksign/.config/awesome/autostart.pl&")
+require("autostart")
+
