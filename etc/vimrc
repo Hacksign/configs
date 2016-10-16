@@ -20,7 +20,6 @@ let g:tagbar_compact = 1
 autocmd BufWinEnter * nested :call tagbar#autoopen(1)
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
-Plugin 'fcitx.vim'
 Plugin 'surround.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'StanAngeloff/php.vim'

@@ -228,7 +228,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
-    awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("dbus-launch thunar") end), -- yaourt -S thunar
+    awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("thunar") end), -- yaourt -S thunar
     awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
     awful.key({ modkey}, "i", function () awful.util.spawn_with_shell("firefox") end), -- yaourt -S firefox
     awful.key({ modkey}, "o", function () awful.util.spawn_with_shell("terminator -e top") end), -- open 'task manger'

@@ -141,21 +141,13 @@
         python-packagekit   
         python-pysmbc   
         等,根据需要安装   
-    fcitx	:	中文输入法   
-        aspell	:	fcitix拼写预测支持   
-        fcitx-cloudpinyin	:	一定要先安装fcitx再装这个，不然可能找不到中文输入法，云输入法   
-        fcitx-configtool	:	图形界面配置支持   
-        fcitx-gtk2   
-        fcitx-gtk3   
-        fcitx-qt4   
-        配置请参考:https://wiki.archlinux.org/index.php/Fcitx_(简体中文)   
-        如果想中文状态下输入英文字符,修改/usr/share/fcitx/data/punc.mb.zh_CN的映射关系   
-        /etc/profile需要设置的几个变量：   
-        export GTK_IM_MODULE=fcitx   
-        export QT_IM_MODULE=fcitx   
-        export XIM=fcitx   
-        export XIM_PROGRAM=fcitx   
-        export XMODIFIERS="@im=fcitx"   
+    ibus	:	中文输入法   
+        /etc/profile.d/ibus.sh需要设置的几个变量：   
+        export GTK_IM_MODULE=ibus   
+        export QT_IM_MODULE=ibus   
+        export XIM=ibus   
+        export XIM_PROGRAM=ibus   
+        export XMODIFIERS="@im=ibus"   
     virtualbox : 虚拟机   
         host机器为安装virtualbo的机器,guest机器为虚拟出来的系统机器   
         需要安装linux-headers包,否则vboxsf等内核模块不能正常加载   
