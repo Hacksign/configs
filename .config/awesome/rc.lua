@@ -25,6 +25,9 @@ do
     end)
 end
 
+-- Use xfce4-notifyd display notify
+-- awesome do not handle dbus Notifications message
+dbus.release_name("session", "org.freedesktop.Notifications")
 
 require("configs/init")
 require("configs/hotkeys")

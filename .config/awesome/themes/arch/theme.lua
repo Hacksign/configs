@@ -28,7 +28,7 @@ if awful.util.file_readable(config .. "/vain/init.lua") then
 end
 --}}}
 
-theme.font          = "Source Han Sans CN Regular 12"
+theme.font          = "Source Han Sans CN Regular 15"
 
 theme.bg_normal     = "#000000"
 theme.bg_focus      = "#1793d1"

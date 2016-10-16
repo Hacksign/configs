@@ -103,7 +103,7 @@ awful.rules.rules = {
     -- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
     {
         rule = { class = "Wine" },
-        properties = { floating = true, border_width = 1 },
+        properties = { floating = true, border_width = 0 },
     },
     --Set Firefox to always map on tags number 2 of screen 1.
     --{
