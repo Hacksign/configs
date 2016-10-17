@@ -141,13 +141,10 @@
         python-packagekit   
         python-pysmbc   
         等,根据需要安装   
-    ibus	:	中文输入法   
-        /etc/profile.d/ibus.sh需要设置的几个变量：   
-        export GTK_IM_MODULE=ibus   
-        export QT_IM_MODULE=ibus   
-        export XIM=ibus   
-        export XIM_PROGRAM=ibus   
-        export XMODIFIERS="@im=ibus"   
+    fcitx	:	中文输入法   
+        pacman -S fcitx-im,选择全部安装   
+        pacman -S archlinuxcn/fcitx-sogoupinyin community/fcitx-configtool   
+        最后将本工程下的etc/profile.d/fcitx.sh拷贝到/etc/profile.d/目录下, 并重启系统   
     virtualbox : 虚拟机   
         host机器为安装virtualbo的机器,guest机器为虚拟出来的系统机器   
         需要安装linux-headers包,否则vboxsf等内核模块不能正常加载   
