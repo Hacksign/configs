@@ -8,7 +8,7 @@
   handle_size = 0
   inactive_color_offset = 0.76
   suppress_multiple_term_dialog = True
-  title_font = Terminal 12
+  title_font = Unibit 14
   title_hide_sizetext = True
   title_receive_bg_color = "#3cf48b"
   title_transmit_bg_color = "#007ad0"
@@ -80,7 +80,7 @@
     background_type = transparent
     copy_on_selection = True
     cursor_color = "#37f608"
-    font = Unibit 14
+    font = Unibit 15
     foreground_color = "#ffffff"
     palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
     scroll_background = False
