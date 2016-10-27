@@ -28,8 +28,13 @@ if awful.util.file_readable(config .. "/vain/init.lua") then
 end
 --}}}
 
--- theme.font          = "Source Han Sans CN Regular 14"
-local font_size = screen[mouse.screen].geometry.height / 45 / 2
+-- default font size is 10
+local font_size = 10
+for i = 1, screen:count() do
+    if screen[i].geometry.height / 45 / 2 > font_size then
+        font_size = screen[i].geometry.height / 45 / 2
+    end
+end
 theme.font          = "Source Han Sans CN Regular " .. font_size
 
 theme.bg_normal     = "#000000"

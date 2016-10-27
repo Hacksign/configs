@@ -1,15 +1,5 @@
 .config/fish/fish_history
 .config/fish/fish_read_history
-.config/fcitx/cached_layout
-.config/fcitx/clipboard/
-.config/fcitx/conf/
-.config/fcitx/config
-.config/fcitx/data/layout_override
-.config/fcitx/dbus/
-.config/fcitx/pinyin/
-.config/fcitx/profile
-.config/fcitx/profile_*
-.config/fcitx/log
 .goldendict/config
 .goldendict/index/
 .goldendict/history
