@@ -31,11 +31,11 @@ end
 -- default font size is 10
 local font_size = 10
 for i = 1, screen:count() do
-    if screen[i].geometry.height / 45 / 2 > font_size then
-        font_size = screen[i].geometry.height / 45 / 2
+    if screen[i].geometry.height / 40 / 2 > font_size then
+        font_size = screen[i].geometry.height / 40 / 2
     end
 end
-theme.font          = "Source Han Sans CN Regular " .. font_size
+theme.font          = "WenQuanYi Micro Hei" .. " " .. font_size
 
 theme.bg_normal     = "#000000"
 theme.bg_focus      = "#1793d1"
