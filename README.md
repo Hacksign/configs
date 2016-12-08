@@ -155,6 +155,7 @@
     git	:	代码管理   
     gmrun	:	启动器   
     adobe-source-han-sans-cn-fonts :	中文字体   
+    ttf-hack :  英文字体,适合用作变成字体   
     本工程的usr/share/fonts/wqy-unibit-bdf-1.1.0-1.tar.bz2 : 将此文件解压到/usr/share/fonts/wenquanyi/unibit目录下
     file-roller	:	归档管理器   
     p7zip   

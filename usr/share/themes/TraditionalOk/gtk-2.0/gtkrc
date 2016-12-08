@@ -23,7 +23,7 @@ style "default" {
 	GtkPaned::handle-size = 6
 
 	GtkRange::trough-border = 0
-	GtkRange::slider-width = 20
+	GtkRange::slider-width = 25
 	GtkRange::stepper-size = 15
 
 	GtkScale::slider-length = 23

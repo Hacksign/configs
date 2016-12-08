@@ -90,7 +90,7 @@ local function get_weather_line(city)
                     --Temperature high
                     local forecast_high = ws:match('%["data","forecast",'..s..',"high"%]%s+"(.-)"')
                     if s < 2 then
-                        weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_high, ' ')[2])..'</span>-'
+                        weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_high, ' ')[2])..'</span> '
                     end
                     weathers.full_info = weathers.full_info.." <span color='yellow'>"..forecast_high.."</span>"
                     --Temperature low
