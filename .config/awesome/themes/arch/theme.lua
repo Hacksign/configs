@@ -31,11 +31,11 @@ end
 -- default font size is 10
 local font_size = 10
 for i = 1, screen:count() do
-    if screen[i].geometry.height / 40 / 1.8 > font_size then
-        font_size = screen[i].geometry.height / 40 / 1.8
+    if screen[i].geometry.height / 40 / 2.5 > font_size then
+        font_size = screen[i].geometry.height / 40 / 2.5
     end
 end
-theme.font          = "Hiragino Sans GB W3" .. " " .. font_size
+theme.font          = "Hack" .. " " .. font_size
 
 theme.bg_normal     = "#000000"
 theme.bg_focus      = "#1793d1"
@@ -47,10 +47,10 @@ theme.fg_focus      = "#000000"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#1793d1"
 
-theme.border_width  = "0"
-theme.border_normal = "#000000"
-theme.border_focus  = "#1793d1"
-theme.border_marked = "#91231c"
+theme.border_width  = "3"
+theme.border_normal = "#a2a2a2"
+theme.border_focus  = "#0e0e47"
+theme.border_marked = "#ce0f35"
 
 -- There are other variable sets
 -- overriding the default one when

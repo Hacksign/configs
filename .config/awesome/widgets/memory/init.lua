@@ -8,15 +8,16 @@
 --]]
 
 local require = require
-local awful = require("awful")
+local wibox = require("wibox")
+local vicious		= require("vicious")
 
 module("memory")
 
-local memwidget = awful.widget.progressbar()
-memwidget:set_width(20)
-memwidget:set_height(10)
-memwidget:set_vertical(true)
-memwidget:set_background_color("#494B4F")
-memwidget:set_border_color(nil)
-memwidget:set_color("#AECF96")
-return memwidget
+local memwidget = wibox.widget.progressbar()
+vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
+local container = wibox.container.rotate(memwidget, "east")
+memwidget.height = 20
+memwidget.width = 20
+memwidget.color = "#AECF96"
+memwidget.background_color = "#494B4F"
+return container

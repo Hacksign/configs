@@ -13,19 +13,17 @@
 --
 
 local string = string
+local beautiful = require("beautiful")
 local tostring = tostring
 local os = os
-local capi = {
-    mouse = mouse,
-    screen = screen
-}
 local awful = require("awful")
 local naughty = require("naughty")
+local mouse = mouse
 module("calendar35")
 
 local calendar = {}
 local calendar_position = "top_right"
-local current_day_format = '<span color="#ee7777"><b>%02d</b></span>'
+local current_day_format = '<span color="#ee7777" underline="low">%02d</span>'
 
 function translate(transString)
 	if transString ~= nil then
@@ -59,19 +57,19 @@ function displayMonth(month,year,weekStart)
     local t,wkSt=os.time{year=year, month=month+1, day=0},weekStart or 1
     local d=os.date("*t",t)
     local mthDays,stDay=d.day,(d.wday-d.day-wkSt+1)%7
-
-    local lines = " "
+    local day_num=" "
+    local days=""
 
     for x=0,6 do
-        lines = lines .. os.date("<b>%a</b>",os.time{year=2006,month=1,day=x+wkSt-1})
+        day_num = day_num .. string.format("<span font_desc='%s' color='green'>%s</span>", beautiful.font, os.date("%a",os.time{year=2006,month=1,day=x+wkSt-1}))
     end
 
-    lines = lines .. "\n"
-
     local writeLine = 1
-    while writeLine <= (stDay + 1) do
-        lines = lines .. "   "
-        writeLine = writeLine + 1
+    if (stDay + 1) ~= 7 then
+        while writeLine <= (stDay + 1) do
+            days = days .. "   "
+            writeLine = writeLine + 1
+        end
     end
 
     for d=1,mthDays do
@@ -79,22 +77,22 @@ function displayMonth(month,year,weekStart)
         local t = os.time{year=year,month=month,day=d}
         if writeLine == 8 then
             writeLine = 1
-            lines = lines .. "\n"
+            days = days .. "\n"
         end
         if os.date("%Y-%m-%d") == os.date("%Y-%m-%d", t) then
             x = string.format(current_day_format, d)
-				else
-						x = string.format("%02d", d)
+        else
+            x = string.format("%02d", d)
         end
-				x = " " .. x
-        lines = lines .. x
+        x = " " .. x
+        days = days .. x
         writeLine = writeLine + 1
     end
-    local header = "<b><i>" .. os.date("%B, %Y", os.time{year=year,month=month,day=1}) .. "</i></b>\n"
-		header = translate(header)
-		lines = translate(lines)
+    local header = string.format("<span font_desc='%s' color='red'>%s</span>", beautiful.font, os.date("       %Y,%B", os.time{year=year,month=month,day=1}))
+    header = translate(header)
+    day_num = translate(day_num)
 
-    return header .. "\n" .. lines
+    return header .. "\n" .. day_num .. "\n" .. days
 end
 
 function switchNaughtyMonth(switchMonths)
@@ -104,11 +102,11 @@ function switchNaughtyMonth(switchMonths)
 
     calendar_new = { calendar[1], calendar[2],
     naughty.notify({
-        text = string.format('<span font_desc="%s">%s</span>', "Terminal", displayMonth(calendar[1], calendar[2], 2)),
+        text = string.format('<span font_desc="%s">%s</span>', beautiful.font, displayMonth(calendar[1], calendar[2], 2)),
         timeout = 0,
 				position = calendar_position,
         hover_timeout = 0.5,
-        screen = capi.mouse.screen,
+        screen = mouse.screen,
         replaces_id = calendar[3].id
     })}
     calendar = calendar_new
@@ -131,11 +129,11 @@ function addCalendarToWidget(mywidget, myposition, custom_current_day_format)
 			local month, year = os.date('%m'), os.date('%Y')
 			calendar = { month, year,
 				naughty.notify({
-						text = string.format('<span font_desc="%s">%s</span>', "Terminal", displayMonth(month, year, 2)),
+						text = string.format('<span font_desc="%s">%s</span>', beautiful.font, displayMonth(month, year, 2)),
 						timeout = 0,
 						position = calendar_position,
 						hover_timeout = 0.5,
-						screen = capi.mouse.screen
+						screen = mouse.screen
 				})
 			}
 		end)

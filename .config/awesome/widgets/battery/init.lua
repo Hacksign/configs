@@ -8,59 +8,68 @@
 --]]
 
 local require = require
-local awful = require("awful")
+local wibox = require("wibox")
 local io = require("io")
+local lfs = require("lfs")
+local naughty = require("naughty")
 local timer = timer
-local assert = assert
 local string = string
 local tonumber = tonumber
-local naughty		= require("naughty")
+local assert = assert
 
 module("battery")
 
--- Need install acpi package
---		pacman -S apci
-local acpi_info = assert(io.popen("acpi", "r"))
-local battery_info = acpi_info:read("*l")
-if battery_info then
-	batterywidget = awful.widget.progressbar()
-	batterywidget:set_width(20)
-	batterywidget:set_height(10)
-	batterywidget:set_vertical(true)
-	batterywidget:set_background_color("#494B4F")
-	batterywidget:set_border_color(nil)
-	batterywidget:set_max_value(100)
-	batterywidgettimer = timer({timeout = 5})
-	batterywidgettimer:connect_signal("timeout",
-			function()
-				local fh = assert(io.popen("acpi | cut -d' ' -f 4 -|cut -d, -f 1 -|cut -d% -f 1 -", "r"))
-				local percent = fh:read("*l")
-				if percent then
-					percent = string.sub(percent, 0, string.len(percent))
-					percent = tonumber(percent)
-					local ch = assert(io.popen("acpi | cut -d' ' -f3|cut -d, -f1", "r"))
-					local charge_status = ch:read("*l")
-					local ac = assert(io.popen("acpi -a | cut -d':' -f2|cut -d' ' -f2", "r"))
-					local ac_adapter_status = ac:read("*l")
-					if charge_status == 'Charging' or charge_status == 'Full' or ac_adapter_status == 'on-line' then
-						batterywidget:set_color("#3366FF")
-					else
-						batterywidget:set_color("#FF5656")
-					end
-					if percent < 15 and charge_status == "Discharging" then
-						naughty.notify({ timeout = 4,
-														 fg = "#ffff00",
-														 bg = "#003399",
-														 title = "Battery is running low !",
-														 text = "Battery is running low ! Connect your adapter !" })
-					end
-					batterywidget:set_value(percent)
-					ac:close()
-					ch:close()
-				end
-				fh:close()
-			end
-	 )
-	batterywidgettimer:start()
-	return batterywidget
-end
+local batterywidget =  wibox.widget.progressbar()
+local container = wibox.container.rotate(batterywidget, "east")
+batterywidget.max_value = 100
+batterywidget.width = 20
+batterywidget.height = 20
+batterywidget.background_color = "#494B4F"
+batterywidgettimer = timer({timeout = 5})
+batterywidgettimer:connect_signal("timeout",
+        function()
+            local percent
+            local charge_status
+            local basedir = "/sys/class/power_supply"
+            local dir_iter, dir_obj = lfs.dir(basedir)
+            for dir in dir_iter, dir_obj do
+              local fd = io.open(basedir.."/"..dir.."/capacity", "r")
+              if fd then
+                percent = fd:read("*a")
+                percent = tonumber(percent)
+                fd:close()
+                fd = io.open(basedir.."/"..dir.."/status", "r")
+                if fd then
+                   charge_status = fd:read("*l")
+                   fd:close()
+                end
+                dir_obj:close()
+                break
+              end
+            end
+            if percent then
+                if charge_status == 'Discharging' then
+                    batterywidget.color = "#FF5656"
+                elseif charge_status == 'Charging' or charge_status == 'Full' then
+                    batterywidget.color = "#00FFFF"
+                else
+                    batterywidget.color = "#FFFF00"
+                end
+                if percent < 15 and charge_status == "Discharging" then
+                    naughty.notify({
+                        timeout = 4,
+                        fg = "#ffff00",
+                        bg = "#003399",
+                        title = "Battery is running low !",
+                        text = "Battery is running low ! Connect your adapter !" 
+                    })
+                end
+                batterywidget:set_value(percent)
+                ac:close()
+                ch:close()
+            end
+            fh:close()
+        end
+ )
+batterywidgettimer:start()
+return container

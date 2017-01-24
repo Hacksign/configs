@@ -104,6 +104,9 @@
         注意系统是否安装了处理icon主题文件的库,例如本repo中usr/share/icon/ultra-flat-icon使用了svg格式的图片文件,那么请确保系统安装了librsvg   
         xfdesktop : 与awesome配合使用,可以有一个windows风格的桌面   
         可以使用--disable-wm-check强制xfdesktop不检查窗口管理器   
+    n1 : 邮件客户端    
+        node写的邮件客户端, 界面上面要比thunderbird更加漂亮.   
+        zenity 为n1客户端的新邮件提醒插件   
     thunderbird : 邮件客户端   
         FireTray firefox的Add-on,可以最小化到托盘以及启动时最小化,支持linux,注意:thunderbird 38.0.1和firetray 5.6.1-signed有冲突导致不能运行,建议到Firetray的下载页面下载0.4.8版本,然后禁止掉此插件的自动升级功能.   
         Mark GMail Read 对Gmail文件夹中的邮件自动Mark read,不用每次从Inbox里面mark一边,然后再从gmail的文件夹中mark一边   

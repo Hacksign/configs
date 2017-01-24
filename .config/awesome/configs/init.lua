@@ -1,7 +1,6 @@
 local gears			= require("gears")
 local awful			= require("awful")
 local wibox			= require("wibox")
-local vicious		= require("vicious")
 local widgets		= require("widgets")
 local beautiful     = require("beautiful")
 local utils         = require("utils")
@@ -14,11 +13,7 @@ mytaglist.buttons = awful.util.table.join(
 )
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-local editor = os.getenv("EDITOR") or "vim"
-tags = {
-    names = {"网络"},
-    layout = {awful.layout.suit.floating}
-}
+editor = os.getenv("EDITOR") or "vim"
 modkey = "Mod4"
 -- }}}
 
@@ -28,14 +23,13 @@ if beautiful.wallpaper then
         gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     end
 end
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag(tags.names, s, tags.layout)
+for s in screen do
+    awful.tag({"Work"}, s, awful.layout.suit.floating)
 end
 
 -- {{{ Wibox
 -- Create a textclock widget
-local mytextclock = awful.widget.textclock("<span size='x-large'>%F %H:%M</span>")
+local mytextclock = awful.widget.textclock("<span color='green' font_desc='"..beautiful.font.."'>%F %H:%M</span>")
 local calendar = widgets.calendar.init(mytextclock, "bottom_right")
 
 -- Create a wibox for each screen and add it
@@ -65,9 +59,7 @@ mytasklist.buttons = awful.util.table.join(
 
 -- top & battom bar widgets
 local cpuwidget = widgets.cpu
-vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 local memwidget = widgets.memory
-vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
 local batterywidget = widgets.battery
 local networkwidget = widgets.network
 local temperaturewidget = widgets.temperature

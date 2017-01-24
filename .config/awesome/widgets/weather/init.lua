@@ -6,11 +6,8 @@ local string = require("string")
 local os = require("os")
 local table = require("table")
 local naughty		= require("naughty")
+local mouse = mouse
 local tonumber		= tonumber
-local capi = {
-    mouse = mouse,
-    screen = screen
-}
 local weather_naughty
 local weather_info
 
@@ -151,7 +148,7 @@ local function init(location, box_position)
 					timeout = 0,
 					position = box_position,
 					hover_timeout = 0.5,
-					screen = capi.mouse.screen
+					screen = mouse.screen
 			})
 		end
 	end)

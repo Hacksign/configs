@@ -2,6 +2,7 @@ local awful			= require("awful")
 local naughty		= require("naughty")
 local utils         = require("utils")
 local widgets		= require("widgets")
+local beautiful = require("beautiful")
 
 local alttab = widgets.alttab
 local last_focused_client = nil
@@ -24,24 +25,18 @@ local layouts =
 
 -- helper function to detect a client is floated and current mode is float
 function bind_move_client2tag(globalkeys)
-    local keynumber = 0
-    for s = 1, screen.count() do
-        keynumber = math.min(9, math.max(#tags[s], keynumber))
-    end
-    for i = 1, keynumber do
+    for i = 1, 9 do
         globalkeys = awful.util.table.join(globalkeys,
-        -- move to tag
-        awful.key({ modkey  }, "#" .. i + 9, function ()
-            if tags[mouse.screen][i] then
-                awful.tag.viewonly(tags[mouse.screen][i])
-            end
-        end),
-        -- move current active window to specific tag
-        awful.key({ modkey, "Shift"  }, "#" .. i + 9, function ()
-            if client.focus and tags[client.focus.screen][i] then
-                awful.client.movetotag(tags[client.focus.screen][i])
-            end
-        end)
+            -- move to tag
+            awful.key({ modkey  }, "#" .. i + 9, function ()
+                awful.screen.focused().tags[i]:view_only()
+            end),
+            -- move current active window to specific tag
+            awful.key({ modkey, "Control"  }, "#" .. i + 9, function ()
+                if client.focus and awful.screen.focused().tags[i] then
+                    client.focus:move_to_tag(awful.screen.focused().tags[i])
+                end
+            end)
         )
     end
     root.keys(globalkeys)
@@ -91,20 +86,18 @@ globalkeys = awful.util.table.join(
     end),
     -- add new tag
     awful.key({ modkey,         }, "t",      function ()
-        local current_tag = awful.tag.selected(mouse.screen)
-        local all_tags = awful.tag.gettags(awful.tag.getscreen(current_tag))
+        local current_tag = mouse.screen.selected_tag
+        local all_tags = awful.screen.focused().tags
         local tag_num = #all_tags + 1
         tagobj = awful.tag.add(tag_num, {layout = awful.layout.suit.tile})
-        awful.tag.setscreen(tagobj, mouse.screen)
-        table.insert(tags[mouse.screen], tagobj)
+        awful.tag.setscreen(mouse.screen, tagobj)
         bind_move_client2tag(globalkeys)
     end),
     -- remove current tag, NOTE: current tag must contains NO clients
     awful.key({ modkey,          }, "x",      function ()
         -- we can not remove last tag
         if #awful.tag.gettags(mouse.screen) ~= 1 then
-            local current_tag = awful.tag.selected(mouse.screen)
-            table.remove(tags[mouse.screen], awful.tag.getidx(current_tag))
+            local current_tag = mouse.screen.selected_tag
             if awful.tag.delete(current_tag) == nil then
                 naughty.notify({
                         text = "当前工作区不为空!",
@@ -131,11 +124,13 @@ globalkeys = awful.util.table.join(
         end
     end),
     awful.key({ modkey,         }, "r",    function ()
-        awful.prompt.run({ prompt = "当前工作区改名:", },
-        mypromptbox[mouse.screen].widget,
-        function (s)
-            awful.tag.selected().name = s
-        end)
+        awful.prompt.run {
+            prompt = "Renname:",
+            textbox = mypromptbox[awful.screen.focused().index].widget,
+            exe_callback = function(new_name)
+                awful.tag.selected().name = new_name
+            end
+        }
     end),
     awful.key({ modkey,         }, "-",    function ()
         local screengeom = screen[mouse.screen].geometry
@@ -170,13 +165,24 @@ globalkeys = awful.util.table.join(
         utils.center_window(client.focus)
     end),
     ------------------------------------------------------------------------------
+    awful.key({ modkey, "Control"}, "c",   function()
+        local screengeom = screen[mouse.screen].workarea
+        local cg = client.focus:geometry()
+        cg['width'] = screengeom['width']/2 - beautiful.border_width * 2
+        cg['height'] = screengeom['height'] - beautiful.border_width * 2
+        cg['x'] = screengeom['x'] + cg['width'] / 2
+        cg['y'] = screengeom['y']
+        client.focus:geometry(cg)
+        client.focus.maximized_horizontal = false
+        client.focus.maximized_vertical = false
+    end),
     awful.key({ modkey,           }, "Left",   function()
         local screengeom = screen[mouse.screen].workarea
         local cg = client.focus:geometry()
-        cg['width'] = screengeom['width']/2;
-        cg['height'] = screengeom['height'];
-        cg['x'] = screengeom['x'];
-        cg['y'] = screengeom['y'];
+        cg['width'] = screengeom['width']/2 - beautiful.border_width * 2
+        cg['height'] = screengeom['height'] - beautiful.border_width * 2
+        cg['x'] = screengeom['x']
+        cg['y'] = screengeom['y']
         client.focus:geometry(cg)
         client.focus.maximized_horizontal = false
         client.focus.maximized_vertical = false
@@ -184,10 +190,32 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Right",  function()
         local screengeom = screen[mouse.screen].workarea
         local cg = client.focus:geometry()
-        cg['width'] = screengeom['width']/2;
-        cg['height'] = screengeom['height'];
-        cg['x'] = screengeom['x'] + cg['width'];
-        cg['y'] = screengeom['y'];
+        cg['width'] = screengeom['width']/2 - beautiful.border_width * 2
+        cg['height'] = screengeom['height'] - beautiful.border_width * 2
+        cg['x'] = screengeom['x'] + cg['width'] + beautiful.border_width * 2
+        cg['y'] = screengeom['y']
+        client.focus:geometry(cg)
+        client.focus.maximized_horizontal = false
+        client.focus.maximized_vertical = false
+    end),
+    awful.key({ modkey,           }, "Up",  function()
+        local screengeom = screen[mouse.screen].workarea
+        local cg = client.focus:geometry()
+        cg['width'] = screengeom['width'] - beautiful.border_width * 2
+        cg['height'] = screengeom['height']/2 - beautiful.border_width * 2
+        cg['x'] = screengeom['x']
+        cg['y'] = screengeom['y']
+        client.focus:geometry(cg)
+        client.focus.maximized_horizontal = false
+        client.focus.maximized_vertical = false
+    end),
+    awful.key({ modkey,           }, "Down",  function()
+        local screengeom = screen[mouse.screen].workarea
+        local cg = client.focus:geometry()
+        cg['width'] = screengeom['width'] - beautiful.border_width * 2
+        cg['height'] = screengeom['height']/2 - beautiful.border_width * 2
+        cg['x'] = screengeom['x']
+        cg['y'] = screengeom['y'] + cg['height'] + beautiful.border_width * 2
         client.focus:geometry(cg)
         client.focus.maximized_horizontal = false
         client.focus.maximized_vertical = false
@@ -236,7 +264,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
     awful.key({ "Mod1", "Control"}, "space", function () awful.util.spawn_with_shell("gmrun -g '+50%+50%'") end), -- start a notepad
     awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("subl3") end), -- start a notepad
-    awful.key({ "Control", "Shift"}, "l", function () awful.util.spawn_with_shell("dm-tool lock &") end) -- yaourt -S lightdm lightdm-gtk-greeter
+    awful.key({ modkey, "Control"}, "l", function () awful.util.spawn_with_shell("dm-tool lock &") end) -- yaourt -S lightdm lightdm-gtk-greeter
 )
 --end of globalkeys
 
@@ -251,13 +279,13 @@ clientkeys = awful.util.table.join(
         if c.type ~= "desktop" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
-            local org_sg = screen[c.screen].geometry
-            if c.screen - 1 > 0 then
-                awful.client.movetoscreen(c,c.screen-1) 
+            local org_sg = c.screen.geometry
+            if c.screen.index - 1 > 0 then
+                awful.client.movetoscreen(c,c.screen.index-1) 
             else
                 awful.client.movetoscreen(c,screen.count()) 
             end
-            local new_sg = screen[c.screen].geometry
+            local new_sg = c.screen.geometry
             utils.proportion_resize(c, cg, org_sg, new_sg)
         end
     end),
@@ -265,13 +293,13 @@ clientkeys = awful.util.table.join(
         if c.type ~= "desktop" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
-            local org_sg = screen[c.screen].geometry
-            if c.screen - 1 > 0 then
-                awful.client.movetoscreen(c,c.screen-1) 
+            local org_sg = c.screen.geometry
+            if c.screen.index - 1 > 0 then
+                awful.client.movetoscreen(c,c.screen.index-1) 
             else
                 awful.client.movetoscreen(c,screen.count()) 
             end
-            local new_sg = screen[c.screen].geometry
+            local new_sg = c.screen.geometry
             utils.proportion_resize(c, cg, org_sg, new_sg)
             mouse.coords(mouse_coords, true)
         end
@@ -280,13 +308,13 @@ clientkeys = awful.util.table.join(
         if c.type ~= "desktop" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
-            local org_sg = screen[c.screen].geometry
-            if c.screen + 1 > screen.count() then
+            local org_sg = c.screen.geometry
+            if c.screen.index + 1 > screen.count() then
                 awful.client.movetoscreen(c,1)
             else
-                awful.client.movetoscreen(c,c.screen+1)
+                awful.client.movetoscreen(c,c.screen.index+1)
             end
-            local new_sg = screen[c.screen].geometry
+            local new_sg = c.screen.geometry
             utils.proportion_resize(c, cg, org_sg, new_sg)
         end
     end),
@@ -294,13 +322,13 @@ clientkeys = awful.util.table.join(
         if c.type ~= "desktop" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
-            local org_sg = screen[c.screen].geometry
-            if c.screen + 1 > screen.count() then
+            local org_sg = c.screen.geometry
+            if c.screen.index + 1 > screen.count() then
                 awful.client.movetoscreen(c,1)
             else
-                awful.client.movetoscreen(c,c.screen+1)
+                awful.client.movetoscreen(c,c.screen.index+1)
             end
-            local new_sg = screen[c.screen].geometry
+            local new_sg = c.screen.geometry
             utils.proportion_resize(c, cg, org_sg, new_sg)
             mouse.coords(mouse_coords, true)
         end

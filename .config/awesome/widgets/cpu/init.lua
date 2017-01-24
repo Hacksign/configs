@@ -8,18 +8,18 @@
 --]]
 
 local require = require
+local beautiful = require("beautiful")
 local awful = require("awful")
 local io = require("io")
 local naughty		= require("naughty")
 local string = require("string")
-local capi = {
-    mouse = mouse,
-    screen = screen
-}
+local mouse = mouse
+local vicious		= require("vicious")
 
 module("cpu")
 
 local cpuwidget = awful.widget.graph()
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 local disk_naughty
 cpuwidget:set_width(250)
 cpuwidget:set_background_color("#000000")
@@ -30,11 +30,11 @@ cpuwidget:connect_signal('mouse::enter', function ()
 	local blk = f:read("*a")
 	f:close()
 	disk_naughty = naughty.notify({
-			text = string.format('<span font_desc="%s">%s</span>', "Terminal", blk),
+			text = string.format('<span font_desc="%s">%s</span>', beautiful.font, blk),
 			timeout = 0,
 			position = box_position,
 			hover_timeout = 0.5,
-			screen = capi.mouse.screen
+			screen = mouse.screen
 	})
 end)
 cpuwidget:connect_signal('mouse::leave', function ()
