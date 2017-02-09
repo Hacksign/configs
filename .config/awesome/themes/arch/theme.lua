@@ -48,7 +48,7 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#1793d1"
 
 theme.border_width  = "3"
-theme.border_normal = "#a2a2a2"
+theme.border_normal = "#cccccc"
 theme.border_focus  = "#0e0e47"
 theme.border_marked = "#ce0f35"
 

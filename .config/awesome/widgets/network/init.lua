@@ -10,7 +10,7 @@
 local require = require
 local wibox = require("wibox")
 local io = require("io")
-local timer = timer
+local gears = require("gears")
 local assert = assert
 local string = string
 local tonumber = tonumber
@@ -20,7 +20,7 @@ module("network")
 
 time_interval = 3
 networkwidget = wibox.widget.textbox()
-networkwidgettimer = timer({timeout = time_interval})
+networkwidgettimer = gears.timer({timeout = time_interval})
 lasttime_received = 0
 lasttime_sent = 0
 init = true

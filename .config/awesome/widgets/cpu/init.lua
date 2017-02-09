@@ -9,7 +9,7 @@
 
 local require = require
 local beautiful = require("beautiful")
-local awful = require("awful")
+local wibox = require("wibox")
 local io = require("io")
 local naughty		= require("naughty")
 local string = require("string")
@@ -18,7 +18,7 @@ local vicious		= require("vicious")
 
 module("cpu")
 
-local cpuwidget = awful.widget.graph()
+local cpuwidget = wibox.widget.graph()
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 local disk_naughty
 cpuwidget:set_width(250)

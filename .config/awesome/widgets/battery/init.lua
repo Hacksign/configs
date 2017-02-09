@@ -12,7 +12,7 @@ local wibox = require("wibox")
 local io = require("io")
 local lfs = require("lfs")
 local naughty = require("naughty")
-local timer = timer
+local gears = require("gears")
 local string = string
 local tonumber = tonumber
 local assert = assert
@@ -25,7 +25,7 @@ batterywidget.max_value = 100
 batterywidget.width = 20
 batterywidget.height = 20
 batterywidget.background_color = "#494B4F"
-batterywidgettimer = timer({timeout = 5})
+batterywidgettimer = gears.timer({timeout = 5})
 batterywidgettimer:connect_signal("timeout",
         function()
             local percent
@@ -50,10 +50,8 @@ batterywidgettimer:connect_signal("timeout",
             if percent then
                 if charge_status == 'Discharging' then
                     batterywidget.color = "#FF5656"
-                elseif charge_status == 'Charging' or charge_status == 'Full' then
+                elseif charge_status == 'Charging' or charge_status == 'Full' or charge_status == 'Unknown' then
                     batterywidget.color = "#00FFFF"
-                else
-                    batterywidget.color = "#FFFF00"
                 end
                 if percent < 15 and charge_status == "Discharging" then
                     naughty.notify({
@@ -65,10 +63,7 @@ batterywidgettimer:connect_signal("timeout",
                     })
                 end
                 batterywidget:set_value(percent)
-                ac:close()
-                ch:close()
             end
-            fh:close()
         end
  )
 batterywidgettimer:start()

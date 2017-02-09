@@ -29,7 +29,7 @@ end
 
 -- {{{ Wibox
 -- Create a textclock widget
-local mytextclock = awful.widget.textclock("<span color='green' font_desc='"..beautiful.font.."'>%F %H:%M</span>")
+local mytextclock = wibox.widget.textclock("<span color='green' font_desc='"..beautiful.font.."'>%F %H:%M</span>")
 local calendar = widgets.calendar.init(mytextclock, "bottom_right")
 
 -- Create a wibox for each screen and add it
@@ -84,8 +84,8 @@ for s = 1, screen.count() do
     -- Create the wibox
     local mywibox = {}
     local bottomwibox = {}
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
-    bottomwibox[s] = awful.wibox({position = "bottom", screen = s})
+    mywibox[s] = awful.wibar({ position = "top", screen = s })
+    bottomwibox[s] = awful.wibar({position = "bottom", screen = s})
 
 
     local blankwidget = wibox.widget.textbox()

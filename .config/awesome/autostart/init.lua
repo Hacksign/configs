@@ -44,12 +44,12 @@ end
 -- }}}
 
 run_once('compton', 'compton')
-run_once('syndaemon', 'syndaemon -t -k -i 2 -d')
+run_once('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
 run_once('indicator-keylock', 'indicator-keylock')
 run_once('volumeicon', 'volumeicon')
 run_once('thunar', 'thunar --daemon')
 run_once('nm-applet', 'nm-applet')
-run_once('fcitx', 'fcitx -D -r')
+run_once('fcitx', 'fcitx -D -r 2>/dev/null')
 run_once('goldendict', 'goldendict')
 --run_once('thunderbird', 'thunderbird')
 run_once('/usr/share/nylas/nylas', 'nylas --background')

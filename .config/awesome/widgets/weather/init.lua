@@ -1,7 +1,7 @@
 local require = require
 local wibox = require("wibox")
 local io = require("io")
-local timer = timer
+local gears = require("gears")
 local string = require("string")
 local os = require("os")
 local table = require("table")
@@ -115,7 +115,7 @@ end
 local function init(location, box_position)
 	local time_interval = 5
 	weatherwidget = wibox.widget.textbox()
-	weatherwidgettimer = timer({timeout = time_interval})
+	weatherwidgettimer = gears.timer({timeout = time_interval})
 	weatherwidgettimer:connect_signal("timeout",
 		function()
 			if location == nil then

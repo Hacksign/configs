@@ -3,7 +3,7 @@ local mouse = mouse
 local screen = screen
 local wibox = require('wibox')
 local table = table
-local timer = timer
+local gears = require('gears')
 local keygrabber = keygrabber
 local math = require('math')
 local awful = require('awful')
@@ -41,7 +41,7 @@ preview_wbox.border_width = 3
 preview_wbox.ontop = true
 preview_wbox.visible = false
 
-local preview_live_timer = timer({}) --( {timeout = 1/settings.preview_box_fps} )
+local preview_live_timer = gears.timer({}) --( {timeout = 1/settings.preview_box_fps} )
 local preview_widgets = {}
 
 local altTabTable = {}
@@ -313,7 +313,7 @@ local function clientOpacity(altTabTable, altTabIndex)
 
             -- preview delay timer
             local previewDelay = settings.preview_box_delay / 1000
-            local previewDelayTimer = timer({timeout = previewDelay})
+            local previewDelayTimer = gears.timer({timeout = previewDelay})
             previewDelayTimer:connect_signal("timeout", function() 
                 preview_wbox.visible = true
                 previewDelayTimer:stop()
@@ -324,7 +324,7 @@ local function clientOpacity(altTabTable, altTabIndex)
 
             -- opacity delay timer
             local opacityDelay = settings.client_opacity_delay / 1000
-            local opacityDelayTimer = timer({timeout = opacityDelay})
+            local opacityDelayTimer = gears.timer({timeout = opacityDelay})
             opacityDelayTimer:connect_signal("timeout", function() 
                 applyOpacity = true
                 opacityDelayTimer:stop()

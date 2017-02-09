@@ -1,10 +1,10 @@
 local require = require
-local timer = timer
+local gears = require("gears")
 local wibox = require("wibox")
 
 time_interval = 5 
 tempwidget = wibox.widget.textbox('')
-tempwidgettimer = timer({timeout = time_interval})
+tempwidgettimer = gears.timer({timeout = time_interval})
 local tempfile = "/sys/class/thermal/thermal_zone0/temp"
 
 tempwidgettimer:connect_signal("timeout",
