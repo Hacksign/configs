@@ -13,12 +13,12 @@
             "enable": true
         },
         "themes.googleusercontent.com": {
-            "dstURL": "google-themes.proxy.ustclug.org",
+            "dstURL": "google-themes.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.gstatic.com": {
-            "dstURL": "fonts-gstatic.proxy.ustclug.org",
+            "dstURL": "fonts-gstatic.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         }
