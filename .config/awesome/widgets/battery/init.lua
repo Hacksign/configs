@@ -22,8 +22,8 @@ module("battery")
 local batterywidget =  wibox.widget.progressbar()
 local container = wibox.container.rotate(batterywidget, "east")
 batterywidget.max_value = 100
-batterywidget.width = 20
-batterywidget.height = 20
+batterywidget.forced_width = 20
+batterywidget.forced_height = 20
 batterywidget.background_color = "#494B4F"
 batterywidgettimer = gears.timer({timeout = 5})
 batterywidgettimer:connect_signal("timeout",

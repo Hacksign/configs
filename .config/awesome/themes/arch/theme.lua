@@ -37,6 +37,8 @@ for i = 1, screen:count() do
 end
 theme.font          = "Hack" .. " " .. font_size
 
+theme.margin_horizontal        = 40
+theme.margin_vertical        = 250
 theme.bg_normal     = "#000000"
 theme.bg_focus      = "#1793d1"
 theme.bg_urgent     = "#ff0000"

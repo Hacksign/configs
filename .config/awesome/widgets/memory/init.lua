@@ -16,8 +16,8 @@ module("memory")
 local memwidget = wibox.widget.progressbar()
 vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
 local container = wibox.container.rotate(memwidget, "east")
-memwidget.height = 20
-memwidget.width = 20
+memwidget.forced_height = 20
+memwidget.forced_width = 20
 memwidget.color = "#AECF96"
 memwidget.background_color = "#494B4F"
 return container

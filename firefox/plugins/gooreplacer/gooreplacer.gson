@@ -3,12 +3,12 @@
     "createAt": "Tue Jue 23 2016 12:04:12 GMT+0800 (CST)",
     "rules": {
         "ajax.googleapis.com": {
-            "dstURL": "cdn.moeofnt.com",
+            "dstURL": "ajax.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.googleapis.com": {
-            "dstURL": "cdn.moeofnt.com",
+            "dstURL": "fonts.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },

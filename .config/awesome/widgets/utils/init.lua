@@ -250,7 +250,7 @@ function center_window(c)
         local screengeom = screen[mouse.screen].geometry
         local cg = c:geometry()
         if (c.maximized_horizontal and c.maximized_vertical) or
-           (cg.width < screengeom.width - 40 or cg.height < screengeom.height - 250)  or
+           (cg.width < screengeom.width - beautiful.margin_horizontal or cg.height < screengeom.height - beautiful.margin_vertical)  or
            (cg['x'] + cg['width']) > (screengeom['x'] + screengeom['width']) or
            (cg['y'] + cg['height']) > (screengeom['y'] + screengeom['height']) or
            (cg['x']) < screengeom['x'] or
@@ -261,8 +261,8 @@ function center_window(c)
             -- or window is outside of current screen
             cg.x = screengeom.x
             cg.y = screengeom.y
-            cg.width = screengeom.width - 40
-            cg.height = screengeom.height - 250
+            cg.width = screengeom.width - beautiful.margin_horizontal
+            cg.height = screengeom.height - beautiful.margin_vertical
             c.maximized_horizontal = false
             c.maximized_vertical = false
             c:geometry(cg)

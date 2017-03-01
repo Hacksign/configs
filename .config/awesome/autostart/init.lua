@@ -3,9 +3,7 @@ local type=type
 local assert=assert
 local coroutine=coroutine
 local tonumber=tonumber
-local io=io
-local lfs=require("lfs") 
-local awful=require("awful")
+local io=io local lfs=require("lfs") local awful=require("awful")
 module("autostart")
 
 -- {{{ Run programm once
@@ -39,7 +37,7 @@ local function run_once(process, cmd)
          return
       end
    end
-   return awful.util.spawn(cmd or process)
+   return awful.spawn(cmd or process)
 end
 -- }}}
 
@@ -48,12 +46,13 @@ run_once('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
 run_once('indicator-keylock', 'indicator-keylock')
 run_once('volumeicon', 'volumeicon')
 run_once('thunar', 'thunar --daemon')
-run_once('nm-applet', 'nm-applet')
+run_once('nm-applet', 'nm-applet 1>/dev/null')
 run_once('fcitx', 'fcitx -D -r 2>/dev/null')
 run_once('goldendict', 'goldendict')
 --run_once('thunderbird', 'thunderbird')
 run_once('/usr/share/nylas/nylas', 'nylas --background')
 run_once('ss-qt5', 'ss-qt5')
 run_once('EvernoteTray', 'wine  "/home/hacksign/Software/Program Files (x86)/Evernote/Evernote/EvernoteTray.exe" 1>/dev/null 2>&1')
+run_once('BaiduNetdisk.exe', 'wine "/home/hacksign/.wine/drive_c/users/hacksign/Application Data/baidu/BaiduNetdisk/BaiduNetdisk.exe" AutoRun')
 run_once('caffeine', 'caffeine')
 run_once('xfdesktop', 'xfdesktop --disable-wm-check')

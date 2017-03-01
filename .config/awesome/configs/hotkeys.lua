@@ -99,8 +99,7 @@ globalkeys = awful.util.table.join(
         if #awful.tag.gettags(mouse.screen) ~= 1 then
             local current_tag = mouse.screen.selected_tag
             if awful.tag.delete(current_tag) == nil then
-                naughty.notify({
-                        text = "当前工作区不为空!",
+                naughty.notify({ text = "当前工作区不为空!",
                         timeout = 1,
                         position = "top_left",
                         screen = mouse.screen
@@ -246,8 +245,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return",
     function ()
         local screengeom = screen[mouse.screen].geometry
-        local terminal = "terminator --geometry="..(math.floor(screengeom.width) - 40).."x"..(math.floor(screengeom.height) - 250).."+20+125"
-        awful.util.spawn(terminal) 
+        local xoff = beautiful.margin_horizontal/2 - beautiful.border_width
+        local yoff = beautiful.margin_vertical/2 - beautiful.border_width
+        -- for geometry of terminator see 'man 7 X' document
+        local terminal = "terminator --geometry="..(math.floor(screengeom.width) - beautiful.margin_horizontal).."x"..(math.floor(screengeom.height) - beautiful.margin_vertical).."+"..math.floor(xoff).."+"..math.floor(yoff)
+        awful.spawn(terminal) 
     end),
     -- change layout
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
@@ -256,15 +258,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
-    awful.key({ modkey}, "e", function () awful.util.spawn_with_shell("thunar") end), -- yaourt -S thunar
-    awful.key({ modkey}, "s", function () awful.util.spawn_with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
-    awful.key({ modkey}, "i", function () awful.util.spawn_with_shell("firefox") end), -- yaourt -S firefox
-    awful.key({ modkey}, "o", function () awful.util.spawn_with_shell("terminator -e top") end), -- open 'task manger'
-    awful.key({ modkey}, "y", function () awful.util.spawn_with_shell("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-caculator
-    awful.key({ modkey}, "p", function () awful.util.spawn_with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
-    awful.key({ "Mod1", "Control"}, "space", function () awful.util.spawn_with_shell("gmrun -g '+50%+50%'") end), -- start a notepad
-    awful.key({ modkey}, "n", function () awful.util.spawn_with_shell("subl3") end), -- start a notepad
-    awful.key({ modkey, "Control"}, "l", function () awful.util.spawn_with_shell("dm-tool lock &") end) -- yaourt -S lightdm lightdm-gtk-greeter
+    awful.key({ modkey}, "e", function () awful.spawn.with_shell("thunar") end), -- yaourt -S thunar
+    awful.key({ modkey}, "s", function () awful.spawn.with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
+    awful.key({ modkey}, "i", function () awful.spawn.with_shell("firefox") end), -- yaourt -S firefox
+    awful.key({ }, "XF86Calculator", function () awful.spawn.with_shell("gnome-calculator") end),
+    awful.key({ modkey}, "y", function () awful.spawn.with_shell("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-calculator
+    awful.key({ modkey}, "p", function () awful.spawn.with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
+    awful.key({ "Mod1", "Control"}, "space", function () awful.spawn.with_shell("gmrun -g '+50%+50%'") end), -- start a notepad
+    awful.key({ modkey}, "n", function () awful.spawn.with_shell("subl3") end), -- start a notepad
+    awful.key({ modkey, "Control"}, "l", function () awful.spawn.with_shell("dm-tool lock &") end) -- yaourt -S lightdm lightdm-gtk-greeter
 )
 --end of globalkeys
 
