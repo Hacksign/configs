@@ -13,23 +13,20 @@ local weather_info
 
 module("weather")
 
-local function urlencode(str)
-    if (str) then
-        str = string.gsub (str, "\n", "\r\n")
-        str = string.gsub (str, "([^%w ])",
-        function (c) return string.format ("%%%02X", string.byte(c)) end)
-        str = string.gsub (str, " ", "+")
-    end
-    return str    
-end
-
 local function guess_city()
-	local cmd = "curl --connect-timeout 1 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json' 2>/dev/null|xargs printf"
+	local cmd = "curl --connect-timeout 1 -s 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json' 2>/dev/null|xargs printf"
 	local f = io.popen(cmd)
 	local ws = f:read("*a")
 	f:close()
 	local city = ws:match('city:(.-),')
-	return city
+
+    local cmd = "curl --connect-timeout 1 -s 'https://api.heweather.com/v5/search?key=bc0418b57b2d4918819d3974ac1285d9&city="..(city).."' 2>/dev/null|"..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
+	local f = io.popen(cmd)
+	local ws = f:read("*a")
+	f:close()
+
+	local citycode = ws:match('%["HeWeather5",0,"basic","id"%].-"CN(.-)"')
+	return citycode
 end
 
 local function get_weather_line(city)
@@ -40,7 +37,7 @@ local function get_weather_line(city)
 			string.gsub(s, '[^'..p..']+', function(w) table.insert(rt, w) end )
 			return rt
 	end
-	local cmd = "curl 'http://wthrcdn.etouch.cn/weather_mini?city="..city.."' 2>/dev/null | gzip -d |"..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
+	local cmd = "curl 'http://wthrcdn.etouch.cn/weather_mini?citykey="..city.."' 2>/dev/null | gzip -d |"..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
 	local f = io.popen(cmd)
 	local ws = f:read("*a")
 	f:close()
@@ -119,7 +116,7 @@ local function init(location, box_position)
 	weatherwidgettimer:connect_signal("timeout",
 		function()
 			if location == nil then
-				location = urlencode(guess_city())
+				location = guess_city()
 			end
 			if location ~= nil then
 				weather_info = get_weather_line(location)
