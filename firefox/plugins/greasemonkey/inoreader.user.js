@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, and upgrade button.
-// @version 3.3
+// @version 3.4
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
@@ -82,8 +82,23 @@ if (content_div) {
     }
     if (e.originalTarget.id && e.originalTarget.id.indexOf('no_article_selected') != -1){
       e.originalTarget.addEventListener('DOMNodeInserted', function(f){
-        if(f.originalTarget.classList){
-          f.originalTarget.parentNode.removeChild(f.originalTarget);
+        if(f.originalTarget){
+          if(f.originalTarget.getElementsByClassName('ad_title').length != 0){
+            f.originalTarget.getElementsByClassName('ad_title')[0].parentNode.removeChild(f.originalTarget.getElementsByClassName('ad_title')[0]);
+          }
+          if(f.originalTarget.getElementsByClassName('sinner_inner').length != 0){
+            if(f.originalTarget.getElementsByClassName('sinner_inner')[0]){
+              var div_sinn_inner = f.originalTarget.getElementsByClassName('sinner_inner');
+              for(i = 0; i < f.originalTarget.getElementsByClassName('sinner_inner')[0].childNodes.length; ++i){
+                if(f.originalTarget.getElementsByClassName('sinner_inner')[0].childNodes[i].id.indexOf('column_ad-') != -1){
+                  f.originalTarget.getElementsByClassName('sinner_inner')[0].childNodes[i].style.display = 'none';
+                }
+              }
+            }
+          }
+          if(f.originalTarget.getElementsByClassName('ad_footer_remove').length != 0){
+            f.originalTarget.getElementsByClassName('ad_footer_remove')[0].parentNode.removeChild(f.originalTarget.getElementsByClassName('ad_footer_remove')[0]);
+          }
         }
       });
     }
