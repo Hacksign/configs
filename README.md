@@ -67,6 +67,10 @@
     terminator : 终端模拟器   
     wiki:https://code.google.com/p/jessies/w/list   
     evince	:	PDF查看器   
+    blueman	:	蓝牙管理器   
+        pacman -S pulseaudio-bluetooth, 不然会出现protocol not supported的问题   
+        需要先system enable bluetooth   
+        如果想要自启动, 启动blueman-applet即可   
     leafpad / gedit / sublime-text-dev-zh-cn :   
         看个人喜好,leafpad更轻量,但是不支持高亮等一些特性,gedit相对来说重量一点,但是支持好多特性.   
         sublime算是这三个里面功能最强劲的编辑器,推荐使用,不过这个只有在archlinuxcn源里才有,付个授权码:   

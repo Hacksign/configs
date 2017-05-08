@@ -45,11 +45,6 @@ if (reader_pane_div) {
 }
 content_div = document.getElementById('three_way_contents');
 if (content_div) {
-  content_div.addEventListener('DOMNodeInserted', function (e) {
-    if (e.originalTarget.id && e.originalTarget.id.indexOf('taboola_ad-') != - 1) {
-      e.originalTarget.parentNode.removeChild(e.originalTarget);
-    }
-  }, false);
   content_div.addEventListener('scroll', function () {
     if (content_div.scrollTop != 0 && !document.getElementById('_gm_hacksign_topbar_content')) {
       var topbar = document.createElement('div');
@@ -82,6 +77,16 @@ if (content_div) {
     }
   });
   content_div.addEventListener('DOMNodeInserted', function (e) {
+    if (e.originalTarget.id && e.originalTarget.id.indexOf('taboola_ad-') != - 1) {
+      e.originalTarget.parentNode.removeChild(e.originalTarget);
+    }
+    if (e.originalTarget.id && e.originalTarget.id.indexOf('no_article_selected') != -1){
+      e.originalTarget.addEventListener('DOMNodeInserted', function(f){
+        if(f.originalTarget.classList){
+          f.originalTarget.parentNode.removeChild(f.originalTarget);
+        }
+      });
+    }
     if (e.originalTarget.id && e.originalTarget.id.indexOf('article_full_contents') != - 1) {
       e.originalTarget.addEventListener('DOMNodeInserted', function (f) {
         if (f.originalTarget.classList && f.originalTarget.classList.contains('ad_title')) {
