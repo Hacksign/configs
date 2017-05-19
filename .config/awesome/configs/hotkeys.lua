@@ -260,7 +260,7 @@ globalkeys = awful.util.table.join(
     -- User Defined Hot Key
     awful.key({ modkey}, "e", function () awful.spawn.with_shell("thunar") end), -- yaourt -S thunar
     awful.key({ modkey}, "s", function () awful.spawn.with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
-    awful.key({ modkey}, "i", function () awful.spawn.with_shell("firefox") end), -- yaourt -S firefox
+    awful.key({ modkey}, "i", function () awful.spawn.with_shell("chromium") end), -- yaourt -S chromium
     awful.key({ }, "XF86Calculator", function () awful.spawn.with_shell("gnome-calculator") end),
     awful.key({ modkey}, "y", function () awful.spawn.with_shell("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-calculator
     awful.key({ modkey}, "p", function () awful.spawn.with_shell("lxrandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
