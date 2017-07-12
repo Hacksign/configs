@@ -18,6 +18,7 @@ awful.rules.rules = {
         properties = { border_width = beautiful.border_width,
         border_color = beautiful.border_normal,
         focus = awful.client.focus.filter,
+        screen = function(c) return awesome.startup and c.screen or awful.screen.focused() end,
         keys = clientkeys,
         buttons = clientbuttons } ,
         callback = function (c)
