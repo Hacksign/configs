@@ -263,6 +263,7 @@ function center_window(c)
             cg.y = screengeom.y
             cg.width = screengeom.width - beautiful.margin_horizontal
             cg.height = screengeom.height - beautiful.margin_vertical
+            c.maximized = false
             c.maximized_horizontal = false
             c.maximized_vertical = false
             c:geometry(cg)
@@ -272,6 +273,7 @@ function center_window(c)
             c.maximized_vertical   = not c.maximized_vertical
             if c.maximized_horizontal == true and c.maximized_vertical == true then
                 c.border_width = "0"
+                c.maximized = true
             else
                 local manage = true
                 for i,v in pairs(awful.rules.rules) do
