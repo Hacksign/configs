@@ -65,7 +65,7 @@ local function get_weather_line(city)
             end
         else
             aqi_color = 'white'
-            aqi_info = 'None'
+            aqi_info = '-'
         end
             local temperature_now = ws:match('%["data","wendu"%]%s+"(.-)"')
             if temperature_now ~= nil then

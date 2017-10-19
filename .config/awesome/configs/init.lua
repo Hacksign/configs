@@ -20,7 +20,7 @@ modkey = "Mod4"
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/arch/theme.lua")
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+        gears.wallpaper.fit(beautiful.wallpaper, s, theme.bg_normal)
     end
 end
 for s in screen do
@@ -110,7 +110,9 @@ for s = 1, screen.count() do
     right_layout:add(memwidget)
     right_layout:add(blankwidget)
     right_layout:add(cpuwidget)
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    if s == 1 then
+        right_layout:add(wibox.widget.systray())
+    end
     right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)

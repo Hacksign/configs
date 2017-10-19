@@ -33,18 +33,20 @@ batterywidgettimer:connect_signal("timeout",
             local basedir = "/sys/class/power_supply"
             local dir_iter, dir_obj = lfs.dir(basedir)
             for dir in dir_iter, dir_obj do
-              local fd = io.open(basedir.."/"..dir.."/capacity", "r")
-              if fd then
-                percent = fd:read("*a")
-                percent = tonumber(percent)
-                fd:close()
-                fd = io.open(basedir.."/"..dir.."/status", "r")
-                if fd then
-                   charge_status = fd:read("*l")
-                   fd:close()
-                end
-                dir_obj:close()
-                break
+              if string.sub(dir, 1, 3) == "BAT" then
+                  local fd = io.open(basedir.."/"..dir.."/capacity", "r")
+                  if fd then
+                    percent = fd:read("*a")
+                    percent = tonumber(percent)
+                    fd:close()
+                    fd = io.open(basedir.."/"..dir.."/status", "r")
+                    if fd then
+                       charge_status = fd:read("*l")
+                       fd:close()
+                    end
+                    dir_obj:close()
+                    break
+                  end
               end
             end
             if percent then

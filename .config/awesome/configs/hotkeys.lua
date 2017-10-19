@@ -4,6 +4,8 @@ local utils         = require("utils")
 local widgets		= require("widgets")
 local beautiful = require("beautiful")
 
+local xresources = require("beautiful.xresources")
+
 local alttab = widgets.alttab
 local last_focused_client = nil
 
@@ -258,18 +260,19 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
-    awful.key({ modkey}, "e", function () awful.spawn.with_shell("thunar") end), -- yaourt -S thunar
-    awful.key({ modkey}, "s", function () awful.spawn.with_shell("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
-    awful.key({ modkey}, "i", function () awful.spawn.with_shell("chromium") end), -- yaourt -S chromium
-    awful.key({ }, "XF86Calculator", function () awful.spawn.with_shell("gnome-calculator") end),
-    awful.key({ modkey}, "y", function () awful.spawn.with_shell("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-calculator
-    awful.key({ modkey}, "p", function () awful.spawn.with_shell("arandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
+    awful.key({ modkey}, "e", function () awful.spawn("thunar") end), -- yaourt -S thunar
+    awful.key({ modkey}, "s", function () awful.spawn("xfce4-screenshooter") end), -- yaourt -S xfce4-screenshooter
+    awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox
+    awful.key({ }, "XF86Calculator", function () awful.spawn("gnome-calculator") end),
+    awful.key({ modkey}, "y", function () awful.spawn("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-calculator
+    awful.key({ modkey}, "p", function () awful.spawn("arandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
+    awful.key({ "Mod1", "Control"}, "s", function () awful.spawn("fsearch") end), -- yaourt -S fsearch-git
     awful.key({ "Mod1", "Control"}, "space", function ()
         local geometry = screen[mouse.screen].geometry
         local cmd = "gmrun -g +" .. math.floor(geometry.x + geometry.width/2 - (beautiful.border_width + 610/2)) .. "+" .. math.floor(geometry.y  + geometry.height/2 - (beautiful.border_width + 76/2))
-        awful.spawn.with_shell(cmd)
+        awful.spawn(cmd)
     end), -- start a notepad
-    awful.key({ modkey}, "n", function () awful.spawn.with_shell("subl3") end), -- start a notepad
+    awful.key({ modkey}, "n", function () awful.spawn("subl3") end), -- start a notepad
     awful.key({ modkey, "Control"}, "l", function () awful.spawn.with_shell("dm-tool lock &") end) -- yaourt -S lightdm lightdm-gtk-greeter
 )
 --end of globalkeys

@@ -2,6 +2,8 @@
 
 --{{{ Main
 local awful = require("awful")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 awful.util = require("awful.util")
 
 theme = {}
@@ -23,33 +25,26 @@ themedir      = themes .. themename
 
 theme.wallpaper    = home .. "/.wallpaper"
 
-if awful.util.file_readable(config .. "/vain/init.lua") then
-    theme.useless_gap_width  = "3"
-end
 --}}}
 
 -- default font size is 10
-local font_size = 10
-for i = 1, screen:count() do
-    if screen[i].geometry.height / 40 / 2.5 > font_size then
-        font_size = screen[i].geometry.height / 40 / 2.5
-    end
-end
-theme.font          = "Hack" .. " " .. font_size
+theme.font          = "Hack" .. " " .. dpi(12)
 
-theme.margin_horizontal        = 40
-theme.margin_vertical        = 250
+theme.margin_horizontal        = dpi(40)
+theme.margin_vertical        = dpi(250)
+theme.border_width  = dpi(4)
+
 theme.bg_normal     = "#000000"
 theme.bg_focus      = "#1793d1"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#000000"
+theme.bg_systray   = "#000000"
 
 theme.fg_normal     = "#1793d1"
 theme.fg_focus      = "#000000"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#1793d1"
 
-theme.border_width  = "3"
 theme.border_normal = "#cccccc"
 theme.border_focus  = "#0e0e47"
 theme.border_marked = "#ce0f35"
@@ -74,8 +69,8 @@ theme.tasklist_floating_icon = sharedthemes .. "/default/tasklist/floatingw.png"
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = sharedthemes .. "/default/submenu.png"
-theme.menu_height = "30"
-theme.menu_width  = "100"
+theme.menu_height = dpi(30)
+theme.menu_width  = dpi(100)
 
 -- You can add as many variables as
 -- you wish and access them by using

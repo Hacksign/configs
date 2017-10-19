@@ -2,6 +2,8 @@ local awful			= require("awful")
 awful.rules			= require("awful.rules")
 local beautiful = require("beautiful")
 local utils         = require("utils")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -97,6 +99,26 @@ awful.rules.rules = {
         rule = { class = "evince" },
         callback = function (c)
             awful.placement.centered(c,nil)
+        end
+    },
+    { 
+        rule = { class = "Synergy" },
+        properties = { floating = true },
+        callback = function (c)
+            local cg = c:geometry()
+            cg.width = dpi(400)
+            cg.height = dpi(600)
+            c:geometry(cg)
+        end
+    },
+    { 
+        rule = { class = "Nm-openconnect-auth-dialog" },
+        properties = { floating = true },
+        callback = function (c)
+            local cg = c:geometry()
+            cg.width = dpi(200)
+            cg.height = dpi(350)
+            c:geometry(cg)
         end
     },
     -- fix problem of Wine program move slowly to right-bottom of the corner

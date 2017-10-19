@@ -3549,7 +3549,6 @@ scrollbar {
     border-style: solid;
     border-width: 1px 1px 1px 1px;
     border-color: @scrollbar_slider_border_color;
-    -GtkRange-slider-width: 25;
     -GtkScrollbar-has-backward-stepper: true;
     -GtkScrollbar-has-forward-stepper: true;
     box-shadow: none;
