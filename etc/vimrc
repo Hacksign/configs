@@ -9,7 +9,6 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'The-NERD-tree'
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 Plugin 'TabBar'
@@ -27,6 +26,7 @@ Plugin 'vim-perl/vim-perl'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'mbriggs/mark.vim'
 Plugin 'hdima/python-syntax'
+Plugin 'davidhalter/jedi-vim'
 let g:python_highlight_all = 1
 Plugin 'octol/vim-cpp-enhanced-highlight'
 " For markdown hightlight
@@ -46,6 +46,8 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '!'
 let g:ycm_autoclose_preview_window_after_completion = 1
+" preview window location at bottom
+set splitbelow
 call vundle#end()
 filetype on
 filetype plugin on     " required! 
