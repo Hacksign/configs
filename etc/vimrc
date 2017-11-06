@@ -26,7 +26,6 @@ Plugin 'vim-perl/vim-perl'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'mbriggs/mark.vim'
 Plugin 'hdima/python-syntax'
-Plugin 'davidhalter/jedi-vim'
 let g:python_highlight_all = 1
 Plugin 'octol/vim-cpp-enhanced-highlight'
 " For markdown hightlight
@@ -35,6 +34,15 @@ Plugin 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
 let g:vim_markdown_frontmatter=1
+Plugin 'davidhalter/jedi-vim'
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_char = '|'
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#A4E57E'
+let g:indentLine_color_tty_light = 4
+let g:indentLine_color_dark = 2
+let g:indentLine_bgcolor_term = 000
+let g:indentLine_bgcolor_gui = '#FF5F00'
 " markdown hightlient end
 Plugin 'iamcco/markdown-preview.vim'
 let g:mkdp_path_to_chrome = '/usr/bin/firefox'
