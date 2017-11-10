@@ -11,7 +11,9 @@ call vundle#rc()
 call vundle#begin()
 Plugin 'The-NERD-tree'
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-Plugin 'TabBar'
+Plugin 'ap/vim-buftabline'
+let g:buftabline_numbers = 2
+let g:buftabline_indicators = 1
 Plugin 'Tagbar'
 let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_width = 25
@@ -41,7 +43,6 @@ let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#A4E57E'
 let g:indentLine_color_tty_light = 4
 let g:indentLine_color_dark = 2
-let g:indentLine_bgcolor_term = 000
 let g:indentLine_bgcolor_gui = '#FF5F00'
 " markdown hightlient end
 Plugin 'iamcco/markdown-preview.vim'
@@ -79,30 +80,21 @@ set mouse=a
 let mapleader = ","
 let g:mapleader = ","
 
-"Fast saving
-function! <SID>quit()
-    let s:active_buf_num = 0
-    for bufnum in range(1, bufnr('$'))
-        if(buflisted(bufnum))
-            let s:active_buf_num += 1
-        endif
-    endfor
-
-    "check Tagbar plugin window state
-    "if it exists, then close it before leave buffer
-    if bufwinnr('__Tagbar__')!= -1
-        call tagbar#CloseWindow()
-    endif
-
-    if s:active_buf_num == 1
-        execute 'confirm q'
-    else
-        execute 'confirm bdelete 'bufnr('%')
-    endif
-endfunction
 nmap <leader>w :w!<cr>
 nmap <leader>x :x <cr>
-nmap <leader>q :call <SID>quit()<cr>
+
+nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>2 <Plug>BufTabLine.Go(2)
+nmap <leader>3 <Plug>BufTabLine.Go(3)
+nmap <leader>4 <Plug>BufTabLine.Go(4)
+nmap <leader>5 <Plug>BufTabLine.Go(5)
+nmap <leader>6 <Plug>BufTabLine.Go(6)
+nmap <leader>7 <Plug>BufTabLine.Go(7)
+nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 <Plug>BufTabLine.Go(9)
+nmap <leader>0 <Plug>BufTabLine.Go(10)
+
+"nmap <leader>q :call <SID>quit()<cr>
 "fast move between window
 
 "internationalization
@@ -119,8 +111,6 @@ if has("multi_byte")
   endif
   language messages zh_CN.utf-8
 endif
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
 
 "if you use vim in tty,
 "'uxterm -cjk' or putty with option 'Treat CJK ambiguous characters as wide' on
