@@ -26,6 +26,16 @@ let g:NERDTreeIndicatorMapCustom = {
 Plugin 'ap/vim-buftabline'
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
+nmap 1 <Plug>BufTabLine.Go(1)
+nmap 2 <Plug>BufTabLine.Go(2)
+nmap 3 <Plug>BufTabLine.Go(3)
+nmap 4 <Plug>BufTabLine.Go(4)
+nmap 5 <Plug>BufTabLine.Go(5)
+nmap 6 <Plug>BufTabLine.Go(6)
+nmap 7 <Plug>BufTabLine.Go(7)
+nmap 8 <Plug>BufTabLine.Go(8)
+nmap 9 <Plug>BufTabLine.Go(9)
+nmap 0 <Plug>BufTabLine.Go(10)
 Plugin 'Tagbar'
 let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_width = 25
@@ -91,25 +101,10 @@ set mouse=a
 "Set mapleader
 let mapleader = ","
 let g:mapleader = ","
-
 nmap <leader>w :w!<cr>
 nmap <leader>x :x <cr>
-
 map <leader>t :NERDTreeToggle<cr>
-
-nmap <leader>1 <Plug>BufTabLine.Go(1)
-nmap <leader>2 <Plug>BufTabLine.Go(2)
-nmap <leader>3 <Plug>BufTabLine.Go(3)
-nmap <leader>4 <Plug>BufTabLine.Go(4)
-nmap <leader>5 <Plug>BufTabLine.Go(5)
-nmap <leader>6 <Plug>BufTabLine.Go(6)
-nmap <leader>7 <Plug>BufTabLine.Go(7)
-nmap <leader>8 <Plug>BufTabLine.Go(8)
-nmap <leader>9 <Plug>BufTabLine.Go(9)
-nmap <leader>0 <Plug>BufTabLine.Go(10)
-
 "nmap <leader>q :call <SID>quit()<cr>
-"fast move between window
 
 "internationalization
 "I only work in Win2k Chinese version
