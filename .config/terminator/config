@@ -82,7 +82,7 @@
   [[default]]
     active_encodings = GB2312, UTF-8, ISO-8859-1
     background_color = "#002b35"
-    background_darkness = 0.95
+    background_darkness = 0.9
     background_type = transparent
     copy_on_selection = True
     cursor_color = "#37f608"
