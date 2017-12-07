@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, and upgrade button.
-// @version 4.1
+// @version 4.2
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
@@ -49,12 +49,12 @@ if(sinner_div) {
     sinner_div.addEventListener('DOMNodeInserted', function(e) {
         var relatedObj = e.originalTarget || e.target;
         if(relatedObj.style){
-            relatedObj.style.display = 'none';
+            sinner_div.style.display = 'none';
+            if(reader_pane_div) {
+                reader_pane_div.style.paddingRight = '0px';
+            }
         }
     });
-    if(reader_pane_div) {
-        reader_pane_div.style.paddingRight = '20px';
-    }
 }
 var content_div = document.getElementById('three_way_contents');
 if (content_div) {
