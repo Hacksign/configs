@@ -7,23 +7,23 @@
 // @include http://www.inoreader.com/*
 // @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
 // ==/UserScript==
-tools_div = document.getElementById('sb_rp_tools');
+var tools_div = document.getElementById('sb_rp_tools');
 if (tools_div) {
     tools_div.style.right = '90px';
 }
-notifications_div = document.getElementById('sb_rp_notifications');
+var notifications_div = document.getElementById('sb_rp_notifications');
 if (notifications_div) {
     notifications_div.style.right = '50px';
 }
-gear_div = document.getElementById('sb_rp_gear');
+var gear_div = document.getElementById('sb_rp_gear');
 if (gear_div) {
     gear_div.style.right = '10px';
 }
-upgrade_div = document.getElementById('sb_rp_upgrade');
+var upgrade_div = document.getElementById('sb_rp_upgrade');
 if (upgrade_div) {
     document.getElementById('sb_rp_upgrade').style.display = 'none';
 }
-reader_pane_div = document.getElementById('reader_pane');
+var reader_pane_div = document.getElementById('reader_pane');
 if (reader_pane_div) {
     reader_pane_div.addEventListener('DOMNodeInserted', function (e) {
         var relatedObj = e.originalTarget || e.target;
@@ -43,6 +43,19 @@ if (reader_pane_div) {
             }
         }
     }, false);
+}
+var sinner_div = document.getElementById('sinner_container');
+if(sinner_div) {
+    sinner_div.addEventListener('DOMNodeInserted', function(e) {
+        var relatedObj = e.originalTarget || e.target;
+        if(relatedObj.style){
+            relatedObj.style.display = 'none';
+        }
+    });
+    if(reader_pane_div) {
+        reader_pane_div.style.paddingRight = '10px';
+    }
+    sinner_div.parentNode.removeChild(sinner_div);
 }
 var content_div = document.getElementById('three_way_contents');
 if (content_div) {
@@ -130,3 +143,4 @@ if (content_div) {
         }
     }, false);
 }
+
