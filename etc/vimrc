@@ -24,7 +24,14 @@ let g:NERDTreeIndicatorMapCustom = {
     \    "Clean"     : "✔︎",
     \    "Unknown"   : "?"
 \ }
+" fix problem when :bd a buffer
+"  then cursor is actived in wrong window
+Plugin 'qpkorr/vim-bufkill'
 Plugin 'ap/vim-buftabline'
+hi link BufTabLineCurrent DiffText
+hi link BufTabLineActive  PmenuSel
+hi link BufTabLineHidden  Ignore
+hi link BufTabLineFill TabLineFill
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
 nmap 1 <Plug>BufTabLine.Go(1)
