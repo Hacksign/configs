@@ -293,7 +293,8 @@ set timeout timeoutlen=300 ttimeoutlen=100
 let mapleader = ","
 let g:mapleader = ","
 nmap <leader>w :w!<cr>
-nmap <leader>x :x <cr>
+nmap <leader>q :BD <cr>
+nmap <leader>c :qa <cr>
 map <leader>t :NERDTreeToggle<cr>
 map <right> :bn<cr>
 map <left> :bp<cr>
