@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, and upgrade button.
-// @version 4.2
+// @version 4.3
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
@@ -27,17 +27,19 @@ var reader_pane_div = document.getElementById('reader_pane');
 if (reader_pane_div) {
     reader_pane_div.addEventListener('DOMNodeInserted', function (e) {
         var relatedObj = e.originalTarget || e.target;
-        if (relatedObj.id && relatedObj.id.indexOf('leaderboard_ad-') != - 1) {
-            relatedObj.parentNode.removeChild(relatedObj);
-        } else if (relatedObj.classList && relatedObj.classList.contains('ad_title')) {
-            relatedObj.parentNode.removeChild(relatedObj);
-        } else if (relatedObj.classList && relatedObj.classList.contains('dashboard_gadgets')) {
-            //find and remove ads div in dashboard page
-            sub_divs = relatedObj.getElementsByTagName('div');
-            for (i = 0; i < sub_divs.length; ++i) {
-                if (sub_divs[i].classList && sub_divs[i].classList.contains('header_control')) {
-                    if (!sub_divs[i].innerHTML.trim()) {
-                        relatedObj.parentNode.removeChild(relatedObj);
+        if(relatedObj.parentNode) {
+            if (relatedObj.id && relatedObj.id.indexOf('leaderboard_ad-') != - 1) {
+                relatedObj.parentNode.removeChild(relatedObj);
+            } else if (relatedObj.classList && relatedObj.classList.contains('ad_title')) {
+                relatedObj.parentNode.removeChild(relatedObj);
+            } else if (relatedObj.classList && relatedObj.classList.contains('dashboard_gadgets')) {
+                //find and remove ads div in dashboard page
+                sub_divs = relatedObj.getElementsByTagName('div');
+                for (i = 0; i < sub_divs.length; ++i) {
+                    if (sub_divs[i].classList && sub_divs[i].classList.contains('header_control')) {
+                        if (!sub_divs[i].innerHTML.trim()) {
+                            relatedObj.parentNode.removeChild(relatedObj);
+                        }
                     }
                 }
             }
@@ -142,3 +144,4 @@ if (content_div) {
         }
     }, false);
 }
+
