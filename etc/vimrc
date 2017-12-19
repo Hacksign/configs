@@ -32,18 +32,24 @@ hi link BufTabLineCurrent DiffText
 hi link BufTabLineActive  PmenuSel
 hi link BufTabLineHidden  Ignore
 hi link BufTabLineFill TabLineFill
+function! <SID>OpenOutsideNERDTree(bufNum)
+	if expand('%') =~ 'NERD_tree_'
+		:wincmd l
+	endif
+	:execute "normal \<Plug>BufTabLine.Go(".a:bufNum.")"
+endfunction
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
-nmap 1 <Plug>BufTabLine.Go(1)
-nmap 2 <Plug>BufTabLine.Go(2)
-nmap 3 <Plug>BufTabLine.Go(3)
-nmap 4 <Plug>BufTabLine.Go(4)
-nmap 5 <Plug>BufTabLine.Go(5)
-nmap 6 <Plug>BufTabLine.Go(6)
-nmap 7 <Plug>BufTabLine.Go(7)
-nmap 8 <Plug>BufTabLine.Go(8)
-nmap 9 <Plug>BufTabLine.Go(9)
-nmap 0 <Plug>BufTabLine.Go(10)
+nmap 1 :call <SID>OpenOutsideNERDTree(1)<CR>
+nmap 2 :call <SID>OpenOutsideNERDTree(2)<CR>
+nmap 3 :call <SID>OpenOutsideNERDTree(3)<CR>
+nmap 4 :call <SID>OpenOutsideNERDTree(4)<CR>
+nmap 5 :call <SID>OpenOutsideNERDTree(5)<CR>
+nmap 6 :call <SID>OpenOutsideNERDTree(6)<CR>
+nmap 7 :call <SID>OpenOutsideNERDTree(7)<CR>
+nmap 8 :call <SID>OpenOutsideNERDTree(8)<CR>
+nmap 9 :call <SID>OpenOutsideNERDTree(9)<CR>
+nmap 0 :call <SID>OpenOutsideNERDTree(10)<CR>
 Plugin 'majutsushi/tagbar'
 let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_width = 25
@@ -293,12 +299,12 @@ set timeout timeoutlen=300 ttimeoutlen=100
 let mapleader = ","
 let g:mapleader = ","
 nmap <leader>w :w!<cr>
-nmap <leader>q :BD <cr>
-nmap <leader>c :qa <cr>
+nmap <leader>q :BD<cr>
+nmap <leader>c :qa<cr>
 map <leader>t :NERDTreeToggle<cr>
 map <right> :bn<cr>
 map <left> :bp<cr>
-imap e 
+imap e <esc>
 nmap <space> :
 function! <SID>add_cscope_ctags()
     if filereadable("./cscope.out")
