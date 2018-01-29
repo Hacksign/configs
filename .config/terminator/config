@@ -1,11 +1,10 @@
 [global_config]
   always_split_with_profile = True
-  borderless = True
   enabled_plugins = InactivityWatch, ActivityWatch
-  focus = system
   geometry_hinting = True
   handle_size = 0
   inactive_color_offset = 0.76
+  scroll_tabbar = True
   suppress_multiple_term_dialog = True
   title_font = Unibit 15
   title_hide_sizetext = True
@@ -14,7 +13,6 @@
   title_receive_fg_color = "#eeeeec"
   title_transmit_bg_color = "#007ad0"
   title_transmit_fg_color = "#ef2929"
-  title_use_system_font = False
 [keybindings]
   broadcast_all = None
   broadcast_group = None
@@ -28,8 +26,8 @@
   edit_terminal_title = None
   edit_window_title = None
   full_screen = None
-  go_next = <Primary>Tab
-  go_prev = <Primary><Shift>Tab
+  go_next = None
+  go_prev = None
   group_all = None
   group_tab = None
   help = None
@@ -58,9 +56,9 @@
   rotate_ccw = None
   rotate_cw = None
   scaled_zoom = None
-  search = <Primary>f
-  split_horiz = <Shift><Alt>space
-  split_vert = <Alt>space
+  search = None
+  split_horiz = None
+  split_vert = None
   toggle_scrollbar = None
   toggle_zoom = None
   ungroup_all = None
@@ -81,15 +79,15 @@
 [profiles]
   [[default]]
     active_encodings = GB2312, UTF-8, ISO-8859-1
-    background_color = "#002b35"
+    background_color = "#002b36"
     background_darkness = 0.95
     background_type = transparent
     copy_on_selection = True
     cursor_color = "#37f608"
     cursor_color_fg = False
     font = Hack 16
-    foreground_color = "#ffffff"
-    palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
+    foreground_color = "#839496"
+    palette = "#000000:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
     scroll_background = False
     scrollback_infinite = True
     scrollback_lines = 3000

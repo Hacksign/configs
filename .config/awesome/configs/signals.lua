@@ -3,9 +3,34 @@ local beautiful = require("beautiful")
 local naughty		= require("naughty")
 local utils = require("utils")
 
+function caculate_bordder(c)
+    if c.type ~= 'desktop' and c.no_border ~= true then
+        local cg = c:geometry()
+        local screen_cg = c.screen.workarea
+        local w = cg['width'] + beautiful.border_width * 2
+        local h = cg['height'] + beautiful.border_width * 2
+        if w == screen_cg['width'] and h == screen_cg['height'] then
+            c.maxmized = true
+            c.maximized_vertical = true
+            c.maximized_horizontal = true
+            c.geometry = screen_cg
+            c.border_width = 0
+        else
+            c.border_width = beautiful.border_width
+        end
+    end
+end
+
+client.connect_signal("focus", function (c)
+    c.border_color = beautiful.border_focus
+end)
+client.connect_signal("unfocus", function (c)
+    c.border_color = beautiful.border_normal
+end)
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
+    caculate_bordder(c)
     -- Enable sloppy focus
     --	focus window with mouse move, following mouse movement
     -- c:connect_signal("mouse::enter", function(c)
@@ -66,43 +91,6 @@ client.connect_signal("manage", function (c, startup)
         layout:set_middle(title)
 
         awful.titlebar(c):set_widget(layout)
-    end
-end)
-
--- make maximized window no border
--- but except window in awful.rules.rules table
-client.connect_signal("focus", function(c)
-    c.border_color = beautiful.border_focus
-    local manage = true
-    for i,v in pairs(awful.rules.rules) do
-        if v.rule.class == c.class then
-            manage = false
-            break
-        end
-    end
-    if manage == true then
-        if c.maximized_horizontal == true and c.maximized_vertical == true then
-            c.border_width = "0"
-        else
-            c.border_width = beautiful.border_width
-        end
-    end
-end)
-client.connect_signal("unfocus", function(c)
-    c.border_color = beautiful.border_normal
-    local manage = true
-    for i,v in pairs(awful.rules.rules) do
-        if v.rule.class == c.class then
-            manage = false
-            break
-        end
-    end
-    if manage == true then
-        if c.maximized_horizontal == true and c.maximized_vertical == true then
-            c.border_width = "0"
-        else
-            c.border_width = beautiful.border_width
-        end
     end
 end)
 -- }}}

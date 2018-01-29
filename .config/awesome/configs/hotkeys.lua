@@ -4,8 +4,6 @@ local utils         = require("utils")
 local widgets		= require("widgets")
 local beautiful = require("beautiful")
 
-local xresources = require("beautiful.xresources")
-
 local alttab = widgets.alttab
 local last_focused_client = nil
 
@@ -142,8 +140,6 @@ globalkeys = awful.util.table.join(
             cg['width'] = cg['width'] - delta
             cg['height'] = cg['height'] - delta_height
             client.focus:geometry(cg)
-            client.focus.maximized_horizontal = false
-            client.focus.maximized_vertical = false
             awful.placement.centered(client.focus, nil)
         end
     end),
@@ -156,8 +152,6 @@ globalkeys = awful.util.table.join(
             cg['width'] = cg['width'] + delta
             cg['height'] = cg['height'] + delta_height
             client.focus:geometry(cg)
-            client.focus.maximized_horizontal = false
-            client.focus.maximized_vertical = false
             awful.placement.centered(client.focus, nil)
         end
     end),
@@ -173,9 +167,8 @@ globalkeys = awful.util.table.join(
         cg['height'] = screengeom['height'] - beautiful.border_width * 2
         cg['x'] = screengeom['x'] + cg['width'] / 2
         cg['y'] = screengeom['y']
+        client.focus.border_width = beautiful.border_width
         client.focus:geometry(cg)
-        client.focus.maximized_horizontal = false
-        client.focus.maximized_vertical = false
     end),
     awful.key({ modkey,           }, "Left",   function()
         local screengeom = screen[mouse.screen].workarea
@@ -184,9 +177,8 @@ globalkeys = awful.util.table.join(
         cg['height'] = screengeom['height'] - beautiful.border_width * 2
         cg['x'] = screengeom['x']
         cg['y'] = screengeom['y']
+        client.focus.border_width = beautiful.border_width
         client.focus:geometry(cg)
-        client.focus.maximized_horizontal = false
-        client.focus.maximized_vertical = false
     end),
     awful.key({ modkey,           }, "Right",  function()
         local screengeom = screen[mouse.screen].workarea
@@ -195,9 +187,8 @@ globalkeys = awful.util.table.join(
         cg['height'] = screengeom['height'] - beautiful.border_width * 2
         cg['x'] = screengeom['x'] + cg['width'] + beautiful.border_width * 2
         cg['y'] = screengeom['y']
+        client.focus.border_width = beautiful.border_width
         client.focus:geometry(cg)
-        client.focus.maximized_horizontal = false
-        client.focus.maximized_vertical = false
     end),
     awful.key({ modkey,           }, "Up",  function()
         local screengeom = screen[mouse.screen].workarea
@@ -206,9 +197,8 @@ globalkeys = awful.util.table.join(
         cg['height'] = screengeom['height']/2 - beautiful.border_width * 2
         cg['x'] = screengeom['x']
         cg['y'] = screengeom['y']
+        client.focus.border_width = beautiful.border_width
         client.focus:geometry(cg)
-        client.focus.maximized_horizontal = false
-        client.focus.maximized_vertical = false
     end),
     awful.key({ modkey,           }, "Down",  function()
         local screengeom = screen[mouse.screen].workarea
@@ -217,9 +207,8 @@ globalkeys = awful.util.table.join(
         cg['height'] = screengeom['height']/2 - beautiful.border_width * 2
         cg['x'] = screengeom['x']
         cg['y'] = screengeom['y'] + cg['height'] + beautiful.border_width * 2
+        client.focus.border_width = beautiful.border_width
         client.focus:geometry(cg)
-        client.focus.maximized_horizontal = false
-        client.focus.maximized_vertical = false
     end),
     ------------------------------------------------------------------------------
     awful.key({ modkey,           }, "Tab",

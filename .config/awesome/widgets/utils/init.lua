@@ -247,7 +247,7 @@ end
 
 function center_window(c)
     if isfloats(c) and c.type ~= 'desktop' then
-        local screengeom = screen[mouse.screen].geometry
+        local screengeom = c.screen.geometry
         local cg = c:geometry()
         if (c.maximized_horizontal and c.maximized_vertical) or
            (cg.width < screengeom.width - beautiful.margin_horizontal or cg.height < screengeom.height - beautiful.margin_vertical)  or
@@ -272,8 +272,8 @@ function center_window(c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
             if c.maximized_horizontal == true and c.maximized_vertical == true then
-                c.border_width = "0"
                 c.maximized = true
+                c.border_width = 0
             else
                 local manage = true
                 for i,v in pairs(awful.rules.rules) do
@@ -282,7 +282,6 @@ function center_window(c)
                         break
                     end
                 end
-                if manage then c.border_width = beautiful.border_width end
             end
         end
     end

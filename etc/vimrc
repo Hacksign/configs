@@ -29,7 +29,7 @@ let g:NERDTreeIndicatorMapCustom = {
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'ap/vim-buftabline'
 hi link BufTabLineCurrent DiffText
-hi link BufTabLineActive  PmenuSel
+hi link BufTabLineActive  ToolbarLine
 hi link BufTabLineHidden  Ignore
 hi link BufTabLineFill TabLineFill
 function! <SID>OpenOutsideNERDTree(bufNum)
@@ -54,7 +54,7 @@ Plugin 'majutsushi/tagbar'
 let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_width = 25
 let g:tagbar_compact = 1
-let g:tagbar_autofocus = 1
+let g:tagbar_autofocus = 0
 autocmd BufWinEnter * nested :call tagbar#autoopen(1)
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
@@ -299,13 +299,18 @@ set timeout timeoutlen=300 ttimeoutlen=100
 let mapleader = ","
 let g:mapleader = ","
 nmap <leader>w :w!<cr>
-nmap <leader>q :BD<cr>
+function! <SID>QuiteOutsideNERDTree()
+	if expand('%') =~ 'NERD_tree_'
+		:wincmd l
+	endif
+	:BD
+endfunction
+nmap <leader>q :call <SID>QuiteOutsideNERDTree()<cr>
 nmap <leader>c :qa<cr>
 map <leader>t :NERDTreeToggle<cr>
 map <right> :bn<cr>
 map <left> :bp<cr>
-imap e <esc>
-nmap <space> :
+inoremap e <esc>
 function! <SID>add_cscope_ctags()
     if filereadable("./cscope.out")
             silent! execute "cs add cscope.out"

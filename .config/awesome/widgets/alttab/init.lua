@@ -9,6 +9,8 @@ local math = require('math')
 local awful = require('awful')
 local gears = require("gears")
 local client = client
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 awful.client = require('awful.client')
 
 local naughty = require("naughty")
@@ -37,7 +39,7 @@ local settings = {
 
 -- Create a wibox to contain all the client-widgets
 local preview_wbox = wibox({ width = screen[mouse.screen].geometry.width })
-preview_wbox.border_width = 3
+preview_wbox.border_width = dpi(4)
 preview_wbox.ontop = true
 preview_wbox.visible = false
 
