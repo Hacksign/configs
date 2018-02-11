@@ -1,30 +1,19 @@
-
---[[
-                                                   
-     Licensed under GNU General Public License v2  
-      * (c) 2013,      Luke Bonham                 
-      * (c) 2010-2012, Peter Hofmann               
-                                                   
---]]
-
 local require = require
-local wibox = require("wibox")
-local io = require("io")
-local gears = require("gears")
-local assert = assert
-local string = string
 local tonumber = tonumber
+local naughty = require("naughty")
+local io = require("io")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+local math = require('math')
+local wibox = require('wibox')
+local awful = require("awful")
+local beautiful = require("beautiful")
 
 module("network")
 
-
-time_interval = 3
-networkwidget = wibox.widget.textbox()
-networkwidgettimer = gears.timer({timeout = time_interval})
-lasttime_received = 0
-lasttime_sent = 0
-init = true
-unit = 1024 -- kb
+function trim(s)
+    return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
 
 function get_device()
     f = io.popen("ip link show | cut -d' ' -f2,9")
@@ -37,39 +26,86 @@ function get_device()
         return "network off"
     end
 end
-networkwidgettimer:connect_signal("timeout",
-		function()
-			local ifce = get_device()
-			local fh = assert(io.popen("cat /sys/class/net/" .. ifce .. "/statistics/tx_bytes", "r"))
-			local sent = fh:read("*l")
-			local dh = assert(io.popen("cat /sys/class/net/" .. ifce .. "/statistics/rx_bytes", "r"))
-			local received = dh:read("*l")
-			local dsend,dreceived
-			if sent then
-				sent = string.sub(sent, 0, string.len(sent))
-				sent = tonumber(sent)
-				dsend = (sent - lasttime_sent) / time_interval / unit
-				dsend = string.format("%.1f", dsend)
-				lasttime_sent = sent
-			end
-			if received then
-				received = string.sub(received, 0, string.len(received))
-				received = tonumber(received)
-				dreceived = (received - lasttime_received) / time_interval / unit
-				dreceived = string.format("%.1f", dreceived)
-				lasttime_received = received
-			end
-			if dreceived ~= nil then
-				local text = "<span size='xx-large'><span color='red'>Up</span>:<b>" .. dsend .. "</b> <span color='green' >Down</span>:<b>" .. dreceived .. "</b></span>"
-				if init ~= true then
-					networkwidget:set_markup(text)
-				end
-			end
-			if init then init = false end
-			fh:close()
-			dh:close()
-		end
- )
-networkwidgettimer:start()
 
-return networkwidget
+local icon_widget = {
+    send = wibox.container.margin(
+        wibox.widget {
+            image = '/usr/share/icons/ultra-flat-icons/actions/symbolic/go-up-symbolic.svg',
+            resize = true,
+            widget = wibox.widget.imagebox
+        },
+        dpi(10),
+        dpi(-5),
+        dpi(10),
+        dpi(10),
+        nil
+    ),
+    receive = wibox.container.margin(
+        wibox.widget {
+            image = '/usr/share/icons/ultra-flat-icons/actions/symbolic/go-down-symbolic.svg',
+            resize = true,
+            widget = wibox.widget.imagebox
+        },
+        dpi(10),
+        dpi(-5),
+        dpi(10),
+        dpi(10),
+        nil
+    )
+}
+
+local network_widget = {
+    last_sent = nil,
+    last_receive = nil,
+    time_interval = 5,
+    send = wibox.widget {
+        align = 'center',
+        valign = 'center',
+        widget =  wibox.widget.textbox,
+    },
+    receive = wibox.widget {
+        align = 'center',
+        valign = 'center',
+        widget =  wibox.widget.textbox,
+    }
+} 
+
+local network_layout = wibox.widget {
+    icon_widget.send,
+    network_widget.send,
+    icon_widget.receive,
+    network_widget.receive,
+    forced_num_cols = 4,
+    forced_num_rows = 1,
+    layout = wibox.layout.grid
+}
+
+awful.widget.watch("bash -c 'cat /sys/class/net/" .. get_device() .. "/statistics/tx_bytes 2>/dev/null && cat /sys/class/net/" .. get_device() .. "/statistics/rx_bytes 1>&2'", network_widget.time_interval,
+    function(widget, stdout, stderr, exitreason, exitcode)
+        send_bytes = trim(stdout)
+        received_bytes = trim(stderr)
+        if widget.last_sent then
+            network_widget.send.markup = "<span size='xx-large'>" ..
+                "<b>" ..
+                    math.floor(
+                        (tonumber(send_bytes) - network_widget.last_sent) / 1024 / network_widget.time_interval
+                    ) ..
+                "</b>" ..
+            "</span>"
+        end
+        if widget.last_receive then
+            network_widget.receive.markup = "<span size='xx-large'>" ..
+                "<b>" ..
+                    math.floor(
+                        (tonumber(received_bytes) - network_widget.last_receive) / 1024 / network_widget.time_interval
+                    ) ..
+                "</b>" ..
+            "</span>"
+        end
+        widget.last_sent = send_bytes
+        widget.last_receive = received_bytes
+    end,
+    network_widget
+)
+
+return network_layout

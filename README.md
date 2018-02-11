@@ -67,6 +67,7 @@
     terminator : 终端模拟器   
     wiki:https://code.google.com/p/jessies/w/list   
     evince	:	PDF查看器   
+    qpdfview : pdf查看器   
     blueman	:	蓝牙管理器   
         pacman -S pulseaudio-bluetooth, 不然会出现protocol not supported的问题   
         需要先system enable bluetooth   

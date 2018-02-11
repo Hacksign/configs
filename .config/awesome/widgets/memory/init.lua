@@ -1,23 +1,48 @@
-
---[[
-                                                   
-     Licensed under GNU General Public License v2  
-      * (c) 2013,      Luke Bonham                 
-      * (c) 2010-2012, Peter Hofmann               
-                                                   
---]]
-
 local require = require
-local wibox = require("wibox")
-local vicious		= require("vicious")
+local tonumber = tonumber
+local naughty = require('naughty')
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+local math = require('math')
+local wibox = require('wibox')
+local awful = require("awful")
 
 module("memory")
 
-local memwidget = wibox.widget.progressbar()
-vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
-local container = wibox.container.rotate(memwidget, "east")
-memwidget.forced_height = 20
-memwidget.forced_width = 20
-memwidget.color = "#AECF96"
-memwidget.background_color = "#494B4F"
-return container
+local icon = wibox.widget {
+    image = '/usr/share/icons/ultra-flat-icons/devices/scalable/media-memory.svg',
+    resize = true,
+    widget = wibox.widget.imagebox
+}
+local background = wibox.container.background(icon)
+
+local memory_widget = wibox.widget {
+    background,
+    min_value = 0,
+    max_value = 100,
+    thickness = dpi(5),
+    rounded_edge = true,
+    start_angle = math.pi * 3.5,
+    bg = nil, -- transparent
+    paddings = dpi(8),
+    widget = wibox.container.arcchart
+}
+local memory_container = wibox.container.margin(
+    memory_widget,
+    dpi(3),
+    dpi(3),
+    dpi(3),
+    dpi(3),
+    nil
+)
+
+awful.widget.watch('cat /proc/meminfo', 60,
+    function(widget, stdout, stderr, exitreason, exitcode)
+        local mem_total, mem_free = stdout:match('MemTotal:%s*(%d+).*MemFree:%s*(%d+)')
+        local free = (1 - (mem_free / mem_total)) * 100
+        widget.value = free
+    end,
+    memory_widget
+)
+
+return memory_container

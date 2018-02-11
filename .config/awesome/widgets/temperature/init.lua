@@ -1,25 +1,57 @@
 local require = require
-local gears = require("gears")
-local wibox = require("wibox")
+local tonumber = tonumber
+local naughty = require("naughty")
+local io = require("io")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+local math = require('math')
+local wibox = require('wibox')
+local awful = require("awful")
+local beautiful = require("beautiful")
 
-time_interval = 5 
-tempwidget = wibox.widget.textbox('')
-tempwidgettimer = gears.timer({timeout = time_interval})
-local tempfile = "/sys/class/thermal/thermal_zone0/temp"
+function trim(s)
+    return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
 
-tempwidgettimer:connect_signal("timeout",
-		function()
-			local f = io.open(tempfile)
-			local coretemp_now = ''
-			if f ~= nil then
-			    coretemp_now = tonumber(f:read("*a")) / 1000
-			else
-			    coretemp_now = "N/A"
-			end
-			f:close()
-			tempwidget:set_markup("<span size='xx-large'><span color='#fff000'>Temp</span>:<b>" .. coretemp_now .. "</b></span>")
-		end
- )
-tempwidgettimer:start()
+local icon = wibox.widget {
+    image = '/usr/share/icons/ultra-flat-icons/status/scalable/psensor_hot.svg',
+    resize = true,
+    widget = wibox.widget.imagebox
+}
 
-return tempwidget
+local icon_container = wibox.container.margin(
+    icon,
+    dpi(10),
+    dpi(-5),
+    dpi(10),
+    dpi(10),
+    nil
+)
+
+local temperature_widget = wibox.widget {
+    align = 'center',
+    valign = 'center',
+    widget =  wibox.widget.textbox
+}
+local temperature_layout = wibox.widget {
+    icon_container,
+    temperature_widget,
+    spacing = 0,
+    fill_space = true,
+    layout  = wibox.layout.fixed.horizontal,
+}
+
+awful.widget.watch('cat /sys/class/thermal/thermal_zone0/temp', 60,
+    function(widget, stdout, stderr, exitreason, exitcode)
+        stdout = trim(stdout)
+        widget.markup = "<span size='xx-large'>" .. 
+                            "<b>" ..
+                                math.floor(tonumber(stdout) / 1000) ..
+                            "</b>" ..
+                        "</span>"
+        stdout = trim(stdout)
+    end,
+    temperature_widget
+)
+
+return temperature_layout

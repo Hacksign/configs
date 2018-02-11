@@ -4,6 +4,8 @@ local wibox			= require("wibox")
 local widgets		= require("widgets")
 local beautiful     = require("beautiful")
 local utils         = require("utils")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 
 local mytaglist = {}
 -- Mouse Click event
@@ -88,27 +90,20 @@ for s = 1, screen.count() do
     bottomwibox[s] = awful.wibar({position = "bottom", screen = s})
 
 
-    local blankwidget = wibox.widget.textbox()
-    blankwidget:set_markup(" ")
-
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
-    left_layout:add(blankwidget)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+    right_layout.spacing = dpi(2) 
     right_layout:add(networkwidget)
-    right_layout:add(blankwidget)
     right_layout:add(temperaturewidget)
-    right_layout:add(blankwidget)
     if batterywidget then
         right_layout:add(batterywidget)
-        right_layout:add(blankwidget)
     end
     right_layout:add(memwidget)
-    right_layout:add(blankwidget)
     right_layout:add(cpuwidget)
     if s == 1 then
         right_layout:add(wibox.widget.systray())

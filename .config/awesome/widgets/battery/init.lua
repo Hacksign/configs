@@ -1,72 +1,82 @@
-
---[[
-                                                   
-     Licensed under GNU General Public License v2  
-      * (c) 2013,      Luke Bonham                 
-      * (c) 2010-2012, Peter Hofmann               
-                                                   
---]]
-
 local require = require
-local wibox = require("wibox")
-local io = require("io")
-local lfs = require("lfs")
-local naughty = require("naughty")
-local gears = require("gears")
-local string = string
 local tonumber = tonumber
-local assert = assert
+local naughty = require("naughty")
+local io = require("io")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+local math = require('math')
+local wibox = require('wibox')
+local awful = require("awful")
 
 module("battery")
 
-local batterywidget =  wibox.widget.progressbar()
-local container = wibox.container.rotate(batterywidget, "east")
-batterywidget.max_value = 100
-batterywidget.forced_width = 20
-batterywidget.forced_height = 20
-batterywidget.background_color = "#494B4F"
-batterywidgettimer = gears.timer({timeout = 5})
-batterywidgettimer:connect_signal("timeout",
-        function()
-            local percent
-            local charge_status
-            local basedir = "/sys/class/power_supply"
-            local dir_iter, dir_obj = lfs.dir(basedir)
-            for dir in dir_iter, dir_obj do
-              if string.sub(dir, 1, 3) == "BAT" then
-                  local fd = io.open(basedir.."/"..dir.."/capacity", "r")
-                  if fd then
-                    percent = fd:read("*a")
-                    percent = tonumber(percent)
-                    fd:close()
-                    fd = io.open(basedir.."/"..dir.."/status", "r")
-                    if fd then
-                       charge_status = fd:read("*l")
-                       fd:close()
-                    end
-                    dir_obj:close()
-                    break
-                  end
-              end
+function trim(s)
+    return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
+local icon = wibox.widget {
+    image = '/usr/share/icons/ultra-flat-icons/devices/scalable/gnome-dev-battery.svg',
+    resize = true,
+    widget = wibox.widget.imagebox
+}
+local background = wibox.container.background(icon)
+
+local battery_widget = wibox.widget {
+    background,
+    min_value = 0,
+    max_value = 100,
+    rounded_edge = true,
+    border_color = nil,
+    border_width = dpi(0),
+    start_angle = math.pi * 3.5,
+    bg = nil, -- transparent
+    paddings = dpi(8),
+    thickness = dpi(5),
+    widget = wibox.container.arcchart
+}
+local battery_container = wibox.container.margin(
+    battery_widget,
+    dpi(3),
+    dpi(3),
+    dpi(3),
+    dpi(3),
+    nil
+)
+
+awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity', 60 * 5,
+    function(widget, stdout, stderr, exitreason, exitcode)
+        stdout = trim(stdout)
+        if stdout ~= '' then
+            if stdout == '100' then
+                widget.rounded_edge = false
             end
-            if percent then
-                if charge_status == 'Discharging' then
-                    batterywidget.color = "#FF5656"
-                elseif charge_status == 'Charging' or charge_status == 'Full' or charge_status == 'Unknown' then
-                    batterywidget.color = "#00FFFF"
+            local fd = io.open("/sys/class/power_supply/BAT0/status", "r")
+            if fd then
+                local charge_status = fd:read("*l")
+                if charge_status == 'Charging' or charge_status == 'Full' or charge_status == 'Unknown' then
+                    widget.colors = {
+                        '#0aff0a'
+                    }
+                else
+                    widget.colors = {
+                        '#ff0000'
+                    }
                 end
-                if percent < 15 and charge_status == "Discharging" then
-                    naughty.notify({
-                        timeout = 4,
-                        fg = "#ffff00",
-                        bg = "#003399",
-                        title = "Battery is running low !",
-                        text = "Battery is running low ! Connect your adapter !" 
-                    })
-                end
-                batterywidget:set_value(percent)
+                fd:close()
             end
+            if tonumber(stdout) <= 15 then
+                naughty.notify({
+                    timeout = 0,
+                    fg = "#ffff00",
+                    bg = "#003399",
+                    title = "Battery is running low !",
+                    text = "Battery is running low ! Connect your adapter !" 
+                })
+            end
+            widget.value = stdout
         end
- )
-batterywidgettimer:start()
-return container
+    end,
+    battery_widget
+)
+
+return battery_container
