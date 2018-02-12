@@ -15,7 +15,7 @@ function trim(s)
 end
 
 local icon = wibox.widget {
-    image = '/usr/share/icons/ultra-flat-icons/devices/scalable/gnome-dev-battery.svg',
+    image = nil,
     resize = true,
     widget = wibox.widget.imagebox
 }
@@ -43,28 +43,27 @@ local battery_container = wibox.container.margin(
     nil
 )
 
-awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity', 60 * 5,
+awful.widget.watch("bash -c 'cat /sys/class/power_supply/BAT0/capacity && cat /sys/class/power_supply/BAT0/status 1>&2'", 10,
     function(widget, stdout, stderr, exitreason, exitcode)
-        stdout = trim(stdout)
-        if stdout ~= '' then
-            if stdout == '100' then
+        battery_percent = trim(stdout)
+        charge_status = trim(stderr)
+        
+        if battery_percent ~= '' then
+            if battery_percent == '100' then
                 widget.rounded_edge = false
             end
-            local fd = io.open("/sys/class/power_supply/BAT0/status", "r")
-            if fd then
-                local charge_status = fd:read("*l")
-                if charge_status == 'Charging' or charge_status == 'Full' or charge_status == 'Unknown' then
-                    widget.colors = {
-                        '#0aff0a'
-                    }
-                else
-                    widget.colors = {
-                        '#ff0000'
-                    }
-                end
-                fd:close()
+            if charge_status == 'Charging' or charge_status == 'Full' or charge_status == 'Unknown' then
+                icon.image = '/usr/share/icons/ultra-flat-icons/devices/scalable/battery.svg'
+                widget.colors = {
+                    '#0aff0a'
+                }
+            else
+                icon.image = '/usr/share/icons/ultra-flat-icons/status/scalable/battery-caution.svg'
+                widget.colors = {
+                    '#ff0000'
+                }
             end
-            if tonumber(stdout) <= 15 then
+            if tonumber(battery_percent) <= 15 then
                 naughty.notify({
                     timeout = 0,
                     fg = "#ffff00",
@@ -73,7 +72,7 @@ awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity', 60 * 5,
                     text = "Battery is running low ! Connect your adapter !" 
                 })
             end
-            widget.value = stdout
+            widget.value = battery_percent
         end
     end,
     battery_widget

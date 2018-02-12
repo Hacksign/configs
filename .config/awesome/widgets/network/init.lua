@@ -34,10 +34,10 @@ local icon_widget = {
             resize = true,
             widget = wibox.widget.imagebox
         },
-        dpi(10),
+        dpi(12),
         dpi(-5),
-        dpi(10),
-        dpi(10),
+        dpi(12),
+        dpi(12),
         nil
     ),
     receive = wibox.container.margin(
@@ -46,10 +46,10 @@ local icon_widget = {
             resize = true,
             widget = wibox.widget.imagebox
         },
-        dpi(10),
+        dpi(12),
         dpi(-5),
-        dpi(10),
-        dpi(10),
+        dpi(12),
+        dpi(12),
         nil
     )
 }
