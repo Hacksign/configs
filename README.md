@@ -26,19 +26,12 @@
     xorg-utils   
     xorg-xinit	:	startx等命令   
     xorg-xrandr	:	屏幕分辨率以及多屏管理支持,awesome要用到   
-    如果需要启用触控板的手势支持(类似Mac四指滑动切换任务),有两种方法:   
-        每一种方法都需要安装aur的xf86-input-synaptics-xswipe-git   
-        1. 可以使用https://github.com/iberianpig/xSwipe.git   
-           此方法需要安装aur源中的perl-x11-guitest
-        2. 或者安装aur源中的touchegg,但是在我的笔记本上发现只能识别2 fingers事件,三个以上finger都会被识别成2 finger.而且需要设置如下选项为关闭状态,这样touchegg才能接管对应事件.   
-        ```
-            Option "TapButton2" "0"
-            Option "TapButton3" "0"
-            Option "ClickFinger2" "0"
-            Option "ClickFinger3" "0"
-            Option "HorizTwoFingerScroll" "0"
-            Option "VertTwoFingerScroll" "0"
-        ```
+    fusuma :   
+        可以协助实现触控板手势的一个东西, ruby写的,使用如下命令安装
+            gem intsall fusuma
+        然后到~/.config/awesome/autostart/init.lua中激活这个选项.
+        最后定义配置文件:
+            ln -svf 本工程路径/.config/fusuma ~/.config/
 
     xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到 xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics   
     X11配置文件文档,http://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html   

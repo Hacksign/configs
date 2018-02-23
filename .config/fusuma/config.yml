@@ -1,0 +1,16 @@
+swipe:
+  3: 
+    left: 
+      shortcut: 'super+Shift+Tab'
+    right: 
+      shortcut: 'super+Tab'
+    #down: 
+      #shortcut: 'super+d'
+
+threshold:
+  swipe: 0.15
+  pinch: 0
+
+interval:
+  swipe: 1
+  pinch: 0
