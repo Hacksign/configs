@@ -38,8 +38,8 @@ local memory_container = wibox.container.margin(
 
 awful.widget.watch('cat /proc/meminfo', 60,
     function(widget, stdout, stderr, exitreason, exitcode)
-        local mem_total, mem_free = stdout:match('MemTotal:%s*(%d+).*MemFree:%s*(%d+)')
-        local used = (1 - (mem_free / mem_total)) * 100
+        local mem_total, mem_free, mem_available = stdout:match('MemTotal:%s*(%d+).*MemFree:%s*(%d+).*MemAvailable:%s*(%d+)')
+        local used = (1 - (mem_available / mem_total)) * 100
         if tonumber(used) < 60 then
             widget.colors = {}
         elseif tonumber(used) >= 60 and tonumber(used) < 90 then

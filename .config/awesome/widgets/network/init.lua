@@ -84,26 +84,28 @@ awful.widget.watch("bash -c 'cat /sys/class/net/" .. get_device() .. "/statistic
     function(widget, stdout, stderr, exitreason, exitcode)
         send_bytes = trim(stdout)
         received_bytes = trim(stderr)
-        if widget.last_sent then
-            network_widget.send.markup = "<span size='xx-large'>" ..
-                "<b>" ..
-                    math.floor(
-                        (tonumber(send_bytes) - network_widget.last_sent) / 1024 / network_widget.time_interval
-                    ) ..
-                "</b>" ..
-            "</span>"
+        if  send_bytes ~= '' and received_bytes ~= '' then
+            if widget.last_sent then
+                network_widget.send.markup = "<span size='xx-large'>" ..
+                    "<b>" ..
+                        math.floor(
+                            (tonumber(send_bytes) - network_widget.last_sent) / 1024 / network_widget.time_interval
+                        ) ..
+                    "</b>" ..
+                "</span>"
+            end
+            if widget.last_receive then
+                network_widget.receive.markup = "<span size='xx-large'>" ..
+                    "<b>" ..
+                        math.floor(
+                            (tonumber(received_bytes) - network_widget.last_receive) / 1024 / network_widget.time_interval
+                        ) ..
+                    "</b>" ..
+                "</span>"
+            end
+            widget.last_sent = send_bytes
+            widget.last_receive = received_bytes
         end
-        if widget.last_receive then
-            network_widget.receive.markup = "<span size='xx-large'>" ..
-                "<b>" ..
-                    math.floor(
-                        (tonumber(received_bytes) - network_widget.last_receive) / 1024 / network_widget.time_interval
-                    ) ..
-                "</b>" ..
-            "</span>"
-        end
-        widget.last_sent = send_bytes
-        widget.last_receive = received_bytes
     end,
     network_widget
 )

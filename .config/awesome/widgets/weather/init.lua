@@ -5,6 +5,8 @@ local gears = require("gears")
 local string = require("string")
 local os = require("os")
 local table = require("table")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 local naughty		= require("naughty")
 local mouse = mouse
 local tonumber		= tonumber
@@ -69,8 +71,8 @@ local function get_weather_line(city)
         end
             local temperature_now = ws:match('%["data","wendu"%]%s+"(.-)"')
             if temperature_now ~= nil then
-                weathers.short_info = "<span size='large'><span color='lightgreen'><b>"..city_info.."</b></span> <span color='pink'>"..temperature_now.."℃</span>".." <span color='"..aqi_color.."'>"..aqi_info.."</span>"
-                weathers.full_info = "<span size='large'><span size='small'><b>获取时间</b>:"..get_time.."</span>"
+                weathers.short_info = "<span size='medium'><span color='lightgreen'><b>"..city_info.."</b></span> <span color='pink'>"..temperature_now.."℃</span>".." <span color='"..aqi_color.."'>"..aqi_info.."</span>"
+                weathers.full_info = "<span size='medium'><span size='small'><b>获取时间</b>:"..get_time.."</span>"
 
                 for s = 0, 4 do
                     --Weather
@@ -111,7 +113,7 @@ end
 
 local function init(location, box_position)
 	local time_interval = 5
-	weatherwidget = wibox.widget.textbox()
+	weatherTextBox = wibox.widget.textbox()
 	weatherwidgettimer = gears.timer({timeout = time_interval})
 	weatherwidgettimer:connect_signal("timeout",
 		function()
@@ -121,7 +123,7 @@ local function init(location, box_position)
 			if location ~= nil then
 				weather_info = get_weather_line(location)
 				if weather_info ~= nil and weather_info.short_info ~= nil then
-					weatherwidget:set_markup(weather_info.short_info)
+					weatherTextBox:set_markup(weather_info.short_info)
 					if time_interval <= 60 then
 						time_interval = 1 * 60 * 60
 						weatherwidgettimer.timeout = time_interval
@@ -138,7 +140,7 @@ local function init(location, box_position)
 		end
 	)
 	weatherwidgettimer:start()
-	weatherwidget:connect_signal('mouse::enter', function ()
+	weatherTextBox:connect_signal('mouse::enter', function ()
 		if weather_info ~= nil then
 			weather_naughty = naughty.notify({
 					text = weather_info.full_info,
@@ -149,13 +151,21 @@ local function init(location, box_position)
 			})
 		end
 	end)
-	weatherwidget:connect_signal('mouse::leave', function ()
+	weatherTextBox:connect_signal('mouse::leave', function ()
 		if weather_naughty ~= nil then
 			naughty.destroy(weather_naughty)
 			weather_naughty = nil
 		end
 	end)
-	return weatherwidget
+    weatherWidget = wibox.container.margin(
+        weatherTextBox,
+        dpi(3),
+        dpi(12),
+        dpi(12),
+        dpi(12),
+        nil
+    )
+	return weatherWidget
 end
 
 return {init = init}
