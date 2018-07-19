@@ -32,11 +32,21 @@
         然后到~/.config/awesome/autostart/init.lua中激活这个选项.
         最后定义配置文件:
             ln -svf 本工程路径/.config/fusuma ~/.config/
-
-    xorg-xprop	:	窗口属性查看器，下面的awesome窗口管理器要用到 xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics   
-    X11配置文件文档,http://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html   
-    打字时金红触控板:   
-    安装好aur源中的xf86-input-evdev之后,将本源中etc/X11/xorg.conf.d/目录中的所有文件拷贝到/etc/X11/xorg.conf.d文件夹下   
+        注意， 需要将当前用户加入到input组中：
+        gpasswd -a $USER input
+    libinput-gestures :
+        另外一个手势任务的东西， 参考这篇文章：
+        https://segmentfault.com/a/1190000011327776
+        注意， 需要将当前用户加入到input组中：
+        gpasswd -a $USER input
+    shadowsocks-qt5-git :
+       client side for shadowsocks
+    xorg-xprop	:
+        窗口属性查看器，下面的awesome窗口管理器要用到 xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics   
+        xf86-input-synaptics contain syndaemon binary
+        X11配置文件文档,http://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html   
+        打字时金红触控板:   
+        安装好aur源中的xf86-input-evdev之后,将本源中etc/X11/xorg.conf.d/目录中的所有文件拷贝到/etc/X11/xorg.conf.d文件夹下   
     sudo   
     acpid	:	电源管理守护进程   
     systemctl enable acpid   
@@ -55,6 +65,7 @@
         并禁止掉其他所有文件中的如上行.   
         具体配置参考wiki:https://wiki.archlinux.org/index.php/LightDM   
     awesome : 平铺式窗口管理器   
+	aur/lua-luafilesystem, need install by yaourt	
     simplescreenrecorder : 录屏工具,制作视频教程用的   
     vicious   
     terminator : 终端模拟器   
@@ -148,6 +159,8 @@
     gksu   
     gvfs   
     xfce4-panel   
+    xfce4-notifyd :
+        一个用来显示通知的服务， 可以更美观的显示屏幕角落弹出框类型的通知。
     ultra-flat-icon   
         拷贝本源中的ultra-flat-icon到/usr/share/icon目录下,注意这个icon带鼠标主题.   
         然后拷贝本源中的.Xresources到家目录下,即可使用48px大小的鼠标主题.   
@@ -215,6 +228,8 @@
     adobe-source-han-sans-cn-fonts :	中文字体   
     ttf-hack :  英文字体,适合用作变成字体   
     本工程的usr/share/fonts/wqy-unibit-bdf-1.1.0-1.tar.bz2 : 将此文件解压到/usr/share/fonts/wenquanyi/unibit目录下
+    ttf-symbola字体:   
+        有一些特殊的符号,需要这个字体, 不然可能会出现一个框中有4个数字这种情况的字体.   
     file-roller	:	归档管理器   
     p7zip   
     unrar   
@@ -250,6 +265,10 @@
     gtk-aurora-engine   
     lxappearance:   
         可以同时更换gtk2/gtk3主题/字体/鼠标指针等,GUI配置工具.
+    arandr :
+        一个可以设置显示器/扩展显示器的东西
+    fsearch-git :
+        linux下的everything
     gtk-engine-murrine   
     gtk-engines   
     gtk-update-icon-cache   
@@ -276,6 +295,8 @@
     TM2013Preview :   
         据说这个版本最稳定,没有尝试过其他的版本.
         需要在winecfg中创建一个TM.exe的选项,然后将msvcp60,riched20,riched32设置成原装,不然可能无法输入东西.   
+    wps-office :   
+        需要激活archlinuxcn源，然后安装此包，以及此包的字体需求ttf-wps-fonts
 
    
 #4.配置   

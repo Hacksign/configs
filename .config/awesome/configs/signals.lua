@@ -5,15 +5,7 @@ local utils = require("utils")
 
 function caculate_bordder(c)
     if c.type ~= 'desktop' and c.no_border ~= true then
-        local cg = c:geometry()
-        local screen_cg = c.screen.workarea
-        local w = cg['width'] + beautiful.border_width * 2
-        local h = cg['height'] + beautiful.border_width * 2
-        if w == screen_cg['width'] and h == screen_cg['height'] then
-            c.maxmized = true
-            c.maximized_vertical = true
-            c.maximized_horizontal = true
-            c.geometry = screen_cg
+        if c.maximized then
             c.border_width = 0
         else
             c.border_width = beautiful.border_width
@@ -29,6 +21,9 @@ client.connect_signal("unfocus", function (c)
 end)
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
+client.connect_signal("property::size", function (c, startup)
+    caculate_bordder(c)
+end)
 client.connect_signal("manage", function (c, startup)
     caculate_bordder(c)
     -- Enable sloppy focus
@@ -49,9 +44,12 @@ client.connect_signal("manage", function (c, startup)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
-            --awful.placement.no_overlap(c)
+            local cg = c:geometry()
+            awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
-            awful.placement.centered(c)
+            if (cg.width + c.border_width * 2) ~= c.screen.workarea.width / 2 then
+                awful.placement.centered(c)
+            end
         end
     end
 

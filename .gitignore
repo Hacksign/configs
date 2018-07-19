@@ -1,5 +1,6 @@
 .config/fish/fish_history
 .config/fish/fish_read_history
+.config/fish/fishd.*
 .goldendict/config
 .goldendict/index/
 .goldendict/history

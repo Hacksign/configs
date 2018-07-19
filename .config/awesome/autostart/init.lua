@@ -26,18 +26,25 @@ local function processwalker()
     return coroutine.wrap(yieldprocess)
 end
 
-local function run_once(process, cmd)
-   assert(type(process) == "string")
-   local regex_killer = {
-      ["+"]  = "%+", ["-"] = "%-",
-      ["*"]  = "%*", ["?"]  = "%?" }
+local function run_once(process, cmd, with_shell)
+    assert(type(process) == "string")
+    local replacer = {
+        ["+"]  = "%+",
+        ["-"] = "%-",
+        ["*"]  = "%*",
+        ["?"]  = "%?" 
+    }
 
-   for p in processwalker() do
-      if p:find(process:gsub("[-+?*]", regex_killer)) then
-         return
-      end
-   end
-   return awful.spawn(cmd or process)
+    for p in processwalker() do
+        if p:find(process:gsub("[-+?*]", replacer)) then
+            return
+        end
+    end
+    if with_shell then
+        return awful.spawn.with_shell(cmd or process)
+    else
+        return awful.spawn(cmd or process)
+    end
 end
 -- }}}
 
@@ -56,4 +63,5 @@ run_once('ss-qt5', 'ss-qt5')
 run_once('bcloud-gui', 'bcloud-gui')
 run_once('caffeine', 'caffeine')
 run_once('blueman-applet', 'blueman-applet 1>/dev/null 2>&1')
-run_once('fusuma', '/home/hacksign/.gem/ruby/2.4.0/bin/fusuma 1>/dev/null 2>&1')
+-- run_once('fusuma', '/home/hacksign/.gem/ruby/2.5.0/bin/fusuma 1>/dev/null 2>&1')
+run_once('/usr/bin/libinput-gestures', 'libinput-gestures-setup restart 1>/dev/null 2>&1', true)

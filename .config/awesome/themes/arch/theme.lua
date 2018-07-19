@@ -30,8 +30,8 @@ theme.wallpaper    = home .. "/.wallpaper"
 -- default font size is 10
 theme.font          = "Hack" .. " " .. dpi(12)
 
-theme.margin_horizontal        = dpi(40)
-theme.margin_vertical        = dpi(250)
+theme.margin_horizontal        = dpi(60)
+theme.margin_vertical        = dpi(100)
 theme.border_width  = dpi(4)
 
 theme.bg_normal     = "#000000"

@@ -56,16 +56,16 @@ local function tasklist_label(c, args, tb)
     local shape_border_width = args.shape_border_width or theme.tasklist_shape_border_width
     local shape_border_color = args.shape_border_color or theme.tasklist_shape_border_color
 
-    -- symbol to use to indicate certain client properties
-    local sticky = args.sticky or theme.tasklist_sticky or "▪"
-    local ontop = args.ontop or theme.tasklist_ontop or '⌃'
-    local above = args.above or theme.tasklist_above or '▴'
-    local below = args.below or theme.tasklist_below or '▾'
-    local floating = args.floating or theme.tasklist_floating or '✈'
-    local maximized = args.maximized or theme.tasklist_maximized or '+'
-    local maximized_horizontal = args.maximized_horizontal or theme.tasklist_maximized_horizontal or '⬌'
-    local maximized_vertical = args.maximized_vertical or theme.tasklist_maximized_vertical or '⬍'
-    local minimized = args.minimized or theme.minimized or '❄'
+    -- symbol to use to indicate certain client properties ❄
+    local sticky = args.sticky or theme.tasklist_sticky or "📎 "
+    local ontop = args.ontop or theme.tasklist_ontop or '📌 '
+    local above = args.above or theme.tasklist_above or '▴ '
+    local below = args.below or theme.tasklist_below or '▾ '
+    local floating = args.floating or theme.tasklist_floating or '✈ '
+    local maximized = args.maximized or theme.tasklist_maximized or '+ '
+    local maximized_horizontal = args.maximized_horizontal or theme.tasklist_maximized_horizontal or '⬌ '
+    local maximized_vertical = args.maximized_vertical or theme.tasklist_maximized_vertical or '⬍ '
+    local minimized = args.minimized or theme.minimized or '- '
 
 
     tb:set_align(align)
@@ -82,14 +82,15 @@ local function tasklist_label(c, args, tb)
         else
             if c.maximized_horizontal then name = name .. maximized_horizontal end
             if c.maximized_vertical then name = name .. maximized_vertical end
-            if c.floating then name = name .. floating end
         end
-    end
 
-    if c.minimized then
-        name = name .. minimized .. (util.escape(c.icon_name) or util.escape(c.name) or util.escape("<untitled>"))
-    else
-        name = name .. (util.escape(c.name) or util.escape("<untitled>"))
+        if c.floating then name = name .. floating end
+
+        if c.minimized then
+            name = name .. minimized .. (util.escape(c.icon_name) or util.escape(c.name) or util.escape("<untitled>"))
+        else
+            name = name .. (util.escape(c.name) or util.escape("<untitled>"))
+        end
     end
 
     local focused = client.focus == c
@@ -97,8 +98,8 @@ local function tasklist_label(c, args, tb)
     -- is considered to be focused, if the real client has skip_taskbar.
     if not focused and client.focus and client.focus.skip_taskbar
         and client.focus:get_transient_for_matching(function(cl)
-                                                             return not cl.skip_taskbar
-                                                         end) == c then
+            return not cl.skip_taskbar
+        end) == c then
         focused = true
     end
 
@@ -237,52 +238,13 @@ function unserialize(lua)
 end  
 
 function isfloats(c)
-    local ret = false
-    local l = awful.layout.get(c.screen)
-    if awful.layout.getname(l) == 'floating' or awful.client.floating.get(c) then
-        ret = true
+    if c ~= nil then
+        local ret = false
+        local l = awful.layout.get(c.screen)
+        if awful.layout.getname(l) == 'floating' or awful.client.floating.get(c) then
+            ret = true
+        end
+        return ret
     end
-    return ret
 end
 
-function center_window(c)
-    if isfloats(c) and c.type ~= 'desktop' then
-        local screengeom = c.screen.geometry
-        local cg = c:geometry()
-        if (c.maximized_horizontal and c.maximized_vertical) or
-           (cg.width < screengeom.width - beautiful.margin_horizontal or cg.height < screengeom.height - beautiful.margin_vertical)  or
-           (cg['x'] + cg['width']) > (screengeom['x'] + screengeom['width']) or
-           (cg['y'] + cg['height']) > (screengeom['y'] + screengeom['height']) or
-           (cg['x']) < screengeom['x'] or
-           (cg['y']) < screengeom['y']
-        then
-            -- if not horizontal or window ether with or height is smaller
-            -- than centered size
-            -- or window is outside of current screen
-            cg.x = screengeom.x
-            cg.y = screengeom.y
-            cg.width = screengeom.width - beautiful.margin_horizontal
-            cg.height = screengeom.height - beautiful.margin_vertical
-            c.maximized = false
-            c.maximized_horizontal = false
-            c.maximized_vertical = false
-            c:geometry(cg)
-            awful.placement.centered(c, nil)
-        else
-            c.maximized_horizontal = not c.maximized_horizontal
-            c.maximized_vertical   = not c.maximized_vertical
-            if c.maximized_horizontal == true and c.maximized_vertical == true then
-                c.maximized = true
-                c.border_width = 0
-            else
-                local manage = true
-                for i,v in pairs(awful.rules.rules) do
-                    if v.rule.class == c.class then
-                        manage = false
-                        break
-                    end
-                end
-            end
-        end
-    end
-end
