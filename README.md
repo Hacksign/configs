@@ -41,6 +41,8 @@
         gpasswd -a $USER input
     shadowsocks-qt5-git :
        client side for shadowsocks
+    zssh:    
+       需要配合lrzsz包使用, 用于用rz和sz传输文件.    
     xorg-xprop	:
         窗口属性查看器，下面的awesome窗口管理器要用到 xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics   
         xf86-input-synaptics contain syndaemon binary
@@ -69,6 +71,7 @@
     simplescreenrecorder : 录屏工具,制作视频教程用的   
     vicious   
     terminator : 终端模拟器   
+    dia : 画流程图的工具   
     wiki:https://code.google.com/p/jessies/w/list   
     evince	:	PDF查看器   
     qpdfview : pdf查看器   

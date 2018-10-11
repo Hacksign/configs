@@ -293,6 +293,7 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86Calculator", function () awful.spawn("gnome-calculator") end),
     awful.key({ modkey}, "y", function () awful.spawn("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-calculator
     awful.key({ modkey}, "p", function () awful.spawn("arandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
+    awful.key({ modkey}, "q", function () awful.spawn("xfdesktop -M") end),
     awful.key({ "Mod1", "Control"}, "s", function () awful.spawn("fsearch") end), -- yaourt -S fsearch-git
     awful.key({ "Mod1", "Control"}, "space", function ()
         local geometry = screen[mouse.screen].geometry

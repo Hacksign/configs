@@ -21,14 +21,7 @@ local function guess_city()
 	local ws = f:read("*a")
 	f:close()
 	local city = ws:match('city:(.-),')
-
-    local cmd = "curl --connect-timeout 1 -s 'https://api.heweather.com/v5/search?key=bc0418b57b2d4918819d3974ac1285d9&city="..(city).."' 2>/dev/null|"..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
-	local f = io.popen(cmd)
-	local ws = f:read("*a")
-	f:close()
-
-	local citycode = ws:match('%["HeWeather5",0,"basic","id"%].-"CN(.-)"')
-	return citycode
+	return city
 end
 
 local function get_weather_line(city)
@@ -39,7 +32,7 @@ local function get_weather_line(city)
 			string.gsub(s, '[^'..p..']+', function(w) table.insert(rt, w) end )
 			return rt
 	end
-	local cmd = "curl --connect-timeout 1 -s 'http://wthrcdn.etouch.cn/weather_mini?citykey="..city.."' 2>/dev/null | gzip -d | "..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
+	local cmd = "curl --connect-timeout 1 -s 'http://wthrcdn.etouch.cn/weather_mini?city="..city.."' 2>/dev/null | gzip -d | "..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
 	local f = io.popen(cmd)
 	local ws = f:read("*a")
 	f:close()
@@ -69,43 +62,98 @@ local function get_weather_line(city)
             aqi_color = 'white'
             aqi_info = '-'
         end
-            local temperature_now = ws:match('%["data","wendu"%]%s+"(.-)"')
-            if temperature_now ~= nil then
-                weathers.short_info = "<span size='medium'><span color='lightgreen'><b>"..city_info.."</b></span> <span color='pink'>"..temperature_now.."℃</span>".." <span color='"..aqi_color.."'>"..aqi_info.."</span>"
-                weathers.full_info = "<span size='medium'><span size='small'><b>获取时间</b>:"..get_time.."</span>"
 
-                for s = 0, 4 do
-                    --Weather
-                    local forecast_weather = ws:match('%["data","forecast",'..s..',"type"%]%s+"(.-)"')
-                    local forecast_date = ws:match('%["data","forecast",'..s..',"date"%]%s+"(.-)"')
-                    if s < 2 then
-                        weathers.short_info = weathers.short_info.." <span color='red'>"..(forecast_weather)..'</span> '
-                    end
-                    weathers.full_info = weathers.full_info.."<span color='pink'>"..forecast_date.."</span> ".."<span color='red'>"..forecast_weather.."</span>"
+        local temperature_now = ws:match('%["data","wendu"%]%s+"(.-)"')
+        if temperature_now ~= nil then
+            weathers.short_info = ""..
+                "<span size='medium'>"..
+                    "<span color='lightgreen'>"..
+                        "<b>"..city_info.."</b>"..
+                    "</span>"..
+                    "<span color='pink'>"..
+                        " "..temperature_now.."℃"..
+                    "</span>"..
+                    "<span color='"..aqi_color.."'>"..
+                        " "..aqi_info..
+                    "</span>"
 
-                    --Temperature high
-                    local forecast_high = ws:match('%["data","forecast",'..s..',"high"%]%s+"(.-)"')
-                    if s < 2 then
-                        weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_high, ' ')[2])..'</span> '
-                    end
-                    weathers.full_info = weathers.full_info.." <span color='yellow'>"..forecast_high.."</span>"
-                    --Temperature low
-                    local forecast_low = ws:match('%["data","forecast",'..s..',"low"%]%s+"(.-)"')
-                    if s < 2 then
-                        weathers.short_info = weathers.short_info.."<span color='yellow'>"..(string.split(forecast_low, ' ')[2])..'</span>'
-                        if s ~= 1 then weathers.short_info = weathers.short_info .. ' /' end
-                    end
-                    weathers.full_info = weathers.full_info.." <span color='yellow'>"..forecast_low.."</span>"
-                    local forecast_fengli = ws:match('%["data","forecast",'..s..',"fengli"%]%s+"(.-)"')
-                    weathers.full_info = weathers.full_info.." <span>"..forecast_fengli.."</span>"
-                    local forecast_fengxiang = ws:match('%["data","forecast",'..s..',"fengxiang"%]%s+"(.-)"')
-                    weathers.full_info = weathers.full_info.." <span>"..forecast_fengxiang.."</span>\n"
+            weathers.full_info = ""..
+                "<span size='medium'>"..
+                    "<span size='small'>"..
+                        "<b>获取时间</b>:"..
+                            get_time..
+                    "</span>"
+
+            for s = 0, 4 do
+                --Weather
+                local forecast_weather = ws:match('%["data","forecast",'..s..',"type"%]%s+"(.-)"')
+                local forecast_date = ws:match('%["data","forecast",'..s..',"date"%]%s+"(.-)"')
+                if s < 2 then
+                    weathers.short_info = weathers.short_info..
+                        "<span color='red'>"..
+                            " "..forecast_weather..
+                        '</span>'
                 end
-                weathers.short_info = weathers.short_info.."</span>"
-                weathers.full_info = weathers.full_info.."</span>"
-                return weathers 
+
+                if string.find(forecast_date, '%d%d') then
+                    weathers.full_info = weathers.full_info..
+                        "<span color='pink'>"..
+                            forecast_date..
+                        "</span>"..
+                        "<span color='red'>"..
+                            " "..forecast_weather..
+                        "</span>"
+                else
+                    weathers.full_info = weathers.full_info..
+                        "<span color='pink'>"..
+                            " "..forecast_date..
+                        "</span>"..
+                        "<span color='red'>"..
+                            " "..forecast_weather..
+                        "</span>"
+                end
+
+                --Temperature high
+                local forecast_high = ws:match('%["data","forecast",'..s..',"high"%]%s+"(.-)"')
+                if s < 2 then
+                    weathers.short_info = weathers.short_info..
+                        "<span color='yellow'>"..
+                            " "..(string.split(forecast_high, ' ')[2])..
+                        '</span>'
+                end
+                weathers.full_info = weathers.full_info..
+                    "<span color='yellow'>"..
+                        " "..forecast_high..
+                    "</span>"
+                --Temperature low
+                local forecast_low = ws:match('%["data","forecast",'..s..',"low"%]%s+"(.-)"')
+                if s < 2 then
+                    weathers.short_info = weathers.short_info..
+                        "<span color='yellow'>"..
+                            " "..(string.split(forecast_low, ' ')[2])..
+                        '</span>'
+                    if s ~= 1 then weathers.short_info = weathers.short_info..' /' end
+                end
+                weathers.full_info = weathers.full_info..
+                    "<span color='yellow'>"..
+                        " "..forecast_low..
+                    "</span>"
+                local forecast_fengli = ws:match('%["data","forecast",'..s..',"fengli"%]%s+"(.-)"')
+                weathers.full_info = weathers.full_info..
+                    "<span>"..
+                        " "..forecast_fengli..
+                    "</span>"
+                local forecast_fengxiang = ws:match('%["data","forecast",'..s..',"fengxiang"%]%s+"(.-)"')
+                weathers.full_info = weathers.full_info..
+                    "<span>"..
+                        " "..forecast_fengxiang..
+                    "</span>\n"
             end
-            return nil
+            weathers.short_info = weathers.short_info.."</span>"
+            weathers.full_info = weathers.full_info.."</span>"
+            return weathers 
+        end
+        return nil
 	end
 	return nil
 end
@@ -136,6 +184,10 @@ local function init(location, box_position)
 						weatherwidgettimer:again()
 					end
 				end
+            else
+                time_interval = 60
+                weatherwidgettimer.timeout = time_interval
+                weatherwidgettimer:again()
 			end
 		end
 	)

@@ -1,6 +1,6 @@
 [global_config]
   always_split_with_profile = True
-  enabled_plugins = InactivityWatch, ActivityWatch
+  enabled_plugins = Logger,
   geometry_hinting = True
   handle_size = 0
   inactive_color_offset = 0.76
@@ -79,7 +79,7 @@
   [[default]]
     active_encodings = GB2312, UTF-8, ISO-8859-1
     background_color = "#002b36"
-    background_darkness = 0.9
+    background_darkness = 0.95
     background_type = transparent
     copy_on_selection = True
     cursor_color = "#37f608"
