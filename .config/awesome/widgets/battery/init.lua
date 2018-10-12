@@ -49,10 +49,12 @@ awful.widget.watch("bash -c 'cat /sys/class/power_supply/BAT0/capacity && cat /s
         charge_status = trim(stderr)
         
         if battery_percent ~= '' then
+            b_charging = false
             if battery_percent == '100' then
                 widget.rounded_edge = false
             end
             if charge_status == 'Charging' or charge_status == 'Full' or charge_status == 'Unknown' then
+                b_charging = true
                 icon.image = '/usr/share/icons/ultra-flat-icons/devices/scalable/battery.svg'
                 widget.colors = {
                     '#0aff0a'
@@ -63,7 +65,7 @@ awful.widget.watch("bash -c 'cat /sys/class/power_supply/BAT0/capacity && cat /s
                     '#ff0000'
                 }
             end
-            if tonumber(battery_percent) <= 15 then
+            if tonumber(battery_percent) <= 15 and not b_charging then
                 naughty.notify({
                     timeout = 0,
                     fg = "#ffff00",
