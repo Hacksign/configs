@@ -54,11 +54,19 @@ awful.rules.rules = {
             end,
         }
     },
-	-- fix problem of Wine program move slowly to right-bottom of the corner
-	-- http://www.youtube.com/watch?v=3Q91HjEaBD8
-	-- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
-	{
-		rule = { class = "Wine" },
-		properties = { floating = true, border_width = 0, no_border = true },
-	},
+    {
+    	rule = { class = "Popup" },
+    	properties = { border_width = 0, no_border = true },
+    },
+    -- fix problem of Wine program move slowly to right-bottom of the corner
+    -- http://www.youtube.com/watch?v=3Q91HjEaBD8
+    -- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
+    {
+    	rule = { class = "Wine" },
+    	properties = { floating = true, border_width = 0, no_border = true },
+    },
+    {
+    	rule = { class = "deepin-voice-recorder" },
+    	properties = { border_width = 0, no_border = true },
+    },
 }

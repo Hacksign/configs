@@ -68,7 +68,6 @@
         具体配置参考wiki:https://wiki.archlinux.org/index.php/LightDM   
     awesome : 平铺式窗口管理器   
 	aur/lua-luafilesystem, need install by yaourt	
-    simplescreenrecorder : 录屏工具,制作视频教程用的   
     vicious   
     terminator : 终端模拟器   
     dia : 画流程图的工具   
@@ -152,6 +151,7 @@
             73DDAEF0 AC559F30 A6A67947 B60104C6
             —— END LICENSE ——
 
+    nomacs : 图片查看器，这个界面做的不错，推荐
     ristretto : Image查看器   
     galculator : 计算器   
     goldendict : 字典   
@@ -186,6 +186,10 @@
     smplayer : mplayer的一个前端   
     smplayer-themes 主题包   
     smplayer-skins 皮肤   
+    simplescreenrecorder : 录屏工具,制作视频教程用的   
+    deepin-screen-recorder : 深度录屏工具
+    deepin-voice-recorder : 深度录音工具
+    deepin-screenshot : 深度系统的截图工具，比较好用
     xfce4-screenshooter :	截图   
     xcompmgr	:	简单的窗口透明特效管理   
         注意,不知道什么原因这个可能会导致Xorg持续占用很高的cpu,可以试一下compton,这个是xcompmgr的另外一个form版本,功能更强大.   
@@ -228,11 +232,15 @@
     autossh	:	ssh socks5代理守护进程   
     git	:	代码管理   
     gmrun	:	启动器   
+    wqy-bitmapfont/wqy-microhei/wqy-zenhei:
+      上面这三个字体需要安装, 经长期使用, 这几个字体对系统支持较好. 需要用lxappearance设置系统字体为微米黑
     adobe-source-han-sans-cn-fonts :	中文字体   
     ttf-hack :  英文字体,适合用作变成字体   
     本工程的usr/share/fonts/wqy-unibit-bdf-1.1.0-1.tar.bz2 : 将此文件解压到/usr/share/fonts/wenquanyi/unibit目录下
     ttf-symbola字体:   
         有一些特殊的符号,需要这个字体, 不然可能会出现一个框中有4个数字这种情况的字体.   
+    terminus-font:
+      控制台的一些字体, 需要配合本目录下面的etc/vconsole.conf文件使用
     file-roller	:	归档管理器   
     p7zip   
     unrar   
@@ -265,7 +273,7 @@
     qt4   
     gtk2   
     gtk3   
-    gtk-aurora-engine   
+    gtk-engine-aurora
     lxappearance:   
         可以同时更换gtk2/gtk3主题/字体/鼠标指针等,GUI配置工具.
     arandr :

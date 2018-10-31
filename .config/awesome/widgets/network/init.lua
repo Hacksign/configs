@@ -1,6 +1,6 @@
 local require = require
-local tonumber = tonumber
 local naughty = require("naughty")
+local string = require("string")
 local io = require("io")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -13,18 +13,6 @@ module("network")
 
 function trim(s)
     return (s:gsub("^%s*(.-)%s*$", "%1"))
-end
-
-function get_device()
-    f = io.popen("ip link show | cut -d' ' -f2,9")
-    ws = f:read("*a")
-    f:close()
-    ws = ws:match("%w+: UP") or ws:match("ppp%w+: UNKNOWN")
-    if ws ~= nil then
-        return ws:match("(%w+):")
-    else
-        return "network off"
-    end
 end
 
 local icon_widget = {
@@ -80,16 +68,34 @@ local network_layout = wibox.widget {
     layout = wibox.layout.grid
 }
 
-awful.widget.watch("bash -c 'cat /sys/class/net/" .. get_device() .. "/statistics/tx_bytes 2>/dev/null && cat /sys/class/net/" .. get_device() .. "/statistics/rx_bytes 1>&2'", network_widget.time_interval,
+awful.widget.watch("bash -c 'cat /sys/class/net/*/statistics/tx_bytes 2>/dev/null && cat /sys/class/net/*/statistics/rx_bytes 1>&2'", network_widget.time_interval,
     function(widget, stdout, stderr, exitreason, exitcode)
-        send_bytes = trim(stdout)
-        received_bytes = trim(stderr)
-        if  send_bytes ~= '' and received_bytes ~= '' then
+        local send_bytes = 0
+        local received_bytes = 0
+        string.gsub(
+            trim(stdout),
+            '[^\n]+',
+            function(w)
+            	if w ~= '' then
+            		send_bytes = send_bytes + w
+            	end
+            end 
+        )
+        string.gsub(
+            trim(stderr),
+            '[^\n]+',
+            function(w)
+            	if w ~= '' then
+            		received_bytes = received_bytes + w
+            	end
+            end 
+        )
+        if  send_bytes and received_bytes then
             if widget.last_sent then
                 network_widget.send.markup = "<span size='xx-large'>" ..
                     "<b>" ..
                         math.floor(
-                            (tonumber(send_bytes) - network_widget.last_sent) / 1024 / network_widget.time_interval
+                            (send_bytes - network_widget.last_sent) / 1024 / network_widget.time_interval
                         ) ..
                     "</b>" ..
                 "</span>"
@@ -98,7 +104,7 @@ awful.widget.watch("bash -c 'cat /sys/class/net/" .. get_device() .. "/statistic
                 network_widget.receive.markup = "<span size='xx-large'>" ..
                     "<b>" ..
                         math.floor(
-                            (tonumber(received_bytes) - network_widget.last_receive) / 1024 / network_widget.time_interval
+                            (received_bytes - network_widget.last_receive) / 1024 / network_widget.time_interval
                         ) ..
                     "</b>" ..
                 "</span>"

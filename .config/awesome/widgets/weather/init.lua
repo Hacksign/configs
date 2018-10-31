@@ -16,7 +16,7 @@ local weather_info
 module("weather")
 
 local function guess_city()
-	local cmd = "curl --connect-timeout 1 -s 'http://whois.pconline.com.cn/ipJson.jsp?json=true' 2>/dev/null|xargs printf|iconv -fgbk -tutf8"
+	local cmd = "curl --connect-timeout 1 --max-time 1 --retry-max-time 1 -s 'http://whois.pconline.com.cn/ipJson.jsp?json=true' 2>/dev/null|xargs printf|iconv -fgbk -tutf8"
 	local f = io.popen(cmd)
 	local ws = f:read("*a")
 	f:close()
@@ -32,7 +32,7 @@ local function get_weather_line(city)
 			string.gsub(s, '[^'..p..']+', function(w) table.insert(rt, w) end )
 			return rt
 	end
-	local cmd = "curl --connect-timeout 1 -s 'http://wthrcdn.etouch.cn/weather_mini?city="..city.."' 2>/dev/null | gzip -d | "..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
+	local cmd = "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'http://wthrcdn.etouch.cn/weather_mini?city="..city.."' 2>/dev/null | gzip -d | "..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
 	local f = io.popen(cmd)
 	local ws = f:read("*a")
 	f:close()
