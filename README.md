@@ -26,6 +26,9 @@
     xorg-utils   
     xorg-xinit	:	startx等命令   
     xorg-xrandr	:	屏幕分辨率以及多屏管理支持,awesome要用到   
+    alltray 或者 kdocker:   
+        将任意程序最小化到系统tray的工具。   
+        推荐kdocker，功能性上逼alltray好一点。   
     fusuma :   
         可以协助实现触控板手势的一个东西, ruby写的,使用如下命令安装
             gem intsall fusuma
@@ -39,6 +42,8 @@
         https://segmentfault.com/a/1190000011327776
         注意， 需要将当前用户加入到input组中：
         gpasswd -a $USER input
+    remmina:   
+       一个GTK的前端，可以管理SSH、RDP（需要装插件，注意可选提示）、VNC等多种协议的链接   
     shadowsocks-qt5-git :
        client side for shadowsocks
     zssh:    
@@ -228,6 +233,7 @@
         需要安装linux-headers包,否则vboxsf等内核模块不能正常加载   
         记得安装virtualbox-guest-utils并systemctl enable vboxservice,具体请参考下面的链接   
             https://wiki.archlinux.org/index.php/VirtualBox   
+        virtualbox-ext-oracle, 这个包对virtualbox提供了USB3.0等功能的支持.   
         最后将需要使用virtualbox虚拟机的用户加到vboxusers组中   
     autossh	:	ssh socks5代理守护进程   
     git	:	代码管理   

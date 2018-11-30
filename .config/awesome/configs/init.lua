@@ -84,10 +84,10 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons, nil, utils.tasklist_update_function)
 
     -- Create the wibox
-    local mywibox = {}
-    local bottomwibox = {}
-    mywibox[s] = awful.wibar({ position = "top", screen = s })
-    bottomwibox[s] = awful.wibar({position = "bottom", screen = s})
+    local topBar = {}
+    local bottomBar = {}
+    topBar[s] = awful.wibar({ position = "top", screen = s })
+    bottomBar[s] = awful.wibar({position = "bottom", screen = s})
 
 
     -- Widgets that are aligned to the left
@@ -119,7 +119,7 @@ for s = 1, screen.count() do
     bottom_layout:set_middle(mytasklist[s])
     bottom_layout:set_right(mytextclock)
 
-    mywibox[s]:set_widget(layout)
-    bottomwibox[s]:set_widget(bottom_layout)
+    topBar[s]:set_widget(layout)
+    bottomBar[s]:set_widget(bottom_layout)
 end
 -- }}}
