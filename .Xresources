@@ -7,3 +7,46 @@ Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
+
+! urxvt color set
+URxvt.multichar_encoding:utf-8
+URxvt.background:black
+URxvt.foreground:green
+
+URxvt.colorBD:yellow
+URxvt.colorUL:green
+URxvt.cursorColor:green
+URxvt.color0:black
+URxvt.color1:red3
+URxvt.color2:springgreen
+URxvt.color3:wheat3
+URxvt.color4:navy
+URxvt.color5:magenta4
+URxvt.color6:steelblue1
+URxvt.color7:gray85
+URxvt.color8:gray10
+URxvt.color9:orangered2
+URxvt.color10:chartreuse3
+URxvt.color11:lightgoldenrod2
+URxvt.color12:skyblue1
+URxvt.color13:pink1
+URxvt.color14:lightblue1
+
+! scroll set
+URxvt.scrollBar:True
+URxvt.scrollBar_right:True
+URxvt.scrollBar_floating:True
+URxvt.scrollstyle:plain
+URxvt.scrollWithBuffer:false
+URxvt.saveLines:5000
+
+! font set
+URxvt.font:xft:WenQuanYi Micro Hei Mono,xft:WenQuanYi Micro Hei Mono:pixelsize=16
+URxvt.boldFont:xft:WenQuanYi Micro Hei Mono:Bold,xft:WenQuanYi Micro Hei Mono:pixelsize=16:Bold
+
+! Input Method set
+URxvt.inputMethod:fcitx
+URxvt.imLocale:zh_CN.utf8
+URxvt.imFont:WenQuanYi Micro Hei Mono
+URxvt.preeditType: Root
+

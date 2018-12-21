@@ -23,7 +23,11 @@ awful.rules.rules = {
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             screen = function(c)
-                return awesome.startup and c.screen or awful.screen.focused()
+                if screen.count() == 1 then
+                    return screen[1]
+                else
+                    return awesome.startup and c.screen or awful.screen.focused()
+                end
             end,
             keys = clientkeys,
             buttons = clientbuttons 

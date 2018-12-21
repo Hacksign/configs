@@ -44,6 +44,7 @@
         gpasswd -a $USER input
     remmina:   
        一个GTK的前端，可以管理SSH、RDP（需要装插件，注意可选提示）、VNC等多种协议的链接   
+       这个需要配合 rxvt-unicode 这个中断模拟器来使用，而这个中断模拟器，需要本源中.Xresources文件在$HOME下    
     shadowsocks-qt5-git :
        client side for shadowsocks
     zssh:    

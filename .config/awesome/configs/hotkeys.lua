@@ -216,8 +216,32 @@ globalkeys = awful.util.table.join(
         client.focus.maximized_vertical = true
         client.focus:geometry(cg)
     end),
+    awful.key({ modkey, "Control" }, "Left",   function()
+        local screengeom = screen[mouse.screen].geometry
+        local cg = client.focus:geometry()
+        cg['width'] = screengeom['width']/2 - beautiful.border_width * 2
+        cg['height'] = screengeom['height'] - beautiful.border_width * 2
+        cg['x'] = screengeom['x']
+        cg['y'] = screengeom['y']
+        client.focus.maximized = false
+        client.focus.maximized_horizontal = false
+        client.focus.maximized_vertical = true
+        client.focus:geometry(cg)
+    end),
     awful.key({ modkey,           }, "Right",  function()
         local screengeom = screen[mouse.screen].workarea
+        local cg = client.focus:geometry()
+        cg['width'] = screengeom['width']/2 - beautiful.border_width * 2
+        cg['height'] = screengeom['height'] - beautiful.border_width * 2
+        cg['x'] = screengeom['x'] + cg['width'] + beautiful.border_width * 2
+        cg['y'] = screengeom['y']
+        client.focus.maximized = false
+        client.focus.maximized_horizontal = false
+        client.focus.maximized_vertical = true
+        client.focus:geometry(cg)
+    end),
+    awful.key({ modkey, "Control" }, "Right",  function()
+        local screengeom = screen[mouse.screen].geometry
         local cg = client.focus:geometry()
         cg['width'] = screengeom['width']/2 - beautiful.border_width * 2
         cg['height'] = screengeom['height'] - beautiful.border_width * 2
@@ -300,7 +324,7 @@ globalkeys = awful.util.table.join(
         local cmd = "gmrun -g +" .. math.floor(geometry.x + geometry.width/2 - (beautiful.border_width + 500/2)) .. "+" .. math.floor(geometry.y  + geometry.height/2 - (beautiful.border_width + 76/2))
         awful.spawn(cmd)
     end),
-    awful.key({ modkey}, "n", function () awful.spawn("subl") end), -- start a notepad
+    awful.key({ modkey}, "n", function () awful.spawn("subl3") end), -- start a notepad
     awful.key({ modkey, "Control"}, "l", function () awful.spawn.with_shell("dm-tool lock &") end) -- yaourt -S lightdm lightdm-gtk-greeter
 )
 --end of globalkeys

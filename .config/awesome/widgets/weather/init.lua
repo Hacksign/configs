@@ -149,7 +149,10 @@ local function get_weather_line(widget)
                         full_info = full_info..
                             "<span>"..
                                 " "..forecast_fengxiang..
-                            "</span>\n"
+                            "</span>"
+                        if s ~= 4 then
+                            full_info = full_info .. "\n"
+                        end
                     end
                     short_info = short_info.."</span>"
                     full_info = full_info.."</span>"
