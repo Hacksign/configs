@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
-// @description Remove inoreader.com's advertisement in reading list, and upgrade button.
-// @version 4.3
+// @description Remove inoreader.com's advertisement in reading list, upgrae button and some annoying dialogs.
+// @version 4.4
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
@@ -34,8 +34,8 @@ if (reader_pane_div) {
                 relatedObj.parentNode.removeChild(relatedObj);
             } else if (relatedObj.classList && relatedObj.classList.contains('dashboard_gadgets')) {
                 //find and remove ads div in dashboard page
-                sub_divs = relatedObj.getElementsByTagName('div');
-                for (i = 0; i < sub_divs.length; ++i) {
+                var sub_divs = relatedObj.getElementsByTagName('div');
+                for (var i = 0; i < sub_divs.length; ++i) {
                     if (sub_divs[i].classList && sub_divs[i].classList.contains('header_control')) {
                         if (!sub_divs[i].innerHTML.trim()) {
                             relatedObj.parentNode.removeChild(relatedObj);
@@ -105,7 +105,7 @@ if (content_div) {
                     if(relatedObj2.getElementsByClassName && relatedObj2.getElementsByClassName('sinner_inner').length !== 0){
                         if(relatedObj2.getElementsByClassName('sinner_inner')[0]){
                             var div_sinn_inner = relatedObj2.getElementsByClassName('sinner_inner');
-                            for(i = 0; i < relatedObj2.getElementsByClassName('sinner_inner')[0].childNodes.length; ++i){
+                            for(var i = 0; i < relatedObj2.getElementsByClassName('sinner_inner')[0].childNodes.length; ++i){
                                 if(relatedObj2.getElementsByClassName('sinner_inner')[0].childNodes[i].id.indexOf('column_ad-') != -1){
                                     relatedObj2.getElementsByClassName('sinner_inner')[0].childNodes[i].style.display = 'none';
                                 }
@@ -126,7 +126,7 @@ if (content_div) {
                         relatedObj2.parentNode.removeChild(relatedObj2);
                     }
                     if (relatedObj2.attributes && relatedObj2.attributes.length === 0 && relatedObj2.childNodes.length !== 0) {
-                        for (i = 0; i < relatedObj2.childNodes.length; ++i) {
+                        for (var i = 0; i < relatedObj2.childNodes.length; ++i) {
                             if (relatedObj2.childNodes[i].id.indexOf('inner_ad-') != - 1) {
                                 relatedObj2.childNodes[i].style.display = 'none';
                             }
@@ -145,3 +145,17 @@ if (content_div) {
     }, false);
 }
 
+var overlay_div_id = undefined;
+document.addEventListener('DOMNodeInserted', function(e) {
+    if(e.originalTarget.id && e.originalTarget.id.indexOf('_wrap') != -1) {
+        var img_collections = e.originalTarget.getElementsByTagName('img');
+        if(img_collections.item(0) && img_collections.item(0).src.indexOf('adb_detected.png') != -1) {
+            overlay_div_id = e.originalTarget.id.split('_')[0] + '_modal_overlay';
+            e.originalTarget.parentNode.removeChild(e.originalTarget);
+        }
+    }else if(overlay_div_id){
+        if(e.originalTarget.id && e.originalTarget.id == overlay_div_id) {
+            e.originalTarget.parentNode.removeChild(e.originalTarget);
+        }
+    }
+})
