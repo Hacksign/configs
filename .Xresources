@@ -11,7 +11,7 @@ Xft.rgba: rgb
 ! urxvt color set
 URxvt.multichar_encoding:utf-8
 URxvt.background:black
-URxvt.foreground:green
+URxvt.foreground:white
 
 URxvt.colorBD:yellow
 URxvt.colorUL:green
@@ -41,12 +41,12 @@ URxvt.scrollWithBuffer:false
 URxvt.saveLines:5000
 
 ! font set
-URxvt.font:xft:WenQuanYi Micro Hei Mono,xft:WenQuanYi Micro Hei Mono:pixelsize=16
-URxvt.boldFont:xft:WenQuanYi Micro Hei Mono:Bold,xft:WenQuanYi Micro Hei Mono:pixelsize=16:Bold
+URxvt.font:xft:YaHei Consolas Hybrid,xft:YaHei Consolas Hybrid:pixelsize=16
+URxvt.boldFont:xft:YaHei Consolas Hybrid,xft:YaHei Consolas Hybrid:pixelsize=16:Bold
 
 ! Input Method set
 URxvt.inputMethod:fcitx
 URxvt.imLocale:zh_CN.utf8
-URxvt.imFont:WenQuanYi Micro Hei Mono
+URxvt.imFont:YaHei Consolas Hybrid
 URxvt.preeditType: Root
 

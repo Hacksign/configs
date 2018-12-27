@@ -28,7 +28,7 @@ theme.wallpaper    = home .. "/.wallpaper"
 --}}}
 
 -- default font size is 10
-theme.font          = "Hack" .. " " .. dpi(12)
+theme.font          = "YaHei Consolas Hybrid" .. " " .. dpi(12)
 
 theme.margin_horizontal        = dpi(60)
 theme.margin_vertical        = dpi(100)

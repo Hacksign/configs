@@ -6,6 +6,7 @@ local gears = require("gears")
 local string = require("string")
 local os = require("os")
 local table = require("table")
+local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local naughty		= require("naughty")
@@ -72,8 +73,11 @@ local function get_weather_line(widget)
                 end
 
                 local temperature_now = stdout:match('%["data","wendu"%]%s+"(.-)"')
-                local short_info = "<span font_size='xx-large'>"
-                local full_info = "<span>"
+                local short_info = string.format(
+                    "<span font_desc='%s' font_size='small'>",
+                    beautiful.font
+                )
+                local full_info = string.format("<span font_desc='%s' font_size='small'>", beautiful.font)
                 if temperature_now ~= nil then
                     short_info = short_info..
                         "<span color='lightgreen'>"..
@@ -207,9 +211,9 @@ local function init(location, box_position)
     wibox = wibox.container.margin(
         weatherWidget.textBox,
         dpi(3),
-        dpi(12),
-        dpi(12),
-        dpi(12),
+        dpi(8),
+        dpi(3),
+        dpi(8),
         nil
     )
 	return wibox
