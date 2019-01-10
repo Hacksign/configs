@@ -12,6 +12,7 @@ Xft.rgba: rgb
 URxvt.multichar_encoding:utf-8
 URxvt.background:black
 URxvt.foreground:white
+URxvt*termName: rxvt-unicode
 
 URxvt.colorBD:yellow
 URxvt.colorUL:green

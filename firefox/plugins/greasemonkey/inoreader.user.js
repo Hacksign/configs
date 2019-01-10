@@ -156,6 +156,7 @@ document.addEventListener('DOMNodeInserted', function(e) {
     }else if(overlay_div_id){
         if(e.originalTarget.id && e.originalTarget.id == overlay_div_id) {
             e.originalTarget.parentNode.removeChild(e.originalTarget);
+            overlay_div_id = undefined;
         }
     }
 })
