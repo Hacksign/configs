@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, upgrae button and some annoying dialogs.
-// @version 4.6
+// @version 4.7
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
@@ -148,16 +148,14 @@ if (content_div) {
 var overlay_div_id = undefined;
 document.addEventListener('DOMNodeInserted', function(e) {
     if(e.originalTarget.id && e.originalTarget.id.indexOf('_wrap') != -1) {
-        if(e.originalTarget.id != 'preferences_dialog_wrapper') {
-            var img_collections = e.originalTarget.getElementsByTagName('img');
-            if(img_collections.length !=0 && img_collections.item(0) && img_collections.item(0).src.indexOf('adb_detected.png') != -1) {
-                overlay_div_id = e.originalTarget.id.split('_')[0] + '_modal_overlay';
-                e.originalTarget.parentNode.removeChild(e.originalTarget);
-            }
-        }else{
-            if(!e.originalTarget.style.zIndex) {
-                e.originalTarget.style.zIndex = 1002;
-            }
+        var img_collections = e.originalTarget.getElementsByTagName('img');
+        if(img_collections.length !=0 && img_collections.item(0) && img_collections.item(0).src.indexOf('adb_detected.png') != -1) {
+            overlay_div_id = e.originalTarget.id.split('_')[0] + '_modal_overlay';
+            e.originalTarget.parentNode.removeChild(e.originalTarget);
+        }
+
+        if(!e.originalTarget.style.zIndex) {
+            e.originalTarget.style.zIndex = 1002;
         }
     }else if(overlay_div_id){
         if(e.originalTarget.id && e.originalTarget.id == overlay_div_id) {
