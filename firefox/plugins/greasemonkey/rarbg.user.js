@@ -6,6 +6,7 @@
 // @author       Hacksign
 // @match        https://rarbg.to/*
 // @include      https://proxyrarbg.org/*
+// @include      https://rarbgunblocked.org/*
 // @run-at      document-start
 // ==/UserScript==
 
