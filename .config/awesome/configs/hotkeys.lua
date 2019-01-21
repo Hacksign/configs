@@ -314,8 +314,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "s", function () awful.spawn("deepin-screenshot") end), -- yaourt -S xfce4-screenshooter
     awful.key({ modkey,           }, "f",      function (c) awful.spawn("fsearch") end),
     awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox
-    awful.key({ }, "XF86Calculator", function () awful.spawn("gnome-calculator") end),
-    awful.key({ modkey}, "y", function () awful.spawn("gnome-calculator") end), -- an GUI caculate, yaourt -S gnome-calculator
+    awful.key({ }, "XF86Calculator", function () awful.spawn("qalculate-gtk") end),
+    awful.key({ modkey}, "y", function () awful.spawn("qalculate-gtk") end), -- an GUI caculate
     awful.key({ modkey}, "p", function () awful.spawn("arandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
     awful.key({ modkey}, "q", function () awful.spawn("xfdesktop -M") end),
     awful.key({ "Mod1", "Control"}, "s", function () awful.spawn("fsearch") end), -- yaourt -S fsearch-git

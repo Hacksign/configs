@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, upgrae button and some annoying dialogs.
-// @version 4.6
+// @version 4.7.1
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
@@ -147,21 +147,19 @@ if (content_div) {
 
 var overlay_div_id = undefined;
 document.addEventListener('DOMNodeInserted', function(e) {
-    if(e.originalTarget.id && e.originalTarget.id.indexOf('_wrap') != -1) {
-        if(e.originalTarget.id != 'preferences_dialog_wrapper') {
-            var img_collections = e.originalTarget.getElementsByTagName('img');
-            if(img_collections.length !=0 && img_collections.item(0) && img_collections.item(0).src.indexOf('adb_detected.png') != -1) {
-                overlay_div_id = e.originalTarget.id.split('_')[0] + '_modal_overlay';
-                e.originalTarget.parentNode.removeChild(e.originalTarget);
-            }
-        }else{
-            if(!e.originalTarget.style.zIndex) {
-                e.originalTarget.style.zIndex = 1002;
-            }
+    var relatedObj = e.originalTarget || e.target;
+    if(relatedObj.id && relatedObj.id.indexOf('_wrap') != -1) {
+        var img_collections = relatedObj.getElementsByTagName('img');
+        if(img_collections.length !=0 && img_collections.item(0) && img_collections.item(0).src.indexOf('adb_detected.png') != -1) {
+            overlay_div_id = relatedObj.id.split('_')[0] + '_modal_overlay';
+            relatedObj.parentNode.removeChild(relatedObj);
+        }
+        if(!relatedObj.style.zIndex) {
+            relatedObj.style.zIndex = 1002;
         }
     }else if(overlay_div_id){
-        if(e.originalTarget.id && e.originalTarget.id == overlay_div_id) {
-            e.originalTarget.parentNode.removeChild(e.originalTarget);
+        if(relatedObj.id && relatedObj.id == overlay_div_id) {
+            relatedObj.parentNode.removeChild(relatedObj);
             overlay_div_id = undefined;
         }
     }
