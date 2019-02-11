@@ -57,13 +57,13 @@ local function get_weather_line(widget)
                 local aqi_color
                 if aqi_info ~= nil then
                     if tonumber(aqi_info) <= 50 then
-                        aqi_color = 'lightgreen'
+                        aqi_color = 'Lime'
                     elseif tonumber(aqi_info) >= 51 and tonumber(aqi_info)	<= 100 then
-                        aqi_color = 'lightblue'
+                        aqi_color = 'Cyan'
                     elseif tonumber(aqi_info) >= 101 and tonumber(aqi_info)	<= 150 then
-                        aqi_color = 'yellow'
+                        aqi_color = 'Yellow'
                     elseif tonumber(aqi_info) >= 151 and tonumber(aqi_info)	<= 200 then
-                        aqi_color = 'orange'
+                        aqi_color = 'DarkOrange'
                     elseif tonumber(aqi_info) >= 201 then
                         aqi_color = 'red'
                     end
@@ -80,10 +80,10 @@ local function get_weather_line(widget)
                 local full_info = string.format("<span font_desc='%s' font_size='small'>", beautiful.font)
                 if temperature_now ~= nil then
                     short_info = short_info..
-                        "<span color='lightgreen'>"..
+                        "<span color='SteelBlue'>"..
                             "<b>"..city_info.."</b>"..
                         "</span>"..
-                        "<span color='pink'>"..
+                        "<span color='DarkTurquoise'>"..
                             " "..temperature_now.."℃"..
                         "</span>"..
                         "<span color='"..aqi_color.."'>"..
@@ -96,7 +96,7 @@ local function get_weather_line(widget)
                         local forecast_date = stdout:match('%["data","forecast",'..s..',"date"%]%s+"(.-)"')
                         if s < 2 then
                             short_info = short_info..
-                                "<span color='red'>"..
+                                "<span color='Violet'>"..
                                     " "..forecast_weather..
                                 '</span>'
                         end
@@ -123,7 +123,7 @@ local function get_weather_line(widget)
                         local forecast_high = stdout:match('%["data","forecast",'..s..',"high"%]%s+"(.-)"')
                         if s < 2 then
                             short_info = short_info..
-                                "<span color='yellow'>"..
+                                "<span color='Gold'>"..
                                     " "..(string.split(forecast_high, ' ')[2])..
                                 '</span>'
                         end
@@ -135,7 +135,7 @@ local function get_weather_line(widget)
                         local forecast_low = stdout:match('%["data","forecast",'..s..',"low"%]%s+"(.-)"')
                         if s < 2 then
                             short_info = short_info..
-                                "<span color='yellow'>"..
+                                "<span color='Gold'>"..
                                     " "..(string.split(forecast_low, ' ')[2])..
                                 '</span>'
                             if s ~= 1 then short_info = short_info..' /' end
