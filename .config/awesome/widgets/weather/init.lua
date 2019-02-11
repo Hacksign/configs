@@ -47,13 +47,13 @@ local function get_weather_line(widget)
 			string.gsub(s, '[^'..p..']+', function(w) table.insert(rt, w) end )
 			return rt
 	end
-	local cmd = "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'http://wthrcdn.etouch.cn/weather_mini?city="..widget.location.."' 2>/dev/null | gzip -d | "..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh"
+	local cmd = "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'http://wthrcdn.etouch.cn/weather_mini?city="..widget.location.."' 2>/dev/null | gzip -d | "..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh 2>/dev/null && curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://map.baidu.com/?qt=cur&wd='"..widget.location.." | "..os.getenv("HOME").."/.config/awesome/widgets/weather/JSON.sh 1>&2"
     awful.spawn.easy_async_with_shell(
         cmd,
         function(stdout, stderr, exitreason, exitcode)
             if stdout:match("city") ~= nil then
                 local city_info = stdout:match('%["data","city"%]%s+"(.-)"')
-                local aqi_info = stdout:match('%["data","aqi"%]%s+"(.-)"')
+                local aqi_info = stderr:match('%["aqi","current_city","aqi"%]%s+"(.-)"')
                 local aqi_color
                 if aqi_info ~= nil then
                     if tonumber(aqi_info) <= 50 then

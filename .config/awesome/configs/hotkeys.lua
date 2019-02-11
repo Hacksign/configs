@@ -216,6 +216,12 @@ globalkeys = awful.util.table.join(
         client.focus.maximized_vertical = true
         client.focus:geometry(cg)
     end),
+    awful.key({ modkey, "Shift"   }, "Left",   function()
+        client.focus:relative_move(0, 0, -20, 0)
+    end),
+    awful.key({ modkey, "Shift", "Control"}, "Left",   function()
+        client.focus:relative_move(-20, 0, 20, 0)
+    end),
     awful.key({ modkey, "Control" }, "Left",   function()
         local screengeom = screen[mouse.screen].geometry
         local cg = client.focus:geometry()
@@ -239,6 +245,12 @@ globalkeys = awful.util.table.join(
         client.focus.maximized_horizontal = false
         client.focus.maximized_vertical = true
         client.focus:geometry(cg)
+    end),
+    awful.key({ modkey, "Shift"   }, "Right",  function()
+        client.focus:relative_move(20, 0, -20, 0)
+    end),
+    awful.key({ modkey, "Shift", "Control"}, "Right",  function()
+        client.focus:relative_move(0, 0, 20, 0)
     end),
     awful.key({ modkey, "Control" }, "Right",  function()
         local screengeom = screen[mouse.screen].geometry
@@ -264,6 +276,12 @@ globalkeys = awful.util.table.join(
         client.focus.maximized_vertical = false
         client.focus:geometry(cg)
     end),
+    awful.key({ modkey, "Shift"   }, "Up",  function()
+        client.focus:relative_move(0, 0, 0, -20)
+    end),
+    awful.key({ modkey, "Shift", "Control"}, "Up",  function()
+        client.focus:relative_move(0, -20, 0, 20)
+    end),
     awful.key({ modkey,           }, "Down",  function()
         local screengeom = screen[mouse.screen].workarea
         local cg = client.focus:geometry()
@@ -275,6 +293,12 @@ globalkeys = awful.util.table.join(
         client.focus.maximized_horizontal = true
         client.focus.maximized_vertical = false
         client.focus:geometry(cg)
+    end),
+    awful.key({ modkey, "Shift", "Control"}, "Down",  function()
+        client.focus:relative_move(0, 0, 0, 20)
+    end),
+    awful.key({ modkey, "Shift"   }, "Down",  function()
+        client.focus:relative_move(0, 20, 0, -20)
     end),
     ------------------------------------------------------------------------------
     awful.key({ modkey,           }, "Tab", function ()
