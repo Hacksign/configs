@@ -103,18 +103,18 @@ local function get_weather_line(widget)
 
                         if string.find(forecast_date, '%d%d') then
                             full_info = full_info..
-                                "<span color='pink'>"..
+                                "<span color='DeepSkyBlue'>"..
                                     forecast_date..
                                 "</span>"..
-                                "<span color='red'>"..
+                                "<span color='Violet'>"..
                                     " "..forecast_weather..
                                 "</span>"
                         else
                             full_info = full_info..
-                                "<span color='pink'>"..
+                                "<span color='DeepSkyBlue'>"..
                                     " "..forecast_date..
                                 "</span>"..
-                                "<span color='red'>"..
+                                "<span color='Violet'>"..
                                     " "..forecast_weather..
                                 "</span>"
                         end
@@ -128,7 +128,7 @@ local function get_weather_line(widget)
                                 '</span>'
                         end
                         full_info = full_info..
-                            "<span color='yellow'>"..
+                            "<span color='Gold'>"..
                                 " "..forecast_high..
                             "</span>"
                         --Temperature low
@@ -141,7 +141,7 @@ local function get_weather_line(widget)
                             if s ~= 1 then short_info = short_info..' /' end
                         end
                         full_info = full_info..
-                            "<span color='yellow'>"..
+                            "<span color='Gold'>"..
                                 " "..forecast_low..
                             "</span>"
                         local forecast_fengli = stdout:match('%["data","forecast",'..s..',"fengli"%]%s+"(.-)"')
@@ -151,7 +151,7 @@ local function get_weather_line(widget)
                             "</span>"
                         local forecast_fengxiang = stdout:match('%["data","forecast",'..s..',"fengxiang"%]%s+"(.-)"')
                         full_info = full_info..
-                            "<span>"..
+                            "<span color='Silver'>"..
                                 " "..forecast_fengxiang..
                             "</span>"
                         if s ~= 4 then

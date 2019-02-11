@@ -44,7 +44,7 @@ local temperature_layout = wibox.widget {
 awful.widget.watch('cat /sys/class/thermal/thermal_zone0/temp', 60,
     function(widget, stdout, stderr, exitreason, exitcode)
         stdout = trim(stdout)
-        widget.markup = "<span size='xx-large'>" .. 
+        widget.markup = "<span size='xx-large' color='IndianRed'>" .. 
                             "<b>" ..
                                 math.floor(tonumber(stdout) / 1000) ..
                             "</b>" ..
