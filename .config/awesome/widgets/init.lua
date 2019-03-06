@@ -23,7 +23,8 @@ local widgets =
     network	= require("widgets.network"),
     utils	= require("widgets.utils"),
     temperature	= require("widgets.temperature"),
-    weather	= require("widgets.weather")
+    weather	= require("widgets.weather"),
+    screenful	= require("widgets.screenful")
 }
 
 

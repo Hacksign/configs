@@ -92,7 +92,7 @@ awful.widget.watch("bash -c 'cat /sys/class/net/*/statistics/tx_bytes 2>/dev/nul
         )
         if  send_bytes and received_bytes then
             if widget.last_sent then
-                network_widget.send.markup = "<span size='xx-large' color='Snow'>" ..
+                network_widget.send.markup = "<span size='xx-large' color='Ivory'>" ..
                     "<b>" ..
                         math.floor(
                             (send_bytes - network_widget.last_sent) / 1024 / network_widget.time_interval
@@ -101,7 +101,7 @@ awful.widget.watch("bash -c 'cat /sys/class/net/*/statistics/tx_bytes 2>/dev/nul
                 "</span>"
             end
             if widget.last_receive then
-                network_widget.receive.markup = "<span size='xx-large' color='Snow'>" ..
+                network_widget.receive.markup = "<span size='xx-large' color='Ivory'>" ..
                     "<b>" ..
                         math.floor(
                             (received_bytes - network_widget.last_receive) / 1024 / network_widget.time_interval

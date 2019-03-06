@@ -66,6 +66,7 @@ local batterywidget = widgets.battery
 local networkwidget = widgets.network
 local temperaturewidget = widgets.temperature
 local weatherwidget = widgets.weather.init(nil, 'top_left')
+updateScreens = widgets.screenful.init()
 
 --	now deal ervery screen
 for s = 1, screen.count() do

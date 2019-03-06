@@ -35,3 +35,4 @@ require("configs/rules")
 require("configs/signals")
 require("autostart")
 
+require("awful.remote")

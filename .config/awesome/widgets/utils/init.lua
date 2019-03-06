@@ -25,8 +25,6 @@ local getmetatable = getmetatable
 
 module("utils")
 
-
-
 local function tasklist_label(c, args, tb)
     if not args then args = {} end
     local theme = beautiful.get()

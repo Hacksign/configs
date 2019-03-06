@@ -1,7 +1,6 @@
 local awful			= require("awful")
 awful.rules			= require("awful.rules")
 local beautiful = require("beautiful")
-local utils         = require("utils")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 

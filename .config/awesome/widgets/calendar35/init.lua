@@ -104,7 +104,7 @@ function switchNaughtyMonth(switchMonths)
     naughty.notify({
         text = string.format('<span font_desc="%s">%s</span>', beautiful.font, displayMonth(calendar[1], calendar[2], 2)),
         timeout = 0,
-				position = calendar_position,
+        position = calendar_position,
         hover_timeout = 0.5,
         screen = mouse.screen,
         replaces_id = calendar[3].id

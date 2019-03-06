@@ -29,6 +29,14 @@ local weatherWidget = {
     fullInfoPanel = nil
 }
 
+local function escape_char(ch)
+    ch = ch:gsub("&", "&amp;") -- this must be first
+    ch = ch:gsub("<", "&lt;")
+    ch = ch:gsub(">", "&gt;")
+    ch = ch:gsub("'", "&#39;")
+    return ch
+end
+
 local function guess_city(widget)
 	local cmd = "curl --connect-timeout 1 --max-time 1 --retry-max-time 1 -s 'http://whois.pconline.com.cn/ipJson.jsp?json=true' 2>/dev/null|xargs printf|iconv -fgbk -tutf8"
     awful.spawn.easy_async_with_shell(
@@ -59,13 +67,13 @@ local function get_weather_line(widget)
                     if tonumber(aqi_info) <= 50 then
                         aqi_color = 'Lime'
                     elseif tonumber(aqi_info) >= 51 and tonumber(aqi_info)	<= 100 then
-                        aqi_color = 'Cyan'
+                        aqi_color = 'ForestGreen'
                     elseif tonumber(aqi_info) >= 101 and tonumber(aqi_info)	<= 150 then
                         aqi_color = 'Yellow'
                     elseif tonumber(aqi_info) >= 151 and tonumber(aqi_info)	<= 200 then
                         aqi_color = 'DarkOrange'
                     elseif tonumber(aqi_info) >= 201 then
-                        aqi_color = 'red'
+                        aqi_color = 'Red'
                     end
                 else
                     aqi_color = 'white'
@@ -144,10 +152,10 @@ local function get_weather_line(widget)
                             "<span color='Gold'>"..
                                 " "..forecast_low..
                             "</span>"
-                        local forecast_fengli = stdout:match('%["data","forecast",'..s..',"fengli"%]%s+"(.-)"')
+                        local forecast_fengli = stdout:match('%["data","forecast",'..s..',"fengli"%]%s+"<!%[CDATA%[(.-)%]%]>"')
                         full_info = full_info..
                             "<span>"..
-                                " "..forecast_fengli..
+                                " " .. escape_char(forecast_fengli) ..
                             "</span>"
                         local forecast_fengxiang = stdout:match('%["data","forecast",'..s..',"fengxiang"%]%s+"(.-)"')
                         full_info = full_info..
