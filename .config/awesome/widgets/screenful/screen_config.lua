@@ -43,6 +43,20 @@ screens = {
             end
             return nil
         end
+    },
+    ['04948786745'] = { -- HDMI2
+    	['connected'] = function (xrandrOutput)
+    		if xrandrOutput ~= defaultOutput then
+    			return '--output ' .. xrandrOutput .. ' --auto --below ' .. defaultOutput
+    		end
+    		return nil
+    	end,
+    	['disconnected'] = function (xrandrOutput)
+    		if xrandrOutput ~= defaultOutput then
+    		return '--output ' .. xrandrOutput .. ' --off --output ' .. defaultOutput .. ' --auto'
+    		end
+    		return nil
+    	end
     }
 }
 
@@ -50,7 +64,7 @@ return {
     outputMapping = outputMapping,
     screens = screens
 }
---	['500000'] = { -- eDP1
+--	['04948786745'] = { -- HDMI2
 --		['connected'] = function (xrandrOutput)
 --			if xrandrOutput ~= defaultOutput then
 --				return '--output ' .. xrandrOutput .. ' --auto --same-as ' .. defaultOutput

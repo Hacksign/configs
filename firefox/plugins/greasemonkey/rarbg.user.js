@@ -5,6 +5,7 @@
 // @description  Prevent rarbg from popping up annoying ad pages
 // @author       Hacksign
 // @match        https://rarbg.to/*
+// @include      https://rarbgprx.org/*
 // @include      https://proxyrarbg.org/*
 // @include      https://rarbgunblocked.org/*
 // @run-at      document-start

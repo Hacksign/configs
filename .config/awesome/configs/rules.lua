@@ -22,10 +22,21 @@ awful.rules.rules = {
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             screen = function(c)
-                return awesome.startup and c.screen or awful.screen.focused()
-            end,
-            geometry = function(c)
-                return c:geometry()
+                local current_screen = awesome.startup and c.screen or awful.screen.focused()
+                local client_geometry = c:geometry()
+                -- 防止client在当前屏幕之外
+                if client_geometry.x > current_screen.geometry.x + current_screen.geometry.width
+                    or client_geometry.x + client_geometry.width < current_screen.geometry.x
+                then
+                    client_geometry.x = (current_screen.geometry.x + current_screen.geometry.width) / 2 - client_geometry.width / 2
+                end
+                if client_geometry.y > current_screen.geometry.y + current_screen.geometry.height
+                    or client_geometry.y + client_geometry.height < current_screen.geometry.y
+                then
+                    client_geometry.y = current_screen.geometry.y
+                end
+                c:geometry(client_geometry)
+                return current_screen
             end,
             keys = clientkeys,
             buttons = clientbuttons 
