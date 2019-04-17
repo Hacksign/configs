@@ -5,6 +5,8 @@
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
+// @include https://jp.inoreader.com/*
+// @include http://jp.inoreader.com/*
 // @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
 // ==/UserScript==
 var tools_div = document.getElementById('sb_rp_tools');
