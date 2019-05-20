@@ -6,6 +6,9 @@ outputMapping = {
     ['DP-1'] = 'DP1',
     ['DP-2'] = 'DP2',
     ['DP-3'] = 'DP3',
+    ['DP-4'] = 'DP2-1',
+    ['DP-5'] = 'DP2-2',
+    ['DP-6'] = 'DP2-3',
     ['VGA-1'] = 'VGA1',
     ['LVDS-1'] = 'LVDS1',
     ['HDMI-A-1'] = 'HDMI1',
@@ -30,24 +33,10 @@ screens = {
             return nil
 		end
 	},
-    ['135686909043'] = { -- HDMI2
-        ['connected'] = function (xrandrOutput)
-            if xrandrOutput ~= defaultOutput then
-                return '--output ' .. xrandrOutput .. ' --auto --right-of ' .. defaultOutput
-            end
-            return nil
-        end,
-        ['disconnected'] = function (xrandrOutput)
-            if xrandrOutput ~= defaultOutput then
-            return '--output ' .. xrandrOutput .. ' --off --output ' .. defaultOutput .. ' --auto'
-            end
-            return nil
-        end
-    },
-    ['04948786745'] = { -- HDMI2
+    ['04948786745'] = { -- DP2-1
     	['connected'] = function (xrandrOutput)
     		if xrandrOutput ~= defaultOutput then
-    			return '--output ' .. xrandrOutput .. ' --auto --below ' .. defaultOutput
+    			return '--output ' .. xrandrOutput .. ' --auto --left-of ' .. defaultOutput
     		end
     		return nil
     	end,
@@ -64,7 +53,21 @@ return {
     outputMapping = outputMapping,
     screens = screens
 }
---	['04948786745'] = { -- HDMI2
+--	['3600000'] = { -- eDP1
+--		['connected'] = function (xrandrOutput)
+--			if xrandrOutput ~= defaultOutput then
+--				return '--output ' .. xrandrOutput .. ' --auto --same-as ' .. defaultOutput
+--			end
+--			return nil
+--		end,
+--		['disconnected'] = function (xrandrOutput)
+--			if xrandrOutput ~= defaultOutput then
+--			return '--output ' .. xrandrOutput .. ' --off --output ' .. defaultOutput .. ' --auto'
+--			end
+--			return nil
+--		end
+--	}
+--	['8010005'] = { -- HDMI2
 --		['connected'] = function (xrandrOutput)
 --			if xrandrOutput ~= defaultOutput then
 --				return '--output ' .. xrandrOutput .. ' --auto --same-as ' .. defaultOutput

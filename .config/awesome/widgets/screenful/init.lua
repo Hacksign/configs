@@ -116,7 +116,7 @@ local function hasConfigurationFor(screenId)
 	local conf = file:read('*all')
 	file:close()
 
-	return string.find(conf, "['\"]" .. screenId .. "['\"]")
+	return string.find(conf, "[']" .. screenId .. "[']")
 end
 
 local function appendConfiguration(screenId, xrandrOut)
@@ -191,9 +191,9 @@ return {
             local mergedOutputs = mergeTables(outputs, newOutputs)
 
             for out in pairs(mergedOutputs) do
-                if not outputs[out] then -- connected
+                if newOutputs[out] then -- connected
                     enableOutput(out, changedCard)
-                elseif not newOutputs[out] then -- disconnected
+                else -- disconnected
                     disableOutput(out, changedCard)
                 end
             end

@@ -29,10 +29,10 @@ end
 -- awesome do not handle dbus Notifications message
 dbus.release_name("session", "org.freedesktop.Notifications")
 
+require("awful.remote")
 require("configs/init")
 require("configs/hotkeys")
 require("configs/rules")
 require("configs/signals")
 require("autostart")
 
-require("awful.remote")
