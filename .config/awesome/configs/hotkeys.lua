@@ -321,8 +321,8 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function ()
         local screengeom = screen[mouse.screen].geometry
-        local xoff = beautiful.margin_horizontal
-        local yoff = beautiful.margin_vertical
+        local xoff = beautiful.margin_horizontal + screengeom.x
+        local yoff = beautiful.margin_vertical + screengeom.y
         -- for geometry of terminator see 'man 7 X' document
         local terminal = "terminator --geometry="..(math.floor(screengeom.width) - beautiful.margin_horizontal * 2).."x"..(math.floor(screengeom.height) - beautiful.margin_vertical * 2).."+"..math.floor(xoff).."+"..math.floor(yoff)
         awful.spawn(terminal) 
