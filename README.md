@@ -256,7 +256,10 @@
     file-roller	:	归档管理器   
     p7zip   
     unrar   
-    unzip   
+    unzip 或 unzip-iconv   
+        unzip-iconv为加了-O参数的修改版本， 可以解决中文乱码的问题。    
+        同时还需要将此目录下的文件放到对应的系统目录， 以解决file-roller归档管理器中查看文件的乱码问题    
+          `etc/profile.d/unzip.sh`     
     firefox   
         //如果对隐私保护要求比较高,需要在首选项的'隐私'中,将'历史'设置为'使用自定义选项',将'允许第三方cookie'设置为'总不',这样一个网站只能要求自己的cookie而无权利要求其他域下的cookie.
         //如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.   
