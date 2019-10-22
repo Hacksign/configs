@@ -33,20 +33,6 @@ screens = {
             return nil
 		end
 	},
-    ['04948786745'] = { -- DP2-1
-    	['connected'] = function (xrandrOutput)
-    		if xrandrOutput ~= defaultOutput then
-    			return '--output ' .. xrandrOutput .. ' --auto --left-of ' .. defaultOutput
-    		end
-    		return nil
-    	end,
-    	['disconnected'] = function (xrandrOutput)
-    		if xrandrOutput ~= defaultOutput then
-    		return '--output ' .. xrandrOutput .. ' --off --output ' .. defaultOutput .. ' --auto'
-    		end
-    		return nil
-    	end
-    }
 }
 
 return {
@@ -67,7 +53,35 @@ return {
 --			return nil
 --		end
 --	}
---	['8010005'] = { -- HDMI2
+--	['97111123'] = { -- DP3
+--		['connected'] = function (xrandrOutput)
+--			if xrandrOutput ~= defaultOutput then
+--				return '--output ' .. xrandrOutput .. ' --auto --same-as ' .. defaultOutput
+--			end
+--			return nil
+--		end,
+--		['disconnected'] = function (xrandrOutput)
+--			if xrandrOutput ~= defaultOutput then
+--			return '--output ' .. xrandrOutput .. ' --off --output ' .. defaultOutput .. ' --auto'
+--			end
+--			return nil
+--		end
+--	}
+--	['16711118'] = { -- HDMI2
+--		['connected'] = function (xrandrOutput)
+--			if xrandrOutput ~= defaultOutput then
+--				return '--output ' .. xrandrOutput .. ' --auto --same-as ' .. defaultOutput
+--			end
+--			return nil
+--		end,
+--		['disconnected'] = function (xrandrOutput)
+--			if xrandrOutput ~= defaultOutput then
+--			return '--output ' .. xrandrOutput .. ' --off --output ' .. defaultOutput .. ' --auto'
+--			end
+--			return nil
+--		end
+--	}
+--	['0111112'] = { -- HDMI2
 --		['connected'] = function (xrandrOutput)
 --			if xrandrOutput ~= defaultOutput then
 --				return '--output ' .. xrandrOutput .. ' --auto --same-as ' .. defaultOutput

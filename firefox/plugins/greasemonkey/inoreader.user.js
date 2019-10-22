@@ -1,12 +1,10 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, upgrae button and some annoying dialogs.
-// @version 4.7.1
+// @version 4.8.1
 // @grant none
 // @include https://www.inoreader.com/*
 // @include http://www.inoreader.com/*
-// @include https://jp.inoreader.com/*
-// @include http://jp.inoreader.com/*
 // @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
 // ==/UserScript==
 var tools_div = document.getElementById('sb_rp_tools');
@@ -21,9 +19,16 @@ var gear_div = document.getElementById('sb_rp_gear');
 if (gear_div) {
     gear_div.style.right = '10px';
 }
-var upgrade_div = document.getElementById('sb_rp_upgrade');
+var upgrade_div = document.getElementById('sb_rp_upgrade') || document.getElementById('upgrade-cta');
 if (upgrade_div) {
-    document.getElementById('sb_rp_upgrade').style.display = 'none';
+    upgrade_div.style.display = 'none';
+    // new version's user icon layer
+    var target_div = document.getElementsByClassName('article-container');
+    for(var i = 0; i < target_div.length; ++i) {
+        if(target_div[i].nodeName.toLowerCase() === 'nav') {
+            target_div[i].style.paddingRight = '52px';
+        }
+    }
 }
 var reader_pane_div = document.getElementById('reader_pane');
 if (reader_pane_div) {
