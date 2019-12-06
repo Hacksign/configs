@@ -3,8 +3,8 @@
 // @description Remove inoreader.com's advertisement in reading list, upgrae button and some annoying dialogs.
 // @version 4.8.1
 // @grant none
-// @include https://www.inoreader.com/*
-// @include http://www.inoreader.com/*
+// @include https://*.inoreader.com/*
+// @include http://*.inoreader.com/*
 // @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
 // ==/UserScript==
 var tools_div = document.getElementById('sb_rp_tools');
