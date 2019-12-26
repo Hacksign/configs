@@ -49,7 +49,7 @@ end
 -- }}}
 
 run_once('xfdesktop', 'xfdesktop --disable-wm-check')
-run_once('compton', 'compton')
+run_once('picom', 'picom')
 run_once('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
 run_once('indicator-keylock', 'indicator-keylock')
 run_once('volumeicon', 'volumeicon')
