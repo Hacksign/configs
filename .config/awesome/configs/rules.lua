@@ -5,6 +5,7 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 local naughty		= require("naughty")
+local utils = require("utils")
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -51,19 +52,14 @@ awful.rules.rules = {
             sticky = true,
             focusable = false,
             floating = false,
-            screen = function(c)
-                -- xfdesktop has some problem when there has more
-                --  then one screen, and each screen has different
-                --  resolution
-                -- make xfdesktop on screen
-                --  which has smaller resolution
-                local index = 1
-                for i = 1, screen:count(), 1 do
-                    if screen[i].geometry.width < screen[index].geometry.width then
-                        index = i
-                    end
-                end
-                return screen[index]
+            type = "desktop",
+            callback = function(c)
+                client_geometry = c:geometry()
+                client_geometry.x = 0
+                client_geometry.y = c.screen.workarea.y
+                client_geometry.width = c.screen.workarea.width
+                client_geometry.height = c.screen.workarea.height
+                c:geometry(client_geometry)
             end,
         }
     },
