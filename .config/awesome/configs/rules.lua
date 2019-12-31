@@ -3,7 +3,6 @@ awful.rules			= require("awful.rules")
 local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
-
 local naughty		= require("naughty")
 local utils = require("utils")
 
@@ -42,6 +41,16 @@ awful.rules.rules = {
             keys = clientkeys,
             buttons = clientbuttons 
         } ,
+    },
+    { 
+        rule = { class = "org.remmina.Remmina"  },
+        properties = {
+            callback = function(c)
+                if c.fullscreen or c.maximized then
+                    c.border_width = 0
+                end
+            end,
+        }
     },
     { 
         rule = { class = "Xfdesktop"  },
