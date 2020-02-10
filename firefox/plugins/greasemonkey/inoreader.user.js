@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, upgrae button and some annoying dialogs.
-// @version 4.8.2
+// @version 4.8.3
 // @grant none
 // @include https://*.inoreader.com/*
 // @include http://*.inoreader.com/*
@@ -155,10 +155,10 @@ if (content_div) {
 var overlay_div_id = undefined;
 document.addEventListener('DOMNodeInserted', function(e) {
     var relatedObj = e.originalTarget || e.target;
-    if(relatedObj.id && relatedObj.id.indexOf('_wrap') != -1) {
+    if(relatedObj.id && relatedObj.id.indexOf('_wrapper') != -1) {
         var img_collections = relatedObj.getElementsByTagName('img');
         if(img_collections.length !=0 && img_collections.item(0) && img_collections.item(0).src.indexOf('adb_detected.png') != -1) {
-            overlay_div_id = relatedObj.id.split('_')[0] + '_modal_overlay';
+            overlay_div_id = relatedObj.id.split('_')[0] + '_scroll_overlay';
             relatedObj.parentNode.removeChild(relatedObj);
         }
         if(!relatedObj.style.zIndex) {
