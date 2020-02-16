@@ -50,7 +50,7 @@ globalkeys = awful.util.table.join(
         local clients
         clients = client.get(mouse.screen)
         for y, c in pairs(clients) do
-            if(c.type ~= "desktop") then
+            if c.type ~= "desktop" and c.type ~= "dock" then
                 if c.minimized == false then
                     allminimized = false
                     break
@@ -60,14 +60,14 @@ globalkeys = awful.util.table.join(
             end
         end
 
-        if client.focus and client.focus.type ~= "desktop" then
+        if client.focus and client.focus.type ~= "desktop" and client.type ~= "dock" then
             last_focused_client = client.focus
         end
 
         -- If at least one client isn't minimized, minimize all clients
         for y, c in pairs(clients) do
             -- ignore desktop window such as:xfdesktop
-            if(c.type ~= "desktop") then
+            if c.type ~= "desktop" and c.type ~= "dock" then
                 if allminimized == false then
                     c.minimized = true 
                 elseif allminimized == true then
@@ -155,7 +155,7 @@ globalkeys = awful.util.table.join(
     end),
     ------------------------------------------------------------------------------
     awful.key({modkey,						}, "c", function()
-        if utils.isfloats(client.focus) and client.focus.type ~= 'desktop' then
+        if utils.isfloats(client.focus) and client.focus.type ~= 'desktop' and client.type ~= "dock" then
             local workarea = client.focus.screen.workarea
             local cg = client.focus:geometry()
             if client.focus.maximized then
@@ -355,12 +355,17 @@ globalkeys = awful.util.table.join(
 
 -- client window hotkeys
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "z",      function (c) c:kill()                         end),
+    awful.key({ modkey,           }, "z",
+        function (c)
+            if c.type ~= "desktop" and c.type ~= "dock" then
+                c:kill()
+            end
+        end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "t",      function (c) c.ontop = not c.ontop            end),
     -- move window to next/pre screen
     awful.key({ modkey,           }, ",",      function(c)
-        if c.type ~= "desktop" then
+        if c.type ~= "desktop" and c.type ~= "dock" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
             local org_sg = c.screen.geometry
@@ -374,7 +379,7 @@ clientkeys = awful.util.table.join(
         end
     end),
     awful.key({ modkey, "Control" }, ",",      function(c)
-        if c.type ~= "desktop" then
+        if c.type ~= "desktop" and c.type ~= "dock" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
             local org_sg = c.screen.geometry
@@ -389,7 +394,7 @@ clientkeys = awful.util.table.join(
         end
     end),
     awful.key({ modkey,           }, ".",      function(c)
-        if c.type ~= "desktop" then
+        if c.type ~= "desktop" and c.type ~= "dock" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
             local org_sg = c.screen.geometry
@@ -403,7 +408,7 @@ clientkeys = awful.util.table.join(
         end
     end),
     awful.key({ modkey, "Control" }, ".",      function(c)
-        if c.type ~= "desktop" then
+        if c.type ~= "desktop" and c.type ~= "dock" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
             local org_sg = c.screen.geometry

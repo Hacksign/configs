@@ -53,6 +53,14 @@ awful.rules.rules = {
         }
     },
     { 
+        rule = { name = "plank"  },
+        properties = {
+            no_border = true,
+            border_width = 0,
+            floating = true,
+        }
+    },
+    { 
         rule = { class = "Xfdesktop"  },
         except = {class = "Xfdesktop-settings"},
         properties = {

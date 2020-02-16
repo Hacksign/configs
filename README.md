@@ -29,6 +29,8 @@
         复制./etc/udev/rules.d/98-screen-detect.rules到/etc/udev/rules.d/目录下   
         复制./usr/lib/udev/notify-awesome到/usr/lib/udev目录下    
         经过上述步骤， 结合本目录下的.config/awesome配置，可以实现显示器自动监视、扩展的功能    
+    plank:
+        类似OS/X的Dock工具
     alltray 或者 kdocker:   
         将任意程序最小化到系统tray的工具。   
         推荐kdocker，功能性上逼alltray好一点。   

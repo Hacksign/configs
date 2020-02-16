@@ -30,12 +30,7 @@ for s in screen do
 end
 
 -- {{{ Wibox
--- Create a textclock widget
-local mytextclock = wibox.widget.textclock("<span color='green' font_desc='"..beautiful.font.."'>%F %H:%M</span>")
-local calendar = widgets.calendar.init(mytextclock, "bottom_right")
-
 -- Create a wibox for each screen and add it
-mypromptbox = {}
 mylayoutbox = {}
 mytasklist = {}
 -- mouse click event handler
@@ -70,19 +65,10 @@ updateScreens = widgets.screenful.init()
 
 --	now deal ervery screen
 for s = 1, screen.count() do
-    -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt()
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-
-    -- Create a tasklist widget
-    -- font = Terminal
-    -- size = large
-    -- focus window fg color = yellow
-    -- focus background color = black
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons, nil, utils.tasklist_update_function)
 
     -- Create the wibox
     local topBar = {}
@@ -94,7 +80,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mytaglist[s])
-    left_layout:add(mypromptbox[s])
+    left_layout:add(weatherwidget)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
@@ -113,14 +99,9 @@ for s = 1, screen.count() do
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
-    layout:set_left(weatherwidget)
+    layout:set_left(left_layout)
     layout:set_right(right_layout)
-    local bottom_layout = wibox.layout.align.horizontal()
-    bottom_layout:set_left(left_layout)
-    bottom_layout:set_middle(mytasklist[s])
-    bottom_layout:set_right(mytextclock)
 
     topBar[s]:set_widget(layout)
-    bottomBar[s]:set_widget(bottom_layout)
 end
 -- }}}
