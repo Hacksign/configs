@@ -26,7 +26,11 @@ if beautiful.wallpaper then
     end
 end
 for s in screen do
-    awful.tag({"Work"}, s, awful.layout.suit.floating)
+    awful.tag(
+        {"Work"},
+        s,
+        awful.layout.suit.floating
+    )
 end
 
 -- {{{ Wibox
@@ -68,19 +72,34 @@ for s = 1, screen.count() do
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(
+        s,
+        awful.widget.taglist.filter.all,
+        mytaglist.buttons
+    )
+    mytasklist[s] = awful.widget.tasklist(
+        s,
+        awful.widget.tasklist.filter.currenttags,
+        mytasklist.buttons,
+        nil,
+        utils.tasklist_update_function
+    )
 
     -- Create the wibox
     local topBar = {}
-    local bottomBar = {}
-    topBar[s] = awful.wibar({ position = "top", screen = s })
-    bottomBar[s] = awful.wibar({position = "bottom", screen = s})
-
+    topBar[s] = awful.wibar(
+        {
+            position = "top",
+            screen = s 
+        }
+    )
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mytaglist[s])
-    left_layout:add(weatherwidget)
+    if screen[s] == screen.primary then
+        left_layout:add(weatherwidget)
+    end
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
@@ -100,8 +119,10 @@ for s = 1, screen.count() do
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
-    layout:set_right(right_layout)
-
+    layout:set_middle(mytasklist[s])
+    if screen[s] == screen.primary then
+        layout:set_right(right_layout)
+    end
     topBar[s]:set_widget(layout)
 end
 -- }}}
