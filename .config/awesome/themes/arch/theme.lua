@@ -33,6 +33,7 @@ theme.font          = "YaHei Consolas Hybrid" .. " " .. dpi(12)
 theme.margin_horizontal        = dpi(60)
 theme.margin_vertical        = dpi(100)
 theme.border_width  = dpi(4)
+theme.border_width_thin  = dpi(2)
 
 theme.bg_normal     = "#000000"
 theme.bg_focus      = "#1793d1"

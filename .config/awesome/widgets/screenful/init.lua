@@ -7,7 +7,6 @@
 local naughty = require('naughty')
 local gears = require("gears")
 local io = require("io")
-local utils = require("utils")
 local awesome = awesome
 local pairs = pairs
 local os = os

@@ -1,8 +1,9 @@
 local awful			= require("awful")
 local naughty		= require("naughty")
-local utils         = require("utils")
 local widgets		= require("widgets")
 local beautiful = require("beautiful")
+local is_floats = require("utils/is-floats")
+local proportion_resize = require("utils/proportion-resize")
 local alttab = widgets.alttab
 local last_focused_client = nil
 local layouts = {
@@ -155,7 +156,7 @@ globalkeys = awful.util.table.join(
     end),
     ------------------------------------------------------------------------------
     awful.key({modkey,						}, "c", function()
-        if utils.isfloats(client.focus) and client.focus.type ~= 'desktop' and client.type ~= "dock" then
+        if is_floats(client.focus) and client.focus.type ~= 'desktop' and client.type ~= "dock" then
             local workarea = client.focus.screen.workarea
             local cg = client.focus:geometry()
             if client.focus.maximized then
@@ -334,7 +335,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
-    awful.key({ modkey}, "e", function () awful.spawn("thunar") end), -- yaourt -S thunar
+    awful.key({ modkey}, "e", function () awful.spawn("pcmanfm") end), -- yaourt -S pcmanfm-gtk3
     awful.key({ modkey}, "s", function () awful.spawn("deepin-screenshot") end), -- yaourt -S xfce4-screenshooter
     awful.key({ modkey,           }, "f",      function (c) awful.spawn("fsearch") end),
     awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox
@@ -375,7 +376,7 @@ clientkeys = awful.util.table.join(
                 awful.client.movetoscreen(c,screen.count()) 
             end
             local new_sg = c.screen.geometry
-            utils.proportion_resize(c, cg, org_sg, new_sg)
+            proportion_resize(c, cg, org_sg, new_sg)
         end
     end),
     awful.key({ modkey, "Control" }, ",",      function(c)
@@ -389,7 +390,7 @@ clientkeys = awful.util.table.join(
                 awful.client.movetoscreen(c,screen.count()) 
             end
             local new_sg = c.screen.geometry
-            utils.proportion_resize(c, cg, org_sg, new_sg)
+            proportion_resize(c, cg, org_sg, new_sg)
             mouse.coords(mouse_coords, true)
         end
     end),
@@ -404,7 +405,7 @@ clientkeys = awful.util.table.join(
                 awful.client.movetoscreen(c,c.screen.index+1)
             end
             local new_sg = c.screen.geometry
-            utils.proportion_resize(c, cg, org_sg, new_sg)
+            proportion_resize(c, cg, org_sg, new_sg)
         end
     end),
     awful.key({ modkey, "Control" }, ".",      function(c)
@@ -418,7 +419,7 @@ clientkeys = awful.util.table.join(
                 awful.client.movetoscreen(c,c.screen.index+1)
             end
             local new_sg = c.screen.geometry
-            utils.proportion_resize(c, cg, org_sg, new_sg)
+            proportion_resize(c, cg, org_sg, new_sg)
             mouse.coords(mouse_coords, true)
         end
     end),

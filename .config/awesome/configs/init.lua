@@ -3,7 +3,7 @@ local awful			= require("awful")
 local wibox			= require("wibox")
 local widgets		= require("widgets")
 local beautiful     = require("beautiful")
-local utils         = require("utils")
+local naughty       = require("naughty")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
@@ -22,7 +22,7 @@ modkey = "Mod4"
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/arch/theme.lua")
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.fit(beautiful.wallpaper, s, theme.bg_normal)
+        gears.wallpaper.fit(beautiful.wallpaper, s, beautiful.bg_normal)
     end
 end
 for s in screen do
@@ -59,70 +59,70 @@ mytasklist.buttons = awful.util.table.join(
 -- mouse event handler end																					
 
 -- top & battom bar widgets
-local cpuwidget = widgets.cpu
+local cpuwidget = widgets.cpu(
+    {
+        width = 175,
+        interval = 3,
+        step_width = 2,
+        step_spacing = 1,
+        theme = beautiful,
+    }
+)
 local memwidget = widgets.memory
 local batterywidget = widgets.battery
 local networkwidget = widgets.network
 local temperaturewidget = widgets.temperature
-local weatherwidget = widgets.weather.init(nil, 'top_left')
+local weatherwidget = widgets.weather.init(
+    {
+        interval = 5,
+        theme = beautiful 
+    }
+)
 updateScreens = widgets.screenful.init()
 
---	now deal ervery screen
 for s = 1, screen.count() do
-    -- We need one layoutbox per screen.
-    mylayoutbox[s] = awful.widget.layoutbox(s)
-    -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(
-        s,
-        awful.widget.taglist.filter.all,
-        mytaglist.buttons
-    )
-    mytasklist[s] = awful.widget.tasklist(
-        s,
-        awful.widget.tasklist.filter.currenttags,
-        mytasklist.buttons,
-        nil,
-        utils.tasklist_update_function
-    )
-
-    -- Create the wibox
-    local topBar = {}
-    topBar[s] = awful.wibar(
-        {
-            position = "top",
-            screen = s 
-        }
-    )
-
-    -- Widgets that are aligned to the left
-    local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(mytaglist[s])
     if screen[s] == screen.primary then
+        -- We need one layoutbox per screen.
+        mylayoutbox[s] = awful.widget.layoutbox(s)
+        -- Create a taglist widget
+        mytaglist[s] = awful.widget.taglist(
+            s,
+            awful.widget.taglist.filter.all,
+            mytaglist.buttons
+        )
+        -- Create the wibox
+        local topBar = {}
+        topBar[s] = awful.wibar(
+            {
+                position = "top",
+                screen = s 
+            }
+        )
+
+        -- Widgets that are aligned to the left
+        local left_layout = wibox.layout.fixed.horizontal()
+        left_layout:add(mytaglist[s])
         left_layout:add(weatherwidget)
-    end
 
-    -- Widgets that are aligned to the right
-    local right_layout = wibox.layout.fixed.horizontal()
-    right_layout.spacing = dpi(2) 
-    right_layout:add(networkwidget)
-    right_layout:add(temperaturewidget)
-    if batterywidget then
-        right_layout:add(batterywidget)
-    end
-    right_layout:add(memwidget)
-    right_layout:add(cpuwidget)
-    if s == 1 then
-        right_layout:add(wibox.widget.systray())
-    end
-    right_layout:add(mylayoutbox[s])
+        -- Widgets that are aligned to the right
+        local right_layout = wibox.layout.fixed.horizontal()
+        right_layout.spacing = dpi(2) 
+        right_layout:add(networkwidget)
+        right_layout:add(temperaturewidget)
+        if batterywidget then
+            right_layout:add(batterywidget)
+        end
+        right_layout:add(memwidget)
+        right_layout:add(cpuwidget)
+        if s == 1 then
+            right_layout:add(wibox.widget.systray())
+        end
+        right_layout:add(mylayoutbox[s])
 
-    -- Now bring it all together (with the tasklist in the middle)
-    local layout = wibox.layout.align.horizontal()
-    layout:set_left(left_layout)
-    layout:set_middle(mytasklist[s])
-    if screen[s] == screen.primary then
+        -- Now bring it all together (with the tasklist in the middle)
+        local layout = wibox.layout.align.horizontal()
+        layout:set_left(left_layout)
         layout:set_right(right_layout)
+        topBar[s]:set_widget(layout)
     end
-    topBar[s]:set_widget(layout)
 end
--- }}}

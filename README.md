@@ -34,6 +34,8 @@
     alltray 或者 kdocker:   
         将任意程序最小化到系统tray的工具。   
         推荐kdocker，功能性上逼alltray好一点。   
+    syncthing-gtk:
+        同步工具
     fusuma :   
         可以协助实现触控板手势的一个东西, ruby写的,使用如下命令安装
             gem intsall fusuma

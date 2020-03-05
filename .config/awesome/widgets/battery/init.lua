@@ -27,7 +27,6 @@ local battery_widget = wibox.widget {
     min_value = 0,
     max_value = 100,
     rounded_edge = true,
-    border_color = nil,
     border_width = dpi(0),
     start_angle = math.pi * 3.5,
     bg = nil, -- transparent
@@ -44,7 +43,9 @@ local battery_container = wibox.container.margin(
     nil
 )
 
-awful.widget.watch("bash -c 'cat /sys/class/power_supply/BAT*/capacity && cat /sys/class/power_supply/BAT*/status 1>&2'", 10,
+awful.widget.watch(
+    "bash -c 'cat /sys/class/power_supply/BAT*/capacity && cat /sys/class/power_supply/BAT*/status 1>&2'",
+    10,
     function(widget, stdout, stderr, exitreason, exitcode)
         status_percent = trim(stdout)
         charge_status = trim(stderr)

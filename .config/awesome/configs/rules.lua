@@ -4,7 +4,6 @@ local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local naughty		= require("naughty")
-local utils = require("utils")
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -57,12 +56,14 @@ awful.rules.rules = {
         properties = {
             no_border = true,
             border_width = 0,
-            floating = true,
+            floating = false,
+            focusable = false,
+            ontop = false,
         }
     },
     { 
-        rule = { class = "Xfdesktop"  },
-        except = {class = "Xfdesktop-settings"},
+        rule = { class = "Pcmanfm"  },
+        except = {class = ""},
         properties = {
             border_width = 0,
             maximized = true,
@@ -70,12 +71,13 @@ awful.rules.rules = {
             focusable = false,
             floating = false,
             type = "desktop",
+            screen = screen.primary,
             callback = function(c)
                 client_geometry = c:geometry()
                 client_geometry.x = 0
-                client_geometry.y = c.screen.workarea.y
-                client_geometry.width = c.screen.workarea.width
-                client_geometry.height = c.screen.workarea.height
+                client_geometry.y = screen.primary.workarea.y
+                client_geometry.width = screen.primary.workarea.width
+                client_geometry.height = screen.primary.workarea.height
                 c:geometry(client_geometry)
             end,
         }

@@ -1,3 +1,4 @@
+local os = require("os")
 local require=require
 local type=type
 local assert=assert
@@ -48,8 +49,8 @@ local function run_once(process, cmd, with_shell)
 end
 -- }}}
 
-run_once('xfdesktop', 'xfdesktop --disable-wm-check')
-run_once('plank', 'plank')
+run_once('pcmanfm', 'pcmanfm --daemon-mode --desktop --one-screen')
+run_once('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true)
 run_once('picom', 'picom')
 run_once('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
 run_once('indicator-keylock', 'indicator-keylock')
@@ -67,3 +68,4 @@ run_once('blueman-applet', 'bash -c /usr/bin/blueman-applet 1>/dev/null 2>&1')
 -- run_once('fusuma', '/home/hacksign/.gem/ruby/2.5.0/bin/fusuma 1>/dev/null 2>&1')
 run_once('/usr/bin/libinput-gestures', 'bash -c "/usr/bin/libinput-gestures-setup restart" 1>/dev/null 2>&1')
 run_once('remmina', 'remmina --icon')
+run_once('syncthing-gtk', 'syncthing-gtk --minimized')
