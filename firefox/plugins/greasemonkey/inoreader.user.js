@@ -161,7 +161,6 @@ document.body.addEventListener('DOMNodeInserted', function (e) {
             if(img_elements.length == 1) {
                 var img_src = img_elements[0].src;
                 if(img_src.indexOf('jpg-aqua.svg') != -1) {
-                    console.log(relatedObj);
                     document.body.removeChild(relatedObj);
                     document.body.removeChild(
                         document.getElementById(div_id + '_modal_overlay')

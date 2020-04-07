@@ -37,19 +37,6 @@ client.connect_signal("manage", function (c)
     --     end
     -- end)
 
-    -- Set the windows at the slave,
-    -- i.e. put it at the end of others instead of setting it master.
-    -- awful.client.setslave(c)
-    -- Put windows in a smart way, only if they does not set an initial position.
-    if not c.size_hints.user_position and not c.size_hints.program_position then
-        local cg = c:geometry()
-        awful.placement.no_overlap(c)
-        awful.placement.no_offscreen(c)
-        if (cg.width + c.border_width * 2) ~= c.screen.workarea.width / 2 then
-            awful.placement.centered(c)
-        end
-    end
-
     local titlebars_enabled = false
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- Widgets that are aligned to the left

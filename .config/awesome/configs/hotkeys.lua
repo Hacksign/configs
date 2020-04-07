@@ -172,14 +172,14 @@ globalkeys = awful.util.table.join(
                 client.focus.maximized_vertical = false
                 client.focus:geometry(cg)
             else
-                local manage = true
-                for i,v in pairs(awful.rules.rules) do
-                    if v.rule.class == client.focus.class then
-                        manage = false
-                        break
-                    end
-                end
-                if manage then
+                -- local manage = true
+                -- for i,v in pairs(awful.rules.rules) do
+                --     if v.rule.class == client.focus.class then
+                --         manage = false
+                --         break
+                --     end
+                -- end
+                -- if manage then
                     client.focus.border_width = 0
                     cg.x = workarea.x
                     cg.y = workarea.y
@@ -189,7 +189,7 @@ globalkeys = awful.util.table.join(
                     client.focus.maximized_horizontal = true
                     client.focus.maximized_vertical = true
                     client.focus:geometry(cg)
-                end
+                -- end
             end
         end
     end),
