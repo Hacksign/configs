@@ -160,7 +160,7 @@ document.body.addEventListener('DOMNodeInserted', function (e) {
             var img_elements = document.getElementById(div_id).getElementsByTagName('img');
             if(img_elements.length == 1) {
                 var img_src = img_elements[0].src;
-                if(/jpg-\w+\.svg$/.test(img_src)) != -1) {
+                if(/jpg-\w+\.svg$/.test(img_src)) {
                     document.body.removeChild(relatedObj);
                     document.body.removeChild(
                         document.getElementById(div_id + '_modal_overlay')
