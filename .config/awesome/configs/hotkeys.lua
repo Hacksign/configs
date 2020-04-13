@@ -335,7 +335,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
-    awful.key({ modkey}, "e", function () awful.spawn("pcmanfm") end), -- yaourt -S pcmanfm-gtk3
+    awful.key({ modkey}, "e", function () awful.spawn("thunar") end),
     awful.key({ modkey}, "s", function () awful.spawn("deepin-screenshot") end), -- yaourt -S xfce4-screenshooter
     awful.key({ modkey,           }, "f",      function (c) awful.spawn("fsearch") end),
     awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox

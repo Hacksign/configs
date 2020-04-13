@@ -49,7 +49,7 @@ local function run_once(process, cmd, with_shell)
 end
 -- }}}
 
-run_once('pcmanfm', 'pcmanfm --daemon-mode --desktop --one-screen')
+run_once('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check')
 run_once('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true)
 run_once('picom', 'picom')
 run_once('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
