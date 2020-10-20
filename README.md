@@ -203,8 +203,8 @@
     deepin-screenshot : 深度系统的截图工具，比较好用
     xfce4-screenshooter :	截图   
     xcompmgr	:	简单的窗口透明特效管理   
-        注意,不知道什么原因这个可能会导致Xorg持续占用很高的cpu,可以试一下compton,这个是xcompmgr的另外一个form版本,功能更强大.   
-    compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88   
+        注意,不知道什么原因这个可能会导致Xorg持续占用很高的cpu,可以试一下picom,这个是xcompmgr的另外一个form版本,功能更强大.   
+    picom -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88   
     volumeicon	:	音量调节   
     alsa-utils   
     bcloud :   
@@ -303,6 +303,7 @@
     nvidia-340xx-libgl   
     nvidia-340xx-utils   
     indicator-keylock :   
+        需要先安装依赖： pacman -S intltool
         指示大写键状态的,对于没有大写键状态提示的笔记本有用,可选依赖:   
             notification-daemon   
         注意可能依赖intltool,提示找不到intltoolize需要安装这个依赖.   
