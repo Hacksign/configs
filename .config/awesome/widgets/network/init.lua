@@ -8,12 +8,9 @@ local math = require('math')
 local wibox = require('wibox')
 local awful = require("awful")
 local beautiful = require("beautiful")
+local trim = require('utils/trim')
 
 module("network")
-
-function trim(s)
-    return (s:gsub("^%s*(.-)%s*$", "%1"))
-end
 
 local icon_widget = {
     send = wibox.container.margin(
@@ -68,7 +65,9 @@ local network_layout = wibox.widget {
     layout = wibox.layout.grid
 }
 
-awful.widget.watch("bash -c 'cat /sys/class/net/*/statistics/tx_bytes 2>/dev/null && cat /sys/class/net/*/statistics/rx_bytes 1>&2'", network_widget.time_interval,
+awful.widget.watch(
+    "bash -c 'cat /sys/class/net/*/statistics/tx_bytes 2>/dev/null && cat /sys/class/net/*/statistics/rx_bytes 1>&2'",
+    network_widget.time_interval,
     function(widget, stdout, stderr, exitreason, exitcode)
         local send_bytes = 0
         local received_bytes = 0

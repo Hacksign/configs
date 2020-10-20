@@ -1,8 +1,9 @@
 local awful			= require("awful")
 local naughty		= require("naughty")
-local utils         = require("utils")
 local widgets		= require("widgets")
 local beautiful = require("beautiful")
+local is_floats = require("utils/is-floats")
+local proportion_resize = require("utils/proportion-resize")
 local alttab = widgets.alttab
 local last_focused_client = nil
 local layouts = {
@@ -50,7 +51,7 @@ globalkeys = awful.util.table.join(
         local clients
         clients = client.get(mouse.screen)
         for y, c in pairs(clients) do
-            if(c.type ~= "desktop") then
+            if c.type ~= "desktop" and c.type ~= "dock" then
                 if c.minimized == false then
                     allminimized = false
                     break
@@ -60,14 +61,14 @@ globalkeys = awful.util.table.join(
             end
         end
 
-        if client.focus and client.focus.type ~= "desktop" then
+        if client.focus and client.focus.type ~= "desktop" and client.type ~= "dock" then
             last_focused_client = client.focus
         end
 
         -- If at least one client isn't minimized, minimize all clients
         for y, c in pairs(clients) do
             -- ignore desktop window such as:xfdesktop
-            if(c.type ~= "desktop") then
+            if c.type ~= "desktop" and c.type ~= "dock" then
                 if allminimized == false then
                     c.minimized = true 
                 elseif allminimized == true then
@@ -155,7 +156,7 @@ globalkeys = awful.util.table.join(
     end),
     ------------------------------------------------------------------------------
     awful.key({modkey,						}, "c", function()
-        if utils.isfloats(client.focus) and client.focus.type ~= 'desktop' then
+        if is_floats(client.focus) and client.focus.type ~= 'desktop' and client.type ~= "dock" then
             local workarea = client.focus.screen.workarea
             local cg = client.focus:geometry()
             if client.focus.maximized then
@@ -171,14 +172,14 @@ globalkeys = awful.util.table.join(
                 client.focus.maximized_vertical = false
                 client.focus:geometry(cg)
             else
-                local manage = true
-                for i,v in pairs(awful.rules.rules) do
-                    if v.rule.class == client.focus.class then
-                        manage = false
-                        break
-                    end
-                end
-                if manage then
+                -- local manage = true
+                -- for i,v in pairs(awful.rules.rules) do
+                --     if v.rule.class == client.focus.class then
+                --         manage = false
+                --         break
+                --     end
+                -- end
+                -- if manage then
                     client.focus.border_width = 0
                     cg.x = workarea.x
                     cg.y = workarea.y
@@ -188,7 +189,7 @@ globalkeys = awful.util.table.join(
                     client.focus.maximized_horizontal = true
                     client.focus.maximized_vertical = true
                     client.focus:geometry(cg)
-                end
+                -- end
             end
         end
     end),
@@ -334,7 +335,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
-    awful.key({ modkey}, "e", function () awful.spawn("thunar") end), -- yaourt -S thunar
+    awful.key({ modkey}, "e", function () awful.spawn("thunar") end),
     awful.key({ modkey}, "s", function () awful.spawn("deepin-screenshot") end), -- yaourt -S xfce4-screenshooter
     awful.key({ modkey,           }, "f",      function (c) awful.spawn("fsearch") end),
     awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox
@@ -355,12 +356,17 @@ globalkeys = awful.util.table.join(
 
 -- client window hotkeys
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "z",      function (c) c:kill()                         end),
+    awful.key({ modkey,           }, "z",
+        function (c)
+            if c.type ~= "desktop" and c.type ~= "dock" then
+                c:kill()
+            end
+        end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "t",      function (c) c.ontop = not c.ontop            end),
     -- move window to next/pre screen
     awful.key({ modkey,           }, ",",      function(c)
-        if c.type ~= "desktop" then
+        if c.type ~= "desktop" and c.type ~= "dock" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
             local org_sg = c.screen.geometry
@@ -370,11 +376,11 @@ clientkeys = awful.util.table.join(
                 awful.client.movetoscreen(c,screen.count()) 
             end
             local new_sg = c.screen.geometry
-            utils.proportion_resize(c, cg, org_sg, new_sg)
+            proportion_resize(c, cg, org_sg, new_sg)
         end
     end),
     awful.key({ modkey, "Control" }, ",",      function(c)
-        if c.type ~= "desktop" then
+        if c.type ~= "desktop" and c.type ~= "dock" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
             local org_sg = c.screen.geometry
@@ -384,12 +390,12 @@ clientkeys = awful.util.table.join(
                 awful.client.movetoscreen(c,screen.count()) 
             end
             local new_sg = c.screen.geometry
-            utils.proportion_resize(c, cg, org_sg, new_sg)
+            proportion_resize(c, cg, org_sg, new_sg)
             mouse.coords(mouse_coords, true)
         end
     end),
     awful.key({ modkey,           }, ".",      function(c)
-        if c.type ~= "desktop" then
+        if c.type ~= "desktop" and c.type ~= "dock" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
             local org_sg = c.screen.geometry
@@ -399,11 +405,11 @@ clientkeys = awful.util.table.join(
                 awful.client.movetoscreen(c,c.screen.index+1)
             end
             local new_sg = c.screen.geometry
-            utils.proportion_resize(c, cg, org_sg, new_sg)
+            proportion_resize(c, cg, org_sg, new_sg)
         end
     end),
     awful.key({ modkey, "Control" }, ".",      function(c)
-        if c.type ~= "desktop" then
+        if c.type ~= "desktop" and c.type ~= "dock" then
             local mouse_coords = mouse.coords()
             local cg = c:geometry()
             local org_sg = c.screen.geometry
@@ -413,7 +419,7 @@ clientkeys = awful.util.table.join(
                 awful.client.movetoscreen(c,c.screen.index+1)
             end
             local new_sg = c.screen.geometry
-            utils.proportion_resize(c, cg, org_sg, new_sg)
+            proportion_resize(c, cg, org_sg, new_sg)
             mouse.coords(mouse_coords, true)
         end
     end),

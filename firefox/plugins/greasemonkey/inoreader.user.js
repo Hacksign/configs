@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, upgrae button and some annoying dialogs.
-// @version 4.8.2
+// @version 4.9.5
 // @grant none
+// @icon https://inoreader.com/favicon.ico
 // @include https://*.inoreader.com/*
 // @include http://*.inoreader.com/*
 // @namespace   https://raw.githubusercontent.com/Hacksign/configs/master/firefox/plugins/greasemonkey/inoreader.user.js
@@ -152,23 +153,21 @@ if (content_div) {
     }, false);
 }
 
-var overlay_div_id = undefined;
-document.addEventListener('DOMNodeInserted', function(e) {
+document.body.addEventListener('DOMNodeInserted', function (e) {
     var relatedObj = e.originalTarget || e.target;
-    if(relatedObj.id && relatedObj.id.indexOf('_wrap') != -1) {
-        var img_collections = relatedObj.getElementsByTagName('img');
-        if(img_collections.length !=0 && img_collections.item(0) && img_collections.item(0).src.indexOf('adb_detected.png') != -1) {
-            overlay_div_id = relatedObj.id.split('_')[0] + '_modal_overlay';
-            relatedObj.parentNode.removeChild(relatedObj);
-        }
-        if(!relatedObj.style.zIndex) {
-            relatedObj.style.zIndex = 1002;
-        }
-    }else if(overlay_div_id){
-        if(relatedObj.id && relatedObj.id == overlay_div_id) {
-            relatedObj.parentNode.removeChild(relatedObj);
-            overlay_div_id = undefined;
+    if(relatedObj) {
+        if(relatedObj.id && relatedObj.id.indexOf('_scroll_overlay') != -1) {
+            var div_id = relatedObj.id.substr(0, relatedObj.id.indexOf('_scroll_overlay'));
+            var img_elements = document.getElementById(div_id).getElementsByTagName('img');
+            if(img_elements.length == 1) {
+                var img_src = img_elements[0].src;
+                if(/jpg-\w+\.svg$/.test(img_src)) {
+                    document.body.removeChild(relatedObj);
+                    document.body.removeChild(
+                        document.getElementById(div_id + '_modal_overlay')
+                    );
+                }
+            }
         }
     }
-})
-
+});

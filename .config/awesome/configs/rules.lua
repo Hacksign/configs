@@ -4,7 +4,7 @@ local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local naughty		= require("naughty")
-local utils = require("utils")
+local serialize = require('utils/serialize')
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -42,7 +42,7 @@ awful.rules.rules = {
             buttons = clientbuttons 
         } ,
     },
-    { 
+    {
         rule = { class = "org.remmina.Remmina"  },
         properties = {
             callback = function(c)
@@ -53,8 +53,18 @@ awful.rules.rules = {
         }
     },
     { 
-        rule = { class = "Xfdesktop"  },
-        except = {class = "Xfdesktop-settings"},
+        rule = { name = "plank"  },
+        properties = {
+            no_border = true,
+            border_width = 0,
+            floating = false,
+            focusable = false,
+            ontop = false,
+        }
+    },
+    { 
+        rule = { class = "Pcmanfm"  },
+        except = {class = ""},
         properties = {
             border_width = 0,
             maximized = true,
@@ -62,23 +72,12 @@ awful.rules.rules = {
             focusable = false,
             floating = false,
             type = "desktop",
-            callback = function(c)
-                client_geometry = c:geometry()
-                client_geometry.x = 0
-                client_geometry.y = c.screen.workarea.y
-                client_geometry.width = c.screen.workarea.width
-                client_geometry.height = c.screen.workarea.height
-                c:geometry(client_geometry)
-            end,
+            screen = screen.primary,
         }
     },
     {
     	rule = { class = "Popup" },
     	properties = { border_width = 0, no_border = true },
-    },
-    {
-    	rule = { class = "Wine" },
-    	properties = { floating = true, border_width = 0, no_border = true },
     },
     {
     	rule = { class = "deepin-voice-recorder" },

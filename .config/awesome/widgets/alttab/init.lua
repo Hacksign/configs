@@ -240,7 +240,6 @@ local function clientOpacity(altTabTable, altTabIndex)
 		end
 
 		local function switch(dir, alt, tab, shift_tab)
-
 			altTabTable = {}
 			local altTabMinimized = {}
 			local altTabOpacity = {}
@@ -251,7 +250,7 @@ local function clientOpacity(altTabTable, altTabIndex)
 			local c = awful.client.focus.history.get(s, idx)
 
 			while c do
-				if c.type ~= 'desktop' then
+				if c.type ~= 'desktop' and c.type ~= 'dock' then
 					table.insert(altTabTable, c)
 					table.insert(altTabMinimized, c.minimized)
 					table.insert(altTabOpacity, c.opacity)
@@ -294,7 +293,7 @@ local function clientOpacity(altTabTable, altTabIndex)
 						end
 					end
 
-					if addToTable and c.type ~= 'desktop' then
+					if addToTable and (c.type ~= 'desktop' and c.type ~= 'dock') then
 						table.insert(altTabTable, c)
 						table.insert(altTabMinimized, c.minimized)
 						table.insert(altTabOpacity, c.opacity)
