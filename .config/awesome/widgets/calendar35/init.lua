@@ -19,7 +19,6 @@ local os = os
 local awful = require("awful")
 local naughty = require("naughty")
 local mouse = mouse
-module("calendar35")
 
 local calendar = {}
 local calendar_position = "top_right"

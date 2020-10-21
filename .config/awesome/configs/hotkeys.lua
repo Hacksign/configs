@@ -27,7 +27,9 @@ function bind_move_client2tag(globalkeys)
         globalkeys = awful.util.table.join(globalkeys,
             -- move to tag
             awful.key({ modkey  }, "#" .. i + 9, function ()
-                awful.screen.focused().tags[i]:view_only()
+                if i <= #awful.screen.focused().tags then
+                    awful.screen.focused().tags[i]:view_only()
+                end
             end),
             -- move current active window to specific tag
             awful.key({ modkey, "Control"  }, "#" .. i + 9, function ()
@@ -121,15 +123,6 @@ globalkeys = awful.util.table.join(
             })
         end
     end),
-    awful.key({ modkey,         }, "r",    function ()
-        awful.prompt.run {
-            prompt = "Renname:",
-            textbox = mypromptbox[awful.screen.focused().index].widget,
-            exe_callback = function(new_name)
-                awful.tag.selected().name = new_name
-            end
-        }
-    end),
     awful.key({ modkey,         }, "-",    function ()
         local screengeom = screen[mouse.screen].geometry
         local cg = client.focus:geometry()
@@ -158,7 +151,7 @@ globalkeys = awful.util.table.join(
     awful.key({modkey,						}, "c", function()
         if is_floats(client.focus) and client.focus.type ~= 'desktop' and client.type ~= "dock" then
             local workarea = client.focus.screen.workarea
-            local cg = client.focus:geometry()
+            local cg = client.focus.screen.geometry
             if client.focus.maximized then
                 -- if not horizontal or window ether with or height is smaller
                 -- than centered size
@@ -195,7 +188,7 @@ globalkeys = awful.util.table.join(
     end),
     awful.key({ modkey, "Control"}, "c",   function()
         local screengeom = screen[mouse.screen].workarea
-        local cg = client.focus:geometry()
+        local cg = client.focus.screen.geometry
         cg['width'] = screengeom['width']/2 - client.focus.border_width * 2
         cg['height'] = screengeom['height'] - client.focus.border_width * 2
         cg['x'] = screengeom['x'] + cg['width'] / 2 + client.focus.border_width
@@ -207,7 +200,7 @@ globalkeys = awful.util.table.join(
     end),
     awful.key({ modkey,           }, "Left",   function()
         local screengeom = screen[mouse.screen].workarea
-        local cg = client.focus:geometry()
+        local cg = client.focus.screen.geometry
         cg['width'] = screengeom['width']/2 - client.focus.border_width * 2
         cg['height'] = screengeom['height'] - client.focus.border_width * 2
         cg['x'] = screengeom['x']
@@ -267,7 +260,7 @@ globalkeys = awful.util.table.join(
     end),
     awful.key({ modkey,           }, "Up",  function()
         local screengeom = screen[mouse.screen].workarea
-        local cg = client.focus:geometry()
+        local cg = client.focus.screen.geometry
         cg['width'] = screengeom['width'] - client.focus.border_width * 2
         cg['height'] = screengeom['height']/2 - client.focus.border_width * 2
         cg['x'] = screengeom['x']
@@ -285,7 +278,7 @@ globalkeys = awful.util.table.join(
     end),
     awful.key({ modkey,           }, "Down",  function()
         local screengeom = screen[mouse.screen].workarea
-        local cg = client.focus:geometry()
+        local cg = client.focus.screen.geometry
         cg['width'] = screengeom['width'] - client.focus.border_width * 2
         cg['height'] = screengeom['height']/2 - client.focus.border_width * 2
         cg['x'] = screengeom['x']
@@ -320,12 +313,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "l", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, }, "h", function () awful.screen.focus_relative(-1) end),
     -- Standard program
-    awful.key({ modkey,           }, "Return", function ()
-        local screengeom = screen[mouse.screen].geometry
-        local xoff = beautiful.margin_horizontal + screengeom.x
-        local yoff = beautiful.margin_vertical + screengeom.y
+    awful.key({ modkey,           }, "Return", function (c)
+        local workarea = screen[mouse.screen].workarea
+        local cg = screen[mouse.screen].geometry
+        local xoff = workarea.x + math.floor(beautiful.margin_horizontal/2)
+        local yoff = workarea.y + math.floor(beautiful.margin_vertical/2)
+        local width = workarea.width - beautiful.margin_horizontal
+        local height = workarea.height - beautiful.margin_vertical
         -- for geometry of terminator see 'man 7 X' document
-        local terminal = "terminator --geometry="..(math.floor(screengeom.width) - beautiful.margin_horizontal * 2).."x"..(math.floor(screengeom.height) - beautiful.margin_vertical * 2).."+"..math.floor(xoff).."+"..math.floor(yoff)
+        local terminal = "terminator --geometry="..width.."x"..height.."+"..math.floor(xoff).."+"..math.floor(yoff)
         awful.spawn(terminal) 
     end),
     -- change layout
@@ -336,7 +332,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
     awful.key({ modkey}, "e", function () awful.spawn("thunar") end),
-    awful.key({ modkey}, "s", function () awful.spawn("deepin-screenshot") end), -- yaourt -S xfce4-screenshooter
+    awful.key({ modkey}, "s", function () awful.spawn("deepin-screen-recorder") end),
     awful.key({ modkey,           }, "f",      function (c) awful.spawn("fsearch") end),
     awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox
     awful.key({ }, "XF86Calculator", function () awful.spawn("qalculate-gtk") end),

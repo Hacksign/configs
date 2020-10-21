@@ -52,14 +52,40 @@ awful.rules.rules = {
             end,
         }
     },
-    { 
-        rule = { name = "plank"  },
+    {
+        rule = { class = "Synergy"  },
+        properties = {
+            size_hints_honor = false,
+            maximized_vertical  = true,
+        }
+    },
+    {
+        rule = { class = "Plank"  },
+        except = { name = "Plank Clock Calendar" },
         properties = {
             no_border = true,
             border_width = 0,
-            floating = false,
-            focusable = false,
-            ontop = false,
+            minimized = false,
+            dockable = false,
+            ontop = false, -- set default value
+            above = false, -- set default value
+            below = true, -- set default value
+            callback = function(c)
+                c:connect_signal('focus', function(tc)
+                    tc.ontop = true
+                    tc.below = false
+                    tc.above = true
+                end)
+                c:connect_signal('unfocus', function(tc)
+                    tc.ontop = false
+                    tc.below = true
+                    tc.above = false
+                end)
+                c:connect_signal('property::minimized', function(tc) 
+                    -- this client can not minized
+                    tc.minimized = false
+                end)
+            end,
         }
     },
     { 

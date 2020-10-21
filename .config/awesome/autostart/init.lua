@@ -4,8 +4,9 @@ local type=type
 local assert=assert
 local coroutine=coroutine
 local tonumber=tonumber
-local io=io local lfs=require("lfs") local awful=require("awful")
-module("autostart")
+local io=io
+local lfs=require("lfs")
+local awful=require("awful")
 
 -- {{{ Run programm once
 local function processwalker()
@@ -49,14 +50,14 @@ local function run_once(process, cmd, with_shell)
 end
 -- }}}
 
-run_once('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check')
+run_once('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check', true)
 run_once('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true)
 run_once('picom', 'picom')
 run_once('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
 run_once('indicator-keylock', 'indicator-keylock')
 run_once('volumeicon', 'volumeicon')
 run_once('thunar', 'thunar --daemon')
-run_once('synology-note-station', 'bash -l -c "kdocker -d 30 -i /home/hacksign/.syno_ns_app/package.nw/icon/NoteStation_32.png .syno_ns_app/synology-note-station 1>/dev/null 2>&1"')
+run_once('synology-note-station', 'bash -l -c "kdocker -d 30 -i /home/hacksign/.syno_ns_app/package.nw/icon/NoteStation_32.png /home/hacksign/.syno_ns_app/synology-note-station 1>/dev/null 2>&1"')
 run_once('nm-applet', 'nm-applet 1>/dev/null')
 run_once('fcitx', 'fcitx-autostart 1>/dev/null 2>&1')
 run_once('goldendict', 'goldendict')

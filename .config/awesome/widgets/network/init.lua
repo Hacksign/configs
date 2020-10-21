@@ -10,8 +10,6 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local trim = require('utils/trim')
 
-module("network")
-
 local icon_widget = {
     send = wibox.container.margin(
         wibox.widget {

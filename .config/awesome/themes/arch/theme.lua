@@ -30,8 +30,8 @@ theme.wallpaper    = home .. "/.wallpaper"
 -- default font size is 10
 theme.font          = "YaHei Consolas Hybrid" .. " " .. dpi(12)
 
-theme.margin_horizontal        = dpi(60)
-theme.margin_vertical        = dpi(100)
+theme.margin_horizontal        = dpi(35)
+theme.margin_vertical        = dpi(55)
 theme.border_width  = dpi(4)
 theme.border_width_thin  = dpi(2)
 

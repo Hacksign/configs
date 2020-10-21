@@ -14,8 +14,6 @@ local trim = require('utils/trim')
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
-module('test')
-
 local options = {
     loop = 0,
     city = nil,
@@ -101,7 +99,7 @@ local function get_weather()
                 )
             )
             local aqi_color
-            if aqi and aqi.aqi.current_city.aqi ~= nil then
+            if aqi and aqi.aqi and aqi.aqi.current_city and aqi.aqi.current_city.aqi ~= nil then
                 if tonumber(aqi.aqi.current_city.aqi) <= 50 then
                     aqi_color = 'Lime'
                 elseif tonumber(aqi.aqi.current_city.aqi) >= 51 and tonumber(aqi.aqi.current_city.aqi)	<= 100 then

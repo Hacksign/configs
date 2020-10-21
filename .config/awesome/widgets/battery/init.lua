@@ -9,8 +9,6 @@ local math = require('math')
 local wibox = require('wibox')
 local awful = require("awful")
 
-module("battery")
-
 function trim(s)
     return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
