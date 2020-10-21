@@ -2,6 +2,7 @@
 .config/fish/fish_read_history
 .config/fish/fishd.*
 .config/gtk-3.0/bookmarks
+.config/gtk-3.0/custom-papers
 .goldendict/config
 .goldendict/index/
 .goldendict/history
