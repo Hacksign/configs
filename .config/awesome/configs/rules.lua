@@ -46,9 +46,19 @@ awful.rules.rules = {
         rule = { class = "org.remmina.Remmina"  },
         properties = {
             callback = function(c)
-                if c.fullscreen or c.maximized then
-                    c.border_width = 0
-                end
+                c:connect_signal(
+                    'property::size',
+                    function(tc) 
+                        if tc.fullscreen then
+                            tc.no_border = true
+                            tc.border_width = 0
+                        else
+                            tc.no_border = false
+                            tc.border_width = beautiful.border_width
+                            tc.border_color = beautiful.border_normal
+                        end
+                    end
+                )
             end,
         }
     },
@@ -57,6 +67,21 @@ awful.rules.rules = {
         properties = {
             size_hints_honor = false,
             maximized_vertical  = true,
+        }
+    },
+    {
+        rule = { class = "sourceinsight4.exe"  },
+        properties = {
+            screen = screen.primary,
+        }
+    },
+    {
+        rule = { class = "Xfdesktop"  },
+        properties = {
+            no_border = true,
+            border_width = 0,
+            x = screen.primary.geometry.x,
+            y = screen.primary.geometry.y,
         }
     },
     {

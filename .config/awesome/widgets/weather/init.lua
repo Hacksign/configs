@@ -119,86 +119,88 @@ local function get_weather()
                     spacing = 5,
                     layout = wibox.layout.fixed.vertical,
                 }
-                for i, each_day in ipairs(weather.data.forecast) do
-                    local fengli = unescape_char(each_day.fengli)
-                                    :gsub('<!%[CDATA%[', '')
-                                    :gsub('%]%]>', '')
-                    local row = wibox.widget {
-                        {
-                            markup = '<span color="SteelBlue">' .. each_day.date .. '</span>',
-                            forced_width = 135,
-                            widget = wibox.widget.textbox
-                        },
-                        {
-                            markup = '<span color="Violet">'..each_day.type..'</span>',
-                            forced_width = 80,
-                            widget = wibox.widget.textbox
-                        },
-                        {
+                if weather.data ~= nil then
+                    for i, each_day in ipairs(weather.data.forecast) do
+                        local fengli = unescape_char(each_day.fengli)
+                                        :gsub('<!%[CDATA%[', '')
+                                        :gsub('%]%]>', '')
+                        local row = wibox.widget {
                             {
-                                markup = '<span color="Gold">'..each_day.high..'</span>',
-                                forced_width = 130,
+                                markup = '<span color="SteelBlue">' .. each_day.date .. '</span>',
+                                forced_width = 135,
                                 widget = wibox.widget.textbox
                             },
                             {
-                                markup = '<span color="Gold">'..each_day.low..'</span>',
-                                forced_width = 130,
+                                markup = '<span color="Violet">'..each_day.type..'</span>',
+                                forced_width = 80,
                                 widget = wibox.widget.textbox
                             },
                             {
                                 {
-                                    markup = '<span color="DeepSkyBlue">'..escape_char(fengli)..'</span>',
-                                    forced_width = 80,
+                                    markup = '<span color="Gold">'..each_day.high..'</span>',
+                                    forced_width = 130,
                                     widget = wibox.widget.textbox
                                 },
                                 {
-                                    markup = '<span color="Silver">'..each_day.fengxiang..'</span>',
-                                    forced_width = 80,
+                                    markup = '<span color="Gold">'..each_day.low..'</span>',
+                                    forced_width = 130,
                                     widget = wibox.widget.textbox
+                                },
+                                {
+                                    {
+                                        markup = '<span color="DeepSkyBlue">'..escape_char(fengli)..'</span>',
+                                        forced_width = 80,
+                                        widget = wibox.widget.textbox
+                                    },
+                                    {
+                                        markup = '<span color="Silver">'..each_day.fengxiang..'</span>',
+                                        forced_width = 80,
+                                        widget = wibox.widget.textbox
+                                    },
+                                    layout = wibox.layout.align.horizontal
                                 },
                                 layout = wibox.layout.align.horizontal
                             },
                             layout = wibox.layout.align.horizontal
+                        }
+                        rows[i] = row
+                    end
+                    popup:setup {
+                        {
+                            rows,
+                            layout = wibox.layout.fixed.vertical,
                         },
-                        layout = wibox.layout.align.horizontal
+                        margins = 5,
+                        widget = wibox.container.margin
                     }
-                    rows[i] = row
+                    local short_info = string.format(
+                        "<span font_desc='%s' font_size='small'>"..
+                            "<span color='SteelBlue'>%s</span>"..
+                            "<span color='DarkTurquoise'> %s℃</span>"..
+                            "<span color='%s'> %s</span>"..
+                            "<span color='Violet'> %s</span>"..
+                            "<span color='Gold'> %s</span>"..
+                            "<span color='Gold'> %s</span>"..
+                            "<span color='DeepSkyBlue'> /</span>"..
+                            "<span color='Violet'> %s</span>"..
+                            "<span color='Gold'> %s</span>"..
+                            "<span color='Gold'> %s</span>"..
+                        "</span>",
+                        options.theme.font,
+                        options.city,
+                        weather.data.wendu,
+                        aqi_color,
+                        aqi.aqi.current_city.aqi,
+                        weather.data.forecast[1].type,
+                        weather.data.forecast[1].high:gsub('高温 ', ''),
+                        weather.data.forecast[1].low:gsub('低温 ', ''),
+                        weather.data.forecast[2].type,
+                        weather.data.forecast[2].high:gsub('高温 ', ''),
+                        weather.data.forecast[2].low:gsub('低温 ', '')
+                    )
+                    widget:set_markup_silently(short_info)
+                    options.weather_got = true
                 end
-                popup:setup {
-                    {
-                        rows,
-                        layout = wibox.layout.fixed.vertical,
-                    },
-                    margins = 5,
-                    widget = wibox.container.margin
-                }
-                local short_info = string.format(
-                    "<span font_desc='%s' font_size='small'>"..
-                        "<span color='SteelBlue'>%s</span>"..
-                        "<span color='DarkTurquoise'> %s℃</span>"..
-                        "<span color='%s'> %s</span>"..
-                        "<span color='Violet'> %s</span>"..
-                        "<span color='Gold'> %s</span>"..
-                        "<span color='Gold'> %s</span>"..
-                        "<span color='DeepSkyBlue'> /</span>"..
-                        "<span color='Violet'> %s</span>"..
-                        "<span color='Gold'> %s</span>"..
-                        "<span color='Gold'> %s</span>"..
-                    "</span>",
-                    options.theme.font,
-                    options.city,
-                    weather.data.wendu,
-                    aqi_color,
-                    aqi.aqi.current_city.aqi,
-                    weather.data.forecast[1].type,
-                    weather.data.forecast[1].high:gsub('高温 ', ''),
-                    weather.data.forecast[1].low:gsub('低温 ', ''),
-                    weather.data.forecast[2].type,
-                    weather.data.forecast[2].high:gsub('高温 ', ''),
-                    weather.data.forecast[2].low:gsub('低温 ', '')
-                )
-                widget:set_markup_silently(short_info)
-                options.weather_got = true
             end
         end
     )

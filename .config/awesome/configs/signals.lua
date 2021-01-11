@@ -15,11 +15,11 @@ end
 
 client.connect_signal("focus", function (c)
     c.border_color = beautiful.border_focus
-    -- move to current mouse screen if
-    --  focused client not in current mouse screen
-    if c.screen.index ~= mouse.screen.index then
-        c:move_to_screen(mouse.screen.index)
-    end
+    ---- move to current mouse screen if
+    ----  focused client not in current mouse screen
+    --if c.screen.index ~= mouse.screen.index then
+    --    c:move_to_screen(mouse.screen.index)
+    --end
 end)
 client.connect_signal("unfocus", function (c)
     c.border_color = beautiful.border_normal

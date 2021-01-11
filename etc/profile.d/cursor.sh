@@ -1,0 +1,2 @@
+export XCURSOR_THEME=Vanilla-DMZ
+export XCURSOR_SIZE=48

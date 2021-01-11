@@ -326,20 +326,19 @@ globalkeys = awful.util.table.join(
     end),
     -- change layout
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -2) end),
     -- restart & quit awesome
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
     awful.key({ modkey}, "e", function () awful.spawn("thunar") end),
-    awful.key({ modkey}, "s", function () awful.spawn("deepin-screen-recorder") end),
-    awful.key({ modkey,           }, "f",      function (c) awful.spawn("fsearch") end),
+    awful.key({ "Mod1", "Control"}, "x", function () awful.spawn("deepin-screen-recorder") end),
+    awful.key({ modkey,           }, "s",      function (c) awful.spawn("fsearch") end),
     awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox
     awful.key({ }, "XF86Calculator", function () awful.spawn("qalculate-gtk") end),
     awful.key({ modkey}, "y", function () awful.spawn("qalculate-gtk") end), -- an GUI caculate
     awful.key({ modkey}, "p", function () awful.spawn("arandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
     awful.key({ modkey}, "q", function () awful.spawn("xfdesktop -M") end),
-    awful.key({ "Mod1", "Control"}, "s", function () awful.spawn("fsearch") end), -- yaourt -S fsearch-git
     awful.key({ "Mod1", "Control"}, "space", function ()
         local geometry = screen[mouse.screen].geometry
         local cmd = "gmrun -g +" .. math.floor(geometry.x + geometry.width/2 - (beautiful.border_width + 500/2)) .. "+" .. math.floor(geometry.y  + geometry.height/2 - (beautiful.border_width + 76/2))
