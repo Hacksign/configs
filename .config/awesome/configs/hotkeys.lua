@@ -332,7 +332,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
     awful.key({ modkey}, "e", function () awful.spawn("thunar") end),
-    awful.key({ "Mod1", "Control"}, "x", function () awful.spawn("deepin-screen-recorder") end),
+    awful.key({ "Mod1", "Control"}, "x", function () awful.spawn("flameshot gui") end),
     awful.key({ modkey,           }, "s",      function (c) awful.spawn("fsearch") end),
     awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox
     awful.key({ }, "XF86Calculator", function () awful.spawn("qalculate-gtk") end),
