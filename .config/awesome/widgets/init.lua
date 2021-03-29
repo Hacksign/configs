@@ -1,7 +1,5 @@
 local require = require
 
-module("widgets")
-
 local widgets =
 {
     cpu    	       = require("widgets.cpu"),

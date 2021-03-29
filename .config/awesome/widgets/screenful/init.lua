@@ -20,8 +20,6 @@ local card = 'card0'
 local dev = '/sys/class/drm/'
 local configPath = gears.filesystem.get_dir("config") .. "widgets/screenful/screen_config.lua"
 
-module("screenful")
-
 local function log(text)
 	naughty.notify({
 		title = 'screenful debug',

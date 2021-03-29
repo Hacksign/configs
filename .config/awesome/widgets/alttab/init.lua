@@ -20,8 +20,6 @@ local tonumber = tonumber
 local debug = debug
 local pairs = pairs
 
-module("alttab")
-
 local surface = cairo.ImageSurface(cairo.Format.RGB24,20,20)
 local cr = cairo.Context(surface)
 

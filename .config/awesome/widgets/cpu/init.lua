@@ -18,8 +18,6 @@ local wibox = require("wibox")
 local gears = require("gears")
 local naughty = require("naughty")
 
-module("cpu")
-
 local widget = {}
 
 function trim(s)

@@ -7,8 +7,6 @@ local math = require('math')
 local wibox = require('wibox')
 local awful = require("awful")
 
-module("memory")
-
 local icon = wibox.widget {
     image = '/usr/share/icons/ultra-flat-icons/devices/scalable/media-memory.svg',
     resize = true,

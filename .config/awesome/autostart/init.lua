@@ -5,7 +5,6 @@ local assert=assert
 local coroutine=coroutine
 local tonumber=tonumber
 local io=io local lfs=require("lfs") local awful=require("awful")
-module("autostart")
 
 -- {{{ Run programm once
 local function processwalker()
