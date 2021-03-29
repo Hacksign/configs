@@ -29,6 +29,8 @@
         复制./etc/udev/rules.d/98-screen-detect.rules到/etc/udev/rules.d/目录下   
         复制./usr/lib/udev/notify-awesome到/usr/lib/udev目录下    
         经过上述步骤， 结合本目录下的.config/awesome配置，可以实现显示器自动监视、扩展的功能    
+    avaloniailspy:
+        .NET 反汇编工具的Linux版本
     plank:
         类似OS/X的Dock工具
     alltray 或者 kdocker:   
@@ -201,10 +203,10 @@
     smplayer : mplayer的一个前端   
     smplayer-themes 主题包   
     smplayer-skins 皮肤   
-    simplescreenrecorder : 录屏工具,制作视频教程用的   
-    deepin-screen-recorder : 深度录屏工具
     deepin-voice-recorder : 深度录音工具
-    deepin-screenshot : 深度系统的截图工具，比较好用
+    deepin-screen-recorder : 深度录屏工具、截图工具
+        此工具包含deepin-screenshot
+        deepin-clipboard: 截图复制到剪切板的支持
     xfce4-screenshooter :	截图   
     xcompmgr	:	简单的窗口透明特效管理   
         注意,不知道什么原因这个可能会导致Xorg持续占用很高的cpu,可以试一下picom,这个是xcompmgr的另外一个form版本,功能更强大.   

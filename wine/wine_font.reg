@@ -1,11 +1,11 @@
 REGEDIT4
  
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink]
-"Lucida Sans Unicode"="simsun.ttc"
-"Microsoft Sans Serif"="simsun.ttc"
-"MS Sans Serif"="simsun.ttc"
-"Tahoma"="simsun.ttc"
-"Tahoma Bold"="simsun.ttc"
-"SimSun"="simsun.ttc"
-"Arial"="simsun.ttc"
-"Arial Black"="simsun.ttc"
+"Lucida Sans Unicode"="YaHei-Consolas-Hybrid.ttf"
+"Microsoft Sans Serif"="YaHei-Consolas-Hybrid.ttf"
+"MS Sans Serif"="YaHei-Consolas-Hybrid.ttf"
+"Tahoma"="YaHei-Consolas-Hybrid.ttf"
+"Tahoma Bold"="YaHei-Consolas-Hybrid.ttf"
+"SimSun"="YaHei-Consolas-Hybrid.ttf"
+"Arial"="YaHei-Consolas-Hybrid.ttf"
+"Arial Black"="YaHei-Consolas-Hybrid.ttf"

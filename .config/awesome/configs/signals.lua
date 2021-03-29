@@ -15,6 +15,11 @@ end
 
 client.connect_signal("focus", function (c)
     c.border_color = beautiful.border_focus
+    ---- move to current mouse screen if
+    ----  focused client not in current mouse screen
+    --if c.screen.index ~= mouse.screen.index then
+    --    c:move_to_screen(mouse.screen.index)
+    --end
 end)
 client.connect_signal("unfocus", function (c)
     c.border_color = beautiful.border_normal
@@ -79,11 +84,11 @@ end)
 
 --according to : 
 --	https://awesomewm.org/wiki/FAQ#Why_is_my_Wine_applicaton_tray_icon_missing_when_I_connect_my_secondary_monitor_to_my_laptop.3F
-client.disconnect_signal("request::activate", awful.ewmh.activate)
-function awful.ewmh.activate(c)
-   if c:isvisible() then
-	   client.focus = c
-	   c:raise()
-   end
-end
-client.connect_signal("request::activate", awful.ewmh.activate)
+-- client.disconnect_signal("request::activate", awful.ewmh.activate)
+-- function awful.ewmh.activate(c)
+--    if c:isvisible() then
+-- 	   client.focus = c
+-- 	   c:raise()
+--    end
+-- end
+-- client.connect_signal("request::activate", awful.ewmh.activate)

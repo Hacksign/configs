@@ -46,20 +46,71 @@ awful.rules.rules = {
         rule = { class = "org.remmina.Remmina"  },
         properties = {
             callback = function(c)
-                if c.fullscreen or c.maximized then
-                    c.border_width = 0
-                end
+                c:connect_signal(
+                    'property::size',
+                    function(tc) 
+                        if tc.fullscreen then
+                            tc.no_border = true
+                            tc.border_width = 0
+                        else
+                            tc.no_border = false
+                            tc.border_width = beautiful.border_width
+                            tc.border_color = beautiful.border_normal
+                        end
+                    end
+                )
             end,
         }
     },
-    { 
-        rule = { name = "plank"  },
+    {
+        rule = { class = "Synergy"  },
+        properties = {
+            size_hints_honor = false,
+            maximized_vertical  = true,
+        }
+    },
+    {
+        rule = { class = "sourceinsight4.exe"  },
+        properties = {
+            screen = screen.primary,
+        }
+    },
+    {
+        rule = { class = "Xfdesktop"  },
         properties = {
             no_border = true,
             border_width = 0,
-            floating = false,
-            focusable = false,
-            ontop = false,
+            x = screen.primary.geometry.x,
+            y = screen.primary.geometry.y,
+        }
+    },
+    {
+        rule = { class = "Plank"  },
+        except = { name = "Plank Clock Calendar" },
+        properties = {
+            no_border = true,
+            border_width = 0,
+            minimized = false,
+            dockable = false,
+            ontop = false, -- set default value
+            above = false, -- set default value
+            below = true, -- set default value
+            callback = function(c)
+                c:connect_signal('focus', function(tc)
+                    tc.ontop = true
+                    tc.below = false
+                    tc.above = true
+                end)
+                c:connect_signal('unfocus', function(tc)
+                    tc.ontop = false
+                    tc.below = true
+                    tc.above = false
+                end)
+                c:connect_signal('property::minimized', function(tc) 
+                    -- this client can not minized
+                    tc.minimized = false
+                end)
+            end,
         }
     },
     { 

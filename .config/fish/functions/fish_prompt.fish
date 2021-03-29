@@ -12,24 +12,26 @@ function fish_prompt --description 'Write out the prompt'
     set_color yellow
     echo -n (hostname)
 
-    set_color purple
+    set_color cyan
     printf ' [%s] ' (date "+%H:%M:%S") 
-    set_color red
+    set_color brblue
     echo -n ': '
 
     # PWD
-    set_color green
+    set_color brwhite
     echo -n (prompt_pwd)
 
+    set_color normal
+
     __terlar_git_prompt
-    echo
+    echo ''
 
     if not test $last_status -eq 0
 			if not set -q $fish_color_error
 				set_color $fish_color_error
 				echo -n '>> '
 			else
-				set_color red
+				set_color brred
 				echo -n '>> '
 			end
 			else
