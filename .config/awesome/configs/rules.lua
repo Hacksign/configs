@@ -43,6 +43,26 @@ awful.rules.rules = {
         } ,
     },
     {
+        rule = { class = "smplayer"  },
+        properties = {
+            callback = function(c)
+                c:connect_signal(
+                    'property::size',
+                    function(tc) 
+                        if tc.fullscreen then
+                            tc.no_border = true
+                            tc.border_width = 0
+                        else
+                            tc.no_border = false
+                            tc.border_width = beautiful.border_width
+                            tc.border_color = beautiful.border_normal
+                        end
+                    end
+                )
+            end,
+        }
+    },
+    {
         rule = { class = "org.remmina.Remmina"  },
         properties = {
             callback = function(c)

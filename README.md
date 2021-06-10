@@ -239,7 +239,8 @@
     fcitx	:	中文输入法   
         pacman -S fcitx-im,选择全部安装   
         pacman -S archlinuxcn/fcitx-sogoupinyin community/fcitx-configtool   
-        最后将本工程下的etc/profile.d/fcitx.sh拷贝到/etc/profile.d/目录下, 并重启系统   
+        将本工程下的etc/profile.d/fcitx.sh拷贝到/etc/profile.d/目录下, 并重启系统   
+        将本工程下的.config/fcitx/rime/default.custom.yaml链接到~/.local/share/fcitx5/rime/
     virtualbox : 虚拟机   
         host机器为安装virtualbo的机器,guest机器为虚拟出来的系统机器   
         需要安装linux-headers包,否则vboxsf等内核模块不能正常加载   
