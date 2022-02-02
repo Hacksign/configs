@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=IDA32
+Exec=/usr/bin/wine '/home/hacksign/.wine/drive_c/Program Files/IDA 7.6/ida.exe'
+Type=Application
+StartupNotify=true
+Icon=/usr/share/icons/WineAppIcons/IDA32.ico
+StartupWMClass=ida.exe
+Actions=new-instance;
+
+[Desktop Action new-instance]
+Name=New Instance
+Exec=/usr/bin/wine '/home/hacksign/.wine/drive_c/Program Files/IDA 7.6/ida.exe'

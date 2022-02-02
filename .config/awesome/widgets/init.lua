@@ -8,7 +8,8 @@ local widgets =
     network	       = require("widgets.network"),
     temperature	   = require("widgets.temperature"),
     weather	       = require("widgets.weather"),
-    screenful      = require("widgets.screenful")
+    screenful      = require("widgets.screenful"),
+    freedesktop        = require("widgets.freedesktop"),
 }
 
 return widgets

@@ -11,6 +11,7 @@ function caculate_bordder(c)
             c.border_width = beautiful.border_width
         end
     end
+    return c.border_width
 end
 
 client.connect_signal("focus", function (c)
@@ -31,6 +32,30 @@ client.connect_signal("property::size", function (c, startup)
 end)
 client.connect_signal("manage", function (c)
     caculate_bordder(c)
+
+    -- check whether client is properly placed
+    -- check geometry could contain this client
+    if c.width + c.border_width * 2 <= c.screen.geometry.width then
+        -- check left out of current screen
+        if c.x - c.border_width < c.screen.geometry.x then
+            awful.placement.no_offscreen(c)
+        end
+        -- check right out of current screen
+        if c.x + c.width + c.border_width > c.screen.geometry.x + c.screen.geometry.width then
+            awful.placement.no_offscreen(c)
+        end
+    end
+    if c.height + c.border_width * 2 <= c.screen.geometry.height then
+        -- check top out of current screen
+        if c.y - c.border_width < c.screen.geometry.y then
+            awful.placement.no_offscreen(c)
+        end
+        -- check bottom out of current screen
+        if c.y + c.height + c.border_width > c.screen.geometry.y + c.screen.geometry.height then
+            awful.placement.no_offscreen(c)
+        end
+    end
+
     -- Enable sloppy focus
     --	focus window with mouse move, following mouse movement
     -- c:connect_signal("mouse::enter", function(c)

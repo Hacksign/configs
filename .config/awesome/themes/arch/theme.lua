@@ -24,6 +24,7 @@ end
 themedir      = themes .. themename
 
 theme.wallpaper    = home .. "/.wallpaper"
+theme.icon_theme = "ultra-flat-icons"
 
 --}}}
 
@@ -71,7 +72,7 @@ theme.tasklist_floating_icon = sharedthemes .. "/default/tasklist/floatingw.png"
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = sharedthemes .. "/default/submenu.png"
 theme.menu_height = dpi(30)
-theme.menu_width  = dpi(100)
+theme.menu_width  = dpi(220)
 
 -- You can add as many variables as
 -- you wish and access them by using

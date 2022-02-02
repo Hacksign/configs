@@ -29,6 +29,15 @@
         复制./etc/udev/rules.d/98-screen-detect.rules到/etc/udev/rules.d/目录下   
         复制./usr/lib/udev/notify-awesome到/usr/lib/udev目录下    
         经过上述步骤， 结合本目录下的.config/awesome配置，可以实现显示器自动监视、扩展的功能    
+    xrdp :
+        首先要参考ArchWiki：
+            https://wiki.archlinux.org/title/xrdp
+            注意一定要安装xorgxrdp,不然会启动不了Xorg的backend
+        然后如果有自定义的文件在/etc/X11/xorg.conf.d/目录下，要注意是否使用了modesetting的Driver，如果有使用（例如nvidia的Driver），则需要修改/etc/xrdp/sesman.ini的启动参数：
+            param=-configdir
+            param=/etc/X11/xrdp
+            param=-config
+            param=xorg.conf
     avaloniailspy:
         .NET 反汇编工具的Linux版本
     plank:
@@ -204,9 +213,11 @@
     smplayer-themes 主题包   
     smplayer-skins 皮肤   
     deepin-voice-recorder : 深度录音工具
-    deepin-screen-recorder : 深度录屏工具、截图工具
+    deepin-screen-recorder-copy-patch 或 deepin-screen-recorder : 深度录屏工具、截图工具
         此工具包含deepin-screenshot
-        deepin-clipboard: 截图复制到剪切板的支持
+        注意： 
+            1. deepin-screen-recorder-copy-patch需要同时安装xclip， 不然依然无法使用剪切板
+            2. deepin-screen-recorder在非深度环境下有bug，无法将图像复制到剪贴板
     xfce4-screenshooter :	截图   
     xcompmgr	:	简单的窗口透明特效管理   
         注意,不知道什么原因这个可能会导致Xorg持续占用很高的cpu,可以试一下picom,这个是xcompmgr的另外一个form版本,功能更强大.   

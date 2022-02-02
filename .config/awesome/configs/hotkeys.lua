@@ -20,6 +20,8 @@ local layouts = {
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier
 }
+local taskbar_height = 64
+local menu = widgets.freedesktop.menu.build()
 
 -- helper function to detect a client is floated and current mode is float
 function bind_move_client2tag(globalkeys)
@@ -124,9 +126,8 @@ globalkeys = awful.util.table.join(
         end
     end),
     awful.key({ modkey,         }, "-",    function ()
-        local screengeom = screen[mouse.screen].geometry
         local cg = client.focus:geometry()
-        if cg['width'] > (screengeom['width']*30/100) and cg['height'] > (screengeom['height']*30/100) then
+        if cg['width'] > (client.focus.screen.geometry.width*30/100) and cg['height'] > (client.focus.screen.geometry.height*30/100) then
             delta = 20
             delta_height = (delta / cg['width']) * cg['height']
             cg['width'] = cg['width'] - delta
@@ -136,9 +137,8 @@ globalkeys = awful.util.table.join(
         end
     end),
     awful.key({ modkey,         }, "=",    function ()
-        local screengeom = screen[mouse.screen].geometry
         local cg = client.focus:geometry()
-        if (cg['width']+20)<screengeom['width'] and (cg['height']+20)<screengeom['height'] then
+        if (cg['width']+20) < client.focus.screen.geometry.width and (cg['height']+20) < client.focus.screen.geometry.height then
             delta = 20
             delta_height = (delta / cg['width']) * cg['height']
             cg['width'] = cg['width'] + delta
@@ -150,16 +150,15 @@ globalkeys = awful.util.table.join(
     ------------------------------------------------------------------------------
     awful.key({modkey,						}, "c", function()
         if is_floats(client.focus) and client.focus.type ~= 'desktop' and client.type ~= "dock" then
-            local workarea = client.focus.screen.workarea
             local cg = client.focus.screen.geometry
             if client.focus.maximized then
                 -- if not horizontal or window ether with or height is smaller
                 -- than centered size
                 -- or window is outside of current screen
-                cg.width = workarea.width - beautiful.margin_horizontal
-                cg.height = workarea.height - beautiful.margin_vertical
-                cg.x = workarea.x + math.floor(beautiful.margin_horizontal/2)
-                cg.y = workarea.y + math.floor(beautiful.margin_vertical/2)
+                cg.width = cg.width - beautiful.margin_horizontal
+                cg.height = cg.height - beautiful.margin_vertical - taskbar_height
+                cg.x = cg.x + math.floor(beautiful.margin_horizontal/2)
+                cg.y = cg.y + math.floor(beautiful.margin_vertical/2)
                 client.focus.maximized = false
                 client.focus.maximized_horizontal = false
                 client.focus.maximized_vertical = false
@@ -174,10 +173,10 @@ globalkeys = awful.util.table.join(
                 -- end
                 -- if manage then
                     client.focus.border_width = 0
-                    cg.x = workarea.x
-                    cg.y = workarea.y
-                    cg.width = workarea.width
-                    cg.height = workarea.height
+                    cg.x = cg.x
+                    cg.y = cg.y
+                    cg.width = cg.width
+                    cg.height = cg.height - taskbar_height
                     client.focus.maximized = true
                     client.focus.maximized_horizontal = true
                     client.focus.maximized_vertical = true
@@ -187,24 +186,22 @@ globalkeys = awful.util.table.join(
         end
     end),
     awful.key({ modkey, "Control"}, "c",   function()
-        local screengeom = screen[mouse.screen].workarea
         local cg = client.focus.screen.geometry
-        cg['width'] = screengeom['width']/2 - client.focus.border_width * 2
-        cg['height'] = screengeom['height'] - client.focus.border_width * 2
-        cg['x'] = screengeom['x'] + cg['width'] / 2 + client.focus.border_width
-        cg['y'] = screengeom['y']
+        cg['width'] = cg['width']/2 - client.focus.border_width * 2
+        cg['height'] = cg['height'] - client.focus.border_width * 2 - taskbar_height
+        cg['x'] = cg['x'] + cg['width'] / 2 + client.focus.border_width
+        cg['y'] = cg['y']
         client.focus.maximized = false
         client.focus.maximized_horizontal = false
         client.focus.maximized_vertical = true
         client.focus:geometry(cg)
     end),
     awful.key({ modkey,           }, "Left",   function()
-        local screengeom = screen[mouse.screen].workarea
         local cg = client.focus.screen.geometry
-        cg['width'] = screengeom['width']/2 - client.focus.border_width * 2
-        cg['height'] = screengeom['height'] - client.focus.border_width * 2
-        cg['x'] = screengeom['x']
-        cg['y'] = screengeom['y']
+        cg['width'] = cg['width']/2 - client.focus.border_width * 2
+        cg['height'] = cg['height'] - client.focus.border_width * 2 - taskbar_height
+        cg['x'] = cg['x']
+        cg['y'] = cg['y']
         client.focus.maximized = false
         client.focus.maximized_horizontal = false
         client.focus.maximized_vertical = true
@@ -217,24 +214,22 @@ globalkeys = awful.util.table.join(
         client.focus:relative_move(-20, 0, 20, 0)
     end),
     awful.key({ modkey, "Control" }, "Left",   function()
-        local screengeom = screen[mouse.screen].geometry
-        local cg = client.focus:geometry()
-        cg['width'] = screengeom['width']/2 - client.focus.border_width * 2
-        cg['height'] = screengeom['height'] - client.focus.border_width * 2
-        cg['x'] = screengeom['x']
-        cg['y'] = screengeom['y']
+        local cg = client.focus.screen.geometry
+        cg['width'] = cg['width']/2 - client.focus.border_width * 2
+        cg['height'] = cg['height'] - client.focus.border_width * 2 - taskbar_height
+        cg['x'] = cg['x']
+        cg['y'] = cg['y']
         client.focus.maximized = false
         client.focus.maximized_horizontal = false
         client.focus.maximized_vertical = true
         client.focus:geometry(cg)
     end),
     awful.key({ modkey,           }, "Right",  function()
-        local screengeom = screen[mouse.screen].workarea
-        local cg = client.focus:geometry()
-        cg['width'] = screengeom['width']/2 - client.focus.border_width * 2
-        cg['height'] = screengeom['height'] - client.focus.border_width * 2
-        cg['x'] = screengeom['x'] + cg['width'] + client.focus.border_width * 2
-        cg['y'] = screengeom['y']
+        local cg = client.focus.screen.geometry
+        cg['width'] = cg['width']/2 - client.focus.border_width * 2
+        cg['height'] = cg['height'] - client.focus.border_width * 2 - taskbar_height
+        cg['x'] = cg['x'] + cg['width'] + client.focus.border_width * 2
+        cg['y'] = cg['y']
         client.focus.maximized = false
         client.focus.maximized_horizontal = false
         client.focus.maximized_vertical = true
@@ -247,24 +242,22 @@ globalkeys = awful.util.table.join(
         client.focus:relative_move(0, 0, 20, 0)
     end),
     awful.key({ modkey, "Control" }, "Right",  function()
-        local screengeom = screen[mouse.screen].geometry
-        local cg = client.focus:geometry()
-        cg['width'] = screengeom['width']/2 - client.focus.border_width * 2
-        cg['height'] = screengeom['height'] - client.focus.border_width * 2
-        cg['x'] = screengeom['x'] + cg['width'] + client.focus.border_width * 2
-        cg['y'] = screengeom['y']
+        local cg = client.focus.screen.geometry
+        cg['width'] = cg['width']/2 - client.focus.border_width * 2
+        cg['height'] = cg['height'] - client.focus.border_width * 2 - taskbar_height
+        cg['x'] = cg['x'] + cg['width'] + client.focus.border_width * 2
+        cg['y'] = cg['y']
         client.focus.maximized = false
         client.focus.maximized_horizontal = false
         client.focus.maximized_vertical = true
         client.focus:geometry(cg)
     end),
     awful.key({ modkey,           }, "Up",  function()
-        local screengeom = screen[mouse.screen].workarea
         local cg = client.focus.screen.geometry
-        cg['width'] = screengeom['width'] - client.focus.border_width * 2
-        cg['height'] = screengeom['height']/2 - client.focus.border_width * 2
-        cg['x'] = screengeom['x']
-        cg['y'] = screengeom['y']
+        cg['width'] = cg['width'] - client.focus.border_width * 2
+        cg['height'] = cg['height']/2 - client.focus.border_width * 2 - taskbar_height
+        cg['x'] = cg['x']
+        cg['y'] = cg['y']
         client.focus.maximized = false
         client.focus.maximized_horizontal = true
         client.focus.maximized_vertical = false
@@ -277,12 +270,11 @@ globalkeys = awful.util.table.join(
         client.focus:relative_move(0, -20, 0, 20)
     end),
     awful.key({ modkey,           }, "Down",  function()
-        local screengeom = screen[mouse.screen].workarea
         local cg = client.focus.screen.geometry
-        cg['width'] = screengeom['width'] - client.focus.border_width * 2
-        cg['height'] = screengeom['height']/2 - client.focus.border_width * 2
-        cg['x'] = screengeom['x']
-        cg['y'] = screengeom['y'] + cg['height'] + client.focus.border_width * 2
+        cg['width'] = cg['width'] - client.focus.border_width * 2
+        cg['height'] = (cg['height'] - taskbar_height)/2 - client.focus.border_width * 2
+        cg['x'] = cg['x']
+        cg['y'] = cg['y'] + cg['height'] + client.focus.border_width * 2
         client.focus.maximized = false
         client.focus.maximized_horizontal = true
         client.focus.maximized_vertical = false
@@ -314,12 +306,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "h", function () awful.screen.focus_relative(-1) end),
     -- Standard program
     awful.key({ modkey,           }, "Return", function (c)
-        local workarea = screen[mouse.screen].workarea
         local cg = screen[mouse.screen].geometry
-        local xoff = workarea.x + math.floor(beautiful.margin_horizontal/2)
-        local yoff = workarea.y + math.floor(beautiful.margin_vertical/2)
-        local width = workarea.width - beautiful.margin_horizontal
-        local height = workarea.height - beautiful.margin_vertical
+        local xoff = cg.x + math.floor(beautiful.margin_horizontal/2)
+        local yoff = cg.y + math.floor(beautiful.margin_vertical/2)
+        local width = cg.width - beautiful.margin_horizontal
+        local height = cg.height - beautiful.margin_vertical - taskbar_height
         -- for geometry of terminator see 'man 7 X' document
         local terminal = "terminator --geometry="..width.."x"..height.."+"..math.floor(xoff).."+"..math.floor(yoff)
         awful.spawn(terminal) 
@@ -332,13 +323,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control"   }, "q", awesome.quit),
     -- User Defined Hot Key
     awful.key({ modkey}, "e", function () awful.spawn("thunar") end),
-    awful.key({ "Mod1", "Control"}, "x", function () awful.spawn("flameshot gui") end),
+    awful.key({ "Mod1", "Control"}, "x", function () awful.spawn("deepin-screen-recorder") end),
     awful.key({ modkey,           }, "s",      function (c) awful.spawn("fsearch") end),
     awful.key({ modkey}, "i", function () awful.spawn("firefox") end), -- yaourt -S firefox
     awful.key({ }, "XF86Calculator", function () awful.spawn("qalculate-gtk") end),
     awful.key({ modkey}, "y", function () awful.spawn("qalculate-gtk") end), -- an GUI caculate
     awful.key({ modkey}, "p", function () awful.spawn("arandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
-    awful.key({ modkey}, "q", function () awful.spawn("xfdesktop -M") end),
+    awful.key({ modkey}, "q", function () menu:toggle() end),
     awful.key({ "Mod1", "Control"}, "space", function ()
         local geometry = screen[mouse.screen].geometry
         local cmd = "gmrun -g +" .. math.floor(geometry.x + geometry.width/2 - (beautiful.border_width + 500/2)) .. "+" .. math.floor(geometry.y  + geometry.height/2 - (beautiful.border_width + 76/2))

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=ResourceHacker
+Exec=/usr/bin/wine '/home/hacksign/.wine/drive_c/Program Files/ResourceHacker/ResourceHacker.exe'
+Icon=/usr/share/icons/WineAppIcons/ResourceHacker.ico
+Type=Application
+StartupNotify=true
+StartupWMClass=resourcehacker.exe
+Actions=new-instance;
+
+[Desktop Action new-instance]
+Name=New Instance
+Exec=/usr/bin/wine '/home/hacksign/.wine/drive_c/Program Files/ResourceHacker/ResourceHacker.exe'
