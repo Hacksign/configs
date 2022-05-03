@@ -28,7 +28,7 @@ local function processwalker()
     return coroutine.wrap(yieldprocess)
 end
 
-local function run_once(process, cmd, with_shell)
+local function shellexecute(process, cmd, with_shell, run_once)
     assert(type(process) == "string")
     local replacer = {
         ["+"]  = "%+",
@@ -37,9 +37,11 @@ local function run_once(process, cmd, with_shell)
         ["?"]  = "%?" 
     }
 
-    for p in processwalker() do
-        if p:find(process:gsub("[-+?*]", replacer)) then
-            return
+    if run_once == nil or run_once == true then
+        for p in processwalker() do
+            if p:find(process:gsub("[-+?*]", replacer)) then
+                return
+            end
         end
     end
     if with_shell then
@@ -50,30 +52,32 @@ local function run_once(process, cmd, with_shell)
 end
 -- }}}
 --
+
 gears.timer(
     {
         timeout = 0,
-        autostart = true,
+        call_now = true,
+        autostart = false,
         single_shot = true,
         callback = function()
-            run_once('xfce4-notifyd', '/usr/lib/xfce4/notifyd/xfce4-notifyd', true)
-            --run_once('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check', true)
-            --run_once('pcmanfm', 'pcmanfm --desktop --one-screen', true)
-            run_once('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true)
-            run_once('picom', 'picom')
-            --run_once('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
-            run_once('indicator-keylock', 'indicator-keylock')
-            run_once('volumeicon', 'volumeicon')
-            run_once('thunar', 'thunar --daemon')
-            run_once('synology-note-station', 'bash -l -c "kdocker -d 30 -i /home/hacksign/.syno_ns_app/package.nw/icon/NoteStation_32.png /home/hacksign/.syno_ns_app/synology-note-station 1>/dev/null 2>&1"')
-            run_once('nm-applet', 'nm-applet 1>/dev/null')
-            run_once('fcitx5', 'fcitx5 1>/dev/null 2>&1')
-            run_once('goldendict', 'goldendict')
-            --run_once('caffeine', 'caffeine')
-            run_once('blueman-applet', 'bash -lc "/usr/bin/blueman-applet 1>/dev/null 2>&1"')
-            run_once('/usr/bin/libinput-gestures', 'bash -c "/usr/bin/libinput-gestures-setup restart" 1>/dev/null 2>&1')
-            run_once('remmina', 'remmina --icon')
-            run_once('syncthing-gtk', 'syncthing-gtk --minimized')
+            shellexecute('xfce4-notifyd', '/usr/lib/xfce4/notifyd/xfce4-notifyd', true)
+            shellexecute('fcitx5', 'fcitx5 -D 1>/dev/null 2>&1', true)
+            --shellexecute('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check', true)
+            --shellexecute('pcmanfm', 'pcmanfm --desktop --one-screen', true)
+            shellexecute('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true, false)
+            shellexecute('picom', 'picom')
+            --shellexecute('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
+            shellexecute('indicator-keylock', 'indicator-keylock')
+            shellexecute('volumeicon', 'volumeicon')
+            shellexecute('thunar', 'thunar --daemon')
+            shellexecute('synology-note-station', 'bash -l -c "kdocker -d 30 -i /home/hacksign/.syno_ns_app/package.nw/icon/NoteStation_32.png /home/hacksign/.syno_ns_app/synology-note-station 1>/dev/null 2>&1"')
+            shellexecute('nm-applet', 'nm-applet 1>/dev/null')
+            shellexecute('goldendict', 'goldendict')
+            --shellexecute('caffeine', 'caffeine')
+            shellexecute('blueman-applet', 'bash -lc "/usr/bin/blueman-applet 1>/dev/null 2>&1"')
+            shellexecute('/usr/bin/libinput-gestures', 'bash -c "/usr/bin/libinput-gestures-setup restart" 1>/dev/null 2>&1')
+            shellexecute('remmina', 'remmina --icon')
+            shellexecute('syncthing-gtk', 'syncthing-gtk --minimized')
         end
     }
 )

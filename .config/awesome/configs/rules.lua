@@ -130,6 +130,12 @@ awful.rules.rules = {
                     -- this client can not minized
                     tc.minimized = false
                 end)
+                c:connect_signal('property::struts', function(tc)
+                    local struts = tc:struts()
+                    if struts.bottom ~= 0 then
+                        tc:struts({ left = 0, right = 0, top = 0, bottom = 0  })
+                    end
+                end)
             end,
         }
     },

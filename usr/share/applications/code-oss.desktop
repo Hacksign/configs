@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Code
+Comment=VSCode IDE
+Exec=/usr/bin/code-oss
+Icon=/usr/share/icons/ultra-flat-icons/apps/scalable/vscode.svg
+Categories=Development
+Terminal=false
+StartupNotify=true
+NoDisplay=true
+X-Desktop-File-Install-Version=0.24

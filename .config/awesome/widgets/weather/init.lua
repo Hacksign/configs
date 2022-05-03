@@ -174,7 +174,7 @@ local function get_weather()
                         widget = wibox.container.margin
                     }
                     local short_info = string.format(
-                        "<span font_desc='%s' font_size='small'>"..
+                        "<span font_desc='%s' font_size='%spt'>"..
                             "<span color='SteelBlue'>%s</span>"..
                             "<span color='DarkTurquoise'> %s℃</span>"..
                             "<span color='%s'> %s</span>"..
@@ -187,6 +187,7 @@ local function get_weather()
                             "<span color='Gold'> %s</span>"..
                         "</span>",
                         options.theme.font,
+                        options.font_size,
                         options.city,
                         weather.data.wendu,
                         aqi_color,
@@ -207,6 +208,7 @@ local function get_weather()
 end
 
 function initialize(args)
+    options.font_size = args.font_size or 12
     options.theme = args.theme or require('beautiful').get()
     options.interval = args.interval or 5
     popup.border_width = options.theme.border_width_thin

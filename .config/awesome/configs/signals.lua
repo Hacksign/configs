@@ -45,16 +45,16 @@ client.connect_signal("manage", function (c)
             awful.placement.no_offscreen(c)
         end
     end
-    if c.height + c.border_width * 2 <= c.screen.geometry.height then
-        -- check top out of current screen
-        if c.y - c.border_width < c.screen.geometry.y then
-            awful.placement.no_offscreen(c)
-        end
-        -- check bottom out of current screen
-        if c.y + c.height + c.border_width > c.screen.geometry.y + c.screen.geometry.height then
-            awful.placement.no_offscreen(c)
-        end
-    end
+    --if c.height + c.border_width * 2 <= c.screen.geometry.height then
+    --    -- check top out of current screen
+    --    if c.y - c.border_width < c.screen.geometry.y then
+    --        awful.placement.no_offscreen(c)
+    --    end
+    --    -- check bottom out of current screen
+    --    if c.y + c.height + c.border_width > c.screen.geometry.y + c.screen.geometry.height then
+    --        awful.placement.no_offscreen(c)
+    --    end
+    --end
 
     -- Enable sloppy focus
     --	focus window with mouse move, following mouse movement

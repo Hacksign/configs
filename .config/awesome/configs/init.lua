@@ -95,7 +95,8 @@ for s = 1, screen.count() do
         gears.timer(
             {
                 timeout = 0,
-                autostart = true,
+                call_now = true,
+                autostart = false,
                 single_shot = true,
                 callback = function()
                     -- top & battom bar widgets
@@ -112,15 +113,18 @@ for s = 1, screen.count() do
                     local batterywidget = widgets.battery
                     local networkwidget = widgets.network
                     local temperaturewidget = widgets.temperature
-                    local weatherwidget = widgets.weather.init(
-                        {
-                            interval = 5,
-                            theme = beautiful 
-                        }
-                    )
-                    widgets.screenful.init()
+
+                    local weather_widget_options = {
+                        interval = 5,
+                        theme = beautiful 
+                    }
+                    if screen[s].geometry.width <= 1080 then
+                        weather_widget_options.font_size = 8
+                    end
+                    local weatherwidget = widgets.weather.init(weather_widget_options)
 
                     left_layout:add(weatherwidget)
+                    widgets.screenful.init()
 
                     right_layout.spacing = dpi(2) 
                     right_layout:add(networkwidget)
@@ -138,17 +142,17 @@ for s = 1, screen.count() do
             }
         )
 
-        -- setup desktop icons
-        widgets.freedesktop.desktop.add_icons(
-            {
-                screen = screen[s],
-                open_with = 'thunar',
-                wait_for  = 'plank',
-                margin = {x = dpi(10), y = (10)},
-                labelsize = {width = dpi(100), height = dpi(20)},
-                iconsize = {width = dpi(30), height = dpi(30)},
-            }
-        )
+        ---- setup desktop icons
+        --widgets.freedesktop.desktop.add_icons(
+        --    {
+        --        screen = screen[s],
+        --        open_with = 'thunar',
+        --        wait_for  = 'plank',
+        --        margin = {x = dpi(10), y = (10)},
+        --        labelsize = {width = dpi(100), height = dpi(20)},
+        --        iconsize = {width = dpi(30), height = dpi(30)},
+        --    }
+        --)
     end
 end
 

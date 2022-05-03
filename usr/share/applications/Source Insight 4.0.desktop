@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Source Insight 4.0
-Exec=/usr/bin/wine '/home/hacksign/.wine/drive_c/Program Files (x86)/Source Insight 4.0/sourceinsight4.exe'
+Exec=/usr/bin/wine '/home/hacksign/Software/Source Insight 4.0/sourceinsight4.exe'
 Type=Application
 StartupNotify=true
 Icon=/usr/share/icons/WineAppIcons/SourceInsight.ico

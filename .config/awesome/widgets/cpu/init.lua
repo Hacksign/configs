@@ -151,7 +151,7 @@ local function cpu_widget(args)
 
     local cpus = {}
     awful.widget.watch(
-        'bash -c \'cat /proc/stat|grep "^cpu." 2>/dev/null && ps -eo "%p|%c|%C|" -o "%mem" -o "|%P" --sort=-%cpu|head -11|tail -n +2 1>&2\'',
+        'bash -c \'cat /proc/stat|grep "^cpu." 2>/dev/null && ps -eo "%p|%c|%C|" -o "%mem" -o "|%P" --sort=-%cpu|head -11|tail -n +2 1>&2 &\'',
         interval,
         function(widget, stdout, stderr, exitreason, exitcode)
             local i = 1

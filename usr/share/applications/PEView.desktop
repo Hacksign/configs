@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=ResourceHacker
-Exec=/usr/bin/wine '/home/hacksign/.wine/drive_c/Program Files/PEView/PEView.exe'
+Exec=/usr/bin/wine '/home/hacksign/Software/PEView/PEView.exe'
 Icon=/usr/share/icons/WineAppIcons/PEView.ico
 Type=Application
 StartupNotify=true
@@ -9,4 +9,4 @@ Actions=new-instance;
 
 [Desktop Action new-instance]
 Name=New Instance
-Exec=/usr/bin/wine '/home/hacksign/.wine/drive_c/Program Files/PEView/PEView.exe'
+Exec=/usr/bin/wine '/home/hacksign/Software/PEView/PEView.exe'
