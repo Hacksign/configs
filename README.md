@@ -60,6 +60,9 @@
         https://segmentfault.com/a/1190000011327776
         注意， 需要将当前用户加入到input组中：
         gpasswd -a $USER input
+	同时需要安装 xdotool 和 wmctrl 两个软件
+	安装驱动： xf86-input-libinput
+	同时将此目录下的文件拷贝到系统目录 ./etc/X11/xorg.conf.d/30-magic-trackpad2.conf
     remmina:   
        一个GTK的前端，可以管理SSH、RDP（需要装插件，注意可选提示）、VNC等多种协议的链接   
        这个需要配合 rxvt-unicode 这个中断模拟器来使用，而这个中断模拟器，需要本源中.Xresources文件在$HOME下    
@@ -68,11 +71,6 @@
     zssh:    
        需要配合lrzsz包使用, 用于用rz和sz传输文件.    
     xorg-xprop	:
-        窗口属性查看器，下面的awesome窗口管理器要用到 xf86-input-synaptics	:	触控板驱动模块,https://wiki.archlinux.org/index.php/Touchpad_Synaptics   
-        xf86-input-synaptics contain syndaemon binary
-        X11配置文件文档,http://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html   
-        打字时金红触控板:   
-        安装好aur源中的xf86-input-evdev之后,将本源中etc/X11/xorg.conf.d/目录中的所有文件拷贝到/etc/X11/xorg.conf.d文件夹下   
     sudo   
     acpid	:	电源管理守护进程   
     systemctl enable acpid   
@@ -104,95 +102,29 @@
         pacman -S pulseaudio-bluetooth, 不然会出现protocol not supported的问题   
         需要先system enable bluetooth   
         如果想要自启动, 启动blueman-applet即可   
-    leafpad / gedit / sublime-text-dev-zh-cn :   
-        看个人喜好,leafpad更轻量,但是不支持高亮等一些特性,gedit相对来说重量一点,但是支持好多特性.   
-        sublime算是这三个里面功能最强劲的编辑器,推荐使用,不过这个只有在archlinuxcn源里才有,付个授权码:   
-            ----- BEGIN LICENSE ----
-            Andrew Weber
-            Single User License
-            EA7E-855605
-            813A03DD 5E4AD9E6 6C0EEB94 BC99798F
-            942194A6 02396E98 E62C9979 4BB979FE
-            91424C9D A45400BF F6747D88 2FB88078
-            90F5CC94 1CDC92DC 8457107A F151657B
-            1D22E383 A997F016 42397640 33F41CFC
-            E1D0AE85 A0BBD039 0E9C8D55 E1B89D5D
-            5CDB7036 E56DE1C0 EFCC0840 650CD3A6
-            B98FC99C 8FAC73EE D2B95564 DF450523
-            ------ END LICENSE ------
-
-            —– BEGIN LICENSE —–
-            Michael Barnes
-            Single User License
-            EA7E-821385
-            8A353C41 872A0D5C DF9B2950 AFF6F667
-            C458EA6D 8EA3C286 98D1D650 131A97AB
-            AA919AEC EF20E143 B361B1E7 4C8B7F04
-            B085E65E 2F5F5360 8489D422 FB8FC1AA
-            93F6323C FD7F7544 3F39C318 D95E6480
-            FCCC7561 8A4A1741 68FA4223 ADCEDE07
-            200C25BE DBBC4855 C4CFB774 C5EC138C
-            0FEC1CEF D9DCECEC D3A5DAD1 01316C36
-            —— END LICENSE ——
-
-            —– BEGIN LICENSE —–
-            Nicolas Hennion
-            Single User License
-            EA7E-866075
-            8A01AA83 1D668D24 4484AEBC 3B04512C
-            827B0DE5 69E9B07A A39ACCC0 F95F5410
-            729D5639 4C37CECB B2522FB3 8D37FDC1
-            72899363 BBA441AC A5F47F08 6CD3B3FE
-            CEFB3783 B2E1BA96 71AAF7B4 AFB61B1D
-            0CC513E7 52FF2333 9F726D2C CDE53B4A
-            810C0D4F E1F419A3 CDA0832B 8440565A
-            35BF00F6 4CA9F869 ED10E245 469C233E
-            —— END LICENSE ——
-
-            —– BEGIN LICENSE —–
-            Anthony Sansone
-            Single User License
-            EA7E-878563
-            28B9A648 42B99D8A F2E3E9E0 16DE076E
-            E218B3DC F3606379 C33C1526 E8B58964
-            B2CB3F63 BDF901BE D31424D2 082891B5
-            F7058694 55FA46D8 EFC11878 0868F093
-            B17CAFE7 63A78881 86B78E38 0F146238
-            BAE22DBB D4EC71A1 0EC2E701 C7F9C648
-            5CF29CA3 1CB14285 19A46991 E9A98676
-            14FD4777 2D8A0AB6 A444EE0D CA009B54
-            —— END LICENSE ——
-
-            —– BEGIN LICENSE —–
-            Alexey Plutalov
-            Single User License
-            EA7E-860776
-            3DC19CC1 134CDF23 504DC871 2DE5CE55
-            585DC8A6 253BB0D9 637C87A2 D8D0BA85
-            AAE574AD BA7D6DA9 2B9773F2 324C5DEF
-            17830A4E FBCF9D1D 182406E9 F883EA87
-            E585BBA1 2538C270 E2E857C2 194283CA
-            7234FF9E D0392F93 1D16E021 F1914917
-            63909E12 203C0169 3F08FFC8 86D06EA8
-            73DDAEF0 AC559F30 A6A67947 B60104C6
-            —— END LICENSE ——
-
+    atom : 文本编辑器
     nomacs : 图片查看器，这个界面做的不错，推荐
     ristretto : Image查看器   
     galculator : 计算器   
     goldendict : 字典   
         这个字典支持好多中格式的词库,词库可以网上搜索,或者使用本git中.goldendict目录下的文件.   
         需要在 "编辑"/"字典"/"构词法" 中设置以下构词法为本git中.goldendict/morphology/才能提高英文单词识别率   
-    gnome-keyring 如果需要记住密码&自动登录的特性,需要安装这个包   
     thunar	:	文件管理器   
     gksu   
     gvfs   
+        gvfs-nfs:  nfs支持
+        gvfs-smb:  smb支持
+        gnome-keyring 如果需要记住密码&自动登录的特性,需要安装这个包   
     xfce4-panel   
     xfce4-notifyd :
         一个用来显示通知的服务， 可以更美观的显示屏幕角落弹出框类型的通知。
     ultra-flat-icon   
         拷贝本源中的ultra-flat-icon到/usr/share/icon目录下,注意这个icon带鼠标主题.   
         然后拷贝本源中的.Xresources到家目录下,即可使用48px大小的鼠标主题.   
+	ln -svf /usr/share/icon/ultra-flat-icon /usr/share/icons/default
+    qt5ct 与 qt5-styleplugins
+	安装这个文件，然后拷贝 etc/profile.d/qt.sh 到/etc/profile.d目录
+        重启后在 at5ct 中设置使用gtk2主题
     tumbler   
     thunar-volman   
     thunar-archive-plugin   
@@ -213,21 +145,17 @@
     smplayer-themes 主题包   
     smplayer-skins 皮肤   
     deepin-voice-recorder : 深度录音工具
-    deepin-screen-recorder-copy-patch 或 deepin-screen-recorder : 深度录屏工具、截图工具
-        此工具包含deepin-screenshot
-        注意： 
-            1. deepin-screen-recorder-copy-patch需要同时安装xclip， 不然依然无法使用剪切板
-            2. deepin-screen-recorder在非深度环境下有bug，无法将图像复制到剪贴板
-    xfce4-screenshooter :	截图   
+    deepin-screen-recorder : 深度录屏工具、截图工具
+	如果想要支持剪贴板复制，需要安装剪切板管理器： gpaste, 然后使用gpaste-client preferences打开图像支持， 最后设置 gpaste-client start 自动启动即可。
     xcompmgr	:	简单的窗口透明特效管理   
         注意,不知道什么原因这个可能会导致Xorg持续占用很高的cpu,可以试一下picom,这个是xcompmgr的另外一个form版本,功能更强大.   
     picom -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88   
-    volumeicon	:	音量调节   
-    alsa-utils   
     bcloud :   
         百度云盘的GUI前端,记得在首选项里面打开同步文件夹的功能.    
     pulseaudio-alsa : 下面的pavucontrol需要安装这个才可以正常工作   
-    pavucontrol : 一套高级输入输出设备管理的GUI前端,在volumeicon设置中,将'external mixer'设置为它即可
+        pavucontrol : 一套高级输入输出设备管理的GUI前端,在volumeicon设置中,将'external mixer'设置为它即可
+        volumeicon	:	音量调节   
+        alsa-utils   
 
 ------------------------------------------------------------------------------------------------------------------------
     以下两个套件选择一个,都是用来管理图形化网络配置的,nm支持VPN,wicd目前还不支持   
@@ -247,9 +175,8 @@
         python-packagekit   
         python-pysmbc   
         等,根据需要安装   
-    fcitx	:	中文输入法   
-        pacman -S fcitx-im,选择全部安装   
-        pacman -S archlinuxcn/fcitx-sogoupinyin community/fcitx-configtool   
+    fcitx5	:	中文输入法   
+        pacman -S fcitx5-im,选择全部安装   
         将本工程下的etc/profile.d/fcitx.sh拷贝到/etc/profile.d/目录下, 并重启系统   
         将本工程下的.config/fcitx/rime/default.custom.yaml链接到~/.local/share/fcitx5/rime/
     virtualbox : 虚拟机   

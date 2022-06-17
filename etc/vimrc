@@ -138,6 +138,7 @@ set history=400
 "set autochdir
 "Have the mouse enabled all the time:
 set mouse=a
+set mousemodel=popup
 
 "internationalization
 "I only work in Win2k Chinese version

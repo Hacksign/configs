@@ -120,11 +120,15 @@ awful.rules.rules = {
                     tc.ontop = true
                     tc.below = false
                     tc.above = true
+		    tc.border_width = 0
+		    tc.no_border = true
                 end)
                 c:connect_signal('unfocus', function(tc)
                     tc.ontop = false
                     tc.below = true
                     tc.above = false
+		    tc.border_width = 0
+		    tc.no_border = true
                 end)
                 c:connect_signal('property::minimized', function(tc) 
                     -- this client can not minized
