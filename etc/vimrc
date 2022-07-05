@@ -13,7 +13,7 @@ Plugin 'The-NERD-tree'
 Plugin 'unkiwii/vim-nerdtree-sync'
 let g:nerdtree_sync_cursorline = 1
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \    "Modified"  : "✹",
     \    "Staged"    : "✚",
     \    "Untracked" : "✭",
@@ -130,8 +130,8 @@ filetype indent on     " required!
 "Themes and colors
 set t_Co=256
 syntax enable
-colorscheme desert
 set background=dark
+autocmd vimenter * ++nested colorscheme solarized8
 "Sets how many lines of history VIM har to remember
 set history=400
 "set to auto change current divrectory to current editing file's directory
@@ -314,6 +314,10 @@ set si
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => MISC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"scrollbar auto display
+au VimEnter * if line('$') > &lines | set guioptions+=r | else | set guioptions-=r | endif
+au VimResized * if line('$') > &lines | set guioptions+=r | else | set guioptions-=r | endif
+autocmd OptionSet wrap if &wrap|set guioptions-=b|else|set guioptions+=b|endif
 "set font
 set gfn=Terminal,h10,cANSI
 set gfw=Terminal,h10.5,cGB2312

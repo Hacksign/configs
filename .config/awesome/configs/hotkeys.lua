@@ -334,7 +334,7 @@ globalkeys = awful.util.table.join(
         local cmd = "gmrun -g +" .. math.floor(geometry.x + geometry.width/2 - (beautiful.border_width + 500/2)) .. "+" .. math.floor(geometry.y  + geometry.height/2 - (beautiful.border_width + 76/2))
         awful.spawn(cmd)
     end),
-    awful.key({ modkey}, "n", function () awful.spawn("atom") end), -- start a notepad
+    awful.key({ modkey}, "n", function () awful.spawn("gvim") end), -- start a notepad
     awful.key({ modkey, "Control"}, "l", function () awful.spawn.with_shell("dm-tool lock &") end) -- yaourt -S lightdm lightdm-gtk-greeter
 )
 --end of globalkeys
