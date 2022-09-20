@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Notepad++
+Exec=/usr/bin/wine '/home/hacksign/Software/Notepad++/notepad++.exe'
+Icon=/usr/share/icons/WineAppIcons/Notepad++.ico
+Type=Application
+StartupNotify=true
+StartupWMClass=notepad++.exe
+Actions=new-instance;
+
+[Desktop Action new-instance]
+Name=New Instance
+Exec=/usr/bin/wine '/home/hacksign/Software/Notepad++/notepad++.exe'

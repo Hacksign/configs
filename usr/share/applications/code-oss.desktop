@@ -10,3 +10,8 @@ Terminal=false
 StartupNotify=true
 NoDisplay=true
 X-Desktop-File-Install-Version=0.24
+Actions=new-instance;
+
+[Desktop Action new-instance]
+Name=New Instance
+Exec=/usr/bin/code-oss

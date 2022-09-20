@@ -110,7 +110,6 @@
     goldendict : 字典   
         这个字典支持好多中格式的词库,词库可以网上搜索,或者使用本git中.goldendict目录下的文件.   
         需要在 "编辑"/"字典"/"构词法" 中设置以下构词法为本git中.goldendict/morphology/才能提高英文单词识别率   
-    thunar	:	文件管理器   
     gksu   
     gvfs   
         gvfs-nfs:  nfs支持
@@ -127,6 +126,8 @@
 	安装这个文件，然后拷贝 etc/profile.d/qt.sh 到/etc/profile.d目录
         重启后在 at5ct 中设置使用gtk2主题
     tumbler   
+    thunar	:	文件管理器   
+        tumbler: 让thunar显示图片等文件的预览图， 如果需要其他文件的预览， 注意可选依赖。
     thunar-volman   
     thunar-archive-plugin   
     thunar-media-tags-plugin   
