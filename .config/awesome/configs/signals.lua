@@ -30,80 +30,81 @@ end)
 client.connect_signal("property::size", function (c, startup)
     caculate_bordder(c)
 end)
+
 client.connect_signal("manage", function (c)
     caculate_bordder(c)
-
-    -- check whether client is properly placed
-    -- check geometry could contain this client
-    if c.width + c.border_width * 2 <= c.screen.geometry.width then
-        -- check left out of current screen
-        if c.x - c.border_width < c.screen.geometry.x then
-            awful.placement.no_offscreen(c)
-        end
-        -- check right out of current screen
-        if c.x + c.width + c.border_width > c.screen.geometry.x + c.screen.geometry.width then
-            awful.placement.no_offscreen(c)
-        end
-    end
-    --if c.height + c.border_width * 2 <= c.screen.geometry.height then
-    --    -- check top out of current screen
-    --    if c.y - c.border_width < c.screen.geometry.y then
-    --        awful.placement.no_offscreen(c)
-    --    end
-    --    -- check bottom out of current screen
-    --    if c.y + c.height + c.border_width > c.screen.geometry.y + c.screen.geometry.height then
-    --        awful.placement.no_offscreen(c)
-    --    end
-    --end
-
-    -- Enable sloppy focus
-    --	focus window with mouse move, following mouse movement
-    -- c:connect_signal("mouse::enter", function(c)
-    --     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-    --         and awful.client.focus.filter(c) then
-    --         if not c.minimized then
-    --             client.focus = c
-    --         end
-    --     end
-    -- end)
-
-    local titlebars_enabled = false
-    if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
-        -- Widgets that are aligned to the left
-        local left_layout = wibox.layout.fixed.horizontal()
-        left_layout:add(awful.titlebar.widget.iconwidget(c))
-
-        -- Widgets that are aligned to the right
-        local right_layout = wibox.layout.fixed.horizontal()
-        right_layout:add(awful.titlebar.widget.floatingbutton(c))
-        right_layout:add(awful.titlebar.widget.maximizedbutton(c))
-        right_layout:add(awful.titlebar.widget.stickybutton(c))
-        right_layout:add(awful.titlebar.widget.ontopbutton(c))
-        right_layout:add(awful.titlebar.widget.closebutton(c))
-
-        -- The title goes in the middle
-        local title = awful.titlebar.widget.titlewidget(c)
-        title:buttons(awful.util.table.join(
-        awful.button({ }, 1, function()
-            client.focus = c
-            c:raise()
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            client.focus = c
-            c:raise()
-            awful.mouse.client.resize(c)
-        end)
-        ))
-
-        -- Now bring it all together
-        local layout = wibox.layout.align.horizontal()
-        layout:set_left(left_layout)
-        layout:set_right(right_layout)
-        layout:set_middle(title)
-
-        awful.titlebar(c):set_widget(layout)
-    end
+--
+--    -- check whether client is properly placed
+--    -- check geometry could contain this client
+--    if c.width + c.border_width * 2 <= c.screen.geometry.width then
+--        -- check left out of current screen
+--        if c.x - c.border_width < c.screen.geometry.x then
+--            awful.placement.no_offscreen(c)
+--        end
+--        -- check right out of current screen
+--        if c.x + c.width + c.border_width > c.screen.geometry.x + c.screen.geometry.width then
+--            awful.placement.no_offscreen(c)
+--        end
+--    end
+--    --if c.height + c.border_width * 2 <= c.screen.geometry.height then
+--    --    -- check top out of current screen
+--    --    if c.y - c.border_width < c.screen.geometry.y then
+--    --        awful.placement.no_offscreen(c)
+--    --    end
+--    --    -- check bottom out of current screen
+--    --    if c.y + c.height + c.border_width > c.screen.geometry.y + c.screen.geometry.height then
+--    --        awful.placement.no_offscreen(c)
+--    --    end
+--    --end
+--
+--    -- Enable sloppy focus
+--    --	focus window with mouse move, following mouse movement
+--    -- c:connect_signal("mouse::enter", function(c)
+--    --     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+--    --         and awful.client.focus.filter(c) then
+--    --         if not c.minimized then
+--    --             client.focus = c
+--    --         end
+--    --     end
+--    -- end)
+--
+--    local titlebars_enabled = false
+--    if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
+--        -- Widgets that are aligned to the left
+--        local left_layout = wibox.layout.fixed.horizontal()
+--        left_layout:add(awful.titlebar.widget.iconwidget(c))
+--
+--        -- Widgets that are aligned to the right
+--        local right_layout = wibox.layout.fixed.horizontal()
+--        right_layout:add(awful.titlebar.widget.floatingbutton(c))
+--        right_layout:add(awful.titlebar.widget.maximizedbutton(c))
+--        right_layout:add(awful.titlebar.widget.stickybutton(c))
+--        right_layout:add(awful.titlebar.widget.ontopbutton(c))
+--        right_layout:add(awful.titlebar.widget.closebutton(c))
+--
+--        -- The title goes in the middle
+--        local title = awful.titlebar.widget.titlewidget(c)
+--        title:buttons(awful.util.table.join(
+--        awful.button({ }, 1, function()
+--            client.focus = c
+--            c:raise()
+--            awful.mouse.client.move(c)
+--        end),
+--        awful.button({ }, 3, function()
+--            client.focus = c
+--            c:raise()
+--            awful.mouse.client.resize(c)
+--        end)
+--        ))
+--
+--        -- Now bring it all together
+--        local layout = wibox.layout.align.horizontal()
+--        layout:set_left(left_layout)
+--        layout:set_right(right_layout)
+--        layout:set_middle(title)
+--
+--        awful.titlebar(c):set_widget(layout)
+--    end
 end)
 -- }}}
 

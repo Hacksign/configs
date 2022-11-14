@@ -25,7 +25,10 @@ modkey = "Mod4"
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/arch/theme.lua")
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.fit(beautiful.wallpaper, s, beautiful.bg_normal)
+        gears.wallpaper.maximized(
+            beautiful.wallpaper,
+            s
+        )
     end
 end
 for s in screen do

@@ -61,7 +61,6 @@ gears.timer(
         single_shot = true,
         callback = function()
             shellexecute('xfce4-notifyd', '/usr/lib/xfce4/notifyd/xfce4-notifyd', true)
-            shellexecute('fcitx5', 'fcitx5 -d 1>/dev/null 2>&1', true)
             --shellexecute('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check', true)
             --shellexecute('pcmanfm', 'pcmanfm --desktop --one-screen', true)
             shellexecute('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true, false)
@@ -79,6 +78,7 @@ gears.timer(
             shellexecute('/usr/bin/libinput-gestures', 'bash -c "/usr/bin/libinput-gestures-setup restart" 1>/dev/null 2>&1')
             shellexecute('remmina', 'remmina --icon')
             shellexecute('syncthing-gtk', 'syncthing-gtk --minimized')
+            shellexecute('fcitx5', 'fcitx5 -d 1>/dev/null 2>&1', true)
         end
     }
 )

@@ -105,6 +105,18 @@ awful.rules.rules = {
         }
     },
     {
+        rule = { class = "Cairo-dock"  },
+        properties = {
+            no_border = true,
+            border_width = 0,
+            minimized = false,
+            dockable = false,
+            ontop = false, -- set default value
+            above = false, -- set default value
+            below = true, -- set default value
+        }
+    },
+    {
         rule = { class = "Plank"  },
         except = { name = "Plank Clock Calendar" },
         properties = {

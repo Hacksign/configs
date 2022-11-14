@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=PE Bear
-Exec=/usr/bin/PE-bear
+Exec=/usr/bin/pe-bear
 Icon=/usr/share/icons/WineAppIcons/PEBear.png
 Type=Application
 StartupNotify=true
@@ -9,4 +9,4 @@ Actions=new-instance;
 
 [Desktop Action new-instance]
 Name=New Instance
-Exec=/usr/bin/PE-bear
+Exec=/usr/bin/pe-bear

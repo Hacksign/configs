@@ -9,6 +9,7 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 call vundle#begin()
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'The-NERD-tree'
 Plugin 'unkiwii/vim-nerdtree-sync'
 let g:nerdtree_sync_cursorline = 1
@@ -131,7 +132,7 @@ filetype indent on     " required!
 set t_Co=256
 syntax enable
 set background=dark
-autocmd vimenter * ++nested colorscheme solarized8
+colorscheme solarized
 "Sets how many lines of history VIM har to remember
 set history=400
 "set to auto change current divrectory to current editing file's directory

@@ -1,92 +1,34 @@
 [global_config]
-  handle_size = 0
-  scroll_tabbar = True
-  title_hide_sizetext = True
-  title_transmit_bg_color = "#007ad0"
-  title_receive_fg_color = "#eeeeec"
-  title_receive_bg_color = "#3cf48b"
-  title_inactive_bg_color = "#888a85"
-  inactive_color_offset = 0.76
-  enabled_plugins = Logger,
-  suppress_multiple_term_dialog = True
-  always_split_with_profile = True
-  title_font = Unibit 15
 [keybindings]
-  zoom_in = <Primary>equal
-  zoom_out = <Primary>minus
-  zoom_normal = <Primary>0
   new_tab = <Primary>t
-  cycle_next = None
-  cycle_prev = None
-  go_next = None
-  go_prev = None
-  rotate_cw = None
-  rotate_ccw = None
-  split_horiz = None
-  split_vert = None
-  close_term = None
-  copy = None
-  paste = None
-  toggle_scrollbar = None
-  search = None
-  page_up = Page_Up
-  page_down = Page_Down
-  line_up = None
-  line_down = None
-  close_window = None
-  resize_up = <Primary><Alt>Up
-  resize_down = <Primary><Alt>Down
-  resize_left = <Primary><Alt>Left
-  resize_right = <Primary><Alt>Right
-  move_tab_right = <Primary><Alt>l
-  move_tab_left = <Primary><Alt>h
-  toggle_zoom = None
-  scaled_zoom = None
+  search = <Primary>f
   next_tab = <Alt>l
   prev_tab = <Alt>h
-  full_screen = None
-  reset = None
-  reset_clear = None
-  hide_window = None
-  group_all = None
-  ungroup_all = None
-  group_tab = None
-  ungroup_tab = None
-  new_window = None
-  new_terminator = None
-  broadcast_off = None
-  broadcast_group = None
-  broadcast_all = None
-  insert_number = None
-  insert_padded = None
-  edit_window_title = None
-  edit_tab_title = None
-  edit_terminal_title = None
-  layout_launcher = None
-  help = None
+  layout_launcher = ""
 [profiles]
   [[default]]
-    urgent_bell = True
     background_color = "#002b36"
-    background_darkness = 0.95
-    cursor_color = "#37f608"
-    cursor_color_fg = False
+    background_darkness = 0.98
+    background_type = transparent
+    cursor_fg_color = "#002b36"
+    cursor_bg_color = "#2ec509"
+    cursor_color_default = False
     font = YaHei Consolas Hybrid 12
     foreground_color = "#839496"
-    scroll_background = False
-    scrollback_lines = 3000
     scrollback_infinite = True
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    palette = "#002b36:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#073642:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     use_system_font = False
-    active_encodings = GB2312, UTF-8, ISO-8859-1
     copy_on_selection = True
+    title_transmit_bg_color = "#3584e4"
+    title_receive_bg_color = "#e01b24"
+    title_use_system_font = False
+    title_font = YaHei Consolas Hybrid 10
 [layouts]
   [[default]]
-    [[[child1]]]
-      parent = window0
-      profile = default
-      type = Terminal
     [[[window0]]]
-      parent = ""
       type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
 [plugins]
