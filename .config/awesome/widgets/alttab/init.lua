@@ -259,7 +259,6 @@ local function switch(dir, alt, tab, shift_tab)
     -- This will preserve the history AND enable you to focus on minimized clients
     -- NOTE: window type which is 'desktop' (e.g.:Xfdesktop) should not be showed in the list
 
-    local t = awful.tag.selected(s)
     local all = client.get(s)
 
 
@@ -270,7 +269,7 @@ local function switch(dir, alt, tab, shift_tab)
         -- check if the client is on the current tag
         local isCurrentTag = false
         for j = 1, #ctags do
-            if t == ctags[j] then
+            if s.selected_tag == ctags[j] then
                 isCurrentTag = true
                 break
             end

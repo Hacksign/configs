@@ -4,7 +4,6 @@ local widgets		= require("widgets")
 local beautiful = require("beautiful")
 local is_floats = require("utils/is-floats")
 local proportion_resize = require("utils/proportion-resize")
-local alttab = widgets.alttab
 local last_focused_client = nil
 local layouts = {
     awful.layout.suit.floating,
@@ -295,10 +294,10 @@ globalkeys = awful.util.table.join(
         if client.focus then client.focus:raise() end
     end),
     awful.key({ "Mod1",           }, "Tab", function ()
-        alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
+        widgets.alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")
     end),                                                                                           
     awful.key({ "Mod1", "Shift"   }, "Tab", function ()
-        alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
+        widgets.alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")
     end),
     -- navigate mouse cursor between screens
     awful.key({ modkey, }, "l", function () awful.screen.focus_relative( 1) end),

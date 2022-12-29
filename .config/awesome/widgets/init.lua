@@ -9,7 +9,7 @@ local widgets =
     temperature	   = require("widgets.temperature"),
     weather	       = require("widgets.weather"),
     screenful      = require("widgets.screenful"),
-    freedesktop        = require("widgets.freedesktop"),
+    freedesktop    = require("widgets.freedesktop"),
 }
 
 return widgets

@@ -1,6 +1,5 @@
 local os = require("os")
 local lfs=require("lfs")
-local gears=require("gears")
 local awful=require("awful")
 local type=type
 local assert=assert
@@ -45,40 +44,38 @@ local function shellexecute(process, cmd, with_shell, run_once)
         end
     end
     if with_shell then
-        return awful.spawn.with_shell(cmd or process)
+        return awful.spawn.easy_async_with_shell(
+            cmd or process,
+            function(stdout, stderr, exitreason, exitcode) 
+            end
+        )
     else
-        return awful.spawn(cmd or process)
+        return awful.spawn.easy_async(
+            cmd or process,
+            function(stdout, stderr, exitreason, exitcode) 
+            end
+        )
     end
 end
 -- }}}
 --
 
-gears.timer(
-    {
-        timeout = 0,
-        call_now = true,
-        autostart = false,
-        single_shot = true,
-        callback = function()
-            shellexecute('xfce4-notifyd', '/usr/lib/xfce4/notifyd/xfce4-notifyd', true)
-            --shellexecute('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check', true)
-            --shellexecute('pcmanfm', 'pcmanfm --desktop --one-screen', true)
-            shellexecute('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true, false)
-            shellexecute('picom', 'picom')
-            --shellexecute('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
-            shellexecute('gpaste-daemon', 'gpaste-client start')
-            shellexecute('indicator-keylock', 'indicator-keylock')
-            shellexecute('volumeicon', 'volumeicon')
-            shellexecute('thunar', 'thunar --daemon')
-            shellexecute('synology-note-station', 'bash -l -c "alltray --enable-ctt --hide /home/hacksign/.syno_ns_app/synology-note-station 1>/dev/null 2>&1"')
-            shellexecute('nm-applet', 'nm-applet 1>/dev/null')
-            shellexecute('goldendict', 'goldendict')
-            --shellexecute('caffeine', 'caffeine')
-            shellexecute('blueman-applet', 'bash -lc "/usr/bin/blueman-applet 1>/dev/null 2>&1"')
-            shellexecute('/usr/bin/libinput-gestures', 'bash -c "/usr/bin/libinput-gestures-setup restart" 1>/dev/null 2>&1')
-            shellexecute('remmina', 'remmina --icon')
-            shellexecute('syncthing-gtk', 'syncthing-gtk --minimized')
-            shellexecute('fcitx5', 'fcitx5 -d 1>/dev/null 2>&1', true)
-        end
-    }
-)
+shellexecute('xfce4-notifyd', '/usr/lib/xfce4/notifyd/xfce4-notifyd', true)
+--shellexecute('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check', true)
+--shellexecute('pcmanfm', 'pcmanfm --desktop --one-screen', true)
+shellexecute('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true, true)
+shellexecute('picom', 'picom')
+--shellexecute('syndaemon', 'syndaemon -t -k -i 2 -d 2>/dev/null')
+shellexecute('gpaste-daemon', 'gpaste-client start')
+shellexecute('indicator-keylock', 'indicator-keylock')
+shellexecute('volumeicon', 'volumeicon')
+shellexecute('thunar', 'thunar --daemon')
+shellexecute('synology-note-station', 'bash -l -c "alltray --enable-ctt --hide /home/hacksign/.syno_ns_app/synology-note-station 1>/dev/null 2>&1"')
+shellexecute('nm-applet', 'nm-applet 1>/dev/null')
+shellexecute('goldendict', 'goldendict')
+--shellexecute('caffeine', 'caffeine')
+shellexecute('blueman-applet', 'bash -lc "/usr/bin/blueman-applet 1>/dev/null 2>&1"')
+shellexecute('/usr/bin/libinput-gestures', 'bash -c "/usr/bin/libinput-gestures-setup restart" 1>/dev/null 2>&1')
+shellexecute('remmina', 'remmina --icon')
+shellexecute('syncthing-gtk', 'syncthing-gtk --minimized')
+shellexecute('fcitx5', 'fcitx5 -d 1>/dev/null 2>&1', true)

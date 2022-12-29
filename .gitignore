@@ -4,6 +4,7 @@
 .config/fcitx/
 .config/gtk-3.0/bookmarks
 .config/gtk-3.0/custom-papers
+.config/awesome/autostart/.note_data/
 .goldendict/config
 .goldendict/index/
 .goldendict/history

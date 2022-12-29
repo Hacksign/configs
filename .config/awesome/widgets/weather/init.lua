@@ -17,6 +17,7 @@ local dpi = xresources.apply_dpi
 local options = {
     loop = 0,
     city = nil,
+    cityCode = nil,
     theme = nil,
     interval = 5,
     weather_got = false
@@ -75,16 +76,18 @@ local function guess_city()
             local location = json:decode(trim(stdout))
             if location then
                 options.city = location.city
+                options.cityCode = location.cityCode
             end
         end
     )
 end
-local function get_weather() 
+local function get_weather()
 	local cmd = string.format(
-        "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'http://wthrcdn.etouch.cn/weather_mini?city=%s' 2>/dev/null | gzip -d 2>/dev/null && curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://map.baidu.com/?qt=cur&wd=%s' 1>&2",
-        options.city,
+        "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://restapi.amap.com/v3/weather/weatherInfo?key=c67d588d9bad9475f33cf5427e87bdd0&city=%s&extensions=all' 2>/dev/null && curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://map.baidu.com/?qt=cur&wd=%s' 1>&2",
+        options.cityCode,
         options.city
     )
+
     awful.spawn.easy_async_with_shell(
         cmd,
         function(stdout, stderr, exitreason, exitcode)
@@ -97,7 +100,7 @@ local function get_weather()
                 escape_char(
                     trim(stderr)
                 )
-            )
+            )            
             local aqi_color
             if aqi and aqi.aqi and aqi.aqi.current_city and aqi.aqi.current_city.aqi ~= nil then
                 if tonumber(aqi.aqi.current_city.aqi) <= 50 then
@@ -114,48 +117,44 @@ local function get_weather()
             else
                 aqi_color = 'white'
             end
-            if weather ~= nil and weather.data and aqi ~= nil and aqi.aqi then
+            if weather ~= nil and weather.status and aqi ~= nil and aqi.aqi then
                 local rows = {
                     spacing = 5,
                     layout = wibox.layout.fixed.vertical,
                 }
-                if weather.data ~= nil then
-                    for i, each_day in ipairs(weather.data.forecast) do
-                        local fengli = unescape_char(each_day.fengli)
-                                        :gsub('<!%[CDATA%[', '')
-                                        :gsub('%]%]>', '')
+                if weather.status ~= nil then
+                    for i, each_day in ipairs(weather.forecasts[1].casts) do
                         local row = wibox.widget {
                             {
                                 markup = '<span color="SteelBlue">' .. each_day.date .. '</span>',
-                                forced_width = 135,
+                                forced_width = 150,
                                 widget = wibox.widget.textbox
                             },
                             {
-                                markup = '<span color="Violet">'..each_day.type..'</span>',
-                                forced_width = 80,
-                                widget = wibox.widget.textbox
+                                markup = '<span color="Violet">'..each_day.dayweather..' '..each_day.nightweather..'</span>',
+                                forced_width = 120,
+                                widget = wibox.widget.textbox,
+                                align = 'center'
                             },
                             {
                                 {
-                                    markup = '<span color="Gold">'..each_day.high..'</span>',
-                                    forced_width = 130,
-                                    widget = wibox.widget.textbox
-                                },
-                                {
-                                    markup = '<span color="Gold">'..each_day.low..'</span>',
-                                    forced_width = 130,
-                                    widget = wibox.widget.textbox
+                                    markup = '<span color="Gold">'..each_day.daytemp..' '..each_day.nighttemp..'</span>',
+                                    forced_width = 100,
+                                    widget = wibox.widget.textbox,
+                                    align = 'center'
                                 },
                                 {
                                     {
-                                        markup = '<span color="DeepSkyBlue">'..escape_char(fengli)..'</span>',
-                                        forced_width = 80,
-                                        widget = wibox.widget.textbox
+                                        markup = '<span color="DeepSkyBlue">'..escape_char(each_day.daypower)..' '..escape_char(each_day.nightpower)..'</span>',
+                                        forced_width = 100,
+                                        widget = wibox.widget.textbox,
+                                        align = 'center'
                                     },
                                     {
-                                        markup = '<span color="Silver">'..each_day.fengxiang..'</span>',
-                                        forced_width = 80,
-                                        widget = wibox.widget.textbox
+                                        markup = '<span color="Silver">'..each_day.daywind..' '..each_day.nightwind..'</span>',
+                                        forced_width = 120,
+                                        widget = wibox.widget.textbox,
+                                        align = 'center'
                                     },
                                     layout = wibox.layout.align.horizontal
                                 },
@@ -176,28 +175,22 @@ local function get_weather()
                     local short_info = string.format(
                         "<span font_desc='%s' font_size='%spt'>"..
                             "<span color='SteelBlue'>%s</span>"..
-                            "<span color='DarkTurquoise'> %s℃</span>"..
-                            "<span color='%s'> %s</span>"..
-                            "<span color='Violet'> %s</span>"..
-                            "<span color='Gold'> %s</span>"..
-                            "<span color='Gold'> %s</span>"..
-                            "<span color='DeepSkyBlue'> /</span>"..
-                            "<span color='Violet'> %s</span>"..
-                            "<span color='Gold'> %s</span>"..
-                            "<span color='Gold'> %s</span>"..
+                            "<span> </span>"..
+                            "<span color='Violet'>%03s - %03s</span>"..
+                            "<span> </span>"..
+                            "<span color='DarkTurquoise'>%02s℃ %02s℃</span>"..
+                            "<span> </span>"..
+                            "<span color='%s'>%s</span>"..
                         "</span>",
                         options.theme.font,
                         options.font_size,
                         options.city,
-                        weather.data.wendu,
+                        weather.forecasts[1].casts[1].dayweather,
+                        weather.forecasts[1].casts[1].nightweather,
+                        weather.forecasts[1].casts[1].daytemp,
+                        weather.forecasts[1].casts[1].nighttemp,
                         aqi_color,
-                        aqi.aqi.current_city.aqi,
-                        weather.data.forecast[1].type,
-                        weather.data.forecast[1].high:gsub('高温 ', ''),
-                        weather.data.forecast[1].low:gsub('低温 ', ''),
-                        weather.data.forecast[2].type,
-                        weather.data.forecast[2].high:gsub('高温 ', ''),
-                        weather.data.forecast[2].low:gsub('低温 ', '')
+                        aqi.aqi.current_city.aqi
                     )
                     widget:set_markup_silently(short_info)
                     options.weather_got = true

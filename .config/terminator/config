@@ -1,10 +1,53 @@
 [global_config]
+  dbus = False
+  focus = system
+  broadcast_default = off
 [keybindings]
   new_tab = <Primary>t
+  go_next = ""
+  go_prev = ""
+  go_up = ""
+  go_down = ""
+  go_left = ""
+  go_right = ""
+  rotate_cw = ""
+  rotate_ccw = ""
+  split_horiz = ""
+  split_vert = ""
+  close_term = ""
+  copy = ""
+  paste = <Shift>Insert
+  toggle_scrollbar = ""
   search = <Primary>f
+  close_window = ""
+  resize_up = ""
+  resize_down = ""
+  resize_left = ""
+  resize_right = ""
+  move_tab_right = ""
+  move_tab_left = ""
+  toggle_zoom = ""
+  scaled_zoom = ""
   next_tab = <Alt>l
   prev_tab = <Alt>h
+  full_screen = ""
+  reset = ""
+  reset_clear = ""
+  hide_window = ""
+  group_all = ""
+  ungroup_all = ""
+  ungroup_win = ""
+  group_tab = ""
+  ungroup_tab = ""
+  new_window = ""
+  new_terminator = ""
+  insert_number = ""
+  insert_padded = ""
+  edit_window_title = ""
+  edit_tab_title = ""
+  edit_terminal_title = ""
   layout_launcher = ""
+  help = ""
 [profiles]
   [[default]]
     background_color = "#002b36"
