@@ -38,7 +38,8 @@
             param=/etc/X11/xrdp
             param=-config
             param=xorg.conf
-        最后， 如果thunar等无法链接smb等，大概率是dbus的问题， 需要安装AUR中的: dbus-x11
+        如果thunar等无法链接smb等，大概率是dbus的问题， 需要安装AUR中的: dbus-x11
+        如果没有声音，需要安装pulseaudio-module-xrdp
     avaloniailspy:
         .NET 反汇编工具的Linux版本
     plank:

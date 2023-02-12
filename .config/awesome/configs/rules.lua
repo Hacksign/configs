@@ -132,15 +132,15 @@ awful.rules.rules = {
                     tc.ontop = true
                     tc.below = false
                     tc.above = true
-		    tc.border_width = 0
-		    tc.no_border = true
+                    tc.border_width = 0
+                    tc.no_border = true
                 end)
                 c:connect_signal('unfocus', function(tc)
                     tc.ontop = false
                     tc.below = true
                     tc.above = false
-		    tc.border_width = 0
-		    tc.no_border = true
+                    tc.border_width = 0
+                    tc.no_border = true
                 end)
                 c:connect_signal('property::minimized', function(tc) 
                     -- this client can not minized
@@ -148,6 +148,10 @@ awful.rules.rules = {
                 end)
                 c:connect_signal('property::struts', function(tc)
                     local struts = tc:struts()
+                    local geometry = tc:geometry()
+
+                    geometry.height = math.min(geometry.height, 80)
+                    tc:geometry(geometry)
                     if struts.bottom ~= 0 then
                         tc:struts({ left = 0, right = 0, top = 0, bottom = 0  })
                     end
