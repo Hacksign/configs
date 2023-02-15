@@ -1,0 +1,45 @@
+---
+name: luna_pinyin_simp.extended
+version: "2016.06.26"
+sort: by_weight  #字典初始排序，可選original或by_weight
+use_preset_vocabulary: true
+#此處爲明月拼音擴充詞庫（基本）默認鏈接載入的詞庫，有朙月拼音官方詞庫、明月拼音擴充詞庫（漢語大詞典）、明月拼音擴充詞庫（詩詞）、明月拼音擴充詞庫（含西文的詞彙）。如果不需要加載某个詞庫請將其用「#」註釋掉。
+#雙拼不支持 luna_pinyin.cn_en 詞庫，請用戶手動禁用。
+
+import_tables:
+  - dicts/essay
+  - dicts/luna_pinyin.anime
+  - dicts/luna_pinyin.basis
+  - dicts/luna_pinyin.biaoqing
+  - dicts/luna_pinyin.chat
+  - dicts/luna_pinyin.chengyusuyu
+  - dicts/luna_pinyin.classical
+  - dicts/luna_pinyin.cn_en
+  - dicts/luna_pinyin.cnenhybird
+  - dicts/luna_pinyin.comprehensive
+  - dicts/luna_pinyin.computer
+  - dicts/luna_pinyin
+  - dicts/luna_pinyin.diet
+  - dicts/luna_pinyin.emoji
+  - dicts/luna_pinyin.extra_hanzi
+  - dicts/luna_pinyin.flypyfz
+  - dicts/luna_pinyin.game
+  - dicts/luna_pinyin.hanyu
+  - dicts/luna_pinyin.history
+  - dicts/luna_pinyin.idiom
+  - dicts/luna_pinyin.kaifa
+  - dicts/luna_pinyin.mingxing
+  - dicts/luna_pinyin.music
+  - dicts/luna_pinyin.name
+  - dicts/luna_pinyin.net
+  - dicts/luna_pinyin.place
+  - dicts/luna_pinyin.poetry
+  - dicts/luna_pinyin.popular
+  - dicts/luna_pinyin.shopping
+  - dicts/luna_pinyin.sougou.basic
+  - dicts/luna_pinyin.sougou.conprehensive
+  - dicts/luna_pinyin.sougou
+  - dicts/luna_pinyin.user
+  - dicts/luna_pinyin.website
+  - dicts/luna_pinyin.xiandaihanyu
+...

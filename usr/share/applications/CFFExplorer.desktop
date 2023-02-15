@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=CFF Explorer
-Exec=/usr/bin/wine '/home/hacksign/Software/CFF Explorer/CFF Explorer.exe'
+Exec=/usr/bin/wine '/home/hacksign/Softwares/CFF Explorer/CFF Explorer.exe'
 Type=Application
 StartupNotify=true
 Icon=/usr/share/icons/WineAppIcons/CFFExplorer.ico
@@ -9,4 +9,4 @@ Actions=new-instance;
 
 [Desktop Action new-instance]
 Name=New Instance
-Exec=/usr/bin/wine '/home/hacksign/Software/CFF Explorer/CFF Explorer.exe'
+Exec=/usr/bin/wine '/home/hacksign/Softwares/CFF Explorer/CFF Explorer.exe'

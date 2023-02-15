@@ -40,6 +40,9 @@
             param=xorg.conf
         如果thunar等无法链接smb等，大概率是dbus的问题， 需要安装AUR中的: dbus-x11
         如果没有声音，需要安装pulseaudio-module-xrdp
+    xf86-input-synaptics:
+        安装此工具，并将etc/X11/xorg.conf.d/70-synaptics.conf复制到/etc/X11/xorg.conf.d/下
+        可以配合syndaemon命令禁用打字时触摸，防止误触，具体命令见 awesome/autostart/init.lua
     avaloniailspy:
         .NET 反汇编工具的Linux版本
     plank:
@@ -182,6 +185,11 @@
         pacman -S fcitx5-im,选择全部安装   
         将本工程下的etc/profile.d/fcitx.sh拷贝到/etc/profile.d/目录下, 并重启系统   
         将本工程下的.config/fcitx/rime/default.custom.yaml链接到~/.local/share/fcitx5/rime/
+        （可选）若想启用字典，则执行如下步骤：
+            1. 克隆如下repo: https://github.com/Iorest/rime-setting
+            2. 将上述repo下的dict文件夹连接到~/.local/share/fcitx5/rime/
+            3. 将本工程下的.config/fcitx/rime/luna_pinyin_simp.custom.yaml、.config/fcitx/rime/luna_pinyin_simp.extended.dict.yaml连接到~/.local/share/fcitx5/rime/
+            4. 重启fcitx并激活rime输入法
     virtualbox : 虚拟机   
         host机器为安装virtualbo的机器,guest机器为虚拟出来的系统机器   
         需要安装linux-headers包,否则vboxsf等内核模块不能正常加载   

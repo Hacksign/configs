@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=RegexBuddy
-Exec=env WINEPREFIX="/home/hacksign/.wine" wine "/home/hacksign/Software/JGsoft/RegexBuddy3/RegexBuddy.exe"
+Exec=env WINEPREFIX="/home/hacksign/.wine" wine "/home/hacksign/Softwares/JGsoft/RegexBuddy3/RegexBuddy.exe"
 Type=Application
 StartupNotify=true
 Comment=Learn, create, understand, test, use and store regular expressions

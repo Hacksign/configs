@@ -32,7 +32,7 @@ theme.icon_theme = "ultra-flat-icons"
 theme.font          = "YaHei Consolas Hybrid" .. " " .. dpi(12)
 
 theme.margin_horizontal        = dpi(35)
-theme.margin_vertical        = dpi(55)
+theme.margin_vertical        = dpi(150)
 theme.border_width  = dpi(4)
 theme.border_width_thin  = dpi(2)
 

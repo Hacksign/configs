@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=LxMainNew
+Comment=Lanxin
+StartupWMClass=LxMainNew
+Exec=/opt/apps/cn.lanxin/files/bin/lanxin
+Icon=/opt/apps/cn.lanxin/files/icons/logo.ico
+Categories=Internet
+Terminal=false

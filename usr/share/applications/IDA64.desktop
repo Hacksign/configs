@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=IDA64
-Exec=/usr/bin/wine '/home/hacksign/Software/IDA 7.6/ida64.exe'
+Exec=/usr/bin/wine '/home/hacksign/Softwares/IDA 7.6/ida64.exe'
 Type=Application
 StartupNotify=true
 Icon=/usr/share/icons/WineAppIcons/IDA64.ico
@@ -9,4 +9,4 @@ Actions=new-instance;
 
 [Desktop Action new-instance]
 Name=New Instance
-Exec=/usr/bin/wine '/home/hacksign/Software/IDA 7.6/ida64.exe'
+Exec=/usr/bin/wine '/home/hacksign/Softwares/IDA 7.6/ida64.exe'
