@@ -1,11 +1,10 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-
-Name=NotePad--
-Comment=NotePad--
+Name=Notepad--
+Comment=Notepad--
 Categories=Development;
-
 Icon=text-editor
-Exec=NotePad--
+Exec=Notepad--
 Terminal=false
+StartupWMClass=Notepad--

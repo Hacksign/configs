@@ -1,11 +1,11 @@
-local gears			= require("gears")
-local awful			= require("awful")
-local wibox			= require("wibox")
-local widgets		= require("widgets")
+local gears         = require("gears")
+local awful         = require("awful")
+local wibox         = require("wibox")
+local widgets       = require("widgets")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
-local xresources = require("beautiful.xresources")
-local dpi = xresources.apply_dpi
+local xresources    = require("beautiful.xresources")
+local dpi           = xresources.apply_dpi
 
 local mytaglist = {}
 local mylayoutbox = {}
@@ -146,16 +146,16 @@ for s = 1, screen.count() do
         )
 
         ---- setup desktop icons
-        --widgets.freedesktop.desktop.add_icons(
-        --    {
-        --        screen = screen[s],
-        --        open_with = 'thunar',
-        --        wait_for  = 'plank',
-        --        margin = {x = dpi(10), y = (10)},
-        --        labelsize = {width = dpi(100), height = dpi(20)},
-        --        iconsize = {width = dpi(30), height = dpi(30)},
-        --    }
-        --)
+        widgets.freedesktop.desktop.add_icons(
+            {
+                screen = screen[s],
+                open_with = 'thunar',
+                wait_for  = 'plank',
+                margin = {x = dpi(10), y = (10)},
+                labelsize = {width = dpi(100), height = dpi(20)},
+                iconsize = {width = dpi(30), height = dpi(30)},
+            }
+        )
     end
 end
 

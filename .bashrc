@@ -1,15 +1,15 @@
-# .bashrc
-
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
-
-export PS1="\[\e[1;32m\][\[\e[1;34m\]\u\[\e[0;1m\]@\h \[\e[1;33m\]\W\[\e[1;32m\]]\[\e[1;31m\]\\$ \[\e[0m\]"
-export LANG="zh_CN.UTF-8"
-
-# User specific aliases and functions
-alias ..="cd .."
-alias ls="ls -F --color"
-alias ll="ls -l --time-style='long-iso'"
-alias la="ls -la"
+export LANG=zh_CN.utf8
+export LC_CTYPE="zh_CN.utf8"
+export LC_NUMERIC="zh_CN.utf8"
+export LC_TIME="zh_CN.utf8"
+export LC_COLLATE="zh_CN.utf8"
+export LC_MONETARY="en_US.utf8"
+export LC_MESSAGES="zh_CN.utf8"
+export LC_LANGUAGE=zh_CN.utf8
+export LC_PAPER="en_US.utf8"
+export LC_NAME="en_US.utf8"
+export LC_ADDRESS="zh_CN.utf8"
+export LC_TELEPHONE="zh_CN.utf8"
+export LC_MEASUREMENT="en_US.utf8"
+export LC_IDENTIFICATION="en_US.utf8"
+export LC_ALL=

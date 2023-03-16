@@ -2,6 +2,7 @@
   dbus = False
   focus = system
   broadcast_default = off
+  invert_search = True
 [keybindings]
   new_tab = <Primary>t
   go_next = ""
@@ -52,7 +53,6 @@
   [[default]]
     background_color = "#002b36"
     background_darkness = 0.98
-    background_type = transparent
     cursor_fg_color = "#002b36"
     cursor_bg_color = "#2ec509"
     cursor_color_default = False
