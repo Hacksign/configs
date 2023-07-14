@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Hijack RARBG PopUps
-// @icon https://www.rarbgproxy.to/favicon.ico
+// @icon	 https://www.rarbgproxy.to/favicon.ico
 // @namespace    https://github.com/Hacksign/configs/blob/master/firefox/plugins/greasemonkey/rarbg.user.js
-// @version      0.1
+// @version      0.2
 // @description  Prevent rarbg from popping up annoying ad pages
 // @author       Hacksign
 // @match        https://rarbg.to/*
@@ -41,6 +41,8 @@
 // @include      https://www.rarbgproxies.org/*
 // @include      https://rarbgproxy.org/*
 // @include      https://www.rarbgproxy.org/*
+// @include      https://rarbgproxy.to/*
+// @include      https://www.rarbgproxy.to/*
 // @include      https://rarbgto.org/*
 // @include      https://www.rarbgto.org/*
 // @include      https://rarbgtor.org/*
