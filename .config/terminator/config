@@ -2,7 +2,7 @@
   dbus = False
   focus = system
   broadcast_default = off
-  invert_search = True
+  case_sensitive = False
 [keybindings]
   new_tab = <Primary>t
   go_next = ""
@@ -68,10 +68,21 @@
     title_font = YaHei Consolas Hybrid 10
 [layouts]
   [[default]]
-    [[[window0]]]
+    [[[child0]]]
       type = Window
       parent = ""
-    [[[child1]]]
+      order = 0
+      position = 145:127
+      maximised = False
+      fullscreen = False
+      size = 2278, 1163
+      title = "hacksign@XSignBlade:~ "
+      last_active_term = ddac340c-e768-477e-a3fe-9d4c24358b52
+      last_active_window = True
+    [[[terminal1]]]
       type = Terminal
-      parent = window0
+      parent = child0
+      order = 0
+      profile = default
+      uuid = ddac340c-e768-477e-a3fe-9d4c24358b52
 [plugins]

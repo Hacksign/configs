@@ -1,7 +1,7 @@
 local awful			= require("awful")
 local wibox			= require("wibox")
-local beautiful = require("beautiful")
-local naughty		= require("naughty")
+local beautiful 		= require("beautiful")
+local naughty			= require("naughty")
 
 function caculate_bordder(c)
     if c.type ~= 'desktop' and c.no_border ~= true then

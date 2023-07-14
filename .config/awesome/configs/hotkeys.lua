@@ -29,6 +29,7 @@ function bind_move_client2tag(globalkeys)
             awful.key({ modkey  }, "#" .. i + 9, function ()
                 if i <= #awful.screen.focused().tags then
                     awful.screen.focused().tags[i]:view_only()
+                    awful.screen.focused().tags[i]:emit_signal("request::tag")
                 end
             end),
             -- move current active window to specific tag

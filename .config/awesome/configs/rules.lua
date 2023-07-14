@@ -83,13 +83,6 @@ awful.rules.rules = {
         }
     },
     {
-        rule = { class = "Synergy"  },
-        properties = {
-            size_hints_honor = false,
-            maximized_vertical  = true,
-        }
-    },
-    {
         rule = { class = "sourceinsight4.exe"  },
         properties = {
             screen = screen.primary,
@@ -102,6 +95,13 @@ awful.rules.rules = {
             border_width = 0,
             x = screen.primary.geometry.x,
             y = screen.primary.geometry.y,
+        }
+    },
+    {
+        rule = { class = "Xfce4-notifyd"  },
+        properties = {
+            no_border = true,
+            border_width = 0,
         }
     },
     {
@@ -150,7 +150,7 @@ awful.rules.rules = {
                     local struts = tc:struts()
                     local geometry = tc:geometry()
 
-                    geometry.height = math.min(geometry.height, 80)
+                    geometry.height = math.max(geometry.height, 45)
                     tc:geometry(geometry)
                     if struts.bottom ~= 0 then
                         tc:struts({ left = 0, right = 0, top = 0, bottom = 0  })
