@@ -72,7 +72,7 @@
     window.addEventListener(
         'beforescriptexecute',
         function(e) {
-            if(e.target.src.match(/\/expla\d+\.js$/)){
+            if(e.target.src.match(/[a-f0-9]{32}\.js$/)){
                 e.preventDefault();
                 e.stopPropagation();
                 window.removeEventListener(e.type, arguments.callee, true);
