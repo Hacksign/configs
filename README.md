@@ -129,7 +129,9 @@
     qt5ct 与 qt5-styleplugins
 	安装这个文件，然后拷贝 etc/profile.d/qt.sh 到/etc/profile.d目录
         重启后在 at5ct 中设置使用gtk2主题
-    tumbler   
+    xdg-user-dirs :
+        此工具用于配置XDesktop的各个文件夹位置（如Desktop、Downloads文件夹等）。
+        将本工程 .config/user-dirs.* 文件连接到 ${HOME}/.config/ 下。   
     thunar	:	文件管理器   
         tumbler: 让thunar显示图片等文件的预览图， 如果需要其他文件的预览， 注意可选依赖。
     thunar-volman   
