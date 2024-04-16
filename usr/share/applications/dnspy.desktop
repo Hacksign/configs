@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=dnSpy
+Exec=env "LC_ALL=en_US.UTF-8" wine /home/hacksign/Softwares/dnSpy/dnSpy.exe
+Icon=/usr/share/icons/WineAppIcons/dnSpy.ico
+Type=Application
+StartupNotify=true
+StartupWMClass=dnspy.exe
+Actions=new-instance;
+
+[Desktop Action new-instance]
+Name=New Instance
+Exec=/home/hacksign/Softwares/dnSpy/dnSpy.exe

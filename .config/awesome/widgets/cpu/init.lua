@@ -151,7 +151,7 @@ local function cpu_widget(args)
 
     local cpus = {}
     awful.widget.watch(
-        'bash -c \'cat /proc/stat|grep "^cpu." 2>/dev/null && ps -eo "%p|%c|%C|" -o "%mem" -o "|%P" --sort=-%cpu|head -11|tail -n +2 1>&2 &\'',
+        'bash -c \'cat /proc/stat|grep "^cpu." 2>/dev/null && ps -eo "%p %c %C" -o "%mem" -o "%P" --sort=-%cpu|sed -e "s#\\\\([^ ]\\\\+\\\\)#\\1|#g;"|head -11|tail -n +2 1>&2 &\'',
         interval,
         function(widget, stdout, stderr, exitreason, exitcode)
             local i = 1
@@ -204,11 +204,11 @@ local function cpu_widget(args)
             for process_top in stderr:gmatch("[^\r\n]+") do
                 if is_update == true then
                     local columns = split(process_top, '|')
-                    local pid = trim(columns[1])
-                    local comm = trim(columns[2])
-                    local cpu = trim(columns[3])
-                    local mem = trim(columns[4])
-                    local ppid = trim(columns[5])
+                    local pid = columns[1]  == nil and ' ' or trim(columns[1])
+                    local comm = columns[2] == nil and ' ' or trim(columns[2])
+                    local cpu = columns[3]  == nil and ' ' or trim(columns[3])
+                    local mem = columns[4]  == nil and ' ' or trim(columns[4])
+                    local ppid = columns[5] == nil and ' ' or trim(columns[5])
                     local row = wibox.widget {
                         {
                             {

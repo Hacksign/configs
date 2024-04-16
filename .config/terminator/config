@@ -2,6 +2,7 @@
   dbus = False
   focus = system
   broadcast_default = off
+  suppress_multiple_term_dialog = True
   case_sensitive = False
 [keybindings]
   new_tab = <Primary>t
