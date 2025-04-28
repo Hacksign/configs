@@ -117,7 +117,7 @@ awful.rules.rules = {
         }
     },
     {
-        rule = { class = "Plank"  },
+        rule_any = { class = {"plank", "Plank"}, instance = {"plank"} },
         except = { name = "Plank Clock Calendar" },
         properties = {
             no_border = true,
@@ -184,7 +184,7 @@ awful.rules.rules = {
     -- http://www.youtube.com/watch?v=3Q91HjEaBD8
     -- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
     {
-	rule = { class = "Wine" },
-	properties = { floating = true, border_width = 1 },
+        rule = { class = "Wine" },
+        properties = { floating = true, border_width = 1 },
     },
 }

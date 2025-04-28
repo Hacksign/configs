@@ -335,7 +335,7 @@ globalkeys = awful.util.table.join(
         awful.spawn(cmd)
     end),
     awful.key({ modkey}, "n", function () awful.spawn("gvim") end), -- start a notepad
-    awful.key({ modkey, "Control"}, "l", function () awful.spawn.with_shell("dm-tool lock &") end) -- yaourt -S lightdm lightdm-gtk-greeter
+    awful.key({ modkey, "Control"}, "l", function () awful.spawn("dbus-launch dm-tool lock") end) -- yaourt -S lightdm lightdm-gtk-greeter
 )
 --end of globalkeys
 

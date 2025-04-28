@@ -1,6 +1,9 @@
 function fish_prompt --description 'Write out the prompt'
     set -l last_status $status
 
+    set_color white
+    echo -n '┌─ '
+
     # User
     set_color green
     echo -n (whoami)
@@ -25,6 +28,9 @@ function fish_prompt --description 'Write out the prompt'
 
     __terlar_git_prompt
     echo ''
+
+    set_color white
+    echo -n '└─ '
 
     if not test $last_status -eq 0
 			if not set -q $fish_color_error

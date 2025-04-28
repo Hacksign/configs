@@ -73,10 +73,12 @@ local function guess_city()
     awful.spawn.easy_async_with_shell(
         cmd,
         function(stdout, stderr, exitreason, exitcode)
-            local location = json:decode(trim(stdout))
-            if location then
-                options.city = location.city
-                options.cityCode = location.cityCode
+            if trim(stdout):find("^{") ~= nil then
+                local location = json:decode(trim(stdout))
+                if location then
+                    options.city = location.city
+                    options.cityCode = location.cityCode
+                end
             end
         end
     )
