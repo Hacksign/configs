@@ -61,6 +61,7 @@ end
 --
 
 shellexecute('xfce4-notifyd', '/usr/lib/xfce4/notifyd/xfce4-notifyd', true)
+shellexecute('light-locker', 'light-locker --lock-on-lid --late-locking', true)
 --shellexecute('xfdesktop', 'xfdesktop --disable-debug --disable-wm-check', true)
 --shellexecute('pcmanfm', 'pcmanfm --desktop --one-screen', true)
 shellexecute('picom', 'picom --daemon --dbus')
@@ -78,5 +79,5 @@ shellexecute('remmina', 'remmina --icon')
 shellexecute('syncthing-gtk', 'syncthing-gtk --minimized')
 shellexecute('fcitx5', 'fcitx5 -d 1>/dev/null 2>&1', true)
 shellexecute('polychromatic-tray-applet', 'polychromatic-tray-applet', true, true)
-shellexecute('volumeicon', 'dbus-launch volumeicon', true, true)
+shellexecute('volumeicon', os.getenv("HOME") .. '/.config/awesome/autostart/start-volumeicon.sh', true, true)
 shellexecute('plank', os.getenv("HOME") .. '/.config/awesome/autostart/start-plank.sh', true, true)

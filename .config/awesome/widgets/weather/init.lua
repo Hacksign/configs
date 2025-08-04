@@ -85,7 +85,7 @@ local function guess_city()
 end
 local function get_weather()
 	local cmd = string.format(
-        "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://restapi.amap.com/v3/weather/weatherInfo?key=c67d588d9bad9475f33cf5427e87bdd0&city=%s&extensions=all' 2>/dev/null && curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://map.baidu.com/?qt=cur&wd=%s' 1>&2",
+        "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://restapi.amap.com/v3/weather/weatherInfo?key=ef5655ca17a2c9d6adf67810b12cf9c1&city=%s&extensions=all' 2>/dev/null && curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://map.baidu.com/?qt=cur&wd=%s' 1>&2",
         options.cityCode,
         options.city
     )

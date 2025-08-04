@@ -211,7 +211,7 @@
         有一些特殊的符号,需要这个字体, 不然可能会出现一个框中有4个数字这种情况的字体.   
     terminus-font:
       控制台的一些字体, 需要配合本目录下面的etc/vconsole.conf文件使用
-    file-roller	:	归档管理器   
+    engrampa :	归档管理器   
     p7zip   
     unrar   
     unzip 或 unzip-iconv   

@@ -1,0 +1,23 @@
+:root {
+    --navbar-width: 400px;
+    --urlbar-width: 420px;
+    /* tabs-width is the remaining part */
+}
+
+/* prevent urlbar from pushing the icons */
+#urlbar-container {
+    width: min(var(--urlbar-width), 100vw) !important;
+}
+
+/* rise the url bar to top and margin from right to shrink its width */
+#nav-bar {
+    width: calc(var(--urlbar-width) + var(--navbar-width)) !important;
+    margin: -44px calc(100vw - var(--urlbar-width)) 0px 0px !important;
+}
+
+/* give empty space in tabs' left for placing navbar */
+#TabsToolbar {
+    -moz-padding-start: calc(
+        var(--urlbar-width) + var(--navbar-width)
+    ) !important;
+}

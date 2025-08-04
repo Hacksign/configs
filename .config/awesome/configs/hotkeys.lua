@@ -175,7 +175,7 @@ globalkeys = awful.util.table.join(
                     cg.x = cg.x
                     cg.y = cg.y
                     cg.width = cg.width
-                    cg.height = cg.height
+                    cg.height = cg.height + 48 + 48 / 2
                     client.focus.maximized = true
                     client.focus.maximized_horizontal = true
                     client.focus.maximized_vertical = true
@@ -335,7 +335,7 @@ globalkeys = awful.util.table.join(
         awful.spawn(cmd)
     end),
     awful.key({ modkey}, "n", function () awful.spawn("gvim") end), -- start a notepad
-    awful.key({ modkey, "Control"}, "l", function () awful.spawn("dbus-launch dm-tool lock") end) -- yaourt -S lightdm lightdm-gtk-greeter
+    awful.key({ modkey, "Control"}, "l", function () awful.spawn("light-locker-command --lock") end) -- yaourt -S lightdm lightdm-gtk-greeter light-locker
 )
 --end of globalkeys
 
