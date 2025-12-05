@@ -219,28 +219,11 @@
         同时还需要将此目录下的文件放到对应的系统目录， 以解决file-roller归档管理器中查看文件的乱码问题    
           `etc/profile.d/unzip.sh`     
     firefox   
-        //如果对隐私保护要求比较高,需要在首选项的'隐私'中,将'历史'设置为'使用自定义选项',将'允许第三方cookie'设置为'总不',这样一个网站只能要求自己的cookie而无权利要求其他域下的cookie.
-        //如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.   
-        //目前firefox有个bug,在高分屏,高dpi,多显示器环境下下,layout.css.devPixelsPerPx的值小于2.0会导致菜单出现在错误的显示器上.如果出现这个问题请调整这个属性的值   
-        //如果觉得进行上述调整后,FF的图标也跟着模糊了,请安装图标主题 GNOME Firefox theme   
-        flashplugin   
-        //下面这些是firefox的音频/视频解码包,有些地方,比如qq音乐需要用到一些特殊音频的解码,如aac   
-        gst-libav 1.4.4-1   
-        gst-plugins-base 1.4.4-1   
-        gst-plugins-base-libs 1.4.4-1   
-        gst-plugins-good 1.4.4-1   
-        gst-plugins-ugly 1.4.4-2   
-        gstreamer 1.4.4-1   
-        gstreamer0.10 0.10.36-4   
-        gstreamer0.10-bad 0.10.23-8   
-        gstreamer0.10-bad-plugins 0.10.23-8 (gstreamer0.10-plugins)   
-        gstreamer0.10-base 0.10.36-3   
-        gstreamer0.10-base-plugins 0.10.36-3 (gstreamer0.10-plugins)   
-        gstreamer0.10-ffmpeg 0.10.13-2 (gstreamer0.10-plugins)   
-        gstreamer0.10-good 0.10.31-6   
-        gstreamer0.10-good-plugins 0.10.31-6 (gstreamer0.10-plugins)   
-        gstreamer0.10-ugly 0.10.    -13   
-        gstreamer0.10-ugly-plugins 0.10.    -13 (gstreamer0.10-plugins)   
+        如果对隐私保护要求比较高,需要在首选项的'隐私'中,将'历史'设置为'使用自定义选项',将'允许第三方cookie'设置为'总不',这样一个网站只能要求自己的cookie而无权利要求其他域下的cookie.
+        如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.   
+        目前firefox有个bug,在高分屏,高dpi,多显示器环境下下,layout.css.devPixelsPerPx的值小于2.0会导致菜单出现在错误的显示器上.如果出现这个问题请调整这个属性的值   
+        如果觉得进行上述调整后,FF的图标也跟着模糊了,请安装图标主题 GNOME Firefox theme   
+        部署firefox/userChrome.css以实现额外的空间，方法：在firefox菜单、帮助、更多排障信息页面，配置文件文件夹一项有一个打开目录按钮，打开配置文件目录，在该目录下新建chrome文件夹，并将userChrome.css放置在这个目录下即可。
     caffeine-ng : 自动禁用屏保的工具.   
     fish	:	类似bash的shell，提示和颜色更加全面   
     qt4   

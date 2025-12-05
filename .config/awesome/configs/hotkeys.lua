@@ -335,7 +335,7 @@ globalkeys = awful.util.table.join(
         awful.spawn(cmd)
     end),
     awful.key({ modkey}, "n", function () awful.spawn("gvim") end), -- start a notepad
-    awful.key({ modkey, "Control"}, "l", function () awful.spawn("light-locker-command --lock") end) -- yaourt -S lightdm lightdm-gtk-greeter light-locker
+    awful.key({ modkey, "Control"}, "l", function () awful.spawn("light-locker-command --lock --poke") end) -- yaourt -S lightdm lightdm-gtk-greeter light-locker
 )
 --end of globalkeys
 

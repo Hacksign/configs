@@ -21,26 +21,17 @@ awful.rules.rules = {
         properties = {
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
-            screen = function(c)
-                local current_screen = awesome.startup and c.screen or awful.screen.focused()
-                local client_geometry = c:geometry()
-                -- 防止client在当前屏幕之外
-                if client_geometry.x > current_screen.geometry.x + current_screen.geometry.width
-                    or client_geometry.x + client_geometry.width < current_screen.geometry.x
-                then
-                    client_geometry.x = (current_screen.geometry.x + current_screen.geometry.width) / 2 - client_geometry.width / 2
-                end
-                if client_geometry.y > current_screen.geometry.y + current_screen.geometry.height
-                    or client_geometry.y + client_geometry.height < current_screen.geometry.y
-                then
-                    client_geometry.y = current_screen.geometry.y
-                end
-                c:geometry(client_geometry)
-                return current_screen
-            end,
             keys = clientkeys,
             buttons = clientbuttons 
-        } ,
+        },
+    },
+    { 
+        rule = { },
+        except_any = { class = { "Xfce4-notifyd", "Plank" } },
+        properties = {
+            screen = awful.screen.focused,  -- 关键：新窗口出现在当前聚焦的屏幕
+            placement = awful.placement.no_overlap + awful.placement.no_offscreen + awful.placement.centered,
+        },
     },
     {
         rule = { class = "smplayer"  },
@@ -127,6 +118,7 @@ awful.rules.rules = {
             ontop = false, -- set default value
             above = false, -- set default value
             below = true, -- set default value
+            height = 70,
             callback = function(c)
                 c:connect_signal('focus', function(tc)
                     tc.ontop = true
@@ -146,16 +138,16 @@ awful.rules.rules = {
                     -- this client can not minized
                     tc.minimized = false
                 end)
-                c:connect_signal('property::struts', function(tc)
-                    local struts = tc:struts()
-                    local geometry = tc:geometry()
+                --c:connect_signal('property::struts', function(tc)
+                --    local struts = tc:struts()
+                --    local geometry = tc:geometry()
 
-                    geometry.height = math.max(geometry.height, 45)
-                    tc:geometry(geometry)
-                    if struts.bottom ~= 0 then
-                        tc:struts({ left = 0, right = 0, top = 0, bottom = 0  })
-                    end
-                end)
+                --    geometry.height = math.max(geometry.height, 45)
+                --    tc:geometry(geometry)
+                --    if struts.bottom ~= 0 then
+                --        tc:struts({ left = 0, right = 0, top = 0, bottom = 0  })
+                --    end
+                --end)
             end,
         }
     },
@@ -184,7 +176,15 @@ awful.rules.rules = {
     -- http://www.youtube.com/watch?v=3Q91HjEaBD8
     -- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
     {
-        rule = { class = "Wine" },
-        properties = { floating = true, border_width = 1 },
+        rule_any = { class = "Wine" },
+        properties = {
+            focus = true,
+            raise = true,
+            screen = awful.screen.focused,
+            placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+            -- 关键：避免平铺布局干扰
+            floating = true,  -- 强制 Wine 窗口浮动
+            border_width = 1
+        },
     },
 }
