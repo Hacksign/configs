@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Remove inoreader ADS
 // @description Remove inoreader.com's advertisement in reading list, upgrae button and some annoying dialogs.
-// @version 4.9.5
+// @version 4.10.0
 // @grant none
 // @icon https://inoreader.com/favicon.ico
 // @include https://*.inoreader.com/*
