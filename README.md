@@ -223,7 +223,7 @@
         如果要FF适应高分屏,请调整about:config中的layout.css.devPixelsPerPx的值为1.5(具体合适的数值请自己尝试)即可使字体大小的设置生效.   
         目前firefox有个bug,在高分屏,高dpi,多显示器环境下下,layout.css.devPixelsPerPx的值小于2.0会导致菜单出现在错误的显示器上.如果出现这个问题请调整这个属性的值   
         如果觉得进行上述调整后,FF的图标也跟着模糊了,请安装图标主题 GNOME Firefox theme   
-        部署firefox/userChrome.css以实现额外的空间，方法：在firefox菜单、帮助、更多排障信息页面，配置文件文件夹一项有一个打开目录按钮，打开配置文件目录，在该目录下新建chrome文件夹，并将userChrome.css放置在这个目录下即可。
+        部署firefox/userChrome.css以实现额外的空间，方法：在firefox菜单、帮助、更多排障信息页面，配置文件文件夹一项有一个打开目录按钮，打开配置文件目录，在该目录下新建chrome文件夹，并将userChrome.css放置在这个目录下,最后在about:config中将toolkit.legacyUserProfileCustomizations.stylesheets项目设置为true后重启ff即可。
     caffeine-ng : 自动禁用屏保的工具.   
     fish	:	类似bash的shell，提示和颜色更加全面   
     qt4   

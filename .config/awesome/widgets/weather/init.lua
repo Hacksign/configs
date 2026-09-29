@@ -69,7 +69,7 @@ local function unescape_char(ch)
 end
 
 local function guess_city()
-    local cmd = "curl -s 'http://whois.pconline.com.cn/ipJson.jsp?json=true'|iconv -fgb2312 -tutf8"
+    local cmd = "curl -s 'https://whois.pconline.com.cn/ipJson.jsp?json=true' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0' | iconv -fgb2312 -tutf8"
     awful.spawn.easy_async_with_shell(
         cmd,
         function(stdout, stderr, exitreason, exitcode)
@@ -84,8 +84,9 @@ local function guess_city()
     )
 end
 local function get_weather()
+    -- backup key: a1331d8bbee7aa4d1b22fc506a3f46c4 b74ab54158c425e0ddbe4db7dce8624b 2e645bee34ad494cfbd9baceccb351d0
 	local cmd = string.format(
-        "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://restapi.amap.com/v3/weather/weatherInfo?key=ef5655ca17a2c9d6adf67810b12cf9c1&city=%s&extensions=all' 2>/dev/null && curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://map.baidu.com/?qt=cur&wd=%s' 1>&2",
+        "curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://restapi.amap.com/v3/weather/weatherInfo?key=b99f40bd4e3f03a9f66f1e04acbfa91a&city=%s&extensions=all' 2>/dev/null && curl --connect-timeout 1  --max-time 1 --retry-max-time 1 -s 'https://map.baidu.com/?qt=cur&wd=%s' 1>&2",
         options.cityCode,
         options.city
     )
@@ -124,7 +125,7 @@ local function get_weather()
                     spacing = 5,
                     layout = wibox.layout.fixed.vertical,
                 }
-                if weather.status ~= nil then
+                if weather.status ~= nil and weather.forecasts ~= nil then
                     for i, each_day in ipairs(weather.forecasts[1].casts) do
                         local row = wibox.widget {
                             {

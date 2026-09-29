@@ -1,71 +1,116 @@
 REGEDIT4
 
+; ============================================
+; 1. 注册雅黑字体文件到系统
+; ============================================
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Fonts]
 "YaHei Consolas Hybrid (TrueType)"="YaHei-Consolas-Hybrid.ttf"
 
-[HKEY_CURRENT_USER\Software\Wine\Fonts\Replacements]
-"Webdings"="YaHei Consolas Hybrid"
-"Wingdings"="YaHei Consolas Hybrid"
-"Lucida Sans Unicode"="YaHei Consolas Hybrid"
-"Microsoft Sans Serif"="YaHei Consolas Hybrid"
-"MS Sans Serif"="YaHei Consolas Hybrid"
-"Tahoma"="YaHei Consolas Hybrid"
-"Tahoma Bold"="YaHei Consolas Hybrid"
-"SimSun"="YaHei Consolas Hybrid"
-"Arial"="YaHei Consolas Hybrid"
-"Arial Black"="YaHei Consolas Hybrid"
-"Meiryo"="YaHei Consolas Hybrid"
-"Meiryo Bold"="YaHei Consolas Hybrid"
-"Meiryo UI"="YaHei Consolas Hybrid"
-"Meiryo UI Bold"="YaHei Consolas Hybrid"
-"Microsoft JhengHei"="YaHei Consolas Hybrid"
-"Microsoft JhengHei Bold"="YaHei Consolas Hybrid"
-"Microsoft JhengHei UI"="YaHei Consolas Hybrid"
-"Microsoft JhengHei UI Bold"="YaHei Consolas Hybrid"
-"Microsoft JhengHei UI Light"="YaHei Consolas Hybrid"
-"MingLiU"="YaHei Consolas Hybrid"
-"MingLiU_HKSCS"="YaHei Consolas Hybrid"
-"MingLiU_HKSCS-ExtB"="YaHei Consolas Hybrid"
-"MingLiU-ExtB"="YaHei Consolas Hybrid"
-"MS Gothic"="YaHei Consolas Hybrid"
-"MS Mincho"="YaHei Consolas Hybrid"
-"MS PGothic"="YaHei Consolas Hybrid"
-"MS PMincho"="YaHei Consolas Hybrid"
-"MS UI Gothic"="YaHei Consolas Hybrid"
-"PMingLiU"="YaHei Consolas Hybrid"
-"PMingLiU-ExtB"="YaHei Consolas Hybrid"
-"Yu Gothic UI"="YaHei Consolas Hybrid"
-"Yu Gothic UI Bold"="YaHei Consolas Hybrid"
-"Yu Gothic UI Light"="YaHei Consolas Hybrid"
-"Yu Gothic UI Semibold"="YaHei Consolas Hybrid"
-"Yu Gothic UI Semilight"="YaHei Consolas Hybrid"
-"Arial CE,238"="YaHei Consolas Hybrid"
-"Arial CYR,204"="YaHei Consolas Hybrid"
-"Arial Greek,161"="YaHei Consolas Hybrid"
-"Arial TUR,162"="YaHei Consolas Hybrid"
-"Courier New"="YaHei Consolas Hybrid"
-"Courier New CE,238"="YaHei Consolas Hybrid"
-"Courier New CYR,204"="YaHei Consolas Hybrid"
-"Courier New Greek,161"="YaHei Consolas Hybrid"
-"Courier New TUR,162"="YaHei Consolas Hybrid"
-"FixedSys"="YaHei Consolas Hybrid"
-"Georgia"="YaHei Consolas Hybrid"
-"Gulim"="YaHei Consolas Hybrid"
-"Helv"="YaHei Consolas Hybrid"
-"Helvetica"="YaHei Consolas Hybrid"
-"Microsoft Yahei"="YaHei Consolas Hybrid"
-"Microsoft Yahei Bold"="YaHei Consolas Hybrid"
+; ============================================
+; 2. 字体一级替补（Windows 标准机制，优先级最高）
+; ============================================
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]
+
+; 核心字体替换
 "MS Shell Dlg"="YaHei Consolas Hybrid"
 "MS Shell Dlg 2"="YaHei Consolas Hybrid"
-"NSimSun"="YaHei Consolas Hybrid"
-"仿宋"="YaHei Consolas Hybrid"
-"华文中宋"="YaHei Consolas Hybrid"
-"SimHei"="YaHei Consolas Hybrid"
-"System"="YaHei Consolas Hybrid"
-"Times"="YaHei Consolas Hybrid"
-"Times New Roman CE,238"="YaHei Consolas Hybrid"
-"Times New Roman CYR,204"="YaHei Consolas Hybrid"
-"Times New Roman Greek,161"="YaHei Consolas Hybrid"
-"Times New Roman TUR,162"="YaHei Consolas Hybrid"
-"Tms Rmn"="YaHei Consolas Hybrid"
+"Tahoma"="YaHei Consolas Hybrid"
+"Tahoma Bold"="YaHei Consolas Hybrid"
+"Arial"="YaHei Consolas Hybrid"
+"Arial Black"="YaHei Consolas Hybrid"
+"Courier New"="YaHei Consolas Hybrid"
+"Times New Roman"="YaHei Consolas Hybrid"
 "Verdana"="YaHei Consolas Hybrid"
+"Georgia"="YaHei Consolas Hybrid"
+
+; 中文字体替换
+"SimSun"="YaHei Consolas Hybrid"
+"SimHei"="YaHei Consolas Hybrid"
+"NSimSun"="YaHei Consolas Hybrid"
+"FangSong"="YaHei Consolas Hybrid"
+"KaiTi"="YaHei Consolas Hybrid"
+"Microsoft YaHei"="YaHei Consolas Hybrid"
+"Microsoft YaHei Bold"="YaHei Consolas Hybrid"
+"Microsoft JhengHei"="YaHei Consolas Hybrid"
+"MingLiU"="YaHei Consolas Hybrid"
+"PMingLiU"="YaHei Consolas Hybrid"
+
+; 日文字体替换
+"Meiryo"="YaHei Consolas Hybrid"
+"Meiryo Bold"="YaHei Consolas Hybrid"
+"MS Gothic"="YaHei Consolas Hybrid"
+"MS PGothic"="YaHei Consolas Hybrid"
+"MS UI Gothic"="YaHei Consolas Hybrid"
+
+; 符号字体替换
+"Webdings"="YaHei Consolas Hybrid"
+"Wingdings"="YaHei Consolas Hybrid"
+"Symbol"="YaHei Consolas Hybrid"
+
+; ============================================
+; 3. Wine 字体替换（供 Wine 内部机制使用）
+; ============================================
+[HKEY_CURRENT_USER\Software\Wine\Fonts\Replacements]
+
+; 覆盖所有主要需要替换的字体
+"MS Shell Dlg"="YaHei Consolas Hybrid"
+"MS Shell Dlg 2"="YaHei Consolas Hybrid"
+"Tahoma"="YaHei Consolas Hybrid"
+"Tahoma Bold"="YaHei Consolas Hybrid"
+"Arial"="YaHei Consolas Hybrid"
+"Arial Black"="YaHei Consolas Hybrid"
+"Courier New"="YaHei Consolas Hybrid"
+"Times New Roman"="YaHei Consolas Hybrid"
+"Verdana"="YaHei Consolas Hybrid"
+"Georgia"="YaHei Consolas Hybrid"
+"SimSun"="YaHei Consolas Hybrid"
+"SimHei"="YaHei Consolas Hybrid"
+"NSimSun"="YaHei Consolas Hybrid"
+"Microsoft YaHei"="YaHei Consolas Hybrid"
+"Microsoft YaHei Bold"="YaHei Consolas Hybrid"
+"Microsoft JhengHei"="YaHei Consolas Hybrid"
+"MingLiU"="YaHei Consolas Hybrid"
+"PMingLiU"="YaHei Consolas Hybrid"
+"Meiryo"="YaHei Consolas Hybrid"
+"Meiryo Bold"="YaHei Consolas Hybrid"
+"MS Gothic"="YaHei Consolas Hybrid"
+"Webdings"="YaHei Consolas Hybrid"
+"Wingdings"="YaHei Consolas Hybrid"
+
+; ============================================
+; 4. 字体链接（当主字体缺少字形时，从此处找后备字体）
+; ============================================
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink]
+
+; 让雅黑字体链接到系统自带字体，防止缺字时崩溃
+"YaHei Consolas Hybrid"=hex(7):53,00,69,00,6d,00,53,00,75,00,6e,00,2e,00,54,00,\
+  54,00,43,00,2c,00,53,00,69,00,6d,00,53,00,75,00,6e,00,00,00,00,00
+
+; 让 Tahoma 等字体链接到雅黑
+"Tahoma"=hex(7):59,00,61,00,48,00,65,00,69,00,20,00,43,00,6f,00,6e,00,73,00,6f,\
+  00,6c,00,61,00,73,00,20,00,48,00,79,00,62,00,72,00,69,00,64,00,00,00,00,00
+
+"Arial"=hex(7):59,00,61,00,48,00,65,00,69,00,20,00,43,00,6f,00,6e,00,73,00,6f,\
+  00,6c,00,61,00,73,00,20,00,48,00,79,00,62,00,72,00,69,00,64,00,00,00,00,00
+
+"Courier New"=hex(7):59,00,61,00,48,00,65,00,69,00,20,00,43,00,6f,00,6e,00,73,\
+  00,6f,00,6c,00,61,00,73,00,20,00,48,00,79,00,62,00,72,00,69,00,64,00,00,00,\
+  00,00
+
+; ============================================
+; 5. 可选配置：优化渲染效果（如果觉得字体模糊可尝试）
+; ============================================
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+; 启用字体平滑 (ClearType)
+"FontSmoothing"="2"
+"FontSmoothingType"=dword:00000002
+; 平滑对比度（默认 1400，可调整为 1200-2200 之间）
+"FontSmoothingGamma"=dword:00000578
+; 平滑方向（1=水平，0=垂直）
+"FontSmoothingOrientation"=dword:00000001
+
+; ============================================
+; 6. 可选：禁用 DirectWrite（新程序出现字体问题时可启用）
+; ============================================
+; [HKEY_CURRENT_USER\Software\Wine\Direct2D]
+; "max_version_factory"="0.0"

@@ -156,12 +156,6 @@ if has("multi_byte")
   language messages zh_CN.utf-8
 endif
 
-"if you use vim in tty,
-"'uxterm -cjk' or putty with option 'Treat CJK ambiguous characters as wide' on
-if exists("&ambiwidth")
-	set ambiwidth=double
-endif
-
 if has("gui_running")
 	set guioptions-=m
 	set guioptions-=T
@@ -353,3 +347,4 @@ function! <SID>add_cscope_ctags()
     endif
 endfunction
 autocmd VimEnter * call <SID>add_cscope_ctags()
+autocmd VimEnter * set conceallevel=0

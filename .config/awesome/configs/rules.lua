@@ -18,20 +18,25 @@ awful.rules.rules = {
     -- All clients will match this rule.
     { 
         rule = { },
+        except_any = {
+            class = { "Xfce4-notifyd", "Plank" }
+        },
         properties = {
+            screen = awful.screen.focused,
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             keys = clientkeys,
-            buttons = clientbuttons 
+            buttons = clientbuttons,
+            placement = awful.placement.no_offscreen + awful.placement.centered
         },
     },
-    { 
-        rule = { },
-        except_any = { class = { "Xfce4-notifyd", "Plank" } },
-        properties = {
-            screen = awful.screen.focused,  -- 关键：新窗口出现在当前聚焦的屏幕
-            placement = awful.placement.no_overlap + awful.placement.no_offscreen + awful.placement.centered,
-        },
+    {
+    	rule = { class = "Popup" },
+    	properties = { border_width = 0, no_border = true },
+    },
+    {
+        rule = { class = "GoldenDict-ng"  },
+        properties = { placement = awful.placement.no_offscreen }
     },
     {
         rule = { class = "smplayer"  },
@@ -151,23 +156,6 @@ awful.rules.rules = {
             end,
         }
     },
-    { 
-        rule = { class = "Pcmanfm"  },
-        except = {class = ""},
-        properties = {
-            border_width = 0,
-            maximized = true,
-            sticky = true,
-            focusable = false,
-            floating = false,
-            type = "desktop",
-            screen = screen.primary,
-        }
-    },
-    {
-    	rule = { class = "Popup" },
-    	properties = { border_width = 0, no_border = true },
-    },
     {
     	rule = { class = "deepin-voice-recorder" },
     	properties = { border_width = 0, no_border = true },
@@ -175,16 +163,16 @@ awful.rules.rules = {
     -- fix problem of Wine program move slowly to right-bottom of the corner
     -- http://www.youtube.com/watch?v=3Q91HjEaBD8
     -- https://awesome.naquadah.org/bugs/index.php?do=details&task_id=1030
-    {
-        rule_any = { class = "Wine" },
-        properties = {
-            focus = true,
-            raise = true,
-            screen = awful.screen.focused,
-            placement = awful.placement.no_overlap + awful.placement.no_offscreen,
-            -- 关键：避免平铺布局干扰
-            floating = true,  -- 强制 Wine 窗口浮动
-            border_width = 1
-        },
-    },
+    -- {
+    --     rule_any = { class = "Wine" },
+    --     properties = {
+    --         focus = true,
+    --         raise = true,
+    --         screen = awful.screen.focused,
+    --         placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+    --         -- 关键：避免平铺布局干扰
+    --         floating = true,  -- 强制 Wine 窗口浮动
+    --         border_width = 1
+    --     },
+    -- },
 }

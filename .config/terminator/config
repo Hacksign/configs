@@ -1,7 +1,10 @@
 [global_config]
+  borderless = True
   broadcast_default = off
   ask_before_closing = never
+  disable_mouse_paste = True
   case_sensitive = False
+  detachable_tabs = False
 [keybindings]
   new_tab = <Primary>t
   go_next = ""
@@ -58,13 +61,24 @@
     cursor_fg_color = "#002b36"
     cursor_bg_color = "#2ec509"
     cursor_color_default = False
-    font = YaHei Consolas Hybrid 12
+    font = 文泉驿等宽微米黑 12
     foreground_color = "#839496"
     scrollback_infinite = True
     palette = "#002b36:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#073642:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    use_system_font = False
     copy_on_selection = True
-    title_transmit_bg_color = "#3584e4"
+    title_hide_sizetext = True
+    title_transmit_fg_color = "#000000"
+    title_transmit_bg_color = "#c0bebf"
     title_receive_bg_color = "#e01b24"
-    title_use_system_font = False
+    title_inactive_fg_color = "#ffffff"
+    title_inactive_bg_color = "#002b36"
     title_font = YaHei Consolas Hybrid 10
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]

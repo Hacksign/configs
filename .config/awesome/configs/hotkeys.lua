@@ -329,11 +329,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "y", function () awful.spawn("qalculate-gtk") end), -- an GUI caculate
     awful.key({ modkey}, "p", function () awful.spawn("arandr") end), -- multi monitor selector like windows hotkey, yaourt -S lxrandr
     awful.key({ modkey}, "q", function () menu:toggle() end),
-    awful.key({ "Mod1", "Control"}, "space", function ()
-        local geometry = screen[mouse.screen].geometry
-        local cmd = "gmrun -g +" .. math.floor(geometry.x + geometry.width/2 - (beautiful.border_width + 500/2)) .. "+" .. math.floor(geometry.y  + geometry.height/2 - (beautiful.border_width + 76/2))
-        awful.spawn(cmd)
-    end),
+    awful.key({ modkey }, "r", function () awful.spawn("rofi -show-icons -show combi -modes combi -combi-modes 'window,drun,run'") end),
     awful.key({ modkey}, "n", function () awful.spawn("gvim") end), -- start a notepad
     awful.key({ modkey, "Control"}, "l", function () awful.spawn("light-locker-command --lock --poke") end) -- yaourt -S lightdm lightdm-gtk-greeter light-locker
 )
